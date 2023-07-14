@@ -44,7 +44,7 @@ function PaymentMode({ navigation }) {
             style={{
               textAlign: "center",
               fontWeight: "400",
-              fontSize: "22",
+              fontSize: 22,
               marginTop: 20,
               color: "#333333",
             }}

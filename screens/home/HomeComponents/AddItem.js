@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -13,9 +13,13 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  Modal,
 } from "react-native";
+import axios from "axios";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-elements";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import PaymentSummary from "./PaymentSummary";
 const countries = [
   { country: "Stems", code: "93", iso: "AF" },
   { country: "Leaves", code: "355", iso: "AL" },
@@ -57,6 +61,57 @@ function AddItem({ navigation }) {
   const [itemCount, setItemCount] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scannedData, setScannedData] = useState(null);
+  const [isScannerVisible, setIsScannerVisible] = useState(false);
+  const [orderDetails, setOrderDetails] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+  const apiUrl =
+    "https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/000000024279";
+  const fetchOrderDetails = async () => {
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o",
+        },
+      });
+
+      setOrderDetails(response.data);
+
+      // Log the response data
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log(orderDetails, "orderDetails");
+  const handleBarCodeScanned = ({ data }) => {
+    setScannedData(data);
+    setIsScannerVisible(false);
+    fetchOrderDetails();
+  };
+
+  const handleOpenScanner = () => {
+    setIsScannerVisible(true);
+  };
+
+  const handleCloseScanner = () => {
+    setIsScannerVisible(false);
+    setScannedData(null);
+  };
+  if (hasPermission === null) {
+    return <Text>Requesting camera permission...</Text>;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera.</Text>;
+  }
   const handleCategoryPress = (category) => {
     if (selectedCategory === category) {
       setSelectedCategory(null);
@@ -82,6 +137,33 @@ function AddItem({ navigation }) {
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+        <View>
+          <Modal visible={isScannerVisible} animationType="slide">
+            <View style={{ flex: 1 }}>
+              <BarCodeScanner
+                onBarCodeScanned={handleBarCodeScanned}
+                style={{
+                  width: "50%",
+                  height: "50%",
+                }}
+              />
+              <Button title="Close Scanner" onPress={handleCloseScanner} />
+            </View>
+          </Modal>
+        </View>
+        <Text>{scannedData}</Text>
+
+        {orderDetails ? (
+          <Button
+            title="Go to Payment Summary"
+            onPress={() =>
+              navigation.navigate("paymentSummary", { orderDetails })
+            }
+          />
+        ) : (
+          <Text>No order details available</Text>
+        )}
+
         <View
           style={{
             marginLeft: 19.98,
@@ -98,23 +180,23 @@ function AddItem({ navigation }) {
               marginRight: 35.98,
             }}
           />
-
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "500",
-              lineHeight: 32,
-              letterSpacing: 0.5,
-            }}
-          >
-            TID : 8327162
-          </Text>
+          <View>
+            <Text>Welcome</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "500",
+              }}
+            >
+              TID : 8327162
+            </Text>
+          </View>
         </View>
         <Text
           style={{
             textAlign: "center",
             fontWeight: "400",
-            fontSize: "22",
+            fontSize: 22,
             marginTop: 20,
           }}
         >
@@ -137,17 +219,28 @@ function AddItem({ navigation }) {
             alignItems: "center",
           }}
         >
-          <Text
+          <Button
             style={{
               color: "white",
               fontSize: 16,
               fontWeight: "500",
               marginLeft: 16,
             }}
+            onPress={handleOpenScanner}
+            title="SCAN TO ADD"
           >
-            {" "}
-            SCAN TO ADD
-          </Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 16,
+                fontWeight: "500",
+                marginLeft: 16,
+              }}
+            >
+              {" "}
+              SCAN TO ADD
+            </Text>
+          </Button>
           <MaterialCommunityIcons
             style={{ marginRight: 12 }}
             name="barcode-scan"
