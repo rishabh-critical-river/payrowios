@@ -24,6 +24,8 @@ function PaymentGateWay() {
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
+            height: 80,
+            width: 360,
           }}
         >
           <Image
@@ -32,6 +34,7 @@ function PaymentGateWay() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
+              marginTop: 41,
             }}
           />
           <Text
@@ -41,6 +44,7 @@ function PaymentGateWay() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
+              marginTop: 41,
             }}
           >
             About Us
@@ -52,7 +56,8 @@ function PaymentGateWay() {
             width: 140,
             height: 28,
             marginLeft: 31,
-            marginTop: 23,
+            marginTop: 15,
+            borderRadius: 12,
           }}
         />
         <Text
@@ -66,7 +71,7 @@ function PaymentGateWay() {
             marginTop: 14,
           }}
         >
-        Payment Gateway
+          Payment Gateway
         </Text>
         <Image
           source={require("./gateway.png")}
@@ -76,161 +81,78 @@ function PaymentGateWay() {
             marginTop: 16,
           }}
         />
-        <Text
+        <View
           style={{
-            color: "#808080",
-            marginTop: 24,
-            marginLeft: 28,
-            fontSize: 16,
-            lineHeight: 24,
-            fontWeight: "500",
-            marginBottom: 8,
+            flexDirection: "column",
+            marginLeft: 32,
+            marginRight: 32,
+            width: 296,
+            height: 160,
+            gap: 8,
+            marginTop: 20,
           }}
         >
-         PayRow Net Provides {" "}
-        </Text>
+          <Text
+            style={{
+              color: "#808080",
+              fontSize: 16,
+              lineHeight: 24,
+              fontWeight: "500",
+              width: 126,
+              height: 24,
+            }}
+          >
+            PayRow Net Provides{" "}
+          </Text>
 
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-              marginRight:20,
-            }}
-          >
-          PayRow Payment Gateway with a Service Catalog Supported by Multiple Settlements to different service codes at the same time.
-          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "500",
+                letterSpacing: 0.1,
+                color: "#333333",
+                width: 296,
+                height: 60,
+              }}
+            >
+              PayRow Payment Gateway with a Service Catalog Supported by
+              Multiple Settlements to different service codes at the same time.
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "500",
+                letterSpacing: 0.1,
+                color: "#333333",
+                width: 296,
+                height: 60,
+              }}
+            >
+              PayRow Payment Gateway PCI Certified and the team export to
+              integrate with any bank & scheme Processor endpoint.
+            </Text>
+          </View>
         </View>
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-              marginRight:20,
-             
-            }}
-          >
-         PayRow Payment Gateway PCI Certified and the team export to integrate with any bank & scheme Processor endpoint.
-          </Text>
-        </View>
-        {/* <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-           Provide registration category
-          </Text>
-        </View> */}
-        {/* <View
-          style={{ flexDirection: "column", marginBottom: 8, marginLeft: 62 }}
-        >
-          <Text>a. Store Manager POS</Text>
-          <Text>b. Delivery POS</Text>
-          <Text>c. Staff POS</Text>
-        </View> */}
-
-        {/* <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-          Authorized authentication partner
-          </Text>
-        </View> */}
-        {/* <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-           Cash Invoice
-          </Text>
-        </View> */}
-        {/* <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-          Invoice recall
-          </Text>
-        </View> */}
-        {/* <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-          Dashboard
-          </Text>
-        </View> */}
-        {/* <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-          Support center
-          </Text>
-        </View> */}
       </View>
       <View style={{ backgroundColor: "white" }}>
         <Text
           style={{
-            fontSize: 12,
-            marginTop: 16,
+            fontSize: 14,
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            paddingBottom: 15,
+            height: 20,
+            letterSpacing: 0.25,
+            paddingRight: 36,
+            paddingLeft: 36,
+            marginBottom: 16,
           }}
         >
           ©2022 PayRow Company. All rights reserved

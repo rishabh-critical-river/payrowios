@@ -20,10 +20,12 @@ function PosAndRetail() {
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
-            marginLeft: 19.98,
+            marginLeft: 18,
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
+            height: 80,
+            width: 360,
           }}
         >
           <Image
@@ -32,6 +34,7 @@ function PosAndRetail() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
+              marginTop: 41,
             }}
           />
           <Text
@@ -41,6 +44,7 @@ function PosAndRetail() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
+              marginTop: 41,
             }}
           >
             About Us
@@ -52,7 +56,7 @@ function PosAndRetail() {
             width: 140,
             height: 28,
             marginLeft: 31,
-            marginTop: 20,
+            marginTop: 15,
           }}
         />
         <Text
@@ -64,78 +68,85 @@ function PosAndRetail() {
             color: "#4B5050",
             marginLeft: 32,
             marginTop: 14,
+            marginBottom: 16,
           }}
         >
-         Pos And Retails
+          Pos And Retails Machine
         </Text>
         <Image
           source={require("./Product.png")}
           style={{
-            width: 350,
-            height: 276,
+            width: 360,
+            height: 296,
             marginTop: 16,
           }}
         />
-        <Text
+        <View
           style={{
-            color: "#808080",
-            marginTop: 24,
+            flexDirection: "coloumn",
+            gap: 8,
             marginLeft: 32,
-            fontSize: 16,
-            lineHeight: 24,
-            fontWeight: "500",
-            marginBottom: 8,
+            width: 296,
+            height: 204,
+            marginTop: 24,
+            marginRight:32,
           }}
         >
-          PayRow Net Provides{" "}
-        </Text>
+          <Text
+            style={{
+              color: "#808080",
+              fontSize: 16,
+              lineHeight: 24,
+              fontWeight: "500",
+              
+            }}
+          >
+            PayRow Net Provides{" "}
+          </Text>
 
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-            POS machine with a Digital Screen
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-           The POS heavy duty use is Supported with   4G Technology
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-           The Quantity Always Available to fulfill the requirement
-          </Text>
-        </View>
-        {/* <View
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "500",
+                letterSpacing: 0.1,
+                color: "#333333",
+              }}
+            >
+              POS machine with a Digital Screen
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "500",
+                letterSpacing: 0.1,
+                color: "#333333",
+              }}
+            >
+              The POS heavy duty use is Supported with 4G Technology
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "500",
+                letterSpacing: 0.1,
+                color: "#333333",
+              }}
+            >
+              The Quantity Always Available to fulfill the requirement
+            </Text>
+          </View>
+          {/* <View
           style={{ flexDirection: "column", marginBottom: 8, marginLeft: 62 }}
         >
           <Text>a. Store Manager POS</Text>
@@ -143,46 +154,46 @@ function PosAndRetail() {
           <Text>c. Staff POS</Text>
         </View> */}
 
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-           PCI-certified Product
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
-          <Text
-            style={{
-              fontSize: 14,
-              lineHeight: 20,
-              fontWeight: "500",
-              letterSpacing: 0.1,
-              color: "#333333",
-              marginBottom: 8,
-            }}
-          >
-            NFC Supported
-          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "500",
+                letterSpacing: 0.1,
+                color: "#333333",
+              }}
+            >
+              PCI-certified Product
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text
+              style={{
+                fontSize: 14,
+                lineHeight: 20,
+                fontWeight: "500",
+                letterSpacing: 0.1,
+                color: "#333333",
+              }}
+            >
+              NFC Supported
+            </Text>
+          </View>
         </View>
       </View>
       <View style={{ backgroundColor: "white" }}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: 14,
             marginTop: 16,
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            paddingBottom: 15,
+            lineHeight:20,
+            letterSpacing:0.25
           }}
         >
           ©2022 PayRow Company. All rights reserved
