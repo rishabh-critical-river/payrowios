@@ -60,324 +60,326 @@ function RegisterComplain() {
             flexShrink: 0,
           }}
         />
-
-
         <View
           style={{
-            width: 296,
-            height: 144,
-            marginTop: 24.47,
-            marginLeft: 32,
-            marginRight: 32,
-            backgroundColor:"#FAFAFA",
-            marginBottom:30
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                width: 135,
-                height: 20,
-                marginLeft:14,
-                color:"#333333",
-                fontWeight:500,
-                fontSize:14,
-                lineHeight:20,
-              }}
+          <View
+            style={{
+              width: 296,
+              height: 144,
+              marginTop: 24.47,
+              marginLeft: 32,
+              marginRight: 32,
+              backgroundColor: "#FAFAFA",
+              marginBottom: 30,
+            }}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 135,
+                  height: 20,
+                  marginLeft: 14,
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                Payment not working
+              </Text>
+              <Text
+                style={{
+                  width: 64,
+                  height: 16,
+                  marginLeft: 71,
+                  letterSpacing: 0.5,
+                  color: "#999999",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  textAlign: "right",
+                }}
+              >
+                02/08/2022
+              </Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
             >
-              Payment not working
-            </Text>
-            <Text
-              style={{
-                width: 64,
-                height: 16,
-                marginLeft:71,
-                letterSpacing:0.5,
-                color:"#999999",
-                fontSize:11,
-                fontWeight:500,
-                textAlign:"right"
+              <Text
+                style={{
+                  width: 270,
+                  height: 48,
+                  fontSize: 12,
+                  letterSpacing: 0.5,
+                  fontWeight: 400,
+                  lineHeight: 16,
+                  marginBottom: 22,
+                  color: "#4C4C4C",
+                  marginTop: 6,
+                }}
+              >
+                Lorem Ipsum is simply dummy text of the print and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy.
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 72,
+                  height: 16,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  lineHeight: 16,
+                  marginBottom: 18,
+                  marginLeft: 132,
+                  color: "#999999",
+                }}
+              >
+                Select Action
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: 70,
+                  height: 28,
+                  borderRadius: 8,
+                  backgroundColor: "#E3EEDA",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: 0.5,
+                    paddingRight: 12,
+                    paddingLeft: 12,
+                    paddingTop: 6,
+                    paddingBottom: 6,
+                  }}
+                >
+                  Resolve
+                </Text>
+              </View>
+            </View>
+          </View>
 
-              }}
+          <View
+            style={{
+              width: 296,
+              height: 144,
+              marginTop: 24.47,
+              marginLeft: 32,
+              marginRight: 32,
+              backgroundColor: "#FAFAFA",
+              marginBottom: 20,
+            }}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 135,
+                  height: 20,
+                  marginLeft: 14,
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                App is crashing
+              </Text>
+              <Text
+                style={{
+                  width: 64,
+                  height: 16,
+                  marginLeft: 71,
+                  letterSpacing: 0.5,
+                  color: "#999999",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  textAlign: "right",
+                }}
+              >
+                12/07/2022
+              </Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
             >
-              02/08/2022
-            </Text>
+              <Text
+                style={{
+                  width: 270,
+                  height: 48,
+                  fontSize: 12,
+                  letterSpacing: 0.5,
+                  fontWeight: 400,
+                  lineHeight: 16,
+                  marginBottom: 22,
+                  color: "#4C4C4C",
+                  marginTop: 6,
+                }}
+              >
+                Lorem Ipsum is simply dummy text of the print and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy.
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 72,
+                  height: 16,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  lineHeight: 16,
+                  marginBottom: 18,
+                  marginLeft: 132,
+                  color: "#999999",
+                }}
+              >
+                Select Action
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: 70,
+                  height: 28,
+                  borderRadius: 8,
+                  backgroundColor: "#E3EEDA",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: 0.5,
+                    paddingRight: 12,
+                    paddingLeft: 12,
+                    paddingTop: 6,
+                    paddingBottom: 6,
+                  }}
+                >
+                  Resolve
+                </Text>
+              </View>
+            </View>
           </View>
           <View
-            style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
+            style={{
+              width: 296,
+              height: 144,
+              marginTop: 24.47,
+              marginLeft: 32,
+              marginRight: 32,
+              backgroundColor: "#FAFAFA",
+              marginBottom: 20,
+            }}
           >
-            <Text
-              style={{
-                width: 270,
-                height: 48,
-                fontSize: 12,
-                letterSpacing: 0.5,
-                fontWeight: 400,
-                lineHeight: 16,
-                marginBottom: 22,
-                color:"#4C4C4C",
-                marginTop:6
-              }}
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 135,
+                  height: 20,
+                  marginLeft: 14,
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                App is too slow
+              </Text>
+              <Text
+                style={{
+                  width: 64,
+                  height: 16,
+                  marginLeft: 71,
+                  letterSpacing: 0.5,
+                  color: "#999999",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  textAlign: "right",
+                }}
+              >
+                09/07/2022
+              </Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
             >
-              Lorem Ipsum is simply dummy text of the print and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy.
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                width: 72,
-                height: 16,
-                fontSize: 11,
-                fontWeight: 500,
-                lineHeight: 16,
-                marginBottom:18,
-                marginLeft: 132,
-                color:"#999999"
-               
-              }}
-            >
-              Select Action
-            </Text>
-            <View style={{
-                flexDirection:"row",
-                width:70,
-                height:28,
-                borderRadius:8,
-                backgroundColor:"#E3EEDA"
-                }}>
-
-           
-            <Text
-              style={{
-                fontSize: 11,
-                letterSpacing: 0.5,
-                paddingRight:12,
-                paddingLeft:12,
-                paddingTop:6,
-                paddingBottom:6
-              }}
-            >
-              Resolve
-            </Text>
+              <Text
+                style={{
+                  width: 270,
+                  height: 48,
+                  fontSize: 12,
+                  letterSpacing: 0.5,
+                  fontWeight: 400,
+                  lineHeight: 16,
+                  marginBottom: 22,
+                  color: "#4C4C4C",
+                  marginTop: 6,
+                }}
+              >
+                No description
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 72,
+                  height: 16,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  lineHeight: 16,
+                  marginBottom: 18,
+                  marginLeft: 132,
+                  color: "#999999",
+                }}
+              >
+                Select Action
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: 70,
+                  height: 28,
+                  borderRadius: 8,
+                  backgroundColor: "#E3EEDA",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: 0.5,
+                    paddingRight: 12,
+                    paddingLeft: 12,
+                    paddingTop: 6,
+                    paddingBottom: 6,
+                  }}
+                >
+                  Resolve
+                </Text>
+              </View>
             </View>
           </View>
         </View>
-
         <View
           style={{
-            width: 296,
-            height: 144,
-            marginTop: 24.47,
-            marginLeft: 32,
-            marginRight: 32,
-            backgroundColor:"#FAFAFA",
-            marginBottom:20
-          
+            backgroundColor: "white",
+            flexDirection: "row",
+            justifyContent: "center",
           }}
         >
-          <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                width: 135,
-                height: 20,
-                marginLeft:14,
-                color:"#333333",
-                fontWeight:500,
-                fontSize:14,
-                lineHeight:20,
-              }}
-            >
-              App is crashing
-            </Text>
-            <Text
-              style={{
-                width: 64,
-                height: 16,
-                marginLeft:71,
-                letterSpacing:0.5,
-                color:"#999999",
-                fontSize:11,
-                fontWeight:500,
-                textAlign:"right"
-
-              }}
-            >
-              12/07/2022
-            </Text>
-          </View>
-          <View
-            style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
-          >
-            <Text
-              style={{
-                width: 270,
-                height: 48,
-                fontSize: 12,
-                letterSpacing: 0.5,
-                fontWeight: 400,
-                lineHeight: 16,
-                marginBottom: 22,
-                color:"#4C4C4C",
-                marginTop:6
-              }}
-            >
-              Lorem Ipsum is simply dummy text of the print and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy.
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                width: 72,
-                height: 16,
-                fontSize: 11,
-                fontWeight: 500,
-                lineHeight: 16,
-                marginBottom:18,
-                marginLeft: 132,
-                color:"#999999"
-               
-              }}
-            >
-              Select Action
-            </Text>
-            <View style={{
-                flexDirection:"row",
-                width:70,
-                height:28,
-                borderRadius:8,
-                backgroundColor:"#E3EEDA"
-                }}>
-
-           
-            <Text
-              style={{
-                fontSize: 11,
-                letterSpacing: 0.5,
-                paddingRight:12,
-                paddingLeft:12,
-                paddingTop:6,
-                paddingBottom:6
-              }}
-            >
-              Resolve
-            </Text>
-            </View>
-          </View>
-        </View>
-        <View
-          style={{
-            width: 296,
-            height: 144,
-            marginTop: 24.47,
-            marginLeft: 32,
-            marginRight: 32,
-            backgroundColor:"#FAFAFA",
-            marginBottom:20
-
-          
-          }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                width: 135,
-                height: 20,
-                marginLeft:14,
-                color:"#333333",
-                fontWeight:500,
-                fontSize:14,
-                lineHeight:20,
-              }}
-            >
-              App is too slow
-            </Text>
-            <Text
-              style={{
-                width: 64,
-                height: 16,
-                marginLeft:71,
-                letterSpacing:0.5,
-                color:"#999999",
-                fontSize:11,
-                fontWeight:500,
-                textAlign:"right"
-
-              }}
-            >
-              09/07/2022
-            </Text>
-          </View>
-          <View
-            style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
-          >
-            <Text
-              style={{
-                width: 270,
-                height: 48,
-                fontSize: 12,
-                letterSpacing: 0.5,
-                fontWeight: 400,
-                lineHeight: 16,
-                marginBottom: 22,
-                color:"#4C4C4C",
-                marginTop:6
-              }}
-            >
-             No description
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                width: 72,
-                height: 16,
-                fontSize: 11,
-                fontWeight: 500,
-                lineHeight: 16,
-                marginBottom:18,
-                marginLeft: 132,
-                color:"#999999"
-               
-              }}
-            >
-              Select Action
-            </Text>
-            <View style={{
-                flexDirection:"row",
-                width:70,
-                height:28,
-                borderRadius:8,
-                backgroundColor:"#E3EEDA"
-                }}>
-
-           
-            <Text
-              style={{
-                fontSize: 11,
-                letterSpacing: 0.5,
-                paddingRight:12,
-                paddingLeft:12,
-                paddingTop:6,
-                paddingBottom:6
-              }}
-            >
-              Resolve
-            </Text>
-            </View>
-          </View>
-        </View>
-        <View style={{ backgroundColor: "white", marginLeft: 32 }}>
           <Text
             style={{
               fontSize: 14,
-              marginBottom: 16,
               backgroundColor: "white",
               color: "#7f7f7f",
-              textAlign: "center",
               width: 288,
               height: 20,
+              fontWeight: 400,
             }}
           >
             ©2022 PayRow Company. All rights reserved
