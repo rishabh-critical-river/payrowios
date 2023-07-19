@@ -102,7 +102,7 @@ function PaymentGateWay() {
               height: 24,
             }}
           >
-            PayRow Net Provides{" "}
+            PayRow Provides{" "}
           </Text>
 
           <View style={{ flexDirection: "row" }}>
@@ -148,7 +148,6 @@ function PaymentGateWay() {
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            height: 20,
             letterSpacing: 0.25,
             paddingRight: 36,
             paddingLeft: 36,
