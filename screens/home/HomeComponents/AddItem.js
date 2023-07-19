@@ -1,7 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   StyleSheet,
   Text,
@@ -15,17 +12,18 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import axios from "axios";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Avatar } from "react-native-elements";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import axios from "axios";
 import PaymentSummary from "./PaymentSummary";
+
 const countries = [
   { country: "Stems", code: "93", iso: "AF" },
   { country: "Leaves", code: "355", iso: "AL" },
   { country: "Roots", code: "213", iso: "DZ" },
   { country: "Seeds", code: "1-684", iso: "AS" },
 ];
+
 const categories = [
   {
     name: "Fruits & Vegetables",
@@ -35,16 +33,9 @@ const categories = [
       { name: "Carrot", price: 0.49 },
     ],
   },
-  {
-    name: "Meat",
-    items: [
-      { name: "Chicken", price: 4.99 },
-      { name: "Beef", price: 7.99 },
-      { name: "Pork", price: 5.99 },
-    ],
-  },
   // Add more categories as needed
 ];
+
 function AddItem({ navigation }) {
   const [search, setSearch] = useState("");
   const [clickedFruits, setClickedFruits] = useState(false);
@@ -72,8 +63,10 @@ function AddItem({ navigation }) {
       setHasPermission(status === "granted");
     })();
   }, []);
+
   const apiUrl =
     "https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/000000024279";
+
   const fetchOrderDetails = async () => {
     try {
       const response = await axios.get(apiUrl, {
@@ -91,7 +84,7 @@ function AddItem({ navigation }) {
       console.error(error);
     }
   };
-  console.log(orderDetails, "orderDetails");
+
   const handleBarCodeScanned = ({ data }) => {
     setScannedData(data);
     setIsScannerVisible(false);
@@ -106,12 +99,15 @@ function AddItem({ navigation }) {
     setIsScannerVisible(false);
     setScannedData(null);
   };
+
   if (hasPermission === null) {
     return <Text>Requesting camera permission...</Text>;
   }
+
   if (hasPermission === false) {
-    return <Text>No access to camera.</Text>;
+    return <Text>No access to the camera.</Text>;
   }
+
   const handleCategoryPress = (category) => {
     if (selectedCategory === category) {
       setSelectedCategory(null);
@@ -134,6 +130,7 @@ function AddItem({ navigation }) {
 
     setSelectedItems(updatedItems);
   };
+
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -142,27 +139,16 @@ function AddItem({ navigation }) {
             <View style={{ flex: 1 }}>
               <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
-                style={{
-                  width: "50%",
-                  height: "50%",
-                }}
+                style={{ width: "50%", height: "50%" }}
               />
               <Button title="Close Scanner" onPress={handleCloseScanner} />
             </View>
           </Modal>
         </View>
-        <Text>{scannedData}</Text>
 
-        {orderDetails ? (
-          <Button
-            title="Go to Payment Summary"
-            onPress={() =>
-              navigation.navigate("paymentSummary", { orderDetails })
-            }
-          />
-        ) : (
-          <Text>No order details available</Text>
-        )}
+        {orderDetails
+          ? navigation.navigate("paymentSummary", { orderDetails })
+          : navigation.navigate("AddItem")}
 
         <View
           style={{
@@ -182,12 +168,7 @@ function AddItem({ navigation }) {
           />
           <View>
             <Text>Welcome</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "500",
-              }}
-            >
+            <Text style={{ fontSize: 14, fontWeight: "500" }}>
               TID : 8327162
             </Text>
           </View>
@@ -203,44 +184,14 @@ function AddItem({ navigation }) {
           Select Product
         </Text>
         <Text style={{ textAlign: "center", marginTop: 8 }}>
-          You can Select multiple item
+          You can Select multiple items
         </Text>
-        <View
-          style={{
-            width: 299,
-            height: 48,
-            backgroundColor: "#4B5050",
-            alignSelf: "center",
-            borderRadius: 8,
-            marginTop: 20,
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
+        <View style={styles.buttonContainer}>
           <Button
-            style={{
-              color: "white",
-              fontSize: 16,
-              fontWeight: "500",
-              marginLeft: 16,
-            }}
-            onPress={handleOpenScanner}
             title="SCAN TO ADD"
-          >
-            <Text
-              style={{
-                color: "white",
-                fontSize: 16,
-                fontWeight: "500",
-                marginLeft: 16,
-              }}
-            >
-              {" "}
-              SCAN TO ADD
-            </Text>
-          </Button>
+            onPress={handleOpenScanner}
+            color="white"
+          />
           <MaterialCommunityIcons
             style={{ marginRight: 12 }}
             name="barcode-scan"
@@ -279,7 +230,7 @@ function AddItem({ navigation }) {
             </TouchableOpacity>
           ))}
           {selectedCategory && (
-            <View style={{ marginTop: 20, alignSelf: "center", width: "90%" }}>
+            <View style={{ marginTop: 20, alignSelf: "center", width: "80%" }}>
               <FlatList
                 data={selectedCategory.items}
                 renderItem={({ item }) => (
@@ -287,7 +238,102 @@ function AddItem({ navigation }) {
                     style={styles.itemContainer}
                     onPress={() => handleItemPress(item)}
                   >
-                    {/* Render item content */}
+                    <View
+                      style={{
+                        flexDirection: "row",
+                      }}
+                    >
+                      <View
+                        style={{ flex: 1, flexDirection: "row", marginTop: 6 }}
+                      >
+                        <Image
+                          style={{ width: 58, height: 55, marginLeft: 14 }}
+                          source={require("./ellipse.png")}
+                        />
+                        <View
+                          style={{
+                            flexDirection: "column",
+                            marginLeft: 11,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              marginBottom: 17,
+                              color: "#4B5050",
+                              fontSize: 14,
+                              fontWeight: "500",
+                            }}
+                          >
+                            {item.price} AED
+                          </Text>
+                          <Text
+                            style={{
+                              color: "#4B5050",
+                              fontSize: 12,
+                              fontWeight: "400",
+                            }}
+                          >
+                            {item.name}
+                          </Text>
+                        </View>
+                      </View>
+                      <View>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            marginBottom: 14,
+                            marginTop: 6,
+                          }}
+                        >
+                          <Image
+                            style={{
+                              width: 20,
+                              height: 20,
+                            }}
+                            source={require("./plusicon.png")}
+                          />
+
+                          <Text style={{ marginLeft: 15 }}>1</Text>
+
+                          <Image
+                            style={{
+                              width: 20,
+                              height: 20,
+                              marginRight: 15,
+                              marginLeft: 15,
+                            }}
+                            source={require("./plusicon.png")}
+                          />
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text
+                            style={{
+                              color: "#4B5050",
+                              fontWeight: "500",
+                              fontSize: 10,
+                              letterSpacing: 0.1,
+                              marginTop: 2,
+                            }}
+                          >
+                            TOTAL
+                          </Text>
+                          <Text
+                            style={{
+                              color: "#4B5050",
+                              fontWeight: "500",
+                              fontSize: 12,
+                              letterSpacing: 0.1,
+                              marginRight: 15,
+                            }}
+                          >
+                            {" "}
+                            {item.price} AED
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+
+                    {/* You can add additional item content here */}
                   </TouchableOpacity>
                 )}
               />
@@ -297,113 +343,51 @@ function AddItem({ navigation }) {
       </View>
 
       <View style={{ backgroundColor: "white" }}>
-        <View
-          style={{
-            width: "80%",
-            alignSelf: "center",
-            height: 48,
-            borderRadius: 10,
-            marginBottom: 10,
-
-            borderWidth: 1,
-            borderColor: "rgba(75, 80, 80, 0.2)",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: "500",
-              flex: 1,
-              fontSize: 14,
-              lineHeight: 20,
-              marginLeft: 16,
-            }}
-          >
-            Total Price
-          </Text>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ fontSize: 22, fontWeight: "500", lineHeight: 28 }}>
-              600
-            </Text>
-            <Text style={{ color: "#4B505099", marginRight: 8, marginLeft: 9 }}>
-              AED
-            </Text>
+        <View style={styles.priceContainer}>
+          <Text style={styles.priceLabel}>Total Price</Text>
+          <View style={styles.priceTextContainer}>
+            <Text style={styles.priceText}>600</Text>
+            <Text style={styles.priceCurrency}>AED</Text>
           </View>
         </View>
 
         <TouchableOpacity
-          style={{ alignSelf: "center", marginTop: 16, width: "80%" }}
+          style={styles.goToSummaryButton}
           onPress={() => {
             navigation.navigate("paymentSummary");
           }}
         >
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: "#4B5050",
-              backgroundColor: "#4B5050",
-              borderRadius: 8,
-              marginBottom: 16,
-              height: 48,
-              justifyContent: "center",
-            }}
-          >
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  paddingLeft: 16,
-                  fontWeight: "500",
-                  lineHeight: 24,
-                  justifyContent: "center",
-                  color: "white",
-                  letterSpacing: 0.1,
-                  flex: 1,
-                }}
-              >
-                GO TO SUMMARY
-              </Text>
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginRight: 16,
-                }}
-              >
-                <AntDesign name="arrowright" size={22} color="white" />
-              </View>
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>GO TO SUMMARY</Text>
+            <View style={styles.arrowIcon}>
+              <AntDesign name="arrowright" size={22} color="white" />
             </View>
           </View>
         </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
-            paddingBottom: 15,
-          }}
-        >
+
+        <Text style={styles.footerText}>
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
     </>
   );
 }
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
+  buttonContainer: {
+    width: "80%",
+    height: 48,
+    backgroundColor: "#4B5050",
+    alignSelf: "center",
+    borderRadius: 8,
+    marginTop: 20,
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
   },
   containers: {
-    width: "85%",
+    width: "80%",
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
@@ -445,68 +429,76 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-
-  logo: {
-    width: 150,
-    height: 48.3,
+  priceContainer: {
+    width: "80%",
     alignSelf: "center",
-    marginTop: 33,
+    height: 48,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "rgba(75, 80, 80, 0.2)",
+    flexDirection: "row",
+    alignItems: "center",
   },
-  languageLogo: {
-    width: 40,
-    height: 40,
-    marginLeft: 170,
-    marginTop: 30,
-  },
-  homeBlocks: {
-    fontSize: 14,
+  priceLabel: {
     fontWeight: "500",
     flex: 1,
-    marginTop: 14,
-
-    color: "#4B5050",
+    fontSize: 14,
     lineHeight: 20,
-
     marginLeft: 16,
   },
-  homeElements: {
-    marginTop: 24,
-
-    flexDirection: "column",
-    justifyContent: "space-between",
+  priceTextContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    maxHeight: 448,
   },
-  text: {
-    fontSize: 15,
+  priceText: {
+    fontSize: 22,
     fontWeight: "500",
-    color: "#838c95",
-    textAlign: "center",
-    marginTop: 20,
-    marginBottom: 15,
+    lineHeight: 28,
   },
-  box: {
-    borderWidth: 1,
-    borderColor: "#4B505040",
-    borderRadius: 9,
+  priceCurrency: {
+    color: "#4B505099",
+    marginRight: 8,
+    marginLeft: 9,
+  },
+  goToSummaryButton: {
+    alignSelf: "center",
+    marginTop: 16,
+    width: "80%",
+  },
+  buttonContent: {
+    borderWidth: 0.6,
+    borderColor: "#4B5050",
+    backgroundColor: "#4B5050",
+    borderRadius: 8,
     marginBottom: 16,
-    width: 296,
     height: 48,
-    textAlign: "center",
+    width: "100%",
+    justifyContent: "center",
     flexDirection: "row",
   },
-  button: {
-    marginLeft: 165,
-
-    color: "black",
-    padding: 10,
-    fontSize: 20,
-    height: 60,
-    width: 60,
-    cursor: "pointer",
-    borderRadius: 70,
+  buttonText: {
+    fontSize: 16,
+    paddingLeft: 16,
+    paddingTop: 12,
+    fontWeight: "500",
+    lineHeight: 24,
+    justifyContent: "center",
+    color: "white",
+    letterSpacing: 0.1,
+    flex: 1,
+  },
+  arrowIcon: {
     justifyContent: "center",
     alignItems: "center",
+    marginRight: 16,
+  },
+  footerText: {
+    fontSize: 12,
+    backgroundColor: "white",
+    color: "#7f7f7f",
+    textAlign: "center",
+    paddingBottom: 15,
   },
 });
 

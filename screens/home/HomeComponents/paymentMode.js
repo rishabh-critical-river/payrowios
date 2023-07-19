@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-elements";
+import PaymentSummary from './PaymentSummary';
 const countries = [
   { country: "TAP TO PAY" },
   { country: "CASH PAYMENT" },

@@ -67,7 +67,7 @@ function Refund({ navigation }) {
             style={{
               marginBottom: 5,
               fontSize: 12,
-              color: "##4B5050",
+              color: "#4B5050",
               fontWeight: "400",
             }}
           >
