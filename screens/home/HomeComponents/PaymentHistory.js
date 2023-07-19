@@ -109,13 +109,11 @@ function PaymentHistory({ navigation }) {
         >
           <View style={{ marginLeft: 16 }}>
             <Text
-              style={{ color: "#4B5050CC", fontSize: "12", fontWeight: "400" }}
+              style={{ color: "#4B5050CC", fontSize: 12, fontWeight: "400" }}
             >
               Sequences - per month
             </Text>
-            <Text
-              style={{ color: "#191919", fontSize: "16", fontWeight: "500" }}
-            >
+            <Text style={{ color: "#191919", fontSize: 16, fontWeight: "500" }}>
               4,000,000
             </Text>
           </View>
@@ -145,14 +143,14 @@ function PaymentHistory({ navigation }) {
               <Text
                 style={{
                   color: "#4B5050CC",
-                  fontSize: "12",
+                  fontSize: 12,
                   fontWeight: "400",
                 }}
               >
                 Average
               </Text>
               <Text
-                style={{ color: "#191919", fontSize: "14", fontWeight: "500" }}
+                style={{ color: "#191919", fontSize: 14, fontWeight: "500" }}
               >
                 1M
               </Text>
@@ -177,13 +175,11 @@ function PaymentHistory({ navigation }) {
         >
           <View style={{ marginLeft: 16 }}>
             <Text
-              style={{ color: "#4B5050CC", fontSize: "12", fontWeight: "400" }}
+              style={{ color: "#4B5050CC", fontSize: 12, fontWeight: "400" }}
             >
               Total Credit - per month
             </Text>
-            <Text
-              style={{ color: "#191919", fontSize: "16", fontWeight: "500" }}
-            >
+            <Text style={{ color: "#191919", fontSize: 16, fontWeight: "500" }}>
               5,000,000
             </Text>
           </View>
@@ -213,14 +209,14 @@ function PaymentHistory({ navigation }) {
               <Text
                 style={{
                   color: "#4B5050CC",
-                  fontSize: "12",
+                  fontSize: 12,
                   fontWeight: "400",
                 }}
               >
                 Average
               </Text>
               <Text
-                style={{ color: "#191919", fontSize: "14", fontWeight: "500" }}
+                style={{ color: "#191919", fontSize: 14, fontWeight: "500" }}
               >
                 5M
               </Text>
