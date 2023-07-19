@@ -54,11 +54,11 @@ function Contact({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("TapToPay");
+                navigation.navigate("support");
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> SUPPORT </Text>
+              <Text style={styles.homeBlocks}> Support </Text>
               <AntDesign
                 name="right"
                 size={16}
