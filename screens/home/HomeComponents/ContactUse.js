@@ -34,6 +34,10 @@ function ContactUs({ navigation }) {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
+<<<<<<< HEAD
+=======
+              
+>>>>>>> 17c26dcb3b5eabcf4fc5aba30c07423c6d360123
             }}
           />
           <Text
@@ -54,8 +58,13 @@ function ContactUs({ navigation }) {
           style={{
             width: 150,
             height: 48.529,
+<<<<<<< HEAD
             alignSelf: "center",
             marginTop: 32,
+=======
+            marginLeft: 105,
+            marginTop: 24,
+>>>>>>> 17c26dcb3b5eabcf4fc5aba30c07423c6d360123
             flexShrink: 0,
           }}
         />

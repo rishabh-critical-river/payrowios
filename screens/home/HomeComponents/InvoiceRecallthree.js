@@ -207,7 +207,7 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>Branch</Text>
+            <Text>Branch:</Text>
 
             <Text>1234</Text>
           </View>
@@ -255,93 +255,163 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>Source (Q)</Text>
+            <Text>Source: (Q)</Text>
 
             <Text>Expiry XXXX</Text>
           </View>
-        </View>
-      </View>
-      <Text
-        style={{
-          textAlign: "center",
-          fontWeight: "400",
-          fontSize: 22,
-          marginTop: 28,
-          color: "#4B5050",
-          marginBottom: 6,
-        }}
-      >
-        -- Thank You --
-      </Text>
-      <Text
-        style={{
-          textAlign: "center",
-          fontWeight: "400",
-          fontSize: 14,
-          marginBottom: 12,
-
-          color: "#4B5050",
-        }}
-      >
-        Invoice is ready. Select your option to receive
-      </Text>
-      <View style={{ backgroundColor: "white" }}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("InvoiceRecallthree");
-          }}
-        >
           <View
             style={{
-              borderWidth: 1,
-
-              borderColor: "#4B5050",
-              backgroundColor: "#4B5050",
-              borderRadius: 8,
-              marginBottom: 16,
-              width: 296,
-              height: 48,
-              padding: 12,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
             }}
           >
-            <View style={{ flexDirection: "row", width: "100%" }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "500",
-                  lineHeight: 24,
-                  justifyContent: "center",
-                  color: "white",
-                  letterSpacing: 0.1,
-                  flex: 1,
-                  width: "100%",
-                }}
-              >
-                Share Customer Copy
-              </Text>
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <AntDesign name="arrowright" size={20} color="white" />
-              </View>
-            </View>
+            <Text>Vat #:</Text>
+
+            <Text>2849715</Text>
           </View>
-        </TouchableOpacity>
-        <Text
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>Vat Ammount %5:</Text>
+
+            <Text>5.5AED</Text>
+          </View>
+        </View>
+        <View
           style={{
-            fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
-            paddingBottom: 15,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginLeft: 32,
+            marginRight: 32,
+            color: "#333333",
+            marginTop: 20,
           }}
         >
-          ©2022 PayRow Company. All rights reserved
+          <Text
+            style={{
+              color: "#333333",
+              fontWeight: "500",
+              fontSize: 14,
+              lineHeight: 20,
+            }}
+          >
+            Amount: AED 250
+          </Text>
+
+          <Text
+            style={{
+              color: "#333333",
+              fontWeight: "500",
+              fontSize: 14,
+              lineHeight: 20,
+            }}
+          >
+            AUTH CODE: 00
+          </Text>
+        </View>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "400",
+            fontSize: 22,
+            marginTop: 28,
+            color: "#4B5050",
+            marginBottom: 6,
+            opacity: 0.800000011920929,
+          }}
+        >
+          -- Thank You --
         </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "400",
+            fontSize: 14,
+            marginBottom: 12,
+            lineHeight: 20,
+            color: "#4B5050",
+            letterSpacing: 0.25,
+          }}
+        >
+          Invoice is ready. Select your option to receive
+        </Text>
+        <View style={{ backgroundColor: "white" }}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("InvoiceRecallthree");
+            }}
+          >
+            <View
+              style={{
+                borderWidth: 1,
+                marginTop: 14,
+                borderColor: "#4B5050",
+                backgroundColor: "#4B5050",
+                borderRadius: 8,
+                marginBottom: 16,
+                width: 296,
+                height: 48,
+                padding: 12,
+              }}
+            >
+              <View style={{ flexDirection: "row", width: "100%" }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    lineHeight: 24,
+                    justifyContent: "center",
+                    color: "white",
+                    letterSpacing: 0.1,
+                    flex: 1,
+                    width: "100%",
+                  }}
+                >
+                  Share Customer Copy
+                </Text>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AntDesign name="arrowright" size={20} color="white" />
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 14,
+              backgroundColor: "white",
+              color: "#7f7f7f",
+              textAlign: "center",
+              paddingBottom: 15,
+              fontWeight:"400",
+              lineHeight:20,
+              letterSpacing:0.25
+            }}
+          >
+            ©2022 PayRow Company. All rights reserved
+          </Text>
+        </View>
       </View>
     </>
   );
