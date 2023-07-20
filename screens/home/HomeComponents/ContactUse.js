@@ -34,7 +34,7 @@ function ContactUs({ navigation }) {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
+              
             }}
           />
           <Text
@@ -44,7 +44,6 @@ function ContactUs({ navigation }) {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             Contact Us
@@ -57,7 +56,7 @@ function ContactUs({ navigation }) {
             width: 150,
             height: 48.529,
             marginLeft: 105,
-            marginTop: 32,
+            marginTop: 24,
             flexShrink: 0,
           }}
         />
