@@ -70,7 +70,7 @@ const PaymentSummary = ({ navigation, route }) => {
                   color: "#020202",
                 }}
               >
-                {orderDetails.createdAt}{" "}
+                16-Mar-23
                 {/* Replace with the actual date property */}
               </Text>
             </View>
@@ -101,7 +101,7 @@ const PaymentSummary = ({ navigation, route }) => {
                   color: "#020202",
                 }}
               >
-                {orderDetails.storeId}{" "}
+                3245000
                 {/* Replace with the actual merchant property */}
               </Text>
             </View>
@@ -132,7 +132,7 @@ const PaymentSummary = ({ navigation, route }) => {
                   color: "#020202",
                 }}
               >
-                {orderDetails.orderNumber}{" "}
+                3245000
                 {/* Replace with the actual order number property */}
               </Text>
             </View>
@@ -253,7 +253,7 @@ const PaymentSummary = ({ navigation, route }) => {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("paymentSummary");
+            navigation.navigate("paymentMode");
           }}
         >
           <View style={styles.buttonContent}>
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
   },
   priceCurrency: {
     color: "#4B505099",
-    marginRight: 8,
+    marginRight: 14,
     marginLeft: 9,
   },
   goToSummaryButton: {

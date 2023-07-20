@@ -20,10 +20,12 @@ function SoftPos() {
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
-            marginLeft: 19.98,
+            marginLeft: 18,
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
+            height: 80,
+            width: 360,
           }}
         >
           <Image
@@ -32,6 +34,8 @@ function SoftPos() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
+              marginTop: 41,
+              
             }}
           />
           <Text
@@ -41,6 +45,7 @@ function SoftPos() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
+              marginTop: 41
             }}
           >
             About Us
@@ -52,7 +57,7 @@ function SoftPos() {
             width: 140,
             height: 28,
             marginLeft: 31,
-            marginTop: 16,
+            marginTop: 15,
           }}
         />
         <Text
@@ -63,7 +68,8 @@ function SoftPos() {
             letterSpacing: 0.5,
             color: "#4B5050",
             marginLeft: 32,
-            marginTop: 10,
+            marginTop: 14,
+            marginBottom:16,
           }}
         >
         Soft POS
@@ -71,27 +77,35 @@ function SoftPos() {
         <Image
           source={require("./productImg.png")}
           style={{
-            width: 340,
-            height: 266,
-            marginTop: 14,
+            width: 360,
+            height: 296,
+            marginTop: 16,
           }}
         />
+        <View style={{
+            flexDirection: "coloumn",
+            gap: 8,
+            marginLeft: 32,
+            width: 296,
+            height:312,
+            marginTop: 24,
+            marginRight:32,
+  
+          }}>
         <Text
           style={{
             color: "#808080",
-            marginTop: 6,
-            marginLeft: 32,
             fontSize: 16,
             lineHeight: 24,
-            fontWeight: "500",
-            marginBottom: 2,
+            fontWeight: "500"
+    
           }}
         >
           PayRow Net Provides{" "}
         </Text>
 
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
+        <View style={{ flexDirection: "row"}}>
+          <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
           <Text
             style={{
               fontSize: 14,
@@ -99,14 +113,14 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
+             
             }}
           >
             Digital eKYC
           </Text>
         </View>
-        <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
           <Text
             style={{
               fontSize: 14,
@@ -114,14 +128,13 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
             }}
           >
            Support 8 language
           </Text>
         </View>
-        <View style={{ flexDirection: "row", marginBottom: 2, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
           <Text
             style={{
               fontSize: 14,
@@ -129,22 +142,21 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
             }}
           >
           Provide registration category
           </Text>
         </View>
         <View
-          style={{ flexDirection: "column", marginBottom: 2, marginLeft: 62 }}
+          style={{ flexDirection: "column", marginLeft: 32 }}
         >
           <Text>a. Store Manager POS</Text>
           <Text>b. Delivery POS</Text>
           <Text>c. Staff POS</Text>
         </View>
 
-        <View style={{ flexDirection: "row", marginBottom: 2, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
           <Text
             style={{
               fontSize: 14,
@@ -152,13 +164,12 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
             }}
           >
           Authorized authentication partner
           </Text>
         </View>
-        <View style={{ flexDirection: "row", marginBottom: 2, marginLeft: 32 }}>
+        <View style={{ flexDirection: "row" }}>
           <Text style={{ marginRight: 5 }}>•</Text>
           <Text
             style={{
@@ -167,15 +178,15 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
+            
             }}
           >
           Cash Invoice
           </Text>
           
         </View>
-        <View style={{ flexDirection: "row", marginBottom: 2, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
           <Text
             style={{
               fontSize: 14,
@@ -183,15 +194,15 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
+             
             }}
           >
           Invoice recall
           </Text>
           
         </View>
-        <View style={{ flexDirection: "row", marginBottom: 2, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
           <Text
             style={{
               fontSize: 14,
@@ -199,15 +210,14 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
             }}
           >
           Dashboard
           </Text>
           
         </View>
-        <View style={{ flexDirection: "row", marginBottom: 2, marginLeft: 32 }}>
-          <Text style={{ marginRight: 5 }}>•</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
           <Text
             style={{
               fontSize: 14,
@@ -215,7 +225,6 @@ function SoftPos() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom: 2,
             }}
           >
           Support center
@@ -223,15 +232,18 @@ function SoftPos() {
           
         </View>
       </View>
+      </View>
       <View style={{ backgroundColor: "white" }}>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: 14,
             marginTop: 16,
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            paddingBottom: 15,
+            lineHeight:20,
+            letterSpacing:0.25
+           
           }}
         >
           ©2022 PayRow Company. All rights reserved

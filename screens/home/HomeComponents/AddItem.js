@@ -136,10 +136,15 @@ function AddItem({ navigation }) {
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">
-            <View style={{ flex: 1 }}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+              }}
+            >
               <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
-                style={{ width: "50%", height: "50%" }}
+                style={{ width: "50%", height: "30%", marginTop: "60%" }}
               />
               <Button title="Close Scanner" onPress={handleCloseScanner} />
             </View>
@@ -283,6 +288,9 @@ function AddItem({ navigation }) {
                             flexDirection: "row",
                             marginBottom: 14,
                             marginTop: 6,
+                            justifyContent: "space-between",
+                            marginRight: 15,
+                            marginLeft: 10,
                           }}
                         >
                           <Image
@@ -293,14 +301,12 @@ function AddItem({ navigation }) {
                             source={require("./plusicon.png")}
                           />
 
-                          <Text style={{ marginLeft: 15 }}>1</Text>
+                          <Text>1</Text>
 
                           <Image
                             style={{
                               width: 20,
                               height: 20,
-                              marginRight: 15,
-                              marginLeft: 15,
                             }}
                             source={require("./plusicon.png")}
                           />
@@ -393,7 +399,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(75, 80, 80, 0.25)",
     alignSelf: "center",
-    marginTop: 31,
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -458,7 +464,7 @@ const styles = StyleSheet.create({
   },
   priceCurrency: {
     color: "#4B505099",
-    marginRight: 8,
+    marginRight: 14,
     marginLeft: 9,
   },
   goToSummaryButton: {

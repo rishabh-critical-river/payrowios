@@ -72,7 +72,7 @@ function AboutPayrow({ navigation }) {
             fontWeight: "400",
             fontSize: 22,
             lineHeight: 28,
-
+            color: "#333333",
             marginLeft: 32,
             marginTop: 30,
           }}
@@ -130,8 +130,8 @@ function AboutPayrow({ navigation }) {
             fontWeight: "400",
             fontSize: 22,
             lineHeight: 28,
-
-            marginLeft: 48,
+            color: "#333333",
+            marginLeft: 32,
             marginTop: 30,
           }}
         >
@@ -220,8 +220,8 @@ function AboutPayrow({ navigation }) {
             fontWeight: "400",
             fontSize: 22,
             lineHeight: 28,
-
-            marginLeft: 48,
+            color: "#333333",
+            marginLeft: 32,
             marginTop: 32,
           }}
         >

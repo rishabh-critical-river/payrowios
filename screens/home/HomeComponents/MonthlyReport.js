@@ -53,7 +53,7 @@ const ListItem = ({ item, index }) => {
             lineHeight: 16,
             fontSize: 11,
 
-            marginRight: 60,
+            marginRight: 63,
           }}
         >
           {item.transNo}
@@ -78,7 +78,7 @@ const ListItem = ({ item, index }) => {
           fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
-          marginRight: 19,
+          marginRight: 29,
         }}
       >
         <AntDesign
@@ -201,7 +201,7 @@ function MonthlyReport() {
               style={{ marginLeft: 9, marginTop: 9 }}
             />
           </View>
-          <Text>June</Text>
+          <Text>July</Text>
         </View>
 
         <View
@@ -233,7 +233,7 @@ function MonthlyReport() {
           </Text>
           <Text
             style={{
-              marginLeft: 40,
+              marginLeft: 56,
               marginRight: 36,
               fontSize: 12,
               fontWeight: "500",
@@ -245,7 +245,7 @@ function MonthlyReport() {
           </Text>
           <Text
             style={{
-              marginRight: 40,
+              marginRight: 27,
               fontSize: 12,
               fontWeight: "500",
               lineHeight: 16,

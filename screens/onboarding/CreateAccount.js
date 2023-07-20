@@ -121,54 +121,22 @@ function CreateAccount({ navigation }) {
             }}
           />
         </View>
-
         <TouchableOpacity
-          style={styles.button}
+          style={styles.goToSummaryButton}
           onPress={() => {
             navigation.navigate("AddItem");
           }}
         >
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: "#4B5050",
-              backgroundColor: "#4B5050",
-              borderRadius: 8,
-              marginBottom: 16,
-              width: 328,
-              height: 48,
-              justifyContent: "center",
-            }}
-          >
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  paddingLeft: 16,
-                  fontWeight: "500",
-                  lineHeight: 24,
-                  justifyContent: "center",
-                  color: "white",
-                  letterSpacing: 0.1,
-                  flex: 1,
-                }}
-              >
-                SUBMIT
-              </Text>
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginRight: 16,
-                }}
-              >
-                <AntDesign name="arrowright" size={24} color="white" />
-              </View>
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>GO TO SUMMARY</Text>
+            <View style={styles.arrowIcon}>
+              <AntDesign name="arrowright" size={22} color="white" />
             </View>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity
-          style={styles.button2}
+          style={styles.resendCode}
           onPress={() => {
             navigation.navigate("HomeScreen");
           }}
@@ -181,7 +149,7 @@ function CreateAccount({ navigation }) {
               backgroundColor: "#FFFFFF",
 
               marginBottom: 16,
-              width: 328,
+
               height: 48,
               justifyContent: "center",
             }}
@@ -407,6 +375,44 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "-45deg" }],
     right: 9,
     top: 36,
+  },
+  goToSummaryButton: {
+    alignSelf: "center",
+    marginTop: 32,
+    width: "80%",
+  },
+  resendCode: {
+    alignSelf: "center",
+    marginTop: 16,
+    width: "80%",
+  },
+  buttonText: {
+    fontSize: 16,
+    paddingLeft: 16,
+    paddingTop: 12,
+    fontWeight: "500",
+    lineHeight: 24,
+    justifyContent: "center",
+    color: "white",
+    letterSpacing: 0.1,
+    flex: 1,
+  },
+  arrowIcon: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 16,
+  },
+
+  buttonContent: {
+    borderWidth: 0.6,
+    borderColor: "#4B5050",
+    backgroundColor: "#4B5050",
+    borderRadius: 8,
+
+    height: 48,
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });
 
