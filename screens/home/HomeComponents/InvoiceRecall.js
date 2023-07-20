@@ -212,7 +212,7 @@ function InvoiceRecall({navigation}) {
                   flex: 1,
                 }}
               >
-                SEARCH123
+                SEARCH
               </Text>
               <View
                 style={{

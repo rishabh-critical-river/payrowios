@@ -145,7 +145,7 @@ function InvoiceRecallthree({ navigation }) {
           >
             <Text>merchant#</Text>
 
-            <Text>000001</Text>
+            <Text>003125403</Text>
           </View>
           <View
             style={{
@@ -159,9 +159,9 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>merchant#</Text>
+            <Text>Terminal 3</Text>
 
-            <Text>000001</Text>
+            <Text>11016524</Text>
           </View>
           <View
             style={{
@@ -175,9 +175,9 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>merchant#</Text>
+            <Text>Sequence</Text>
 
-            <Text>000001</Text>
+            <Text>1426</Text>
           </View>
           <View
             style={{
@@ -191,9 +191,9 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>merchant#</Text>
+            <Text>InvoiceNumber</Text>
 
-            <Text>000001</Text>
+            <Text>54321</Text>
           </View>
           <View
             style={{
@@ -207,9 +207,9 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>merchant#</Text>
+            <Text>Branch</Text>
 
-            <Text>000001</Text>
+            <Text>1234</Text>
           </View>
           <View
             style={{
@@ -223,9 +223,9 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>merchant#</Text>
+            <Text>Visa</Text>
 
-            <Text>000001</Text>
+            <Text></Text>
           </View>
           <View
             style={{
@@ -239,9 +239,9 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>merchant#</Text>
+            <Text>**** **** **** 1257</Text>
 
-            <Text>000001</Text>
+            <Text></Text>
           </View>
           <View
             style={{
@@ -255,9 +255,9 @@ function InvoiceRecallthree({ navigation }) {
               fontSize: 12,
             }}
           >
-            <Text>merchant#</Text>
+            <Text>Source (Q)</Text>
 
-            <Text>000001</Text>
+            <Text>Expiry XXXX</Text>
           </View>
         </View>
       </View>
@@ -309,7 +309,6 @@ function InvoiceRecallthree({ navigation }) {
               <Text
                 style={{
                   fontSize: 16,
-
                   fontWeight: "500",
                   lineHeight: 24,
                   justifyContent: "center",
