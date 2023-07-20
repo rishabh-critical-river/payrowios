@@ -45,6 +45,7 @@ import PayRowPrepaids from "./screens/home/HomeComponents/PayRowPrepaid";
 import Support from "./screens/home/HomeComponents/Support";
 import NewComplain from "./screens/home/HomeComponents/NewComplain";
 import RegisterComplain from "./screens/home/HomeComponents/RegisteredComplain";
+import ContactUs from "./screens/home/HomeComponents/ContactUse";
 // import SoftPose from "./screens/home/HomeComponents/SoftPose";
 const Stack = createNativeStackNavigator();
 
@@ -240,6 +241,11 @@ export default function App() {
            <Stack.Screen
             name="newcomplain"
             component={NewComplain}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="contactus"
+            component={ContactUs}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -40,7 +40,7 @@ function Contact({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("TapToPay");
+                navigation.navigate("contactus");
               }}
               style={styles.box}
             >
