@@ -192,13 +192,20 @@ function AddItem({ navigation }) {
           You can Select multiple items
         </Text>
         <View style={styles.buttonContainer}>
-          <Button
-            title="SCAN TO ADD"
-            onPress={handleOpenScanner}
-            color="white"
-          />
+          <TouchableOpacity onPress={handleOpenScanner} color="white">
+            <Text
+              style={{
+                marginLeft: 16,
+                color: "white",
+                fontSize: 16,
+                fontWeight: 500,
+              }}
+            >
+              SCAN TO ADD
+            </Text>
+          </TouchableOpacity>
           <MaterialCommunityIcons
-            style={{ marginRight: 12 }}
+            style={{ marginRight: 16 }}
             name="barcode-scan"
             size={24}
             color="white"

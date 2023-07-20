@@ -128,7 +128,7 @@ function CreateAccount({ navigation }) {
           }}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>GO TO SUMMARY</Text>
+            <Text style={styles.buttonText}>SUBMIT</Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
