@@ -24,7 +24,7 @@ function ContactUs({ navigation }) {
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
-            height: 80,
+
             width: 360,
           }}
         >
@@ -34,7 +34,6 @@ function ContactUs({ navigation }) {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
             }}
           />
           <Text
@@ -44,7 +43,6 @@ function ContactUs({ navigation }) {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             Contact Us
@@ -56,7 +54,7 @@ function ContactUs({ navigation }) {
           style={{
             width: 150,
             height: 48.529,
-            marginLeft: 105,
+            alignSelf: "center",
             marginTop: 32,
             flexShrink: 0,
           }}
@@ -77,7 +75,7 @@ function ContactUs({ navigation }) {
               fontWeight: 500,
               lineHeight: 20,
               letterSpacing: 0.1,
-              marginTop: 24.47,
+              marginTop: 16.47,
               color: "#333333",
               width: 296,
               height: 48,
@@ -89,7 +87,7 @@ function ContactUs({ navigation }) {
           </Text>
         </View>
 
-        <View style={{ alignSelf: "center", marginTop: 28 }}>
+        <View style={{ alignSelf: "center", marginTop: 24 }}>
           <Text
             style={{
               fontSize: 12,
@@ -109,24 +107,13 @@ function ContactUs({ navigation }) {
               fontWeight: "400",
               fontSize: 16,
               opacity: 0.7,
-              lineHeight: 24,
+              borderColor: "#99999",
+              borderBottomWidth: 1,
             }}
             placeholder="  Amount"
           >
             Binesh Walla
           </TextInput>
-          <View
-            //horizontal line
-            style={{
-              backgroundColor: "#4B505099",
-
-              width: 296,
-              height: 1.5,
-              opacity: 0.7,
-              alignSelf: "center",
-              marginBottom: 26.4,
-            }}
-          />
         </View>
 
         <View style={{ alignSelf: "center", marginTop: 28 }}>
@@ -183,6 +170,8 @@ function ContactUs({ navigation }) {
                 height: 24,
                 opacity: 0.7,
                 marginBottom: 4,
+                // borderColor: "#99999",
+                // borderBottomWidth: 1,
               }}
               placeholder="  Amount"
             >
@@ -192,17 +181,16 @@ function ContactUs({ navigation }) {
           <View
             //horizontal line
             style={{
-              backgroundColor: "#4B505099",
+              backgroundColor: "#99999",
 
               width: 296,
-              height: 1.5,
+              height: 1,
               opacity: 0.7,
               alignSelf: "center",
-              marginBottom: 26.4,
             }}
           />
         </View>
-        <View style={{ alignSelf: "center", marginTop: 28 }}>
+        <View style={{ alignSelf: "center", marginTop: 23, marginBottom: 31 }}>
           <Text
             style={{
               fontSize: 12,
@@ -222,24 +210,14 @@ function ContactUs({ navigation }) {
               fontWeight: "400",
               fontSize: 16,
               opacity: 0.7,
-              lineHeight: 24,
+
+              borderColor: "#99999",
+              borderBottomWidth: 1,
             }}
             placeholder="  Amount"
           >
             binesh.walia@criticalriver.com
           </TextInput>
-          <View
-            //horizontal line
-            style={{
-              backgroundColor: "#4B505099",
-
-              width: 296,
-              height: 1.5,
-              opacity: 0.7,
-              alignSelf: "center",
-              marginBottom: 26.4,
-            }}
-          />
         </View>
 
         <View style={{ flexDirection: "col", alignItems: "center" }}>
@@ -251,7 +229,7 @@ function ContactUs({ navigation }) {
               borderRadius: 8,
               borderWidth: 1,
               borderStyle: "solid",
-              borderBlockColor: "#B2B2B2",
+              borderColor: "#B2B2B2",
               alignItems: "center",
             }}
           >
