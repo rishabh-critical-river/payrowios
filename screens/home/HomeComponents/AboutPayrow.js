@@ -149,7 +149,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -185,10 +185,10 @@ function AboutPayrow({ navigation }) {
             borderWidth: 1,
             borderColor: "#4B505040",
             borderRadius: 9,
-
+            alignSelf: "center",
             width: 296,
             height: 48,
-            marginLeft: 32,
+
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -239,7 +239,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -278,7 +278,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -317,7 +317,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -356,7 +356,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -395,7 +395,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -434,7 +434,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -473,7 +473,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -512,7 +512,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -551,7 +551,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -590,7 +590,7 @@ function AboutPayrow({ navigation }) {
 
             width: 296,
             height: 48,
-            marginLeft: 32,
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,

@@ -18,7 +18,7 @@ import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-elements";
 const countries = [{ country: "TRANSACTION ID" }, { country: "BY DATE" }];
 
-function InvoiceRecall({navigation}) {
+function InvoiceRecall({ navigation }) {
   const [selectedMeat, setSelectedMeat] = useState([]);
   const [data, setData] = useState(countries);
   return (
@@ -146,7 +146,7 @@ function InvoiceRecall({navigation}) {
             style={{
               marginBottom: 5,
               fontSize: 12,
-              color: "##4B5050",
+              color: "#4B5050",
               fontWeight: "400",
             }}
           >

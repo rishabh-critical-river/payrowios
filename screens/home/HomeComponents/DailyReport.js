@@ -196,7 +196,7 @@ function DailyReport() {
               style={{ marginLeft: 9, marginTop: 9 }}
             />
           </View>
-          <Text>06/06/2023</Text>
+          <Text>06/07/2023</Text>
           <View
             style={{
               width: 38,

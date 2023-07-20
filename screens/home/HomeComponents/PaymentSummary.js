@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 
 const PaymentSummary = ({ navigation, route }) => {
@@ -70,7 +70,7 @@ const PaymentSummary = ({ navigation, route }) => {
                   color: "#020202",
                 }}
               >
-                {orderDetails.createdAt}{" "}
+                16-Mar-23
                 {/* Replace with the actual date property */}
               </Text>
             </View>
@@ -101,7 +101,7 @@ const PaymentSummary = ({ navigation, route }) => {
                   color: "#020202",
                 }}
               >
-                {orderDetails.storeId}{" "}
+                3245000
                 {/* Replace with the actual merchant property */}
               </Text>
             </View>
@@ -132,7 +132,7 @@ const PaymentSummary = ({ navigation, route }) => {
                   color: "#020202",
                 }}
               >
-                {orderDetails.orderNumber}{" "}
+                3245000
                 {/* Replace with the actual order number property */}
               </Text>
             </View>
@@ -208,9 +208,196 @@ const PaymentSummary = ({ navigation, route }) => {
           </>
         )}
       </View>
-      {/* Rest of the code... */}
+      <View style={{ backgroundColor: "white" }}>
+        <View
+          style={{
+            width: "80%",
+            alignSelf: "center",
+            height: 48,
+            borderRadius: 10,
+            marginBottom: 10,
+            borderWidth: 1,
+            borderColor: "rgba(75, 80, 80, 0.2)",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.priceLabel}>Total Price</Text>
+          <View style={styles.priceTextContainer}>
+            <Text style={styles.priceText}>16</Text>
+            <Text style={styles.priceCurrency}>AED</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            width: "80%",
+            alignSelf: "center",
+            height: 48,
+            borderRadius: 10,
+
+            borderWidth: 1,
+            borderColor: "rgba(75, 80, 80, 0.2)",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.priceLabel}>CANCEL</Text>
+          <View style={styles.priceTextContainer}>
+            <Image
+              style={{ width: 24, height: 24, marginRight: 16 }}
+              source={require("./clearblack.png")}
+            />
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.goToSummaryButton}
+          onPress={() => {
+            navigation.navigate("paymentMode");
+          }}
+        >
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>SELECT PAYMENT MODE</Text>
+            <View style={styles.arrowIcon}>
+              <AntDesign name="arrowright" size={22} color="white" />
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        <Text style={styles.footerText}>
+          ©2022 PayRow Company. All rights reserved
+        </Text>
+      </View>
     </>
   );
 };
 
 export default PaymentSummary;
+const styles = StyleSheet.create({
+  buttonContainer: {
+    width: "80%",
+    height: 48,
+    backgroundColor: "#4B5050",
+    alignSelf: "center",
+    borderRadius: 8,
+    marginTop: 20,
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  containers: {
+    width: "80%",
+    height: 50,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "rgba(75, 80, 80, 0.25)",
+    alignSelf: "center",
+    marginTop: 31,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingLeft: 15,
+    paddingRight: 15,
+    shadowColor: "#757e6e",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 3,
+    borderRadius: 8,
+  },
+  badge: {
+    width: 71,
+    height: 26,
+    borderRadius: 8,
+    backgroundColor: "#4B50500D",
+    textAlign: "center",
+    paddingTop: 4,
+    marginRight: 22,
+  },
+  itemContainer: {
+    width: "100%",
+    alignSelf: "center",
+    height: 77,
+    borderRadius: 10,
+    marginBottom: 10,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(75, 80, 80, 0.2)",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  priceContainer: {
+    width: "80%",
+    alignSelf: "center",
+    height: 48,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "rgba(75, 80, 80, 0.2)",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  priceLabel: {
+    fontWeight: "500",
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
+    marginLeft: 16,
+  },
+  priceTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  priceText: {
+    fontSize: 22,
+    fontWeight: "500",
+    lineHeight: 28,
+  },
+  priceCurrency: {
+    color: "#4B505099",
+    marginRight: 14,
+    marginLeft: 9,
+  },
+  goToSummaryButton: {
+    alignSelf: "center",
+    marginTop: 16,
+    width: "80%",
+  },
+  buttonContent: {
+    borderWidth: 0.6,
+    borderColor: "#4B5050",
+    backgroundColor: "#4B5050",
+    borderRadius: 8,
+    marginBottom: 16,
+    height: 48,
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  buttonText: {
+    fontSize: 16,
+    paddingLeft: 16,
+    paddingTop: 12,
+    fontWeight: "500",
+    lineHeight: 24,
+    justifyContent: "center",
+    color: "white",
+    letterSpacing: 0.1,
+    flex: 1,
+  },
+  arrowIcon: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 16,
+  },
+  footerText: {
+    fontSize: 12,
+    backgroundColor: "white",
+    color: "#7f7f7f",
+    textAlign: "center",
+    paddingBottom: 15,
+  },
+});

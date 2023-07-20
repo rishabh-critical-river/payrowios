@@ -35,12 +35,13 @@ function TapCard({ navigation }: any) {
             letterSpacing: 0.1,
             textAlign: "center",
             color: "#4B505099",
+            marginTop: 20,
           }}
         >
           Tap Your Card To Pay
         </Text>
         <Image
-          source={require("./Animation.png")}
+          source={require("./animation2.png")}
           style={{
             width: 240,
             height: 240,

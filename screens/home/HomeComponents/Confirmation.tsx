@@ -17,13 +17,13 @@ function Confirmation({ navigation }: any) {
     <>
       <View style={styles.container}>
         <Image
-          source={require("./fab.png")}
           style={{
-            width: 137.41,
-            height: 80,
+            width: 150,
+            height: 48.3,
             alignSelf: "center",
-            marginTop: 16,
+            marginTop: 33,
           }}
+          source={require("./payrowLogo.png")}
         />
         <Text
           style={{
@@ -31,7 +31,7 @@ function Confirmation({ navigation }: any) {
             fontWeight: "400",
             lineHeight: 28,
             textAlign: "center",
-            marginTop: 10,
+            marginTop: 15,
           }}
         >
           Confirmation
