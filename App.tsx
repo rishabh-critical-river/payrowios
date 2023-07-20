@@ -42,11 +42,7 @@ import Kvyc from "./screens/home/HomeComponents/Kvyc";
 import BuyNowPayLater from "./screens/home/HomeComponents/BuyNowPayLater";
 import Wallet from "./screens/home/HomeComponents/Wallet";
 import PayRowPrepaids from "./screens/home/HomeComponents/PayRowPrepaid";
-import Support from "./screens/home/HomeComponents/Support";
-import NewComplain from "./screens/home/HomeComponents/NewComplain";
-import RegisterComplain from "./screens/home/HomeComponents/RegisteredComplain";
-import InvoiceRecalltwo from "./screens/home/HomeComponents/InvoiceRecalltwo";
-import InvoiceRecallthree from "./screens/home/HomeComponents/InvoiceRecallthree";
+import PaymentDetails from "./screens/home/HomeComponents/PaymentDetails";
 // import SoftPose from "./screens/home/HomeComponents/SoftPose";
 const Stack = createNativeStackNavigator();
 
@@ -223,13 +219,8 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="support"
-            component={Support}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="registercomplain"
-            component={RegisterComplain}
+            name="paymentdetails"
+            component={PaymentDetails}
             options={{ headerShown: false }}
           />
           {/* <Stack.Screen
@@ -239,21 +230,6 @@ export default function App() {
             options={{ headerShown: false }}
            
           /> */}
-          <Stack.Screen
-            name="newcomplain"
-            component={NewComplain}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Recallss"
-            component={InvoiceRecalltwo}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="InvoiceRecallthree"
-            component={InvoiceRecallthree}
-            options={{ headerShown: false }}
-          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

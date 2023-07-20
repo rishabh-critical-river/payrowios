@@ -12,6 +12,7 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 function Confirmation({ navigation }: any) {
   return (
     <>
@@ -72,125 +73,87 @@ function Confirmation({ navigation }: any) {
         >
           Payment Done!
         </Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("HomeScreen");
-          }}
-        >
-          <View
-            style={{
-              borderWidth: 1,
-
-              borderColor: "#4B5050",
-              backgroundColor: "#4B5050",
-              borderRadius: 8,
-
-              width: 328,
-              height: 48,
-              justifyContent: "center",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                flex: 1,
-                fontSize: 16,
-                paddingLeft: 16,
-                fontWeight: "500",
-                lineHeight: 24,
-                justifyContent: "center",
-                color: "white",
-                letterSpacing: 0.1,
-              }}
-            >
-              PAYMENT DETAILS
-            </Text>
-            <Image
-              source={require("./next.png")}
-              style={{
-                width: 24,
-                height: 24,
-                alignSelf: "center",
-                marginTop: 12,
-                marginRight: 5,
-                marginBottom: 12,
-              }}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            marginLeft: 165,
-            marginTop: 24,
-            padding: 10,
-
-            height: 60,
-            width: 60,
-
-            borderRadius: 70,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onPress={() => {
-            navigation.navigate("HomeScreen");
-          }}
-        >
-          <View
-            style={{
-              borderWidth: 1,
-
-              borderColor: "#4B505040",
-              backgroundColor: "white",
-              borderRadius: 8,
-              marginBottom: 16,
-              width: 328,
-              height: 48,
-              justifyContent: "center",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                flex: 1,
-                fontSize: 16,
-                paddingLeft: 16,
-                fontWeight: "500",
-                lineHeight: 24,
-                justifyContent: "center",
-                color: "#4B5050",
-                letterSpacing: 0.1,
-              }}
-            >
-              HOME
-            </Text>
-            <Image
-              source={require("./next1.png")}
-              style={{
-                width: 24,
-                height: 24,
-                alignSelf: "center",
-                marginTop: 12,
-                marginRight: 5,
-                marginBottom: 12,
-              }}
-            />
-          </View>
-        </TouchableOpacity>
       </View>
-      <Text
-        style={{
-          fontSize: 12,
-          backgroundColor: "white",
-          color: "#7f7f7f",
-          textAlign: "center",
-          paddingBottom: 15,
-        }}
-      >
-        ©2022 PayRow Company. All rights reserved
-      </Text>
+      <View style={{ backgroundColor: "white" }}>
+        <TouchableOpacity
+          style={styles.goToSummaryButton}
+          onPress={() => {
+            navigation.navigate("paymentdetails");
+          }}
+        >
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>PAYMENT DETAILS</Text>
+            <View style={styles.arrowIcon}>
+              <AntDesign name="arrowright" size={22} color="white" />
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.resendCode}
+          onPress={() => {
+            navigation.navigate("HomeScreen");
+          }}
+        >
+          <View
+            style={{
+              borderWidth: 0.5,
+              borderColor: "#B2B2B2",
+              borderRadius: 8,
+              backgroundColor: "#FFFFFF",
+
+              marginBottom: 16,
+
+              height: 48,
+              justifyContent: "center",
+            }}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  paddingLeft: 16,
+                  fontWeight: "500",
+                  lineHeight: 24,
+                  justifyContent: "center",
+                  color: "#4C4C4C",
+                  letterSpacing: 0.1,
+                  flex: 1,
+                }}
+              >
+                HOME
+              </Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: 16,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <AntDesign name="arrowright" size={24} color="#4C4C4C" />
+                </View>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 12,
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
+            paddingBottom: 15,
+          }}
+        >
+          ©2022 PayRow Company. All rights reserved
+        </Text>
+      </View>
     </>
   );
 }
@@ -201,7 +164,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  buttonContent: {
+    borderWidth: 0.6,
+    borderColor: "#4B5050",
+    backgroundColor: "#4B5050",
+    borderRadius: 8,
 
+    height: 48,
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  buttonText: {
+    fontSize: 16,
+    paddingLeft: 16,
+    paddingTop: 12,
+    fontWeight: "500",
+    lineHeight: 24,
+    justifyContent: "center",
+    color: "white",
+    letterSpacing: 0.1,
+    flex: 1,
+  },
+  goToSummaryButton: {
+    alignSelf: "center",
+    marginTop: 32,
+    width: "80%",
+  },
   logo: {
     width: 150,
     height: 48.3,
@@ -224,6 +213,11 @@ const styles = StyleSheet.create({
     lineHeight: 20,
 
     marginLeft: 16,
+  },
+  arrowIcon: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 16,
   },
 
   box: {
@@ -248,5 +242,10 @@ const styles = StyleSheet.create({
     borderRadius: 70,
     justifyContent: "center",
     alignItems: "center",
+  },
+  resendCode: {
+    alignSelf: "center",
+    marginTop: 16,
+    width: "80%",
   },
 });

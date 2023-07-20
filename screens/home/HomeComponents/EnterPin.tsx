@@ -389,6 +389,12 @@ function EnterPin({ navigation }: any) {
             />
           </View>
         </View>
+      </View>
+      <View
+        style={{
+          backgroundColor: "white",
+        }}
+      >
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Confirmation");
@@ -397,8 +403,7 @@ function EnterPin({ navigation }: any) {
             borderWidth: 1,
             borderColor: "#4B505040",
             borderRadius: 8,
-            marginTop: 30,
-
+            marginBottom: 16,
             width: 296,
             height: 48,
             alignSelf: "center",
@@ -428,18 +433,18 @@ function EnterPin({ navigation }: any) {
             }}
           />
         </TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 12,
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
+            paddingBottom: 15,
+          }}
+        >
+          ©2022 PayRow Company. All rights reserved
+        </Text>
       </View>
-      <Text
-        style={{
-          fontSize: 12,
-          backgroundColor: "white",
-          color: "#7f7f7f",
-          textAlign: "center",
-          paddingBottom: 15,
-        }}
-      >
-        ©2022 PayRow Company. All rights reserved
-      </Text>
     </>
   );
 }
