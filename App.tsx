@@ -45,6 +45,8 @@ import PayRowPrepaids from "./screens/home/HomeComponents/PayRowPrepaid";
 import Support from "./screens/home/HomeComponents/Support";
 import NewComplain from "./screens/home/HomeComponents/NewComplain";
 import RegisterComplain from "./screens/home/HomeComponents/RegisteredComplain";
+import InvoiceRecalltwo from "./screens/home/HomeComponents/InvoiceRecalltwo";
+import InvoiceRecallthree from "./screens/home/HomeComponents/InvoiceRecallthree";
 // import SoftPose from "./screens/home/HomeComponents/SoftPose";
 const Stack = createNativeStackNavigator();
 
@@ -164,17 +166,17 @@ export default function App() {
             component={InvoiceRecall}
             options={{ headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="posandretail"
             component={PosAndRetail}
             options={{ headerShown: false }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="softpos"
             component={SoftPos}
             options={{ headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="paybylink"
             component={PayByLink}
             options={{ headerShown: false }}
@@ -194,33 +196,33 @@ export default function App() {
             component={Wps}
             options={{ headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="vat"
             component={Vat}
             options={{ headerShown: false }}
           />
-          
+
           <Stack.Screen
             name="kvyc"
             component={Kvyc}
             options={{ headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="buynowpaylater"
             component={BuyNowPayLater}
             options={{ headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="wallet"
             component={Wallet}
             options={{ headerShown: false }}
           />
-            <Stack.Screen
+          <Stack.Screen
             name="payrowprepaid"
-            component={ PayRowPrepaids}
+            component={PayRowPrepaids}
             options={{ headerShown: false }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="support"
             component={Support}
             options={{ headerShown: false }}
@@ -230,16 +232,26 @@ export default function App() {
             component={RegisterComplain}
             options={{ headerShown: false }}
           />
-           {/* <Stack.Screen
+          {/* <Stack.Screen
             name="softpose"
             payrowprepaid 
             component={SoftPose}
             options={{ headerShown: false }}
            
           /> */}
-           <Stack.Screen
+          <Stack.Screen
             name="newcomplain"
             component={NewComplain}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Recallss"
+            component={InvoiceRecalltwo}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="InvoiceRecallthree"
+            component={InvoiceRecallthree}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
