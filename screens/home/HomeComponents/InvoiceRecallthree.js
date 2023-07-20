@@ -64,180 +64,232 @@ function InvoiceRecallthree({ navigation }) {
         <Text
           style={{
             textAlign: "center",
-            fontWeight: "500",
-            fontSize: 16,
-            marginTop: 24,
+            fontWeight: "400",
+            fontSize: 22,
+            marginTop: 28,
+            color: "#4B5050",
+            marginBottom: 6,
+          }}
+        >
+          Business Name
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "400",
+            fontSize: 14,
+            marginBottom: 12,
+
             color: "#4B5050",
           }}
         >
-          Recall Invoice By
+          Location details & PO Box
         </Text>
-
-        <FlatList
-          style={{ marginTop: 24 }}
-          data={data}
-          renderItem={({ item, index }) => {
-            const isChecked = selectedMeat.includes(item.country);
-            return (
-              <TouchableOpacity
-                style={{
-                  width: 296,
-                  alignSelf: "center",
-                  height: 44,
-                  justifyContent: "center",
-                  borderWidth: 1,
-                  marginBottom: 15,
-                  borderRadius: 8,
-                  borderColor: "#4B505040",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-                onPress={() => {
-                  const index = selectedMeat.indexOf(item.country);
-                  if (index === -1) {
-                    setSelectedMeat([...selectedMeat, item.country]);
-                  } else {
-                    const newSelectedCountries = [...selectedMeat];
-                    newSelectedCountries.splice(index, 1);
-                    setSelectedMeat(newSelectedCountries);
-                  }
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#4B5050",
-                      fontWeight: "600",
-                      flex: 1,
-                      marginLeft: 16,
-                    }}
-                  >
-                    {item.country}
-                  </Text>
-                  <View>
-                    {isChecked ? (
-                      <MaterialCommunityIcons
-                        name="checkbox-marked-circle"
-                        size={20}
-                        color="#4B5050E5"
-                        style={{ marginRight: 10 }}
-                      />
-                    ) : (
-                      <MaterialCommunityIcons
-                        name="checkbox-blank-circle-outline"
-                        size={20}
-                        color="#8e8e8e"
-                        style={{ marginRight: 10 }}
-                      />
-                    )}
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginLeft: 32,
+            marginRight: 32,
+            color: "#4B5050",
+            fontWeight: "400",
+            fontSize: 12,
           }}
-        />
-        <View style={{ alignSelf: "center", marginTop: 28, marginBottom: 31 }}>
+        >
           <View
             style={{
               display: "flex",
               flexDirection: "row",
-              borderWidth: 1,
-
-              borderColor: "#4B5050",
-              opacity: 0.5,
-              padding: 16,
-              width: 296,
-              gap: 54,
-              alignItems: "center",
-
-              textAlign: "center",
-              borderRadius: 8,
+              gap: 12,
             }}
           >
-            <View>
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 11,
-                  lineHeight: 16,
-                  color: "#4B5050",
-                  marginBottom: 2,
-                }}
-              >
-                From datedhdthf
-              </Text>
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 22,
-                  lineHeight: 28,
-                  color: "#4B5050",
-                  marginBottom: 4,
-                }}
-              >
-                03 Apr
-              </Text>
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                  color: "#4B5050",
-                }}
-              >
-                Tuesday
-              </Text>
-            </View>
-            <View>
-              <AntDesign name="arrowright" size={20} color="#72AC47" />
-            </View>
-            <View>
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 11,
-                  lineHeight: 16,
-                  color: "#4B5050",
-                  marginBottom: 2,
-                }}
-              >
-                To date
-              </Text>
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 22,
-                  lineHeight: 28,
-                  color: "#4B5050",
-                  marginBottom: 4,
-                }}
-              >
-                13 Apr
-              </Text>
-              <Text
-                style={{
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                  color: "#4B5050",
-                }}
-              >
-                Friday
-              </Text>
-            </View>
+            <Text>Date:</Text>
+            <Text>24/08/2023</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 12,
+            }}
+          >
+            <Text>Time:</Text>
+            <Text>24-08-23</Text>
+          </View>
+        </View>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "400",
+            fontSize: 22,
+            marginTop: 28,
+            color: "#4B5050",
+            marginBottom: 6,
+          }}
+        >
+          Transaction Successful
+        </Text>
+        <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginLeft: 32,
+              marginRight: 32,
+              color: "#4B5050",
+              fontWeight: "400",
+              fontSize: 12,
+            }}
+          >
+            <Text>merchant#</Text>
+
+            <Text>000001</Text>
           </View>
         </View>
       </View>
+      <Text
+        style={{
+          textAlign: "center",
+          fontWeight: "400",
+          fontSize: 22,
+          marginTop: 28,
+          color: "#4B5050",
+          marginBottom: 6,
+        }}
+      >
+        -- Thank You --
+      </Text>
+      <Text
+        style={{
+          textAlign: "center",
+          fontWeight: "400",
+          fontSize: 14,
+          marginBottom: 12,
+
+          color: "#4B5050",
+        }}
+      >
+        Invoice is ready. Select your option to receive
+      </Text>
       <View style={{ backgroundColor: "white" }}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("invoiceRecall2");
+            navigation.navigate("InvoiceRecallthree");
           }}
         >
           <View
@@ -267,7 +319,7 @@ function InvoiceRecallthree({ navigation }) {
                   width: "100%",
                 }}
               >
-                SEARCH
+                Share Customer Copy
               </Text>
               <View
                 style={{
