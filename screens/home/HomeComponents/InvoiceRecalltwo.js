@@ -18,7 +18,7 @@ import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-elements";
 const countries = [{ country: "TRANSACTION ID" }, { country: "BY DATE" }];
 
-function InvoiceRecall({navigation}) {
+function InvoiceRecalltwo({ navigation }) {
   const [selectedMeat, setSelectedMeat] = useState([]);
   const [data, setData] = useState(countries);
   return (
@@ -141,49 +141,103 @@ function InvoiceRecall({navigation}) {
             );
           }}
         />
-        <View style={{ alignSelf: "center", marginTop: 28, marginBottom: 10 }}>
-          <Text
-            style={{
-              marginBottom: 5,
-              fontSize: 12,
-              color: "##4B5050",
-              fontWeight: "400",
-            }}
-          >
-            Transaction ID
-          </Text>
-          <TextInput
-            style={{
-              color: "black",
-              fontWeight: "400",
-              fontSize: 20,
-
-              opacity: 0.7,
-              marginBottom: 4,
-            }}
-            placeholder="  Amount"
-          >
-            SE192231485
-          </TextInput>
+        <View style={{ alignSelf: "center", marginTop: 28, marginBottom: 31 }}>
           <View
-            //horizontal line
             style={{
-              backgroundColor: "#4B505099",
+              display: "flex",
+              flexDirection: "row",
+              borderWidth: 1,
 
-              width: 293,
-              height: 1.5,
-              opacity: 0.7,
-              alignSelf: "center",
-              marginBottom: 26.4,
+              borderColor: "#4B5050",
+              opacity: 0.5,
+              padding: 16,
+              width: 296,
+              gap: 54,
+              alignItems: "center",
+
+              textAlign: "center",
+              borderRadius: 8,
             }}
-          />
+          >
+            <View>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 11,
+                  lineHeight: 16,
+                  color: "#4B5050",
+                  marginBottom: 2,
+                }}
+              >
+                From date
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 22,
+                  lineHeight: 28,
+                  color: "#4B5050",
+                  marginBottom: 4,
+                }}
+              >
+                03 Apr
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 14,
+                  lineHeight: 20,
+                  color: "#4B5050",
+                }}
+              >
+                Tuesday
+              </Text>
+            </View>
+            <View>
+              <AntDesign name="arrowright" size={20} color="#72AC47" />
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 11,
+                  lineHeight: 16,
+                  color: "#4B5050",
+                  marginBottom: 2,
+                }}
+              >
+                To date
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 22,
+                  lineHeight: 28,
+                  color: "#4B5050",
+                  marginBottom: 4,
+                }}
+              >
+                13 Apr
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 14,
+                  lineHeight: 20,
+                  color: "#4B5050",
+                }}
+              >
+                Friday
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
       <View style={{ backgroundColor: "white" }}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("Recallss");
+            navigation.navigate("InvoiceRecallthree");
           }}
         >
           <View
@@ -196,29 +250,29 @@ function InvoiceRecall({navigation}) {
               marginBottom: 16,
               width: 296,
               height: 48,
-              justifyContent: "center",
+              padding: 12,
             }}
           >
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", width: "100%" }}>
               <Text
                 style={{
                   fontSize: 16,
-                  paddingLeft: 16,
+
                   fontWeight: "500",
                   lineHeight: 24,
                   justifyContent: "center",
                   color: "white",
                   letterSpacing: 0.1,
                   flex: 1,
+                  width: "100%",
                 }}
               >
-                SEARCH123
+                SEARCH
               </Text>
               <View
                 style={{
                   justifyContent: "center",
                   alignItems: "center",
-                  marginRight: 16,
                 }}
               >
                 <AntDesign name="arrowright" size={20} color="white" />
@@ -242,7 +296,7 @@ function InvoiceRecall({navigation}) {
   );
 }
 
-export default InvoiceRecall;
+export default InvoiceRecalltwo;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

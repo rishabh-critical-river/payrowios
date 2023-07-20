@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -6,24 +5,20 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
-  FlatList,
   SafeAreaView,
   ScrollView,
   Image,
   Button,
   TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Avatar } from "react-native-elements";
-const countries = [{ country: "TRANSACTION ID" }, { country: "BY DATE" }];
 
-function InvoiceRecall({navigation}) {
-  const [selectedMeat, setSelectedMeat] = useState([]);
-  const [data, setData] = useState(countries);
+function Refund({ navigation }) {
   return (
     <>
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+      <View style={styles.container}>
         <View
           style={{
             marginLeft: 19.98,
@@ -46,102 +41,28 @@ function InvoiceRecall({navigation}) {
               fontWeight: "500",
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: "#4B5050",
             }}
           >
-            Invoice Recall
+            Refund
           </Text>
         </View>
         <Image
-          style={{
-            width: 150,
-            height: 48.3,
-            alignSelf: "center",
-            marginTop: 24,
-          }}
-          source={require("./payrowLogo.png")}
+          source={require("../../../src/Images/payrowLogo.png")}
+          style={styles.logo}
         />
         <Text
           style={{
-            textAlign: "center",
-            fontWeight: "500",
             fontSize: 16,
+            fontWeight: "500",
+            lineHeight: 24,
+            textAlign: "center",
             marginTop: 24,
             color: "#4B5050",
           }}
         >
-          Recall Invoice By
+          Please enter the transaction number
         </Text>
-
-        <FlatList
-          style={{ marginTop: 24 }}
-          data={data}
-          renderItem={({ item, index }) => {
-            const isChecked = selectedMeat.includes(item.country);
-            return (
-              <TouchableOpacity
-                style={{
-                  width: 296,
-                  alignSelf: "center",
-                  height: 44,
-                  justifyContent: "center",
-                  borderWidth: 1,
-                  marginBottom: 15,
-                  borderRadius: 8,
-                  borderColor: "#4B505040",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-                onPress={() => {
-                  const index = selectedMeat.indexOf(item.country);
-                  if (index === -1) {
-                    setSelectedMeat([...selectedMeat, item.country]);
-                  } else {
-                    const newSelectedCountries = [...selectedMeat];
-                    newSelectedCountries.splice(index, 1);
-                    setSelectedMeat(newSelectedCountries);
-                  }
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#4B5050",
-                      fontWeight: "600",
-                      flex: 1,
-                      marginLeft: 16,
-                    }}
-                  >
-                    {item.country}
-                  </Text>
-                  <View>
-                    {isChecked ? (
-                      <MaterialCommunityIcons
-                        name="checkbox-marked-circle"
-                        size={20}
-                        color="#4B5050E5"
-                        style={{ marginRight: 10 }}
-                      />
-                    ) : (
-                      <MaterialCommunityIcons
-                        name="checkbox-blank-circle-outline"
-                        size={20}
-                        color="#8e8e8e"
-                        style={{ marginRight: 10 }}
-                      />
-                    )}
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-        <View style={{ alignSelf: "center", marginTop: 28, marginBottom: 10 }}>
+        <View style={{ alignSelf: "center", marginTop: 28 }}>
           <Text
             style={{
               marginBottom: 5,
@@ -150,7 +71,7 @@ function InvoiceRecall({navigation}) {
               fontWeight: "400",
             }}
           >
-            Transaction ID
+            Transaction Number
           </Text>
           <TextInput
             style={{
@@ -170,7 +91,7 @@ function InvoiceRecall({navigation}) {
             style={{
               backgroundColor: "#4B505099",
 
-              width: 293,
+              width: 296,
               height: 1.5,
               opacity: 0.7,
               alignSelf: "center",
@@ -178,12 +99,137 @@ function InvoiceRecall({navigation}) {
             }}
           />
         </View>
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: "400",
+            lineHeight: 20,
+            textAlign: "center",
+            letterSpacing: 0.25,
+            marginTop: 6,
+            color: "#4B5050B2",
+          }}
+        >
+          Select Reason
+        </Text>
+        <TouchableOpacity
+          style={{
+            width: 296,
+            height: 48,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: "rgba(117, 126, 110, 0.4)",
+            alignSelf: "center",
+            marginTop: 16,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingLeft: 15,
+            paddingRight: 15,
+            shadowColor: "#757e6e",
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.08,
+            shadowRadius: 3,
+            borderRadius: 8,
+          }}
+        >
+          <Text style={{ fontWeight: "600", flex: 1 }}>Wrong Product</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 296,
+            height: 48,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: "rgba(117, 126, 110, 0.4)",
+            alignSelf: "center",
+            marginTop: 16,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingLeft: 15,
+            paddingRight: 15,
+            shadowColor: "#757e6e",
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.08,
+            shadowRadius: 3,
+            borderRadius: 8,
+          }}
+        >
+          <Text style={{ fontWeight: "600", flex: 1 }}>Product Damaged</Text>
+          <View>
+            <MaterialCommunityIcons
+              name="checkbox-marked-circle"
+              size={20}
+              color="#4B5050E5"
+              style={{ marginRight: 10 }}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 296,
+            height: 48,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: "rgba(117, 126, 110, 0.4)",
+            alignSelf: "center",
+            marginTop: 16,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingLeft: 15,
+            paddingRight: 15,
+            shadowColor: "#757e6e",
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.08,
+            shadowRadius: 3,
+            borderRadius: 8,
+          }}
+        >
+          <Text style={{ fontWeight: "600", flex: 1 }}>Product Not Needed</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 296,
+            height: 48,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: "rgba(117, 126, 110, 0.4)",
+            alignSelf: "center",
+            marginTop: 16,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingLeft: 15,
+            paddingRight: 15,
+            shadowColor: "#757e6e",
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.08,
+            shadowRadius: 3,
+            borderRadius: 8,
+          }}
+        >
+          <Text style={{ fontWeight: "600", flex: 1 }}>Expired Product</Text>
+        </TouchableOpacity>
       </View>
       <View style={{ backgroundColor: "white" }}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("Recallss");
+            navigation.navigate("otpRefund");
           }}
         >
           <View
@@ -212,7 +258,7 @@ function InvoiceRecall({navigation}) {
                   flex: 1,
                 }}
               >
-                SEARCH123
+                SUBMIT
               </Text>
               <View
                 style={{
@@ -242,7 +288,7 @@ function InvoiceRecall({navigation}) {
   );
 }
 
-export default InvoiceRecall;
+export default Refund;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
