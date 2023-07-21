@@ -72,7 +72,7 @@ function Wallet() {
           Wallet
         </Text>
         <Image
-          source={require("./wps.png")}
+          source={require("./waalet.png")}
           style={{
             width: 360,
             height: 296,

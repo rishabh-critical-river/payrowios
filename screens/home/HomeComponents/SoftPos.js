@@ -71,7 +71,7 @@ function SoftPos() {
           Soft POS
         </Text>
         <Image
-          source={require("./productImg.png")}
+          source={require("./softpos.png")}
           style={{
             width: 360,
             height: 296,

@@ -72,7 +72,7 @@ function PayRowPrepaids() {
           PayRow Prepaid Cards
         </Text>
         <Image
-          source={require("./wps.png")}
+          source={require("./payrowpcard.png")}
           style={{
             width: 360,
             height: 296,

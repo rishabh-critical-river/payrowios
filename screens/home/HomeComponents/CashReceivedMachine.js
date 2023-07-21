@@ -73,7 +73,7 @@ function CashReceivedMachine() {
           Cash Received Machine
         </Text>
         <Image
-          source={require("./cashproduct.png")}
+          source={require("./cashmachine.png")}
           style={{
             width: 360,
             height: 296,
