@@ -17,9 +17,43 @@ function Contact({ navigation }) {
   return (
     <>
       <View style={styles.container}>
+        <View
+          style={{
+            marginLeft: 19.98,
+            marginTop: 17,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            source={require("./arrow_back.png")}
+            style={{
+              width: 16.03,
+              height: 16.03,
+              marginRight: 35.98,
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "500",
+              lineHeight: 32,
+              letterSpacing: 0.5,
+              color: "#4B5050",
+            }}
+          >
+            Contact PayRow
+          </Text>
+        </View>
         <Image
-          source={require("../../../src/Images/payrowLogo.png")}
-          style={styles.logo}
+          style={{
+            width: 150,
+            height: 48.3,
+            alignSelf: "center",
+            marginTop: 24,
+            marginBottom: 35,
+          }}
+          source={require("./payrowLogo.png")}
         />
 
         <View style={styles.homeElements}>
@@ -40,7 +74,7 @@ function Contact({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("TapToPay");
+                navigation.navigate("contactus");
               }}
               style={styles.box}
             >
@@ -58,7 +92,7 @@ function Contact({ navigation }) {
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> Support </Text>
+              <Text style={styles.homeBlocks}> SUPPORT </Text>
               <AntDesign
                 name="right"
                 size={16}

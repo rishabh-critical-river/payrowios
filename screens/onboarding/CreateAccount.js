@@ -183,7 +183,7 @@ function CreateAccount({ navigation }) {
                   }}
                 >
                   <Text style={{ marginRight: 6 }}>Resend Code</Text>
-                  <AntDesign name="arrowright" size={24} color="#4C4C4C" />
+                  <AntDesign name="arrowright" size={22} color="#4C4C4C" />
                 </View>
               </View>
             </View>

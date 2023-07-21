@@ -21,7 +21,7 @@ function PosAndRetail() {
         <View
           style={{
             marginLeft: 18,
-            marginTop: 17,
+
             flexDirection: "row",
             alignItems: "center",
             height: 80,
@@ -34,7 +34,6 @@ function PosAndRetail() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
             }}
           />
           <Text
@@ -44,7 +43,6 @@ function PosAndRetail() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             About Us
@@ -56,7 +54,6 @@ function PosAndRetail() {
             width: 140,
             height: 28,
             marginLeft: 31,
-            marginTop: 15,
           }}
         />
         <Text
@@ -79,6 +76,7 @@ function PosAndRetail() {
             width: 360,
             height: 296,
             marginTop: 16,
+            alignSelf: "center",
           }}
         />
         <View
@@ -89,7 +87,7 @@ function PosAndRetail() {
             width: 296,
             height: 204,
             marginTop: 24,
-            marginRight:32,
+            marginRight: 32,
           }}
         >
           <Text
@@ -98,14 +96,13 @@ function PosAndRetail() {
               fontSize: 16,
               lineHeight: 24,
               fontWeight: "500",
-              
             }}
           >
             PayRow Net Provides{" "}
           </Text>
 
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -119,7 +116,7 @@ function PosAndRetail() {
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -133,7 +130,7 @@ function PosAndRetail() {
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -155,7 +152,7 @@ function PosAndRetail() {
         </View> */}
 
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -169,7 +166,7 @@ function PosAndRetail() {
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -192,8 +189,8 @@ function PosAndRetail() {
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            lineHeight:20,
-            letterSpacing:0.25
+            lineHeight: 20,
+            letterSpacing: 0.25,
           }}
         >
           ©2022 PayRow Company. All rights reserved

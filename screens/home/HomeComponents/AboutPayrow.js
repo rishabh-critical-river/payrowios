@@ -19,7 +19,7 @@ function AboutPayrow({ navigation }) {
         <View
           style={{
             marginLeft: 19.98,
-            marginTop: 17,
+
             flexDirection: "row",
             alignItems: "center",
           }}
@@ -72,7 +72,7 @@ function AboutPayrow({ navigation }) {
             fontWeight: "400",
             fontSize: 22,
             lineHeight: 28,
-            color: "#333333",
+
             marginLeft: 32,
             marginTop: 30,
           }}
@@ -130,8 +130,8 @@ function AboutPayrow({ navigation }) {
             fontWeight: "400",
             fontSize: 22,
             lineHeight: 28,
-            color: "#333333",
-            marginLeft: 32,
+
+            marginLeft: 46,
             marginTop: 30,
           }}
         >
@@ -185,10 +185,10 @@ function AboutPayrow({ navigation }) {
             borderWidth: 1,
             borderColor: "#4B505040",
             borderRadius: 9,
-            alignSelf: "center",
+
             width: 296,
             height: 48,
-
+            alignSelf: "center",
             alignItems: "center",
             flexDirection: "row",
             marginTop: 16,
@@ -220,8 +220,8 @@ function AboutPayrow({ navigation }) {
             fontWeight: "400",
             fontSize: 22,
             lineHeight: 28,
-            color: "#333333",
-            marginLeft: 32,
+
+            marginLeft: 46,
             marginTop: 32,
           }}
         >

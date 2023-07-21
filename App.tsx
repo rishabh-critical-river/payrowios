@@ -34,7 +34,7 @@ import PosAndRetail from "./screens/home/HomeComponents/PosAndRetail";
 import SoftPos from "./screens/home/HomeComponents/SoftPos";
 import PayByLink from "./screens/home/HomeComponents/PayByLink";
 import PayByQrCode from "./screens/home/HomeComponents/PayByQrCode";
-import PayByQrCod from "./screens/home/HomeComponents/PayByQrCode";
+
 import PaymentGateWay from "./screens/home/HomeComponents/PaymentGateWay";
 import Wps from "./screens/home/HomeComponents/Wps";
 import Vat from "./screens/home/HomeComponents/Vat";
@@ -42,7 +42,16 @@ import Kvyc from "./screens/home/HomeComponents/Kvyc";
 import BuyNowPayLater from "./screens/home/HomeComponents/BuyNowPayLater";
 import Wallet from "./screens/home/HomeComponents/Wallet";
 import PayRowPrepaids from "./screens/home/HomeComponents/PayRowPrepaid";
+import Support from "./screens/home/HomeComponents/Support";
+import NewComplain from "./screens/home/HomeComponents/NewComplain";
+import RegisterComplain from "./screens/home/HomeComponents/RegisteredComplain";
+import ContactUs from "./screens/home/HomeComponents/ContactUse";
+import InvoiceRecalltwo from "./screens/home/HomeComponents/InvoiceRecalltwo";
+import InvoiceRecallthree from "./screens/home/HomeComponents/InvoiceRecallthree";
 import PaymentDetails from "./screens/home/HomeComponents/PaymentDetails";
+import ConfirmationInvoice from "./screens/home/HomeComponents/ConfirmationInvoice";
+import CashPay from "./screens/home/HomeComponents/CashPay";
+import QRCode from "./screens/home/HomeComponents/QrCode";
 // import SoftPose from "./screens/home/HomeComponents/SoftPose";
 const Stack = createNativeStackNavigator();
 
@@ -177,11 +186,7 @@ export default function App() {
             component={PayByLink}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="paybyqrcod"
-            component={PayByQrCod}
-            options={{ headerShown: false }}
-          />
+
           <Stack.Screen
             name="paymentgateway"
             component={PaymentGateWay}
@@ -223,6 +228,11 @@ export default function App() {
             component={PaymentDetails}
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="support"
+            component={Support}
+            options={{ headerShown: false }}
+          />
           {/* <Stack.Screen
             name="softpose"
             payrowprepaid 
@@ -230,6 +240,47 @@ export default function App() {
             options={{ headerShown: false }}
            
           /> */}
+          <Stack.Screen
+            name="newcomplain"
+            component={NewComplain}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="contactus"
+            component={ContactUs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Recallss"
+            component={InvoiceRecalltwo}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="InvoiceRecallthree"
+            component={InvoiceRecallthree}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ConfirmationInvoice"
+            component={ConfirmationInvoice}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="cashPay"
+            component={CashPay}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="QrCode"
+            component={PayByQrCode}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="QrCodePay"
+            component={QRCode}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

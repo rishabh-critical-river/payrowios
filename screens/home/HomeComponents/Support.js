@@ -24,8 +24,7 @@ function Support({ navigation }) {
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
-            height: 80,
-            width: 360,
+            
           }}
         >
           <Image
@@ -34,7 +33,6 @@ function Support({ navigation }) {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
             }}
           />
           <Text
@@ -44,7 +42,6 @@ function Support({ navigation }) {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             Support
@@ -57,7 +54,7 @@ function Support({ navigation }) {
             width: 150,
             height: 48.529,
             marginLeft: 105,
-            marginTop: 32,
+            marginTop: 31,
             flexShrink: 0,
           }}
         />
@@ -160,7 +157,7 @@ function Support({ navigation }) {
             flexDirection: "row",
             width: 296,
             height: 88,
-            marginTop: 24.47,
+            marginTop: 16,
             marginLeft: 32,
             marginRight: 32,
             marginBottom: 16,
@@ -293,6 +290,7 @@ function Support({ navigation }) {
               flexDirection: "row",
               marginRight: 32,
               marginLeft: 32,
+              marginTop:16,
               paddingTop: 15,
               paddingLeft: 18,
               paddingBottom: 9,
@@ -441,7 +439,10 @@ function Support({ navigation }) {
               color: "#7f7f7f",
               width: 288,
               height: 20,
-              fontWeight: 400,
+              fontWeight: "400",
+              marginTop:58,
+              opacity: 0.800000011920929
+              
             }}
           >
             ©2022 PayRow Company. All rights reserved

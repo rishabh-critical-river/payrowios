@@ -21,7 +21,7 @@ function Wps() {
         <View
           style={{
             marginLeft: 18,
-            marginTop: 17,
+
             flexDirection: "row",
             alignItems: "center",
             height: 80,
@@ -34,7 +34,6 @@ function Wps() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
             }}
           />
           <Text
@@ -44,7 +43,6 @@ function Wps() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             About Us
@@ -56,8 +54,7 @@ function Wps() {
             width: 140,
             height: 28,
             marginLeft: 31,
-            marginTop: 23,
-            marginTop: 15,
+
             borderRadius: 12,
           }}
         />
@@ -80,6 +77,7 @@ function Wps() {
             width: 360,
             height: 296,
             marginTop: 16,
+            alignSelf: "center",
           }}
         />
         <View

@@ -21,7 +21,7 @@ function CashReceivedMachine() {
         <View
           style={{
             marginLeft: 18,
-            marginTop: 17,
+
             flexDirection: "row",
             alignItems: "center",
             height: 80,
@@ -34,7 +34,6 @@ function CashReceivedMachine() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
             }}
           />
           <Text
@@ -44,7 +43,6 @@ function CashReceivedMachine() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             About Us
@@ -56,7 +54,7 @@ function CashReceivedMachine() {
             width: 140,
             height: 28,
             marginLeft: 31,
-            marginTop: 15,
+
             borderRadius: 12,
           }}
         />
@@ -80,15 +78,17 @@ function CashReceivedMachine() {
             width: 360,
             height: 296,
             marginTop: 16,
+            alignSelf: "center",
           }}
         />
-        <View style={{
+        <View
+          style={{
             flexDirection: "column",
             marginLeft: 32,
-            marginRight:32,
+            marginRight: 32,
             width: 296,
             height: 228,
-            gap:5,
+            gap: 5,
             marginTop: 20,
           }}
         >
@@ -98,20 +98,15 @@ function CashReceivedMachine() {
               fontSize: 16,
               lineHeight: 24,
               fontWeight: "500",
-              width:156,
-              height:24, 
-             
-              
-              
+              width: 156,
+              height: 24,
             }}
           >
             PayRow Net Provides{" "}
           </Text>
 
-          <View
-            style={{ flexDirection: "row" }}
-          >
-            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -119,18 +114,15 @@ function CashReceivedMachine() {
                 fontWeight: "500",
                 letterSpacing: 0.1,
                 color: "#333333",
-                width:296,
-                height:20
-            
+                width: 296,
+                height: 20,
               }}
             >
               Digital eKYC
             </Text>
           </View>
-          <View
-            style={{ flexDirection: "row" }}
-          >
-            <Text style={{ marginRight: 5 ,marginLeft:5}}>•</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -138,9 +130,8 @@ function CashReceivedMachine() {
                 fontWeight: "500",
                 letterSpacing: 0.1,
                 color: "#333333",
-                width:296,
-                height:20
-               
+                width: 296,
+                height: 20,
               }}
             >
               Support 8 language
@@ -148,7 +139,7 @@ function CashReceivedMachine() {
           </View>
 
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -156,22 +147,28 @@ function CashReceivedMachine() {
                 fontWeight: "500",
                 letterSpacing: 0.1,
                 color: "#333333",
-                width:296,
-                height:20
-                
+                width: 296,
+                height: 20,
               }}
             >
               Provide registration category
             </Text>
           </View>
-          <View style={{ flexDirection: "column" ,width:145,height:60,marginLeft:32}}>
+          <View
+            style={{
+              flexDirection: "column",
+              width: 145,
+              height: 60,
+              marginLeft: 32,
+            }}
+          >
             <Text>a. Store Manager POS</Text>
             <Text>b. Delivery POS</Text>
             <Text>c. Staff POS</Text>
           </View>
 
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -179,16 +176,15 @@ function CashReceivedMachine() {
                 fontWeight: "500",
                 letterSpacing: 0.1,
                 color: "#333333",
-                width:296,
-                height:20
-               
+                width: 296,
+                height: 20,
               }}
             >
               Authorized authentication partner
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5,marginLeft:5 }}>•</Text>
+            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
             <Text
               style={{
                 fontSize: 14,
@@ -196,25 +192,24 @@ function CashReceivedMachine() {
                 fontWeight: "500",
                 letterSpacing: 0.1,
                 color: "#333333",
-                width:296,
-                height:20
-                
+                width: 296,
+                height: 20,
               }}
             >
               Cash Invoice
             </Text>
           </View>
         </View>
-        <View style={{ backgroundColor: "white",marginLeft:32 }}>
+        <View style={{ backgroundColor: "white", marginLeft: 32 }}>
           <Text
             style={{
               fontSize: 14,
-              marginBottom:16,
+              marginBottom: 16,
               backgroundColor: "white",
               color: "#7f7f7f",
               textAlign: "center",
-              width:288,
-              height:20,
+              width: 288,
+              height: 20,
             }}
           >
             ©2022 PayRow Company. All rights reserved

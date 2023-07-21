@@ -78,7 +78,7 @@ function Confirmation({ navigation }: any) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("paymentdetails");
+            navigation.navigate("InvoiceRecallthree");
           }}
         >
           <View style={styles.buttonContent}>
@@ -136,7 +136,7 @@ function Confirmation({ navigation }: any) {
                     alignItems: "center",
                   }}
                 >
-                  <AntDesign name="arrowright" size={24} color="#4C4C4C" />
+                  <AntDesign name="arrowright" size={22} color="#4C4C4C" />
                 </View>
               </View>
             </View>

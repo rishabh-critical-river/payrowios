@@ -23,8 +23,7 @@ function NewComplain({ navigation }) {
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
-            height: 80,
-            width: 360,
+            
           }}
         >
           <Image
@@ -33,7 +32,8 @@ function NewComplain({ navigation }) {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
+              
+             
             }}
           />
           <Text
@@ -43,7 +43,7 @@ function NewComplain({ navigation }) {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
+              
             }}
           >
             New Complain
@@ -69,7 +69,7 @@ function NewComplain({ navigation }) {
             fontWeight: 400,
             lineHeight: 20,
             letterSpacing: 0.25,
-            marginTop: 34.47,
+            marginTop:24.47,
             color: "#4C4C4C",
           }}
         >
@@ -91,6 +91,7 @@ function NewComplain({ navigation }) {
               borderStyle: "solid",
               borderColor: "rgba(75, 80, 80, 0.20)",
               borderRadius: 8,
+              marginBottom:16
             }}
           >
             <Text
@@ -124,6 +125,7 @@ function NewComplain({ navigation }) {
               borderColor: "rgba(75, 80, 80, 0.20)",
               borderRadius: 8,
               gap: 90,
+              marginBottom:16
             }}
           >
             <Text
@@ -164,6 +166,7 @@ function NewComplain({ navigation }) {
               borderColor: "#4B5050",
               borderRadius: 8,
               borderColor: "rgba(75, 80, 80, 0.20)",
+              marginBottom:16
             }}
           >
             <Text
@@ -195,6 +198,8 @@ function NewComplain({ navigation }) {
               borderStyle: "solid",
               borderColor: "rgba(75, 80, 80, 0.20)",
               borderRadius: 8,
+              marginBottom:16
+      
             }}
           >
             <Text
@@ -238,7 +243,7 @@ function NewComplain({ navigation }) {
               fontWeight: 400,
               lineHeight: 12,
               letterSpacing: 0.25,
-              marginTop: 34.47,
+              marginTop: 30,
               width: 296,
               height: 13,
               color: "rgba(75, 80, 80, 0.70)",
@@ -269,7 +274,7 @@ function NewComplain({ navigation }) {
               marginRight: 32,
               width: 296,
               height: 1.6,
-              marginBottom: 32,
+              marginBottom: 31,
               opacity: 0.42,
             }}
           />
@@ -290,7 +295,7 @@ function NewComplain({ navigation }) {
                 borderRadius: 8,
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: 11,
+        
               }}
             >
               <Text
@@ -333,7 +338,9 @@ function NewComplain({ navigation }) {
               color: "#7f7f7f",
               width: 288,
               height: 20,
-              fontWeight: 400,
+              fontWeight: "400",
+              marginTop:27,
+              opacity: 0.800000011920929
             }}
           >
             ©2022 PayRow Company. All rights reserved

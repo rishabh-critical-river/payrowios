@@ -24,7 +24,7 @@ const countries = [
   { country: "PAY BY QR CODE" },
   { country: "PAYMENT GATEWAY" },
 ];
-function PaymentMode({ navigation }) {
+function PayByQrCode({ navigation }) {
   const [selectedMeat, setSelectedMeat] = useState([]);
   const [data, setData] = useState(countries);
   return (
@@ -132,6 +132,8 @@ function PaymentMode({ navigation }) {
           style={styles.button}
           onPress={() => {
             navigation.navigate("TapCard");
+            // navigation.navigate("cashPay");
+            // navigation.navigate("QrCodePay");
           }}
         >
           <View
@@ -261,7 +263,7 @@ function PaymentMode({ navigation }) {
   );
 }
 
-export default PaymentMode;
+export default PayByQrCode;
 const styles = StyleSheet.create({
   button: {
     cursor: "pointer",

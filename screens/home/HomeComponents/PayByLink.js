@@ -17,7 +17,13 @@ import { AntDesign } from "@expo/vector-icons";
 function PayByLink() {
   return (
     <>
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" ,marginBottom:10}}>
+      <View
+        style={{
+          display: "flex",
+          flex: 1,
+          backgroundColor: "white",
+        }}
+      >
         <View
           style={{
             marginLeft: 19.98,
@@ -66,14 +72,15 @@ function PayByLink() {
             marginTop: 6,
           }}
         >
-        Pay by Link
+          Pay by Link
         </Text>
         <Image
           source={require("./paybylink.png")}
           style={{
             width: 340,
             height: 276,
-            marginTop: 10,
+            marginTop: 16,
+            alignSelf: "center",
           }}
         />
         <Text
@@ -87,7 +94,7 @@ function PayByLink() {
             marginBottom: 5,
           }}
         >
-         PayRow Net Provides {" "}
+          PayRow Net Provides{" "}
         </Text>
 
         <View style={{ flexDirection: "row", marginBottom: 0, marginLeft: 32 }}>
@@ -102,7 +109,7 @@ function PayByLink() {
               marginBottom: 2,
             }}
           >
-           Digital eKYC
+            Digital eKYC
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 2, marginLeft: 32 }}>
@@ -115,10 +122,10 @@ function PayByLink() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4,
+              marginTop: -4,
             }}
           >
-          Support 8 language
+            Support 8 language
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -131,14 +138,19 @@ function PayByLink() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: -2,
-              marginTop:-4,
+              marginTop: -4,
             }}
           >
-           Provide registration category
+            Provide registration category
           </Text>
         </View>
         <View
-          style={{ flexDirection: "column",marginTop:-6,marginBottom: 4, marginLeft: 62 }}
+          style={{
+            flexDirection: "column",
+            marginTop: -6,
+            marginBottom: 4,
+            marginLeft: 62,
+          }}
         >
           <Text>a. Store Manager POS</Text>
           <Text>b. Delivery POS</Text>
@@ -157,7 +169,7 @@ function PayByLink() {
               marginBottom: -3,
             }}
           >
-          Authorized authentication partner
+            Authorized authentication partner
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -172,7 +184,7 @@ function PayByLink() {
               marginBottom: 2,
             }}
           >
-           Cash Invoice
+            Cash Invoice
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -184,26 +196,26 @@ function PayByLink() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom:2,
+              marginBottom: 2,
             }}
           >
-          Invoice recall
+            Invoice recall
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
           <Text style={{ marginRight: 5 }}>•</Text>
           <Text
             style={{
-              marginTop:-1,
+              marginTop: -1,
               fontSize: 14,
               lineHeight: 20,
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom:-2,
+              marginBottom: -2,
             }}
           >
-          Dashboard
+            Dashboard
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 8, marginLeft: 32 }}>
@@ -215,10 +227,10 @@ function PayByLink() {
               fontWeight: "500",
               letterSpacing: 0.1,
               color: "#333333",
-              marginBottom:2,
+              marginBottom: 2,
             }}
           >
-          Support center
+            Support center
           </Text>
         </View>
       </View>
@@ -230,8 +242,7 @@ function PayByLink() {
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            paddingBottom:5,
-    
+            paddingBottom: 5,
           }}
         >
           ©2022 PayRow Company. All rights reserved

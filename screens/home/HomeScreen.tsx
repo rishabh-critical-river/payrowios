@@ -42,55 +42,6 @@ function HomeScreen({ navigation }: any) {
                 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("TapToPay");
-              }}
-              style={styles.box}
-            >
-              <Text style={styles.homeBlocks}>PAY BY LINK</Text>
-              <Image
-                source={require("./keyboard_arrow_right.png")}
-                style={{
-                  width: 7.41,
-                  height: 12,
-
-                  marginTop: 14,
-
-                  marginRight: 10.02,
-                }}
-              />
-            </TouchableOpacity>
-
-            <View style={styles.box}>
-              <Text style={styles.homeBlocks}> CASH INVOICE </Text>
-              <Image
-                source={require("./keyboard_arrow_right.png")}
-                style={{
-                  width: 7.41,
-                  height: 12,
-
-                  marginTop: 14,
-
-                  marginRight: 10.02,
-                }}
-              />
-            </View>
-
-            <View style={styles.box}>
-              <Text style={styles.homeBlocks}> PAY BY QR CODE </Text>
-              <Image
-                source={require("./keyboard_arrow_right.png")}
-                style={{
-                  width: 7.41,
-                  height: 12,
-
-                  marginTop: 14,
-
-                  marginRight: 10.02,
-                }}
-              />
-            </View>
 
             <TouchableOpacity
               onPress={() => {

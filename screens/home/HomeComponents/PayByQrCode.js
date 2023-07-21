@@ -66,14 +66,15 @@ function PayByQrCod() {
             marginTop: 10,
           }}
         >
-        Pay by Qr Code
+          Pay by Qr Code
         </Text>
         <Image
           source={require("./qrcode.png")}
           style={{
             width: 340,
             height: 276,
-            marginTop: 5,
+            marginTop: 16,
+            alignSelf: "center",
           }}
         />
         <Text
@@ -87,7 +88,7 @@ function PayByQrCod() {
             marginBottom: 2,
           }}
         >
-         PayRow Net Provides {" "}
+          PayRow Net Provides{" "}
         </Text>
 
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -102,7 +103,7 @@ function PayByQrCod() {
               marginBottom: 2,
             }}
           >
-           Digital eKYC
+            Digital eKYC
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -115,10 +116,10 @@ function PayByQrCod() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4
+              marginTop: -4,
             }}
           >
-          Support 8 language
+            Support 8 language
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -131,10 +132,10 @@ function PayByQrCod() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4
+              marginTop: -4,
             }}
           >
-           Provide registration category
+            Provide registration category
           </Text>
         </View>
         <View
@@ -155,10 +156,10 @@ function PayByQrCod() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4
+              marginTop: -4,
             }}
           >
-          Authorized authentication partner
+            Authorized authentication partner
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -171,10 +172,10 @@ function PayByQrCod() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4
+              marginTop: -4,
             }}
           >
-           Cash Invoice
+            Cash Invoice
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -187,10 +188,10 @@ function PayByQrCod() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4
+              marginTop: -4,
             }}
           >
-          Invoice recall
+            Invoice recall
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -203,10 +204,10 @@ function PayByQrCod() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4
+              marginTop: -4,
             }}
           >
-          Dashboard
+            Dashboard
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginBottom: 4, marginLeft: 32 }}>
@@ -219,10 +220,10 @@ function PayByQrCod() {
               letterSpacing: 0.1,
               color: "#333333",
               marginBottom: 2,
-              marginTop:-4
+              marginTop: -4,
             }}
           >
-          Support center
+            Support center
           </Text>
         </View>
       </View>
@@ -234,7 +235,7 @@ function PayByQrCod() {
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            paddingBottom:15,
+            paddingBottom: 15,
           }}
         >
           ©2022 PayRow Company. All rights reserved

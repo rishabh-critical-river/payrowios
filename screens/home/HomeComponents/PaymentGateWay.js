@@ -21,7 +21,7 @@ function PaymentGateWay() {
         <View
           style={{
             marginLeft: 19.98,
-            marginTop: 17,
+
             flexDirection: "row",
             alignItems: "center",
             height: 80,
@@ -34,7 +34,6 @@ function PaymentGateWay() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
             }}
           />
           <Text
@@ -44,7 +43,6 @@ function PaymentGateWay() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             About Us
@@ -56,7 +54,7 @@ function PaymentGateWay() {
             width: 140,
             height: 28,
             marginLeft: 31,
-            marginTop: 15,
+
             borderRadius: 12,
           }}
         />
@@ -79,6 +77,7 @@ function PaymentGateWay() {
             width: 360,
             height: 296,
             marginTop: 16,
+            alignSelf: "center",
           }}
         />
         <View
