@@ -281,7 +281,7 @@ function PaymentHistory({ navigation }) {
             color="#4B5050E5"
           />
         </TouchableOpacity>
-        <View style={{ marginBottom: 20 }}>
+        <View>
           <VictoryChart domain={{ y: [yMin, yMax] }}>
             <VictoryAxis
               style={{
@@ -329,7 +329,6 @@ function PaymentHistory({ navigation }) {
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
-            paddingBottom: 15,
           }}
         >
           ©2022 PayRow Company. All rights reserved
