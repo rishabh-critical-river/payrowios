@@ -74,7 +74,7 @@ function Vat() {
           Value-Added Tax (VAT)
         </Text>
         <Image
-          source={require("./wps.png")}
+          source={require("./valueaddtax.png")}
           style={{
             width: 360,
             height: 296,

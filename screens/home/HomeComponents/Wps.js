@@ -72,7 +72,7 @@ function Wps() {
           Wage Protection Scheme
         </Text>
         <Image
-          source={require("./wps.png")}
+          source={require("./wageps.png")}
           style={{
             width: 360,
             height: 296,

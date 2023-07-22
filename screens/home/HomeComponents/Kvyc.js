@@ -72,7 +72,7 @@ function Kvyc() {
           E - KYC
         </Text>
         <Image
-          source={require("./wps.png")}
+          source={require("./EVYC.png")}
           style={{
             width: 360,
             height: 296,

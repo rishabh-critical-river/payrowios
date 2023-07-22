@@ -71,7 +71,7 @@ function PosAndRetail() {
           Pos And Retails Machine
         </Text>
         <Image
-          source={require("./Product.png")}
+          source={require("./posretailmachine.png")}
           style={{
             width: 360,
             height: 296,

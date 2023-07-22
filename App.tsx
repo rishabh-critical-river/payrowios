@@ -186,7 +186,11 @@ export default function App() {
             component={PayByLink}
             options={{ headerShown: false }}
           />
-
+          <Stack.Screen
+            name="paybyqrcode"
+            component={PayByLink}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="paymentgateway"
             component={PaymentGateWay}
@@ -211,6 +215,11 @@ export default function App() {
           <Stack.Screen
             name="buynowpaylater"
             component={BuyNowPayLater}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="registercomplain"
+            component={RegisterComplain}
             options={{ headerShown: false }}
           />
           <Stack.Screen

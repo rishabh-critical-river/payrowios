@@ -72,7 +72,7 @@ function PaymentGateWay() {
           Payment Gateway
         </Text>
         <Image
-          source={require("./gateway.png")}
+          source={require("./paygateway.png")}
           style={{
             width: 360,
             height: 296,

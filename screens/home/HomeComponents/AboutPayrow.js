@@ -308,7 +308,7 @@ function AboutPayrow({ navigation }) {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("paybyqrcod");
+            navigation.navigate("paybyqrcode");
           }}
           style={{
             borderWidth: 1,

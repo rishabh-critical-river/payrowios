@@ -69,7 +69,7 @@ function PayByQrCod() {
           Pay by Qr Code
         </Text>
         <Image
-          source={require("./qrcode.png")}
+          source={require("./paybyqrcode.png")}
           style={{
             width: 340,
             height: 276,

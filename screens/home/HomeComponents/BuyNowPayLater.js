@@ -72,7 +72,7 @@ function BuyNowPayLater() {
           Buy Now & Pay Later (BNPL)
         </Text>
         <Image
-          source={require("./wps.png")}
+          source={require("./Bnpl.png")}
           style={{
             width: 360,
             height: 296,

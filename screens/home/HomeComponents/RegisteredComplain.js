@@ -23,8 +23,6 @@ function RegisterComplain() {
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
-            height: 80,
-            width: 360,
           }}
         >
           <Image
@@ -33,7 +31,6 @@ function RegisterComplain() {
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
-              marginTop: 41,
             }}
           />
           <Text
@@ -43,7 +40,6 @@ function RegisterComplain() {
               lineHeight: 32,
               letterSpacing: 0.5,
               color: "#4B5050",
-              marginTop: 41,
             }}
           >
             Registered Complaints
@@ -56,7 +52,7 @@ function RegisterComplain() {
             width: 150,
             height: 48.529,
             marginLeft: 105,
-            marginTop: 32,
+            marginTop: 24,
             flexShrink: 0,
           }}
         />
@@ -75,10 +71,13 @@ function RegisterComplain() {
               marginLeft: 32,
               marginRight: 32,
               backgroundColor: "#FAFAFA",
-              marginBottom: 30,
+              marginBottom: 24,
+              borderRadius: 8,
             }}
           >
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <Text
                 style={{
                   width: 135,
@@ -88,6 +87,7 @@ function RegisterComplain() {
                   fontWeight: 500,
                   fontSize: 14,
                   lineHeight: 20,
+                  marginTop: 14,
                 }}
               >
                 Payment not working
@@ -96,20 +96,20 @@ function RegisterComplain() {
                 style={{
                   width: 64,
                   height: 16,
-                  marginLeft: 71,
                   letterSpacing: 0.5,
                   color: "#999999",
                   fontSize: 11,
                   fontWeight: 500,
                   textAlign: "right",
+                  marginTop: 12,
+                  marginRight: 12,
+                  marginBottom: 12,
                 }}
               >
                 02/08/2022
               </Text>
             </View>
-            <View
-              style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
-            >
+            <View style={{ flexDirection: "row" }}>
               <Text
                 style={{
                   width: 270,
@@ -118,109 +118,11 @@ function RegisterComplain() {
                   letterSpacing: 0.5,
                   fontWeight: 400,
                   lineHeight: 16,
-                  marginBottom: 22,
-                  color: "#4C4C4C",
-                  marginTop: 6,
-                }}
-              >
-                Lorem Ipsum is simply dummy text of the print and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy.
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  width: 72,
-                  height: 16,
-                  fontSize: 11,
-                  fontWeight: 500,
-                  lineHeight: 16,
-                  marginBottom: 18,
-                  marginLeft: 132,
-                  color: "#999999",
-                }}
-              >
-                Select Action
-              </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: 70,
-                  height: 28,
-                  borderRadius: 8,
-                  backgroundColor: "#E3EEDA",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 11,
-                    letterSpacing: 0.5,
-                    paddingRight: 12,
-                    paddingLeft: 12,
-                    paddingTop: 6,
-                    paddingBottom: 6,
-                  }}
-                >
-                  Resolve
-                </Text>
-              </View>
-            </View>
-          </View>
 
-          <View
-            style={{
-              width: 296,
-              height: 144,
-              marginTop: 24.47,
-              marginLeft: 32,
-              marginRight: 32,
-              backgroundColor: "#FAFAFA",
-              marginBottom: 20,
-            }}
-          >
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  width: 135,
-                  height: 20,
-                  marginLeft: 14,
-                  color: "#333333",
-                  fontWeight: 500,
-                  fontSize: 14,
-                  lineHeight: 20,
-                }}
-              >
-                App is crashing
-              </Text>
-              <Text
-                style={{
-                  width: 64,
-                  height: 16,
-                  marginLeft: 71,
-                  letterSpacing: 0.5,
-                  color: "#999999",
-                  fontSize: 11,
-                  fontWeight: 500,
-                  textAlign: "right",
-                }}
-              >
-                12/07/2022
-              </Text>
-            </View>
-            <View
-              style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
-            >
-              <Text
-                style={{
-                  width: 270,
-                  height: 48,
-                  fontSize: 12,
-                  letterSpacing: 0.5,
-                  fontWeight: 400,
-                  lineHeight: 16,
-                  marginBottom: 22,
                   color: "#4C4C4C",
                   marginTop: 6,
+                  marginLeft: 14,
+                  marginRight: 12,
                 }}
               >
                 Lorem Ipsum is simply dummy text of the print and typesetting
@@ -235,6 +137,7 @@ function RegisterComplain() {
                   fontSize: 11,
                   fontWeight: 500,
                   lineHeight: 16,
+                  marginTop: 22,
                   marginBottom: 18,
                   marginLeft: 132,
                   color: "#999999",
@@ -249,6 +152,8 @@ function RegisterComplain() {
                   height: 28,
                   borderRadius: 8,
                   backgroundColor: "#E3EEDA",
+                  marginBottom: 12,
+                  marginTop: 16,
                 }}
               >
                 <Text
@@ -274,10 +179,13 @@ function RegisterComplain() {
               marginLeft: 32,
               marginRight: 32,
               backgroundColor: "#FAFAFA",
-              marginBottom: 20,
+              marginBottom: 24,
+              borderRadius: 8,
             }}
           >
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <Text
                 style={{
                   width: 135,
@@ -287,28 +195,29 @@ function RegisterComplain() {
                   fontWeight: 500,
                   fontSize: 14,
                   lineHeight: 20,
+                  marginTop: 14,
                 }}
               >
-                App is too slow
+                Payment not working
               </Text>
               <Text
                 style={{
                   width: 64,
                   height: 16,
-                  marginLeft: 71,
                   letterSpacing: 0.5,
                   color: "#999999",
                   fontSize: 11,
                   fontWeight: 500,
                   textAlign: "right",
+                  marginTop: 12,
+                  marginRight: 12,
+                  marginBottom: 12,
                 }}
               >
-                09/07/2022
+                02/08/2022
               </Text>
             </View>
-            <View
-              style={{ flexDirection: "row", marginLeft: 14, marginRight: 12 }}
-            >
+            <View style={{ flexDirection: "row" }}>
               <Text
                 style={{
                   width: 270,
@@ -317,12 +226,15 @@ function RegisterComplain() {
                   letterSpacing: 0.5,
                   fontWeight: 400,
                   lineHeight: 16,
-                  marginBottom: 22,
+
                   color: "#4C4C4C",
                   marginTop: 6,
+                  marginLeft: 14,
+                  marginRight: 12,
                 }}
               >
-                No description
+                Lorem Ipsum is simply dummy text of the print and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy.
               </Text>
             </View>
             <View style={{ flexDirection: "row" }}>
@@ -333,6 +245,7 @@ function RegisterComplain() {
                   fontSize: 11,
                   fontWeight: 500,
                   lineHeight: 16,
+                  marginTop: 22,
                   marginBottom: 18,
                   marginLeft: 132,
                   color: "#999999",
@@ -347,6 +260,8 @@ function RegisterComplain() {
                   height: 28,
                   borderRadius: 8,
                   backgroundColor: "#E3EEDA",
+                  marginBottom: 12,
+                  marginTop: 16,
                 }}
               >
                 <Text
@@ -364,6 +279,116 @@ function RegisterComplain() {
               </View>
             </View>
           </View>
+          
+          <View
+            style={{
+              width: 296,
+              height: 144,
+              marginTop: 24.47,
+              marginLeft: 32,
+              marginRight: 32,
+              backgroundColor: "#FAFAFA",
+              marginBottom: 24,
+              borderRadius: 8,
+            }}
+          >
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text
+                style={{
+                  width: 135,
+                  height: 20,
+                  marginLeft: 14,
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 14,
+                  lineHeight: 20,
+                  marginTop: 14,
+                }}
+              >
+                Payment not working
+              </Text>
+              <Text
+                style={{
+                  width: 64,
+                  height: 16,
+                  letterSpacing: 0.5,
+                  color: "#999999",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  textAlign: "right",
+                  marginTop: 12,
+                  marginRight: 12,
+                  marginBottom: 12,
+                }}
+              >
+                02/08/2022
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 270,
+                  height: 48,
+                  fontSize: 12,
+                  letterSpacing: 0.5,
+                  fontWeight: 400,
+                  lineHeight: 16,
+
+                  color: "#4C4C4C",
+                  marginTop: 6,
+                  marginLeft: 14,
+                  marginRight: 12,
+                }}
+              >
+                Lorem Ipsum is simply dummy text of the print and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy.
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  width: 72,
+                  height: 16,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  lineHeight: 16,
+                  marginTop: 22,
+                  marginBottom: 18,
+                  marginLeft: 132,
+                  color: "#999999",
+                }}
+              >
+                Select Action
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: 70,
+                  height: 28,
+                  borderRadius: 8,
+                  backgroundColor: "#E3EEDA",
+                  marginBottom: 12,
+                  marginTop: 16,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: 0.5,
+                    paddingRight: 12,
+                    paddingLeft: 12,
+                    paddingTop: 6,
+                    paddingBottom: 6,
+                  }}
+                >
+                  Resolve
+                </Text>
+              </View>
+            </View>
+          </View>
+        
         </View>
         <View
           style={{
@@ -379,7 +404,9 @@ function RegisterComplain() {
               color: "#7f7f7f",
               width: 288,
               height: 20,
-              fontWeight: 400,
+              fontWeight: "400",
+              marginTop:48,
+              opacity: 0.800000011920929
             }}
           >
             ©2022 PayRow Company. All rights reserved
