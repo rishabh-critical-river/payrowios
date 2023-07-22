@@ -187,6 +187,7 @@ function DailyReport() {
               height: 38,
               backgroundColor: "#4B50500F",
               marginRight: 8,
+              borderRadius: 8,
             }}
           >
             <MaterialCommunityIcons
@@ -204,6 +205,7 @@ function DailyReport() {
               backgroundColor: "#4B50500F",
               marginLeft: 20,
               marginRight: 8,
+              borderRadius: 8,
             }}
           >
             <AntDesign
@@ -216,7 +218,7 @@ function DailyReport() {
           <Text>Download Report</Text>
         </View>
 
-        <View
+        {/* <View
           style={{
             borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
@@ -224,13 +226,21 @@ function DailyReport() {
             marginLeft: 32,
             marginRight: 32,
           }}
-        />
+        /> */}
         <View
           style={{
-            marginLeft: 50,
-            marginRight: 50,
+            borderBottomColor: "#4B505026",
+            borderBottomWidth: 1,
+            borderTopColor: "#4B505026",
+            borderTopWidth: 1,
+            marginTop: 25,
+            marginLeft: 32,
+            marginRight: 32,
             flexDirection: "row",
             marginTop: 9,
+            justifyContent: "center",
+            paddingTop: 9,
+            paddingBottom: 9,
           }}
         >
           <Text
@@ -277,7 +287,7 @@ function DailyReport() {
             Status
           </Text>
         </View>
-        <View
+        {/* <View
           style={{
             borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
@@ -285,8 +295,8 @@ function DailyReport() {
             marginLeft: 32,
             marginRight: 32,
           }}
-        />
-        <View style={styles.container}>
+        /> */}
+        <View>
           <FlatList
             data={data}
             renderItem={({ item, index }) => (

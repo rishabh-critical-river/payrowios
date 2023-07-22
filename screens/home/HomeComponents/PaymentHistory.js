@@ -329,6 +329,7 @@ function PaymentHistory({ navigation }) {
             backgroundColor: "white",
             color: "#7f7f7f",
             textAlign: "center",
+            marginTop: 14,
           }}
         >
           ©2022 PayRow Company. All rights reserved
