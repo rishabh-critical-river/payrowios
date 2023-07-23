@@ -82,7 +82,7 @@ const ListItem = ({ item, index }) => {
           fontSize: 11,
           alignSelf: "center",
           textAlign: "center",
-          width: 69,
+          width: 110,
         }}
       >
         {item.status}
@@ -295,7 +295,7 @@ function DailyReport() {
               alignSelf: "center",
               textAlign: "center",
 
-              width: 69,
+              width: 110,
             }}
           >
             Status
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     textAlign: "center",
 
     paddingTop: 10,

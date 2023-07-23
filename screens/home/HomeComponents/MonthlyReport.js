@@ -192,6 +192,7 @@ function MonthlyReport() {
               height: 38,
               backgroundColor: "#4B50500F",
               marginRight: 8,
+              borderRadius: 8,
             }}
           >
             <MaterialCommunityIcons
@@ -303,7 +304,7 @@ function MonthlyReport() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+
     backgroundColor: "white",
   },
   rowContainer: {
