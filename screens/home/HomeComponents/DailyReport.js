@@ -40,37 +40,39 @@ const ListItem = ({ item, index }) => {
           fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
-          marginRight: 45,
+          alignSelf: "center",
+          textAlign: "center",
+          width: 63,
         }}
       >
         {item.time}
       </Text>
-      <View style={styles.infoContainer}>
-        <Text
-          style={{
-            color: "#4B5050",
-            fontWeight: "400",
-            lineHeight: 16,
-            fontSize: 11,
-
-            marginRight: 60,
-          }}
-        >
-          {item.transNo}
-        </Text>
-        <Text
-          style={{
-            color: "#4B5050",
-            fontWeight: "400",
-            lineHeight: 16,
-            fontSize: 11,
-
-            marginRight: 40,
-          }}
-        >
-          {item.value}
-        </Text>
-      </View>
+      <Text
+        style={{
+          color: "#4B5050",
+          fontWeight: "400",
+          lineHeight: 16,
+          fontSize: 11,
+          alignSelf: "center",
+          textAlign: "center",
+          width: 90,
+        }}
+      >
+        {item.transNo}
+      </Text>
+      <Text
+        style={{
+          color: "#4B5050",
+          fontWeight: "400",
+          lineHeight: 16,
+          fontSize: 11,
+          alignSelf: "center",
+          textAlign: "center",
+          width: 67,
+        }}
+      >
+        {item.value}
+      </Text>
 
       <Text
         style={{
@@ -78,7 +80,9 @@ const ListItem = ({ item, index }) => {
           fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
-          marginRight: 19,
+          alignSelf: "center",
+          textAlign: "center",
+          width: 69,
         }}
       >
         {item.status}
@@ -187,6 +191,7 @@ function DailyReport() {
               height: 38,
               backgroundColor: "#4B50500F",
               marginRight: 8,
+              borderRadius: 8,
             }}
           >
             <MaterialCommunityIcons
@@ -204,6 +209,7 @@ function DailyReport() {
               backgroundColor: "#4B50500F",
               marginLeft: 20,
               marginRight: 8,
+              borderRadius: 8,
             }}
           >
             <AntDesign
@@ -216,7 +222,7 @@ function DailyReport() {
           <Text>Download Report</Text>
         </View>
 
-        <View
+        {/* <View
           style={{
             borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
@@ -224,13 +230,21 @@ function DailyReport() {
             marginLeft: 32,
             marginRight: 32,
           }}
-        />
+        /> */}
         <View
           style={{
-            marginLeft: 50,
-            marginRight: 50,
+            borderBottomColor: "#4B505026",
+            borderBottomWidth: 1,
+            borderTopColor: "#4B505026",
+            borderTopWidth: 1,
+            marginTop: 25,
+            marginLeft: 32,
+            marginRight: 32,
             flexDirection: "row",
+
             marginTop: 9,
+            paddingTop: 9,
+            paddingBottom: 9,
           }}
         >
           <Text
@@ -239,29 +253,35 @@ function DailyReport() {
               fontWeight: "500",
               lineHeight: 16,
               color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
+              width: 63,
             }}
           >
             Time
           </Text>
           <Text
             style={{
-              marginLeft: 40,
-              marginRight: 36,
               fontSize: 12,
               fontWeight: "500",
               lineHeight: 16,
               color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
+              width: 90,
             }}
           >
             Trans No.
           </Text>
           <Text
             style={{
-              marginRight: 40,
               fontSize: 12,
               fontWeight: "500",
               lineHeight: 16,
               color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
+              width: 67,
             }}
           >
             Value
@@ -272,12 +292,16 @@ function DailyReport() {
               fontWeight: "500",
               lineHeight: 16,
               color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
+
+              width: 69,
             }}
           >
             Status
           </Text>
         </View>
-        <View
+        {/* <View
           style={{
             borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
@@ -285,8 +309,8 @@ function DailyReport() {
             marginLeft: 32,
             marginRight: 32,
           }}
-        />
-        <View style={styles.container}>
+        /> */}
+        <View>
           <FlatList
             data={data}
             renderItem={({ item, index }) => (
@@ -320,8 +344,11 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    textAlign: "center",
 
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     marginLeft: 32,
     marginRight: 32,
   },

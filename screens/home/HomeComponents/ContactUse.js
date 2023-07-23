@@ -54,8 +54,8 @@ function ContactUs({ navigation }) {
           style={{
             width: 150,
             height: 48.529,
-            marginLeft: 105,
-            marginTop: 24,
+            alignSelf: "center",
+            marginTop: 32,
             flexShrink: 0,
           }}
         />
@@ -87,14 +87,7 @@ function ContactUs({ navigation }) {
           </Text>
         </View>
 
-        <View
-          style={{
-            alignSelf: "center",
-            marginTop: 24,
-            borderBottomWidth: 1,
-            borderBottomColor: "#999999",
-          }}
-        >
+        <View style={{ alignSelf: "center", marginTop: 24 }}>
           <Text
             style={{
               fontSize: 12,
@@ -114,22 +107,16 @@ function ContactUs({ navigation }) {
               fontWeight: "400",
               fontSize: 16,
               opacity: 0.7,
-              marginBottom: 4,
+              borderColor: "#99999",
+              borderBottomWidth: 1,
             }}
             placeholder="  Amount"
           >
-            Rishabh Raj
+            Binesh Walla
           </TextInput>
         </View>
 
-        <View
-          style={{
-            alignSelf: "center",
-            marginTop: 28,
-            borderBottomWidth: 1,
-            borderBottomColor: "#999999",
-          }}
-        >
+        <View style={{ alignSelf: "center", marginTop: 28 }}>
           <Text
             style={{
               fontSize: 12,
@@ -184,22 +171,26 @@ function ContactUs({ navigation }) {
                 opacity: 0.7,
                 marginBottom: 4,
                 // borderColor: "#99999",
+                // borderBottomWidth: 1,
               }}
               placeholder="  Amount"
             >
               561503987
             </TextInput>
           </View>
+          <View
+            //horizontal line
+            style={{
+              backgroundColor: "#99999",
+
+              width: 296,
+              height: 1,
+              opacity: 0.7,
+              alignSelf: "center",
+            }}
+          />
         </View>
-        <View
-          style={{
-            alignSelf: "center",
-            marginTop: 23,
-            marginBottom: 31,
-            borderBottomWidth: 1,
-            borderBottomColor: "#999999",
-          }}
-        >
+        <View style={{ alignSelf: "center", marginTop: 23, marginBottom: 31 }}>
           <Text
             style={{
               fontSize: 12,
@@ -219,7 +210,9 @@ function ContactUs({ navigation }) {
               fontWeight: "400",
               fontSize: 16,
               opacity: 0.7,
-              marginBottom: 4,
+
+              borderColor: "#99999",
+              borderBottomWidth: 1,
             }}
             placeholder="  Amount"
           >
@@ -289,54 +282,53 @@ function ContactUs({ navigation }) {
           >
             Maximum 150 words
           </Text>
-        </View>
-      </View>
-      <View style={{ backgroundColor: "white" }}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("registercomplain");
-          }}
-          style={{ alignItems: "center" }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              backgroundColor: "#4B5050",
-              width: 296,
-              height: 48,
-              gap: 181,
-
-              borderRadius: 8,
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: 11,
-              marginTop: 16,
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("registercomplain");
             }}
           >
-            <Text
-              style={{
-                fontSize: 16,
-                paddingLeft: 16,
-                fontWeight: "500",
-                lineHeight: 24,
-                justifyContent: "center",
-                color: "white",
-                letterSpacing: 0.1,
-              }}
-            >
-              SEND
-            </Text>
             <View
               style={{
-                justifyContent: "center",
+                flexDirection: "row",
+                backgroundColor: "#4B5050",
+                width: 296,
+                height: 48,
+                gap: 181,
+                marginRight: 32,
+                marginLeft: 32,
+                borderRadius: 8,
                 alignItems: "center",
-                marginRight: 16,
+                justifyContent: "center",
+                marginBottom: 11,
+                marginTop: 16,
               }}
             >
-              <AntDesign name="arrowright" size={20} color="white" />
+              <Text
+                style={{
+                  fontSize: 16,
+                  paddingLeft: 16,
+                  fontWeight: "500",
+                  lineHeight: 24,
+                  justifyContent: "center",
+                  color: "white",
+                  letterSpacing: 0.1,
+                }}
+              >
+                SEND
+              </Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: 16,
+                }}
+              >
+                <AntDesign name="arrowright" size={20} color="white" />
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
+
         <View
           style={{
             backgroundColor: "white",

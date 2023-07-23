@@ -197,9 +197,10 @@ function InvoiceRecall({ navigation }) {
               width: 296,
               height: 48,
               justifyContent: "center",
+              alignSelf: "center",
             }}
           >
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", alignSelf: "center" }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -210,6 +211,7 @@ function InvoiceRecall({ navigation }) {
                   color: "white",
                   letterSpacing: 0.1,
                   flex: 1,
+                  alignSelf: "center",
                 }}
               >
                 SEARCH
