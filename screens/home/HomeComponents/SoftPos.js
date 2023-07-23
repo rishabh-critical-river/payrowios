@@ -48,178 +48,180 @@ function SoftPos() {
             About Us
           </Text>
         </View>
-        <Image
-          source={require("./Lables.png")}
-          style={{
-            width: 140,
-            height: 28,
-            marginLeft: 31,
-          }}
-        />
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "500",
-            lineHeight: 32,
-            letterSpacing: 0.5,
-            color: "#4B5050",
-            marginLeft: 32,
-            marginTop: 14,
-            marginBottom: 16,
-          }}
-        >
-          Soft POS
-        </Text>
-        <Image
-          source={require("./softpos.png")}
-          style={{
-            width: 360,
-            height: 296,
-            marginTop: 16,
-            alignSelf: "center",
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "coloumn",
-            gap: 8,
-            marginLeft: 32,
-            width: 296,
-            height: 312,
-            marginTop: 24,
-            marginRight: 32,
-          }}
-        >
+        <ScrollView>
+          <Image
+            source={require("./Lables.png")}
+            style={{
+              width: 140,
+              height: 28,
+              marginLeft: 31,
+            }}
+          />
           <Text
             style={{
-              color: "#808080",
-              fontSize: 16,
-              lineHeight: 24,
+              fontSize: 20,
               fontWeight: "500",
+              lineHeight: 32,
+              letterSpacing: 0.5,
+              color: "#4B5050",
+              marginLeft: 32,
+              marginTop: 14,
+              marginBottom: 16,
             }}
           >
-            PayRow Net Provides{" "}
+            Soft POS
           </Text>
+          <Image
+            source={require("./softpos.png")}
+            style={{
+              width: 360,
+              height: 296,
+              marginTop: 16,
+              alignSelf: "center",
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "coloumn",
+              gap: 8,
+              marginLeft: 32,
+              width: 296,
+              height: 312,
+              marginTop: 24,
+              marginRight: 32,
+            }}
+          >
+            <Text
+              style={{
+                color: "#808080",
+                fontSize: 16,
+                lineHeight: 24,
+                fontWeight: "500",
+              }}
+            >
+              PayRow Net Provides{" "}
+            </Text>
 
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Digital eKYC
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Support 8 language
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Provide registration category
-            </Text>
-          </View>
-          <View style={{ flexDirection: "column", marginLeft: 32 }}>
-            <Text>a. Store Manager POS</Text>
-            <Text>b. Delivery POS</Text>
-            <Text>c. Staff POS</Text>
-          </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Digital eKYC
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Support 8 language
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Provide registration category
+              </Text>
+            </View>
+            <View style={{ flexDirection: "column", marginLeft: 32 }}>
+              <Text>a. Store Manager POS</Text>
+              <Text>b. Delivery POS</Text>
+              <Text>c. Staff POS</Text>
+            </View>
 
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Authorized authentication partner
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Authorized authentication partner
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Cash Invoice
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Invoice recall
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Dashboard
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  lineHeight: 20,
+                  fontWeight: "500",
+                  letterSpacing: 0.1,
+                  color: "#333333",
+                }}
+              >
+                Support center
+              </Text>
+            </View>
           </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Cash Invoice
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Invoice recall
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Dashboard
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ marginRight: 5, marginLeft: 5 }}>•</Text>
-            <Text
-              style={{
-                fontSize: 14,
-                lineHeight: 20,
-                fontWeight: "500",
-                letterSpacing: 0.1,
-                color: "#333333",
-              }}
-            >
-              Support center
-            </Text>
-          </View>
-        </View>
+        </ScrollView>
       </View>
       <View style={{ backgroundColor: "white" }}>
         <Text
