@@ -28,7 +28,7 @@ function InvoiceRecallthree({ navigation }) {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: "white" }}>
         <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
           <View
             style={{
@@ -347,251 +347,251 @@ function InvoiceRecallthree({ navigation }) {
             -- Thank You --
           </Text>
         </View>
-        <View style={{ backgroundColor: "white" }}>
-          <TouchableOpacity
-            style={styles.goToSummaryButton}
-            onPress={toggleModal}
-          >
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>SHARE CUSTOMER COPY</Text>
-              <View style={styles.arrowIcon}>
-                <Entypo name="share" size={22} color="white" />
-              </View>
+      </ScrollView>
+      <View style={{ backgroundColor: "white" }}>
+        <TouchableOpacity
+          style={styles.goToSummaryButton}
+          onPress={toggleModal}
+        >
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>SHARE CUSTOMER COPY</Text>
+            <View style={styles.arrowIcon}>
+              <Entypo name="share" size={22} color="white" />
             </View>
-          </TouchableOpacity>
-          <Modal
-            isVisible={isModalVisible}
+          </View>
+        </TouchableOpacity>
+        <Modal
+          isVisible={isModalVisible}
+          style={{
+            justifyContent: "flex-end",
+            margin: 0,
+          }}
+        >
+          <View
             style={{
-              justifyContent: "flex-end",
-              margin: 0,
+              backgroundColor: "white",
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              flex: 0.38,
             }}
           >
-            <View
-              style={{
-                backgroundColor: "white",
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                flex: 0.38,
-              }}
-            >
-              <View style={{ flex: 1 }}>
-                <Text
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 500,
+                  lineHeight: 24,
+                  color: "#4B5050",
+                  marginLeft: 32,
+                  marginTop: 28,
+                }}
+              >
+                Share Customer Copy
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginLeft: 30,
+                  marginRight: 150,
+                  marginTop: 16,
+                }}
+              >
+                <Image
+                  source={require("./Active.png")}
                   style={{
-                    fontSize: 16,
-                    fontWeight: 500,
-                    lineHeight: 24,
-                    color: "#4B5050",
-                    marginLeft: 32,
-                    marginTop: 28,
+                    width: 52,
+                    height: 52,
                   }}
-                >
-                  Share Customer Copy
-                </Text>
-                <View
+                />
+                <Image
+                  source={require("./Normal1.png")}
                   style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    marginLeft: 30,
-                    marginRight: 150,
-                    marginTop: 16,
+                    width: 52,
+                    height: 52,
                   }}
-                >
-                  <Image
-                    source={require("./Active.png")}
-                    style={{
-                      width: 52,
-                      height: 52,
-                    }}
-                  />
-                  <Image
-                    source={require("./Normal1.png")}
-                    style={{
-                      width: 52,
-                      height: 52,
-                    }}
-                  />
-                  <Image
-                    source={require("./Normal2.png")}
-                    style={{
-                      width: 52,
-                      height: 52,
-                    }}
-                  />
-                </View>
-                <View style={{ marginLeft: 32, marginTop: 22 }}>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      lineHeight: 12,
-                      fontWeight: "400",
-                      color: "#333333",
-                      opacity: 0.800000011920929,
-                      marginBottom: 7,
-                    }}
-                  >
-                    Contact Number
-                  </Text>
-                  <View style={{ flexDirection: "row" }}>
-                    <Image
-                      source={require("./UAE.png")}
-                      style={{
-                        width: 24,
-                        height: 24,
-                        marginRight: 4,
-                      }}
-                    />
-                    <Image
-                      source={require("./IconPlacholder.png")}
-                      style={{
-                        width: 20,
-                        height: 20,
-                        marginRight: 4,
-                      }}
-                    />
-                    <TextInput
-                      style={{
-                        color: "#4B5050",
-                        fontWeight: "500",
-                        fontSize: 22,
-                        width: 50,
-                        height: 24,
-                        opacity: 0.7,
-                        marginRight: 4,
-                      }}
-                      placeholder="Amount"
-                    >
-                      +971
-                    </TextInput>
-
-                    <TextInput
-                      style={{
-                        color: "#4B5050",
-                        fontWeight: "500",
-                        fontSize: 22,
-                        width: 150,
-                        height: 24,
-                        opacity: 0.7,
-                        marginRight: 4,
-                        // borderColor: "#99999",
-                        // borderBottomWidth: 1,
-                      }}
-                      placeholder="  Amount"
-                    >
-                      561503987
-                    </TextInput>
-                  </View>
-                  <View
-                    //horizontal line
-                    style={{
-                      backgroundColor: "#99999",
-
-                      width: 296,
-                      height: 1,
-                      opacity: 0.7,
-                      alignSelf: "center",
-                    }}
-                  />
-                </View>
-                <View
+                />
+                <Image
+                  source={require("./Normal2.png")}
                   style={{
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#4B5050",
-                    width: 310,
-                    marginLeft: 32,
-                    marginTop: 8,
+                    width: 52,
+                    height: 52,
                   }}
                 />
               </View>
-              <TouchableOpacity
-                style={{
-                  marginLeft: 32,
-
-                  width: "80%",
-                  marginBottom: 40,
-                  marginTop: 25,
-                }}
-                onPress={() => {
-                  navigation.navigate("ConfirmationInvoice");
-                  toggleModal();
-                }}
-              >
-                <View style={styles.buttonContent}>
-                  <Text style={styles.buttonText}>SHARE</Text>
-                  <View style={styles.arrowIcon}>
-                    <AntDesign name="arrowright" size={22} color="white" />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </Modal>
-          <TouchableOpacity
-            style={styles.resendCode}
-            onPress={() => {
-              navigation.navigate("HomeScreen");
-            }}
-          >
-            <View
-              style={{
-                borderWidth: 0.5,
-                borderColor: "#B2B2B2",
-                borderRadius: 8,
-                backgroundColor: "#FFFFFF",
-
-                height: 48,
-                justifyContent: "center",
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
+              <View style={{ marginLeft: 32, marginTop: 22 }}>
                 <Text
                   style={{
-                    fontSize: 16,
-                    paddingLeft: 16,
-                    fontWeight: "500",
-                    lineHeight: 24,
-                    justifyContent: "center",
-                    color: "#4C4C4C",
-                    letterSpacing: 0.1,
-                    flex: 1,
+                    fontSize: 12,
+                    lineHeight: 12,
+                    fontWeight: "400",
+                    color: "#333333",
+                    opacity: 0.800000011920929,
+                    marginBottom: 7,
                   }}
                 >
-                  HOME
+                  Contact Number
                 </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Image
+                    source={require("./UAE.png")}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      marginRight: 4,
+                    }}
+                  />
+                  <Image
+                    source={require("./IconPlacholder.png")}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginRight: 4,
+                    }}
+                  />
+                  <TextInput
+                    style={{
+                      color: "#4B5050",
+                      fontWeight: "500",
+                      fontSize: 22,
+                      width: 50,
+                      height: 24,
+                      opacity: 0.7,
+                      marginRight: 4,
+                    }}
+                    placeholder="Amount"
+                  >
+                    +971
+                  </TextInput>
+
+                  <TextInput
+                    style={{
+                      color: "#4B5050",
+                      fontWeight: "500",
+                      fontSize: 22,
+                      width: 150,
+                      height: 24,
+                      opacity: 0.7,
+                      marginRight: 4,
+                      // borderColor: "#99999",
+                      // borderBottomWidth: 1,
+                    }}
+                    placeholder="  Amount"
+                  >
+                    561503987
+                  </TextInput>
+                </View>
+                <View
+                  //horizontal line
+                  style={{
+                    backgroundColor: "#99999",
+
+                    width: 296,
+                    height: 1,
+                    opacity: 0.7,
+                    alignSelf: "center",
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: "#4B5050",
+                  width: 310,
+                  marginLeft: 32,
+                  marginTop: 8,
+                }}
+              />
+            </View>
+            <TouchableOpacity
+              style={{
+                marginLeft: 32,
+
+                width: "80%",
+                marginBottom: 40,
+                marginTop: 25,
+              }}
+              onPress={() => {
+                navigation.navigate("ConfirmationInvoice");
+                toggleModal();
+              }}
+            >
+              <View style={styles.buttonContent}>
+                <Text style={styles.buttonText}>SHARE</Text>
+                <View style={styles.arrowIcon}>
+                  <AntDesign name="arrowright" size={22} color="white" />
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <TouchableOpacity
+          style={styles.resendCode}
+          onPress={() => {
+            navigation.navigate("HomeScreen");
+          }}
+        >
+          <View
+            style={{
+              borderWidth: 0.5,
+              borderColor: "#B2B2B2",
+              borderRadius: 8,
+              backgroundColor: "#FFFFFF",
+
+              height: 48,
+              justifyContent: "center",
+            }}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  paddingLeft: 16,
+                  fontWeight: "500",
+                  lineHeight: 24,
+                  justifyContent: "center",
+                  color: "#4C4C4C",
+                  letterSpacing: 0.1,
+                  flex: 1,
+                }}
+              >
+                HOME
+              </Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: 16,
+                }}
+              >
                 <View
                   style={{
-                    justifyContent: "center",
+                    flexDirection: "row",
                     alignItems: "center",
-                    marginRight: 16,
                   }}
                 >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <AntDesign name="arrowright" size={24} color="#4C4C4C" />
-                  </View>
+                  <AntDesign name="arrowright" size={24} color="#4C4C4C" />
                 </View>
               </View>
             </View>
-          </TouchableOpacity>
-          <Text
-            style={{
-              fontSize: 14,
-              backgroundColor: "white",
-              color: "#7f7f7f",
-              textAlign: "center",
-              // paddingBottom: 15,
-              fontWeight: "400",
-              lineHeight: 20,
-              letterSpacing: 0.25,
-              marginTop: 16,
-            }}
-          >
-            ©2022 PayRow Company. All rights reserved
-          </Text>
-        </View>
-      </ScrollView>
+          </View>
+        </TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 14,
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
+            // paddingBottom: 15,
+            fontWeight: "400",
+            lineHeight: 20,
+            letterSpacing: 0.25,
+            marginTop: 16,
+          }}
+        >
+          ©2022 PayRow Company. All rights reserved
+        </Text>
+      </View>
     </>
   );
 }

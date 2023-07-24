@@ -12,25 +12,23 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import axios from "axios";
 import PaymentSummary from "./PaymentSummary";
 
-const countries = [
-  { country: "Stems", code: "93", iso: "AF" },
-  { country: "Leaves", code: "355", iso: "AL" },
-  { country: "Roots", code: "213", iso: "DZ" },
-  { country: "Seeds", code: "1-684", iso: "AS" },
-];
-
 const categories = [
   {
+    id: 1,
     name: "Fruits & Vegetables",
     items: [
-      { name: "Apple", price: 1.99 },
-      { name: "Banana", price: 0.99 },
-      { name: "Carrot", price: 0.49 },
+      { id: 1, name: "Apple", price: 1.99, quantity: 0 },
+      { id: 2, name: "Banana", price: 0.9, quantity: 0 },
+      { id: 3, name: "Carrot", price: 0.49, quantity: 0 },
     ],
   },
   // Add more categories as needed
@@ -43,7 +41,7 @@ function AddItem({ navigation }) {
   const [clickedBakery, setClickedBakery] = useState(false);
   const [clickedSweet, setClickedSweet] = useState(false);
   const [clickedDairy, setClickedDairy] = useState(false);
-  const [data, setData] = useState(countries);
+
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedMeat, setSelectedMeat] = useState([]);
   const [selectedBakery, setSelectedBakery] = useState([]);
@@ -56,6 +54,7 @@ function AddItem({ navigation }) {
   const [scannedData, setScannedData] = useState(null);
   const [isScannerVisible, setIsScannerVisible] = useState(false);
   const [orderDetails, setOrderDetails] = useState(null);
+  const [itemsWithQuantity, setItemsWithQuantity] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -63,6 +62,16 @@ function AddItem({ navigation }) {
       setHasPermission(status === "granted");
     })();
   }, []);
+
+  useEffect(() => {
+    const initialItems = categories.reduce((acc, category) => {
+      const itemsWithInitialQuantity = category.items.map((item) => ({
+        ...item,
+      }));
+      return [...acc, ...itemsWithInitialQuantity];
+    }, []);
+    setItemsWithQuantity(initialItems);
+  }, [categories]);
 
   const apiUrl =
     "https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/000000024279";
@@ -131,6 +140,31 @@ function AddItem({ navigation }) {
     setSelectedItems(updatedItems);
   };
 
+  const handleIncrement = (item) => {
+    setItemsWithQuantity((prevItems) => {
+      console.log("prevItems", prevItems);
+      const updatedItems = prevItems.map((currentItem) => {
+        if (currentItem.id === item.id) {
+          console.log("currentItem", currentItem);
+          return { ...currentItem, quantity: currentItem.quantity + 1 };
+        }
+        return currentItem;
+      });
+      return updatedItems;
+    });
+  };
+
+  const handleDecrement = (item) => {
+    setItemsWithQuantity((prevItems) => {
+      const updatedItems = prevItems.map((currentItem) => {
+        if (currentItem.id === item.id && currentItem.quantity > 0) {
+          return { ...currentItem, quantity: currentItem.quantity - 1 };
+        }
+        return currentItem;
+      });
+      return updatedItems;
+    });
+  };
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -233,7 +267,7 @@ function AddItem({ navigation }) {
               )}
               <Image
                 source={
-                  selectedCategory === category
+                  selectedCategory?.id === category.id
                     ? require("./upload.png")
                     : require("./dropdown.png")
                 }
@@ -241,12 +275,12 @@ function AddItem({ navigation }) {
               />
             </TouchableOpacity>
           ))}
-          {selectedCategory && (
+          {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
             <View style={{ marginTop: 20, alignSelf: "center", width: "80%" }}>
               <FlatList
-                data={selectedCategory.items}
+                data={itemsWithQuantity}
                 renderItem={({ item }) => (
-                  <TouchableOpacity
+                  <View
                     style={styles.itemContainer}
                     onPress={() => handleItemPress(item)}
                   >
@@ -300,23 +334,27 @@ function AddItem({ navigation }) {
                             marginLeft: 10,
                           }}
                         >
-                          <Image
-                            style={{
-                              width: 20,
-                              height: 20,
-                            }}
-                            source={require("./plusicon.png")}
-                          />
+                          <TouchableOpacity
+                            onPress={() => handleDecrement(item)}
+                          >
+                            <FontAwesome
+                              name="minus-circle"
+                              size={20}
+                              color="#4B5050"
+                            />
+                          </TouchableOpacity>
 
-                          <Text>1</Text>
+                          <Text>{item.quantity}</Text>
 
-                          <Image
-                            style={{
-                              width: 20,
-                              height: 20,
-                            }}
-                            source={require("./plusicon.png")}
-                          />
+                          <TouchableOpacity
+                            onPress={() => handleIncrement(item)}
+                          >
+                            <FontAwesome
+                              name="plus-circle"
+                              size={20}
+                              color="#4B5050"
+                            />
+                          </TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: "row" }}>
                           <Text
@@ -340,14 +378,14 @@ function AddItem({ navigation }) {
                             }}
                           >
                             {" "}
-                            {item.price} AED
+                            {item.price * (item.quantity || 1)} AED
                           </Text>
                         </View>
                       </View>
                     </View>
 
                     {/* You can add additional item content here */}
-                  </TouchableOpacity>
+                  </View>
                 )}
               />
             </View>
@@ -367,7 +405,7 @@ function AddItem({ navigation }) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("paymentSummary");
+            navigation.navigate("paymentSummary", { orderDetails });
           }}
         >
           <View style={styles.buttonContent}>

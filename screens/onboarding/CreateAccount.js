@@ -33,7 +33,7 @@ function CreateAccount({ navigation }) {
             alignSelf: "center",
           }}
         >
-          Enter Authentication Code
+          Enter PIN
         </Text>
         <View
           style={{
@@ -43,27 +43,14 @@ function CreateAccount({ navigation }) {
 
             alignSelf: "center",
           }}
-        >
-          <Text
-            style={{
-              color: "#4B5050B2",
-              fontSize: 14,
-              fontWeight: "400",
-              lineHeight: 20,
-              letterSpacing: 0.25,
-              alignSelf: "center",
-            }}
-          >
-            SMS code sent to verify phone number
-          </Text>
-        </View>
+        ></View>
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             marginLeft: 52,
             marginRight: 52,
-            marginTop: 30,
+            marginTop: 10,
           }}
         >
           <TextInput
@@ -167,7 +154,7 @@ function CreateAccount({ navigation }) {
                   flex: 1,
                 }}
               >
-                00:45
+                Forgot PIN
               </Text>
               <View
                 style={{
@@ -182,8 +169,7 @@ function CreateAccount({ navigation }) {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={{ marginRight: 6 }}>Resend Code</Text>
-                  <AntDesign name="arrowright" size={22} color="#4C4C4C" />
+                  <AntDesign name="right" size={16} color="#4C4C4C" />
                 </View>
               </View>
             </View>
