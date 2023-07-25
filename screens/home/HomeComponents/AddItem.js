@@ -86,9 +86,6 @@ function AddItem({ navigation }) {
       });
 
       setOrderDetails(response.data);
-
-      // Log the response data
-      console.log("Response:", response.data);
     } catch (error) {
       console.error(error);
     }
@@ -142,10 +139,8 @@ function AddItem({ navigation }) {
 
   const handleIncrement = (item) => {
     setItemsWithQuantity((prevItems) => {
-      console.log("prevItems", prevItems);
       const updatedItems = prevItems.map((currentItem) => {
         if (currentItem.id === item.id) {
-          console.log("currentItem", currentItem);
           return { ...currentItem, quantity: currentItem.quantity + 1 };
         }
         return currentItem;
@@ -256,15 +251,23 @@ function AddItem({ navigation }) {
               <Text style={{ fontWeight: "600", flex: 1 }}>
                 {category.name}
               </Text>
-              {selectedItems.length > 0 && (
+
+              {itemsWithQuantity.reduce((acc, item) => acc + item.quantity, 0) >
+                0 && (
                 <View style={styles.badge}>
                   <Text style={{ textAlign: "center" }}>
-                    {selectedItems.length === 1
-                      ? selectedItems.length + " item"
-                      : `+${selectedItems.length} items`}
+                    +
+                    {itemsWithQuantity?.length > 0 &&
+                      selectedCategory?.id === 1 &&
+                      itemsWithQuantity.reduce(
+                        (acc, item) => acc + item.quantity,
+                        0
+                      )}{" "}
+                    items
                   </Text>
                 </View>
               )}
+
               <Image
                 source={
                   selectedCategory?.id === category.id

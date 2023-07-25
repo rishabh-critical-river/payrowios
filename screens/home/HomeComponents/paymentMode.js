@@ -131,9 +131,7 @@ function PayByQrCode({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("TapCard");
-            // navigation.navigate("cashPay");
-            // navigation.navigate("QrCodePay");
+            navigation.navigate("QrCodePay");
           }}
         >
           <View
