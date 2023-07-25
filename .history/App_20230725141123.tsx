@@ -52,7 +52,6 @@ import PaymentDetails from "./screens/home/HomeComponents/PaymentDetails";
 import ConfirmationInvoice from "./screens/home/HomeComponents/ConfirmationInvoice";
 import CashPay from "./screens/home/HomeComponents/CashPay";
 import QRCode from "./screens/home/HomeComponents/QrCode";
-import Login from "./screens/onboarding/login";
 // import SoftPose from "./screens/home/HomeComponents/SoftPose";
 const Stack = createNativeStackNavigator();
 
@@ -68,8 +67,8 @@ export default function App() {
             options={{ headerShown: false }}
           />
             <Stack.Screen
-            name="Login"
-            component={Login}
+            name="CreAccountate "
+            component={CreateAccount}
             options={{ headerShown: false }}
           />
           <Stack.Screen

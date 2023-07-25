@@ -108,7 +108,7 @@ function LanguageSelection({ navigation }: any) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("Login");
+            navigation.navigate("Create Account");
           }}
         >
           <View

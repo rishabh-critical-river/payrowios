@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-function LanguageSelection({ navigation }: any) {
+function Login({ navigation }: any) {
   return (
     <>
       <View style={styles.container}>
@@ -108,7 +108,7 @@ function LanguageSelection({ navigation }: any) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("Login");
+            navigation.navigate("Create Account");
           }}
         >
           <View
@@ -167,7 +167,7 @@ function LanguageSelection({ navigation }: any) {
   );
 }
 
-export default LanguageSelection;
+export default Login;
 const styles = StyleSheet.create({
   container: {
     display: "flex",
