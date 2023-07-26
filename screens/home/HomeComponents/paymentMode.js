@@ -4,9 +4,9 @@ import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const countries = [
   { country: "TAP TO PAY", route: "TapCard" },
-  { country: "CASH PAYMENT", route: "CashPayment" },
+  { country: "CASH PAYMENT", route: "cashPay" },
   { country: "PAY BY LINK", route: "PayByLink" },
-  { country: "PAY BY QR CODE", route: "PayByQrCode" }, // Update the route for this option
+  { country: "PAY BY QR CODE", route: "QrCodePay" }, // Update the route for this option
   { country: "PAYMENT GATEWAY", route: "PaymentGateway" },
 ];
 
