@@ -27,8 +27,8 @@ const categories = [
     name: "Fruits & Vegetables",
     items: [
       { id: 1, name: "Apple", price: 1.99, quantity: 0 },
-      { id: 2, name: "Banana", price: 0.9, quantity: 0 },
-      { id: 3, name: "Carrot", price: 0.49, quantity: 0 },
+      { id: 2, name: "Banana", price: 0.19, quantity: 0 },
+      { id: 3, name: "Carrot", price: 0.79, quantity: 0 },
     ],
   },
   // Add more categories as needed
