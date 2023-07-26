@@ -120,9 +120,7 @@ function CreateAccount({ navigation }) {
         >
           <View style={styles.buttonContent}>
             <Text style={styles.buttonText}
-            onPress={() => {
-              navigation.navigate("CreatePin");
-            }}
+            
 
             >SUBMIT</Text>
             <View style={styles.arrowIcon}>
@@ -134,7 +132,7 @@ function CreateAccount({ navigation }) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            navigation.navigate("");
+            navigation.navigate("HomeScreen");
           }}
         >
           <View

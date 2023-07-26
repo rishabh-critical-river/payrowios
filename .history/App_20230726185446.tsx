@@ -54,8 +54,6 @@ import CashPay from "./screens/home/HomeComponents/CashPay";
 import QRCode from "./screens/home/HomeComponents/QrCode";
 import Login from "./screens/onboarding/login";
 import CreatePin from "./screens/onboarding/Createpin";
-import ReEnterPin from "./screens/onboarding/Reenterpin";
-import EnterPins from "./screens/onboarding/Enterpin";
 // import SoftPose from "./screens/home/HomeComponents/SoftPose";
 const Stack = createNativeStackNavigator();
 
@@ -81,13 +79,8 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="ReEnterPin"
-            component={ReEnterPin}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="EnterPin"
-            component={EnterPin}
+            name="CreatePin"
+            component={CreatePin}
             options={{ headerShown: false }}
           />
           <Stack.Screen
@@ -116,8 +109,8 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="EnterPins"
-            component={EnterPins}
+            name="EnterPin"
+            component={EnterPin}
             options={{ headerShown: false }}
           />
           <Stack.Screen

@@ -16,7 +16,6 @@ import {
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar } from "react-native-elements";
-import PaymentSummary from "./PaymentSummary";
 const countries = [
   { country: "TAP TO PAY" },
   { country: "CASH PAYMENT" },
@@ -24,7 +23,7 @@ const countries = [
   { country: "PAY BY QR CODE" },
   { country: "PAYMENT GATEWAY" },
 ];
-function PayByQrCode({ navigation }) {
+function PaymentMode({ navigation }) {
   const [selectedMeat, setSelectedMeat] = useState([]);
   const [data, setData] = useState(countries);
   return (
@@ -131,7 +130,7 @@ function PayByQrCode({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("TapCard");
+            navigation.navigate("");
           }}
         >
           <View
@@ -141,8 +140,8 @@ function PayByQrCode({ navigation }) {
               borderColor: "#4B5050",
               backgroundColor: "#4B5050",
               borderRadius: 8,
-              marginBottom: 35,
-              width: "80%",
+              marginBottom: 16,
+              width: 296,
               height: 52,
               justifyContent: "center",
             }}
@@ -211,57 +210,23 @@ function PayByQrCode({ navigation }) {
             </View>
           </View>
         </TouchableOpacity>
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              marginLeft: 75,
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: 17,
-            }}
-          >
-            <Image
-              source={require("../fab.png")}
-              style={{
-                width: 72.15,
-                height: 42,
-              }}
-            />
-            <Image
-              source={require("../visa.png")}
-              style={{
-                width: 52.15,
-                height: 33,
-              }}
-            />
-            <Image
-              source={require("../mastercard.png")}
-              style={{
-                width: 51.62,
-                height: 32,
-                marginRight: 75,
-              }}
-            />
-          </View>
-          <Text
-            style={{
-              fontSize: 12,
-              backgroundColor: "white",
-              color: "#7f7f7f",
-              textAlign: "center",
-              paddingBottom: 15,
-            }}
-          >
-            ©2022 PayRow Company. All rights reserved
-          </Text>
-        </View>
+        <Text
+          style={{
+            fontSize: 12,
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
+            paddingBottom: 15,
+          }}
+        >
+          ©2022 PayRow Company. All rights reserved
+        </Text>
       </View>
     </>
   );
 }
 
-export default PayByQrCode;
+export default PaymentMode;
 const styles = StyleSheet.create({
   button: {
     cursor: "pointer",

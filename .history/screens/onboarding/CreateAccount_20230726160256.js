@@ -134,7 +134,7 @@ function CreateAccount({ navigation }) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            navigation.navigate("");
+            navigation.navigate("HomeScreen");
           }}
         >
           <View

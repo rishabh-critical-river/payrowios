@@ -44,9 +44,7 @@ function CreateAccount({ navigation }) {
             alignSelf: "center",
           }}
         >
-          <Text style={{ alignSelf: "center", color: "#666666" }}>
-            SMS code sent to verify phone number
-          </Text>
+          <Text style>SMS code sent to verify phone number</Text>
         </View>
         <View
           style={{
@@ -119,12 +117,7 @@ function CreateAccount({ navigation }) {
           }}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}
-            onPress={() => {
-              navigation.navigate("CreatePin");
-            }}
-
-            >SUBMIT</Text>
+            <Text style={styles.buttonText}>SUBMIT</Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
@@ -134,7 +127,7 @@ function CreateAccount({ navigation }) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            navigation.navigate("");
+            navigation.navigate("HomeScreen");
           }}
         >
           <View
@@ -143,6 +136,8 @@ function CreateAccount({ navigation }) {
               borderColor: "#B2B2B2",
               borderRadius: 8,
               backgroundColor: "#FFFFFF",
+
+              marginBottom: 16,
 
               height: 48,
               justifyContent: "center",
@@ -186,10 +181,10 @@ function CreateAccount({ navigation }) {
         <Image
           source={require("../../src/Images/getStarted.png")}
           style={{
-            width: 296,
-            height: 257,
+            width: 312,
+            height: 230,
             alignSelf: "center",
-            marginTop: 36,
+            marginTop: 40,
           }}
         />
       </View>
@@ -197,9 +192,9 @@ function CreateAccount({ navigation }) {
         style={{
           fontSize: 12,
           backgroundColor: "white",
-          color: "#4B5050",
+          color: "#4B5050CC",
           textAlign: "center",
-          paddingBottom: 16,
+          paddingBottom: 15,
         }}
       >
         ©2022 PayRow Company. All rights reserved

@@ -12,7 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 
-function CreateAccount({ navigation }) {
+function CreatePin({ navigation }) {
   const et1 = useRef();
   const et2 = useRef();
   const et3 = useRef();
@@ -120,10 +120,6 @@ function CreateAccount({ navigation }) {
         >
           <View style={styles.buttonContent}>
             <Text style={styles.buttonText}
-            onPress={() => {
-              navigation.navigate("CreatePin");
-            }}
-
             >SUBMIT</Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
@@ -134,7 +130,7 @@ function CreateAccount({ navigation }) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            navigation.navigate("");
+            navigation.navigate("HomeScreen");
           }}
         >
           <View
@@ -409,4 +405,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateAccount;
+export default CreatePin;

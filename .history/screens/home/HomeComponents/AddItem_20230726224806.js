@@ -226,9 +226,7 @@ function AddItem({ navigation }) {
             textAlign: "center",
             fontWeight: "400",
             fontSize: 22,
-            marginTop: 36,
-            color:"#333333",
-            lineHeight:28,
+            marginTop: 3,
           }}
         >
           Select Product

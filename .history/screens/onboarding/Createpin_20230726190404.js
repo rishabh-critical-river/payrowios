@@ -12,7 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 
-function CreateAccount({ navigation }) {
+function CreatePin({ navigation }) {
   const et1 = useRef();
   const et2 = useRef();
   const et3 = useRef();
@@ -33,9 +33,9 @@ function CreateAccount({ navigation }) {
             alignSelf: "center",
           }}
         >
-          Enter Authentication Code
+          Create Pin
         </Text>
-        <View
+        {/* <View
           style={{
             width: "100%",
             height: 20,
@@ -47,7 +47,7 @@ function CreateAccount({ navigation }) {
           <Text style={{ alignSelf: "center", color: "#666666" }}>
             SMS code sent to verify phone number
           </Text>
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: "row",
@@ -115,16 +115,16 @@ function CreateAccount({ navigation }) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("AddItem");
+            navigation.navigate("ReEnterPin");
           }}
         >
-          <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}
-            onPress={() => {
-              navigation.navigate("CreatePin");
-            }}
-
-            >SUBMIT</Text>
+          <View
+            style={styles.buttonContent}
+            // onPress={() => {
+            //   navigation.navigate("ReEnterPin");
+            // }}
+          >
+            <Text style={styles.buttonText}>SUBMIT</Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
@@ -134,7 +134,7 @@ function CreateAccount({ navigation }) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            navigation.navigate("");
+            navigation.navigate("HomeScreen");
           }}
         >
           <View
@@ -161,7 +161,7 @@ function CreateAccount({ navigation }) {
                   flex: 1,
                 }}
               >
-                Send code
+                00:52
               </Text>
               <View
                 style={{
@@ -409,4 +409,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateAccount;
+export default CreatePin;

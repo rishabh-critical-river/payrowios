@@ -119,12 +119,7 @@ function CreateAccount({ navigation }) {
           }}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}
-            onPress={() => {
-              navigation.navigate("CreatePin");
-            }}
-
-            >SUBMIT</Text>
+            <Text style={styles.buttonText}>SUBMIT</Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
@@ -134,7 +129,7 @@ function CreateAccount({ navigation }) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            navigation.navigate("");
+            navigation.navigate("HomeScreen");
           }}
         >
           <View
@@ -197,9 +192,9 @@ function CreateAccount({ navigation }) {
         style={{
           fontSize: 12,
           backgroundColor: "white",
-          color: "#4B5050",
+          color: "#4B5050CC",
           textAlign: "center",
-          paddingBottom: 16,
+          paddingBottom: 1,
         }}
       >
         ©2022 PayRow Company. All rights reserved

@@ -214,7 +214,7 @@ function AddItem({ navigation }) {
                 fontSize: 14,
                 fontWeight: "500",
                 color: "#333333",
-                lineHeight: 20,
+                lineHeight: "20",
               }}
             >
               TID : 8327162
@@ -226,9 +226,7 @@ function AddItem({ navigation }) {
             textAlign: "center",
             fontWeight: "400",
             fontSize: 22,
-            marginTop: 36,
-            color:"#333333",
-            lineHeight:28,
+            marginTop: 20,
           }}
         >
           Select Product

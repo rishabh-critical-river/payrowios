@@ -199,24 +199,10 @@ function AddItem({ navigation }) {
             }}
           />
           <View>
-            <Text
-              style={{
-                color: "#4B5050",
-                fontWeight: "400",
-                fontSize: 12,
-                lineHeight: 16,
-              }}
-            >
-              Welcome
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "500",
-                color: "#333333",
-                lineHeight: 20,
-              }}
-            >
+            <Text style={{
+              color:"#4B5050"
+            }}>Welcome</Text>
+            <Text style={{ fontSize: 14, fontWeight: "500" }}>
               TID : 8327162
             </Text>
           </View>
@@ -226,9 +212,7 @@ function AddItem({ navigation }) {
             textAlign: "center",
             fontWeight: "400",
             fontSize: 22,
-            marginTop: 36,
-            color:"#333333",
-            lineHeight:28,
+            marginTop: 20,
           }}
         >
           Select Product
