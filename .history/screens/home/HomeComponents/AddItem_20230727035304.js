@@ -272,13 +272,7 @@ function AddItem({ navigation }) {
               style={styles.containers}
               onPress={() => handleCategoryPress(category)}
             >
-              <View
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={{ display: "flex", alignItems: "center",flexDirection:"row", }}>
                 <Text style={{ fontWeight: "600", flex: 1 }}>
                   {category.name}
                 </Text>
@@ -376,7 +370,7 @@ function AddItem({ navigation }) {
                           >
                             <FontAwesome
                               name="minus-circle"
-                              size={24}
+                              size={20}
                               color="#4B5050"
                             />
                           </TouchableOpacity>
@@ -388,7 +382,7 @@ function AddItem({ navigation }) {
                           >
                             <FontAwesome
                               name="plus-circle"
-                              size={24}
+                              size={20}
                               color="#4B5050"
                             />
                           </TouchableOpacity>

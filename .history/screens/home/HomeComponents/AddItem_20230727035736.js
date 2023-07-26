@@ -272,13 +272,7 @@ function AddItem({ navigation }) {
               style={styles.containers}
               onPress={() => handleCategoryPress(category)}
             >
-              <View
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={{ display: "flex", alignItems: "center",flexDirection:"row", }}>
                 <Text style={{ fontWeight: "600", flex: 1 }}>
                   {category.name}
                 </Text>
@@ -313,7 +307,7 @@ function AddItem({ navigation }) {
             </TouchableOpacity>
           ))}
           {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
-            <View style={{ marginTop: 20, alignSelf: "center", width: "80%" }}>
+            <View style={{ marginTop: 20, alignSelf: "center", width: "0%" }}>
               <FlatList
                 data={itemsWithQuantity}
                 renderItem={({ item }) => (

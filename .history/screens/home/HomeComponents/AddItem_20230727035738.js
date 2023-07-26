@@ -313,7 +313,7 @@ function AddItem({ navigation }) {
             </TouchableOpacity>
           ))}
           {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
-            <View style={{ marginTop: 20, alignSelf: "center", width: "80%" }}>
+            <View style={{ marginTop: 20, alignSelf: "center", width: "60%" }}>
               <FlatList
                 data={itemsWithQuantity}
                 renderItem={({ item }) => (
