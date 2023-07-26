@@ -1,36 +1,27 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  Image,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Avatar } from "react-native-elements";
-import PaymentSummary from "./PaymentSummary";
+
 const countries = [
-  { country: "TAP TO PAY" },
-  { country: "CASH PAYMENT" },
-  { country: "PAY BY LINK" },
-  { country: "PAY BY QR CODE" },
-  { country: "PAYMENT GATEWAY" },
+  { country: "TAP TO PAY", route: "TapCard" },
+  { country: "CASH PAYMENT", route: "CashPayment" },
+  { country: "PAY BY LINK", route: "PayByLink" },
+  { country: "PAY BY QR CODE", route: "PayByQrCode" }, // Update the route for this option
+  { country: "PAYMENT GATEWAY", route: "PaymentGateway" },
 ];
+
 function PayByQrCode({ navigation }) {
-  const [selectedMeat, setSelectedMeat] = useState([]);
-  const [data, setData] = useState(countries);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const handleCountrySelection = (item) => {
+    setSelectedCountry(item.route);
+  };
+
   return (
     <>
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <View>
+          {/* Your existing code for rendering the view */}
           <Image
             style={{
               width: 150,
@@ -40,7 +31,6 @@ function PayByQrCode({ navigation }) {
             }}
             source={require("./payrowLogo.png")}
           />
-
           <Text
             style={{
               textAlign: "center",
@@ -60,9 +50,9 @@ function PayByQrCode({ navigation }) {
         </View>
         <FlatList
           style={{ marginTop: 24 }}
-          data={data}
+          data={countries}
           renderItem={({ item, index }) => {
-            const isChecked = selectedMeat.includes(item.country);
+            const isChecked = item.route === selectedCountry;
             return (
               <TouchableOpacity
                 style={{
@@ -77,23 +67,9 @@ function PayByQrCode({ navigation }) {
                   flexDirection: "row",
                   alignItems: "center",
                 }}
-                onPress={() => {
-                  const index = selectedMeat.indexOf(item.country);
-                  if (index === -1) {
-                    setSelectedMeat([...selectedMeat, item.country]);
-                  } else {
-                    const newSelectedCountries = [...selectedMeat];
-                    newSelectedCountries.splice(index, 1);
-                    setSelectedMeat(newSelectedCountries);
-                  }
-                }}
+                onPress={() => handleCountrySelection(item)}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text
                     style={{
                       color: "#4B5050",
@@ -131,13 +107,17 @@ function PayByQrCode({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("TapCard");
+            if (selectedCountry) {
+              navigation.navigate(selectedCountry);
+            } else {
+              // Handle the case where no country is selected.
+              // You can show a message or prevent navigation.
+            }
           }}
         >
           <View
             style={{
               borderWidth: 1,
-
               borderColor: "#4B5050",
               backgroundColor: "#4B5050",
               borderRadius: 8,
@@ -153,10 +133,8 @@ function PayByQrCode({ navigation }) {
                   style={{
                     borderWidth: 1,
                     borderColor: "#8EBD6C",
-
                     width: 14,
                     height: 3.61,
-
                     backgroundColor: "#8EBD6C",
                     marginBottom: 2.58,
                   }}
@@ -165,10 +143,8 @@ function PayByQrCode({ navigation }) {
                   style={{
                     borderWidth: 1,
                     borderColor: "#8EBD6C",
-
                     width: 14,
                     height: 3.61,
-
                     marginBottom: 2.58,
                     backgroundColor: "#8EBD6C",
                   }}
@@ -177,10 +153,8 @@ function PayByQrCode({ navigation }) {
                   style={{
                     borderWidth: 1,
                     borderColor: "#8EBD6C",
-
                     width: 14,
                     height: 3.61,
-
                     backgroundColor: "#8EBD6C",
                   }}
                 />
@@ -262,11 +236,12 @@ function PayByQrCode({ navigation }) {
 }
 
 export default PayByQrCode;
-const styles = StyleSheet.create({
+
+const styles = {
   button: {
     cursor: "pointer",
     borderRadius: 70,
     justifyContent: "center",
     alignItems: "center",
   },
-});
+};

@@ -17,8 +17,13 @@ function LanguageSelection({ navigation }: any) {
     <>
       <View style={styles.container}>
         <Image
-          source={require("../../src/Images/payrowLogo.png")}
-          style={styles.logo}
+          style={{
+            width: 150,
+            height: 48.3,
+            alignSelf: "center",
+            marginTop: 33,
+          }}
+          source={require("../home/HomeComponents/payrowLogo.png")}
         />
         <View
           style={{

@@ -119,11 +119,14 @@ function ReEnterPin({ navigation }) {
           }}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}
-             onPress={() => {
-              navigation.navigate("EnterPins");
-            }}
-            >SUBMIT</Text>
+            <Text
+              style={styles.buttonText}
+              onPress={() => {
+                navigation.navigate("EnterPins");
+              }}
+            >
+              SUBMIT
+            </Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
@@ -160,7 +163,7 @@ function ReEnterPin({ navigation }) {
                   flex: 1,
                 }}
               >
-               Forget Pin
+                Forget Pin
               </Text>
               <View
                 style={{
@@ -185,8 +188,8 @@ function ReEnterPin({ navigation }) {
         <Image
           source={require("../../src/Images/getStarted.png")}
           style={{
-            width: 296,
-            height: 257,
+            width: 312,
+            height: 230,
             alignSelf: "center",
             marginTop: 36,
           }}
