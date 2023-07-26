@@ -238,8 +238,9 @@ function AddItem({ navigation }) {
             textAlign: "center",
             marginTop: 9,
             color: "#4B5050",
-            fontSize: 14,
-            fontWeight: 400,
+            fontSize: "14",
+            fontWeight: "400",
+            lineHeight: "20",
           }}
         >
           You can Select multiple items
@@ -272,38 +273,34 @@ function AddItem({ navigation }) {
               style={styles.containers}
               onPress={() => handleCategoryPress(category)}
             >
-              <View style={{ display: "flex", alignItems: "center",flexDirection:"row", }}>
-                <Text style={{ fontWeight: "600", flex: 1 }}>
-                  {category.name}
-                </Text>
+              <Text style={{ fontWeight: "600", flex: 1 }}>
+                {category.name}
+              </Text>
 
-                {itemsWithQuantity.reduce(
-                  (acc, item) => acc + item.quantity,
-                  0
-                ) > 0 && (
-                  <View style={styles.badge}>
-                    <Text style={{ textAlign: "center" }}>
-                      +
-                      {itemsWithQuantity?.length > 0 &&
-                        selectedCategory?.id === 1 &&
-                        itemsWithQuantity.reduce(
-                          (acc, item) => acc + item.quantity,
-                          0
-                        )}{" "}
-                      items
-                    </Text>
-                  </View>
-                )}
+              {itemsWithQuantity.reduce((acc, item) => acc + item.quantity, 0) >
+                0 && (
+                <View style={styles.badge}>
+                  <Text style={{ textAlign: "center" }}>
+                    +
+                    {itemsWithQuantity?.length > 0 &&
+                      selectedCategory?.id === 1 &&
+                      itemsWithQuantity.reduce(
+                        (acc, item) => acc + item.quantity,
+                        0
+                      )}{" "}
+                    items
+                  </Text>
+                </View>
+              )}
 
-                <Image
-                  source={
-                    selectedCategory?.id === category.id
-                      ? require("./upload.png")
-                      : require("./dropdown.png")
-                  }
-                  style={{ width: 16, height: 16 }}
-                />
-              </View>
+              <Image
+                source={
+                  selectedCategory?.id === category.id
+                    ? require("./upload.png")
+                    : require("./dropdown.png")
+                }
+                style={{ width: 16, height: 16 }}
+              />
             </TouchableOpacity>
           ))}
           {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
@@ -465,7 +462,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4B5050",
     alignSelf: "center",
     borderRadius: 8,
-    marginTop: 20,
+    marginTop: 33,
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",

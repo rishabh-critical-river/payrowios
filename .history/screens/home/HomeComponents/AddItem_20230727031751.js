@@ -227,21 +227,13 @@ function AddItem({ navigation }) {
             fontWeight: "400",
             fontSize: 22,
             marginTop: 36,
-            color: "#333333",
-            lineHeight: 28,
+            color:"#333333",
+            lineHeight:28,
           }}
         >
           Select Product
         </Text>
-        <Text
-          style={{
-            textAlign: "center",
-            marginTop: 9,
-            color: "#4B5050",
-            fontSize: 14,
-            fontWeight: 400,
-          }}
-        >
+        <Text style={{ textAlign: "center", marginTop: 9 ,color:"#4B5050",fontSize:14, fontWeight:400,}}>
           You can Select multiple items
         </Text>
         <View style={styles.buttonContainer}>
@@ -272,38 +264,35 @@ function AddItem({ navigation }) {
               style={styles.containers}
               onPress={() => handleCategoryPress(category)}
             >
-              <View style={{ display: "flex", alignItems: "center",flexDirection:"row", }}>
-                <Text style={{ fontWeight: "600", flex: 1 }}>
-                  {category.name}
-                </Text>
+              <View>
+              <Text style={{ fontWeight: "600", flex: 1 }}>
+                {category.name}
+              </Text>
 
-                {itemsWithQuantity.reduce(
-                  (acc, item) => acc + item.quantity,
-                  0
-                ) > 0 && (
-                  <View style={styles.badge}>
-                    <Text style={{ textAlign: "center" }}>
-                      +
-                      {itemsWithQuantity?.length > 0 &&
-                        selectedCategory?.id === 1 &&
-                        itemsWithQuantity.reduce(
-                          (acc, item) => acc + item.quantity,
-                          0
-                        )}{" "}
-                      items
-                    </Text>
-                  </View>
-                )}
+              {itemsWithQuantity.reduce((acc, item) => acc + item.quantity, 0) >
+                0 && (
+                <View style={styles.badge}>
+                  <Text style={{ textAlign: "center" }}>
+                    +
+                    {itemsWithQuantity?.length > 0 &&
+                      selectedCategory?.id === 1 &&
+                      itemsWithQuantity.reduce(
+                        (acc, item) => acc + item.quantity,
+                        0
+                      )}{" "}
+                    items
+                  </Text>
+                </View>
+              )}
 
-                <Image
-                  source={
-                    selectedCategory?.id === category.id
-                      ? require("./upload.png")
-                      : require("./dropdown.png")
-                  }
-                  style={{ width: 16, height: 16 }}
-                />
-              </View>
+              <Image
+                source={
+                  selectedCategory?.id === category.id
+                    ? require("./upload.png")
+                    : require("./dropdown.png")
+                }
+                style={{ width: 16, height: 16 }}
+              />
             </TouchableOpacity>
           ))}
           {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (

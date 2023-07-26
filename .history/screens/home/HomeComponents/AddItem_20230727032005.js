@@ -272,7 +272,7 @@ function AddItem({ navigation }) {
               style={styles.containers}
               onPress={() => handleCategoryPress(category)}
             >
-              <View style={{ display: "flex", alignItems: "center",flexDirection:"row", }}>
+              <View style={{ display: "flex", alignItems: "center",fle }}>
                 <Text style={{ fontWeight: "600", flex: 1 }}>
                   {category.name}
                 </Text>
