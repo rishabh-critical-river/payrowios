@@ -35,19 +35,6 @@ const categories = [
 ];
 
 function AddItem({ navigation }) {
-  const [search, setSearch] = useState("");
-  const [clickedFruits, setClickedFruits] = useState(false);
-  const [clickedMeat, setClickedMeat] = useState(false);
-  const [clickedBakery, setClickedBakery] = useState(false);
-  const [clickedSweet, setClickedSweet] = useState(false);
-  const [clickedDairy, setClickedDairy] = useState(false);
-
-  const [selectedCountries, setSelectedCountries] = useState([]);
-  const [selectedMeat, setSelectedMeat] = useState([]);
-  const [selectedBakery, setSelectedBakery] = useState([]);
-  const [selectedSweet, setSelectedSweet] = useState([]);
-  const [selectedDairy, setSelectedDairy] = useState([]);
-  const [itemCount, setItemCount] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [hasPermission, setHasPermission] = useState(null);
@@ -55,6 +42,7 @@ function AddItem({ navigation }) {
   const [isScannerVisible, setIsScannerVisible] = useState(false);
   const [orderDetails, setOrderDetails] = useState(null);
   const [itemsWithQuantity, setItemsWithQuantity] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -72,6 +60,13 @@ function AddItem({ navigation }) {
     }, []);
     setItemsWithQuantity(initialItems);
   }, [categories]);
+  useEffect(() => {
+    const total = itemsWithQuantity.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    }, 0);
+
+    setTotalAmount(total);
+  }, [itemsWithQuantity]);
 
   const apiUrl =
     "https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/000000024279";
@@ -91,10 +86,16 @@ function AddItem({ navigation }) {
     }
   };
 
-  const handleBarCodeScanned = ({ data }) => {
+  const handleBarCodeScanned = async ({ data }) => {
+    console.log("data", data);
     setScannedData(data);
     setIsScannerVisible(false);
-    fetchOrderDetails();
+    await fetchOrderDetails(); // Wait for the order details to be fetched.
+    ///how to navigate to payment summary screen only after the order details are fetched?
+    orderDetails &&
+      navigation.navigate("paymentSummary", {
+        orderDetails,
+      });
   };
 
   const handleOpenScanner = () => {
@@ -160,6 +161,7 @@ function AddItem({ navigation }) {
       return updatedItems;
     });
   };
+  console.log("itemsWithQuantity", itemsWithQuantity);
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -179,10 +181,6 @@ function AddItem({ navigation }) {
             </View>
           </Modal>
         </View>
-
-        {orderDetails
-          ? navigation.navigate("paymentSummary", { orderDetails })
-          : navigation.navigate("AddItem")}
 
         <View
           style={{
@@ -400,7 +398,7 @@ function AddItem({ navigation }) {
         <View style={styles.priceContainer}>
           <Text style={styles.priceLabel}>Total Price</Text>
           <View style={styles.priceTextContainer}>
-            <Text style={styles.priceText}>600</Text>
+            <Text style={styles.priceText}>{totalAmount}</Text>
             <Text style={styles.priceCurrency}>AED</Text>
           </View>
         </View>
@@ -408,7 +406,10 @@ function AddItem({ navigation }) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("paymentSummary", { orderDetails });
+            navigation.navigate("paymentSummary", {
+              orderDetails,
+              itemsWithQuantity,
+            });
           }}
         >
           <View style={styles.buttonContent}>

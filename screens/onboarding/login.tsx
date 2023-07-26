@@ -22,14 +22,9 @@ function Login({ navigation }: any) {
         {/* <LinearGradient
           colors={["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 1)"]}
         > */}
-        <LinearGradient 
-      colors={['#231123', '#558C8C']}
-      
-      style={styles.gradient}>
-          <View
-            
-          >
-            <View style={{ marginTop:51, alignSelf: "center" }}>
+        <LinearGradient colors={["#231123", "#558C8C"]} style={styles.gradient}>
+          <View>
+            <View style={{ marginTop: 51, alignSelf: "center" }}>
               <Text
                 style={{
                   fontSize: 57,
@@ -102,7 +97,7 @@ function Login({ navigation }: any) {
                 fontWeight: "400",
                 fontSize: 16,
                 opacity: 0.7,
-                borderColor: "#99999",
+
                 borderBottomWidth: 1,
               }}
               placeholder="  Amount"
@@ -423,8 +418,6 @@ const styles = StyleSheet.create({
   gradient: {
     width: "100%",
     height: 268,
-   
-   
   },
   text: {
     color: "white",

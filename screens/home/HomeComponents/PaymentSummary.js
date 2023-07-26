@@ -4,13 +4,35 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 
 const PaymentSummary = ({ navigation, route }) => {
   const [orderDetails, setOrderDetails] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [totalAmount, setTotalAmount] = useState();
+  const [scanTotal, setScanTotal] = useState(0);
 
   useEffect(() => {
     if (route.params && route.params.orderDetails) {
       setOrderDetails(route.params.orderDetails);
     }
+    if (route.params && route.params.itemsWithQuantity) {
+      setCategories(route.params.itemsWithQuantity);
+    }
   }, [route.params]);
+  useEffect(() => {
+    const total = categories.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    }, 0);
 
+    setTotalAmount(total);
+  }, [categories]);
+  useEffect(() => {
+    if (orderDetails) {
+      const total = orderDetails.data.reduce((acc, item) => {
+        return acc + item.totalAmount;
+      }, 0);
+      setScanTotal(total);
+    }
+  }, [orderDetails]);
+
+  console.log(categories, "cat");
   return (
     <>
       <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -41,138 +63,139 @@ const PaymentSummary = ({ navigation, route }) => {
             Select the Payment Mode
           </Text>
         </View>
-        {orderDetails && (
-          <>
-            <View
+
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 20,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
               style={{
-                flexDirection: "row",
-                marginTop: 20,
-                justifyContent: "space-between",
+                marginLeft: 40,
+                fontWeight: "400",
+                fontSize: 12,
+                lineHeight: 16,
+                color: "#020202",
               }}
             >
-              <Text
-                style={{
-                  marginLeft: 40,
-                  fontWeight: "400",
-                  fontSize: 12,
-                  lineHeight: 16,
-                  color: "#020202",
-                }}
-              >
-                Date:
-              </Text>
-              <Text
-                style={{
-                  marginRight: 36,
-                  fontWeight: "400",
-                  fontSize: 12,
-                  lineHeight: 16,
-                  color: "#020202",
-                }}
-              >
-                16-Mar-23
-                {/* Replace with the actual date property */}
-              </Text>
-            </View>
-            <View
+              Date:
+            </Text>
+            <Text
               style={{
-                flexDirection: "row",
-                marginTop: 7,
-                justifyContent: "space-between",
+                marginRight: 36,
+                fontWeight: "400",
+                fontSize: 12,
+                lineHeight: 16,
+                color: "#020202",
               }}
             >
-              <Text
-                style={{
-                  marginLeft: 40,
-                  fontWeight: "400",
-                  fontSize: 12,
-                  lineHeight: 16,
-                  color: "#020202",
-                }}
-              >
-                Merchant:
-              </Text>
-              <Text
-                style={{
-                  marginRight: 36,
-                  fontWeight: "400",
-                  fontSize: 12,
-                  lineHeight: 16,
-                  color: "#020202",
-                }}
-              >
-                3245000
-                {/* Replace with the actual merchant property */}
-              </Text>
-            </View>
-            <View
+              16-Mar-23
+              {/* Replace with the actual date property */}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 7,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
               style={{
-                flexDirection: "row",
-                marginTop: 7,
-                justifyContent: "space-between",
+                marginLeft: 40,
+                fontWeight: "400",
+                fontSize: 12,
+                lineHeight: 16,
+                color: "#020202",
               }}
             >
-              <Text
-                style={{
-                  marginLeft: 40,
-                  fontWeight: "400",
-                  fontSize: 12,
-                  lineHeight: 16,
-                  color: "#020202",
-                }}
-              >
-                Order Number :
-              </Text>
-              <Text
-                style={{
-                  marginRight: 36,
-                  fontWeight: "400",
-                  fontSize: 12,
-                  lineHeight: 16,
-                  color: "#020202",
-                }}
-              >
-                3245000
-                {/* Replace with the actual order number property */}
-              </Text>
-            </View>
-            <View
+              Merchant:
+            </Text>
+            <Text
               style={{
-                width: 309,
-                borderBottomWidth: 1,
-                borderBottomColor: "#999999",
-                alignSelf: "center",
-                marginTop: 13,
-              }}
-            />
-            <View
-              style={{
-                flexDirection: "row",
-                marginTop: 8,
-                justifyContent: "space-between",
+                marginRight: 36,
+                fontWeight: "400",
+                fontSize: 12,
+                lineHeight: 16,
+                color: "#020202",
               }}
             >
-              <Text
-                style={{
-                  marginLeft: 40,
-                  fontWeight: "500",
-                  fontSize: 16,
-                  lineHeight: 24,
-                }}
-              >
-                Product Name
-              </Text>
-              <Text
-                style={{
-                  marginRight: 36,
-                  fontWeight: "500",
-                  fontSize: 16,
-                  lineHeight: 24,
-                }}
-              >
-                Price
-              </Text>
-            </View>
+              3245000
+              {/* Replace with the actual merchant property */}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 7,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                marginLeft: 40,
+                fontWeight: "400",
+                fontSize: 12,
+                lineHeight: 16,
+                color: "#020202",
+              }}
+            >
+              Order Number :
+            </Text>
+            <Text
+              style={{
+                marginRight: 36,
+                fontWeight: "400",
+                fontSize: 12,
+                lineHeight: 16,
+                color: "#020202",
+              }}
+            >
+              3245000
+              {/* Replace with the actual order number property */}
+            </Text>
+          </View>
+          <View
+            style={{
+              width: 309,
+              borderBottomWidth: 1,
+              borderBottomColor: "#999999",
+              alignSelf: "center",
+              marginTop: 13,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 8,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                marginLeft: 40,
+                fontWeight: "500",
+                fontSize: 16,
+                lineHeight: 24,
+              }}
+            >
+              Product Name
+            </Text>
+            <Text
+              style={{
+                marginRight: 36,
+                fontWeight: "500",
+                fontSize: 16,
+                lineHeight: 24,
+              }}
+            >
+              Price
+            </Text>
+          </View>
+          {orderDetails && (
             <View style={{ marginTop: 4 }}>
               {orderDetails.data.map((product) => (
                 <View key={product._id} style={{ flexDirection: "row" }}>
@@ -205,8 +228,42 @@ const PaymentSummary = ({ navigation, route }) => {
                 </View>
               ))}
             </View>
-          </>
-        )}
+          )}
+          {categories && (
+            <View style={{ marginTop: 4 }}>
+              {categories?.map((product) => (
+                <View key={product.id} style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{
+                      marginLeft: 40,
+                      flex: 1,
+                      marginRight: 36,
+                      fontWeight: "400",
+                      color: "#4B5050",
+                      fontSize: 12,
+                      lineHeight: 16,
+                    }}
+                  >
+                    {product?.name}{" "}
+                    {/* Replace with the actual product name property */}
+                  </Text>
+                  <Text
+                    style={{
+                      marginRight: 36,
+                      fontWeight: "500",
+                      color: "#4B5050",
+                      fontSize: 12,
+                      lineHeight: 20,
+                    }}
+                  >
+                    {product?.price * product?.quantity}{" "}
+                    {/* Replace with the actual product price property */}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
       </View>
       <View style={{ backgroundColor: "white" }}>
         <View
@@ -224,7 +281,7 @@ const PaymentSummary = ({ navigation, route }) => {
         >
           <Text style={styles.priceLabel}>Total Price</Text>
           <View style={styles.priceTextContainer}>
-            <Text style={styles.priceText}>16</Text>
+            <Text style={styles.priceText}>{totalAmount + scanTotal}</Text>
             <Text style={styles.priceCurrency}>AED</Text>
           </View>
         </View>
