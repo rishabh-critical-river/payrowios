@@ -75,8 +75,15 @@ function Login({ navigation }: any) {
               alignSelf: "center",
             }}
           >
-            <Image source={require("../../src/Images/payrowLogo.png")} />
+            <Image
+              style={{
+                width: 150,
+                height: 48.3,
+              }}
+              source={require("../home/HomeComponents/payrowLogo.png")}
+            />
           </View>
+
           <View style={{ alignSelf: "center", marginTop: 24 }}>
             <Text
               style={{

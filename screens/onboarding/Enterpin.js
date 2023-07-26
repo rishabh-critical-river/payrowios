@@ -181,8 +181,8 @@ function EnterPins({ navigation }) {
         <Image
           source={require("../../src/Images/getStarted.png")}
           style={{
-            width: 296,
-            height: 257,
+            width: 312,
+            height: 230,
             alignSelf: "center",
             marginTop: 36,
           }}
