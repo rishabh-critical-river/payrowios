@@ -134,22 +134,24 @@ function Login({ navigation }: any) {
               Contact Number
             </Text>
             <View style={{ flexDirection: "row" }}>
-              <Image
-                source={require("./UAE.png")}
-                style={{
-                  width: 18,
-                  height: 18,
-                  marginRight: 4,
-                }}
-              />
-              <Image
-                source={require("./IconPlacholder.png")}
-                style={{
-                  width: 20,
-                  height: 20,
-                  marginRight: 4,
-                }}
-              />
+              <View style={{ alignItems: "center", flexDirection: "row" }}>
+                <Image
+                  source={require("./UAE.png")}
+                  style={{
+                    width: 18,
+                    height: 18,
+                    marginRight: 4,
+                  }}
+                />
+                <Image
+                  source={require("./IconPlacholder.png")}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    marginRight: 4,
+                  }}
+                />
+              </View>
               <TextInput
                 style={{
                   color: "black",
@@ -173,7 +175,7 @@ function Login({ navigation }: any) {
                   width: 81,
                   height: 24,
                   opacity: 0.7,
-                  marginBottom: 4,
+
                   // borderColor: "#99999",
                   // borderBottomWidth: 1,
                 }}
