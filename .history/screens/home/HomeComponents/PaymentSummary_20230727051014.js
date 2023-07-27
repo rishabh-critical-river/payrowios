@@ -38,7 +38,7 @@ const PaymentSummary = ({ navigation, route }) => {
       <View
         style={{
           paddingLeft: 19.98,
-          paddingTop: 17,
+          marginTop: 17,
           flexDirection: "row",
           alignItems: "center",
           backgroundColor: "#fff",
@@ -58,10 +58,9 @@ const PaymentSummary = ({ navigation, route }) => {
             fontWeight: "500",
             lineHeight: 32,
             letterSpacing: 0.5,
-            color: "#333333",
           }}
         >
-          Payment Summary
+          Cash Invoice
         </Text>
       </View>
       <View style={{ flex: 1, backgroundColor: "white" }}>

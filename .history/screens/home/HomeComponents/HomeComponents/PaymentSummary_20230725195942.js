@@ -33,7 +33,7 @@ const PaymentSummary = ({ navigation, route }) => {
               marginTop: 20,
             }}
           >
-            Payment Summary 
+            Payment Summary
           </Text>
           <Text
             style={{ textAlign: "center", marginTop: 8, color: "#4B5050B2" }}

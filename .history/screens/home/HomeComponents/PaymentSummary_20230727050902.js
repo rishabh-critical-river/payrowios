@@ -35,35 +35,34 @@ const PaymentSummary = ({ navigation, route }) => {
   console.log(categories, "cat");
   return (
     <>
-      <View
-        style={{
-          paddingLeft: 19.98,
-          paddingTop: 17,
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "#fff",
-        }}
-      >
-        <Image
-          source={require("./arrow_back.png")}
-          style={{
-            width: 16.03,
-            height: 16.03,
-            marginRight: 35.98,
-          }}
-        />
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "500",
-            lineHeight: 32,
-            letterSpacing: 0.5,
-            color: "#333333",
-          }}
-        >
-          Payment Summary
-        </Text>
-      </View>
+    <View
+            style={{
+              marginLeft: 19.98,
+              marginTop: 17,
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor:"#"
+            }}
+          >
+            <Image
+              source={require("./arrow_back.png")}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "500",
+                lineHeight: 32,
+                letterSpacing: 0.5,
+              }}
+            >
+              Cash Invoice
+            </Text>
+          </View>
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <View>
           <Image
@@ -84,7 +83,7 @@ const PaymentSummary = ({ navigation, route }) => {
               marginTop: 20,
             }}
           >
-            Payment Summary
+            Payment Summary 
           </Text>
           <Text
             style={{ textAlign: "center", marginTop: 8, color: "#4B5050B2" }}

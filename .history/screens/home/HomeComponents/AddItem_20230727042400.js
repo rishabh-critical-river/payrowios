@@ -27,8 +27,8 @@ const categories = [
     name: "Fruits & Vegetables",
     items: [
       { id: 1, name: "Apple", price: 1.99, quantity: 0 },
-      { id: 2, name: "Banana", price: 0.9, quantity: 0 },
-      { id: 3, name: "Carrot", price: 0.49, quantity: 0 },
+      { id: 2, name: "Banana", price: 0.19, quantity: 0 },
+      { id: 3, name: "Carrot", price: 0.79, quantity: 0 },
     ],
   },
   // Add more categories as needed
@@ -164,7 +164,6 @@ function AddItem({ navigation }) {
   console.log("itemsWithQuantity", itemsWithQuantity);
   return (
     <>
-    
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">
@@ -331,7 +330,7 @@ function AddItem({ navigation }) {
                         style={{ flex: 1, flexDirection: "row", marginTop: 6 }}
                       >
                         <Image
-                          style={{ width: 58, height: 55, marginLeft: 14 }}
+                          style={{ width: 58, height: 55, }}
                           source={require("./ellipse.png")}
                         />
                         <View
@@ -514,7 +513,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 77,
     borderRadius: 10,
-    marginBottom: 16,
+    marginBottom: 10,
     justifyContent: "center",
     borderWidth: 1,
     borderColor: "rgba(75, 80, 80, 0.2)",

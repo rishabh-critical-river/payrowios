@@ -45,7 +45,7 @@ function PayByQrCode({ navigation }) {
             color: "#333333",
           }}
         >
-          Payment Mode
+          Payment M
         </Text>
       </View>
 

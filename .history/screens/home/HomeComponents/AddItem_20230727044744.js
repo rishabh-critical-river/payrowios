@@ -164,7 +164,6 @@ function AddItem({ navigation }) {
   console.log("itemsWithQuantity", itemsWithQuantity);
   return (
     <>
-    
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">

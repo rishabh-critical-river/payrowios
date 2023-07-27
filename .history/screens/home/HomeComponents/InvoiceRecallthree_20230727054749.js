@@ -354,7 +354,7 @@ function InvoiceRecallthree({ navigation }) {
           onPress={toggleModal}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>SHARE CUSTOMER COPY </Text>
+            <Text style={styles.buttonText}>SHARE CUSTOMER COPYs </Text>
             <View style={styles.arrowIcon}>
               <Entypo name="share" size={22} color="white" />
             </View>
@@ -365,7 +365,6 @@ function InvoiceRecallthree({ navigation }) {
           style={{
             justifyContent: "flex-end",
             margin: 0,
-            
           }}
         >
           <View
@@ -373,7 +372,7 @@ function InvoiceRecallthree({ navigation }) {
               backgroundColor: "white",
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
-              flex: 0.41,
+              flex: 0.38,
             }}
           >
             <View style={{ flex: 1 }}>
@@ -606,7 +605,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   modalContainer: {
-    flex: 0.8,
+    flex: 1,
     justifyContent: "center",
     backgroundColor: "white",
     borderTopLeftRadius: 20,

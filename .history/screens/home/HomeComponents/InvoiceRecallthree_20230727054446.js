@@ -365,7 +365,6 @@ function InvoiceRecallthree({ navigation }) {
           style={{
             justifyContent: "flex-end",
             margin: 0,
-            
           }}
         >
           <View
@@ -373,7 +372,7 @@ function InvoiceRecallthree({ navigation }) {
               backgroundColor: "white",
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
-              flex: 0.41,
+              flex: 0.38,
             }}
           >
             <View style={{ flex: 1 }}>
@@ -510,8 +509,9 @@ function InvoiceRecallthree({ navigation }) {
                 marginRight: 32,
 
                 // width: "80%",
-                marginTop: 42,
+                marginTop:42,
                 marginBottom: 32,
+                
               }}
               onPress={() => {
                 navigation.navigate("ConfirmationInvoice");

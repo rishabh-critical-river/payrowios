@@ -58,7 +58,7 @@ const PaymentSummary = ({ navigation, route }) => {
             fontWeight: "500",
             lineHeight: 32,
             letterSpacing: 0.5,
-            color: "#333333",
+            color:""
           }}
         >
           Payment Summary

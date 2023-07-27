@@ -360,20 +360,13 @@ function InvoiceRecallthree({ navigation }) {
             </View>
           </View>
         </TouchableOpacity>
-        <Modal
-          isVisible={isModalVisible}
-          style={{
-            justifyContent: "flex-end",
-            margin: 0,
-            
-          }}
-        >
+        <Modal isVisible={isModalVisible} style={styles.modalContainer}>
           <View
             style={{
               backgroundColor: "white",
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
-              flex: 0.41,
+              flex: 0.38,
             }}
           >
             <View style={{ flex: 1 }}>
@@ -606,7 +599,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   modalContainer: {
-    flex: 0.8,
+    flex: 0.7,
     justifyContent: "center",
     backgroundColor: "white",
     borderTopLeftRadius: 20,

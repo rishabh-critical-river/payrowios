@@ -164,7 +164,6 @@ function AddItem({ navigation }) {
   console.log("itemsWithQuantity", itemsWithQuantity);
   return (
     <>
-    
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">
@@ -273,13 +272,7 @@ function AddItem({ navigation }) {
               style={styles.containers}
               onPress={() => handleCategoryPress(category)}
             >
-              <View
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={{ display: "flex", alignItems: "center",flexDirection:"row", }}>
                 <Text style={{ fontWeight: "600", flex: 1 }}>
                   {category.name}
                 </Text>
@@ -389,7 +382,7 @@ function AddItem({ navigation }) {
                           >
                             <FontAwesome
                               name="plus-circle"
-                              size={24}
+                              size={2}
                               color="#4B5050"
                             />
                           </TouchableOpacity>
@@ -514,7 +507,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 77,
     borderRadius: 10,
-    marginBottom: 16,
+    marginBottom: 10,
     justifyContent: "center",
     borderWidth: 1,
     borderColor: "rgba(75, 80, 80, 0.2)",

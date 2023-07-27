@@ -354,7 +354,7 @@ function InvoiceRecallthree({ navigation }) {
           onPress={toggleModal}
         >
           <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>SHARE CUSTOMER COPY </Text>
+            <Text style={styles.buttonText}>SHARE CUSTOMER COPY fsd</Text>
             <View style={styles.arrowIcon}>
               <Entypo name="share" size={22} color="white" />
             </View>
@@ -365,7 +365,6 @@ function InvoiceRecallthree({ navigation }) {
           style={{
             justifyContent: "flex-end",
             margin: 0,
-            
           }}
         >
           <View
@@ -373,7 +372,7 @@ function InvoiceRecallthree({ navigation }) {
               backgroundColor: "white",
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
-              flex: 0.41,
+              flex: 0.38,
             }}
           >
             <View style={{ flex: 1 }}>
@@ -507,11 +506,10 @@ function InvoiceRecallthree({ navigation }) {
             <TouchableOpacity
               style={{
                 marginLeft: 32,
-                marginRight: 32,
 
-                // width: "80%",
-                marginTop: 42,
-                marginBottom: 32,
+                width: "80%",
+                marginBottom: 40,
+                marginTop: 25,
               }}
               onPress={() => {
                 navigation.navigate("ConfirmationInvoice");
@@ -589,7 +587,6 @@ function InvoiceRecallthree({ navigation }) {
             lineHeight: 20,
             letterSpacing: 0.25,
             marginTop: 16,
-            paddingBottom: 16,
           }}
         >
           ©2022 PayRow Company. All rights reserved
@@ -606,7 +603,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   modalContainer: {
-    flex: 0.8,
+    flex: 0.5,
     justifyContent: "center",
     backgroundColor: "white",
     borderTopLeftRadius: 20,

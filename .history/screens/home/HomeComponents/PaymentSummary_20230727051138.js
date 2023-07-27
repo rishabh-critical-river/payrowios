@@ -58,10 +58,9 @@ const PaymentSummary = ({ navigation, route }) => {
             fontWeight: "500",
             lineHeight: 32,
             letterSpacing: 0.5,
-            color: "#333333",
           }}
         >
-          Payment Summary
+          payment Summary
         </Text>
       </View>
       <View style={{ flex: 1, backgroundColor: "white" }}>

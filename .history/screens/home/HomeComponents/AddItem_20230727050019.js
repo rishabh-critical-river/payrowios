@@ -164,7 +164,33 @@ function AddItem({ navigation }) {
   console.log("itemsWithQuantity", itemsWithQuantity);
   return (
     <>
-    
+              <View
+            style={{
+              marginLeft: 19.98,
+              marginTop: 17,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("./arrow_back.png")}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "500",
+                lineHeight: 32,
+                letterSpacing: 0.5,
+              }}
+            >
+              Cash Invoice
+            </Text>
+          </View>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">

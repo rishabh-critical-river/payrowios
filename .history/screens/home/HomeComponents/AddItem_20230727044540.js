@@ -164,7 +164,6 @@ function AddItem({ navigation }) {
   console.log("itemsWithQuantity", itemsWithQuantity);
   return (
     <>
-    
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">
@@ -514,7 +513,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 77,
     borderRadius: 10,
-    marginBottom: 16,
+    marginBottom: 10,
     justifyContent: "center",
     borderWidth: 1,
     borderColor: "rgba(75, 80, 80, 0.2)",

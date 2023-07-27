@@ -373,7 +373,7 @@ function InvoiceRecallthree({ navigation }) {
               backgroundColor: "white",
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
-              flex: 0.41,
+              flex: 0.6,
             }}
           >
             <View style={{ flex: 1 }}>
