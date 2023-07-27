@@ -12,7 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 
-function EnterPins({ navigation }) {
+function CreatePin({ navigation }) {
   const et1 = useRef();
   const et2 = useRef();
   const et3 = useRef();
@@ -33,7 +33,7 @@ function EnterPins({ navigation }) {
             alignSelf: "center",
           }}
         >
-          Enter Pin
+          Create Pin
         </Text>
         {/* <View
           style={{
@@ -115,10 +115,15 @@ function EnterPins({ navigation }) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("AddItem");
+            navigation.navigate("ReEnterPin");
           }}
         >
-          <View style={styles.buttonContent}>
+          <View
+            style={styles.buttonContent}
+            onPress={() => {
+              navigation.navigate("ReEnterPin");
+            }}
+          >
             <Text style={styles.buttonText}>SUBMIT</Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
@@ -177,31 +182,28 @@ function EnterPins({ navigation }) {
             </View>
           </View>
         </TouchableOpacity>
-      </View>
-      <View style={{ backgroundColor: "white" }}>
-        <Image
+
+        {/* <Image
           source={require("../../src/Images/getStarted.png")}
           style={{
             width: 312,
             height: 230,
             alignSelf: "center",
             marginTop: 36,
-            marginBottom: 16,
           }}
-        />
-
-        <Text
-          style={{
-            fontSize: 12,
-            backgroundColor: "white",
-            color: "#4B5050",
-            textAlign: "center",
-            paddingBottom: 16,
-          }}
-        >
-          ©2022 PayRow Company. All rights reserved
-        </Text>
+        /> */}
       </View>
+      <Text
+        style={{
+          fontSize: 12,
+          backgroundColor: "white",
+          color: "#4B5050",
+          textAlign: "center",
+          paddingBottom: 16,
+        }}
+      >
+        ©2022 PayRow Company. All rights reserved
+      </Text>
     </>
   );
 }
@@ -407,4 +409,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EnterPins;
+export default CreatePin;

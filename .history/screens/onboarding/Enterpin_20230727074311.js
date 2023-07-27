@@ -177,6 +177,8 @@ function EnterPins({ navigation }) {
             </View>
           </View>
         </TouchableOpacity>
+
+       
       </View>
       <View style={{ backgroundColor: "white" }}>
         <Image

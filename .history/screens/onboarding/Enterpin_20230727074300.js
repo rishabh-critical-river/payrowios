@@ -177,31 +177,20 @@ function EnterPins({ navigation }) {
             </View>
           </View>
         </TouchableOpacity>
-      </View>
-      <View style={{ backgroundColor: "white" }}>
-        <Image
-          source={require("../../src/Images/getStarted.png")}
-          style={{
-            width: 312,
-            height: 230,
-            alignSelf: "center",
-            marginTop: 36,
-            marginBottom: 16,
-          }}
-        />
 
-        <Text
-          style={{
-            fontSize: 12,
-            backgroundColor: "white",
-            color: "#4B5050",
-            textAlign: "center",
-            paddingBottom: 16,
-          }}
-        >
-          ©2022 PayRow Company. All rights reserved
-        </Text>
+       
       </View>
+      <Text
+        style={{
+          fontSize: 12,
+          backgroundColor: "white",
+          color: "#4B5050",
+          textAlign: "center",
+          paddingBottom: 16,
+        }}
+      >
+        ©2022 PayRow Company. All rights reserved
+      </Text>
     </>
   );
 }
