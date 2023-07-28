@@ -35,12 +35,9 @@ function CashPay({ navigation }: any) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.container}>
-          <View  style={{borderBottomWidth:3, borderColor:"#4B50500D",borderStyle:"dashed", paddingBottom:30,marginLeft:32,
-          marginRight:32,}
-        }>
           <View
             style={{
-              marginLeft: 19.98,
+              marginLeft: 16,
               marginTop: 17,
               flexDirection: "row",
               alignItems: "center",
@@ -65,27 +62,37 @@ function CashPay({ navigation }: any) {
               Cash Invoice
             </Text>
           </View>
-          <Image
+          <View
             style={{
-              width: 150,
-              height: 48.3,
-              alignSelf: "center",
-              marginTop: 22,
-            }}
-            source={require("./payrowLogo.png")}
-          />
-          <Text
-            style={{
-              fontSize: 22,
-              fontWeight: "400",
-              lineHeight: 28,
-              textAlign: "center",
-              marginTop: 22,
+              borderBottomWidth: 3,
+              borderColor: "#4B50500D",
+              borderStyle: "dashed",
+              paddingBottom: 30,
+              marginLeft: 32,
+              marginRight: 32,
             }}
           >
-            Textiles INC.
-          </Text>
-          {/* <Text
+            <Image
+              style={{
+                width: 150,
+                height: 48.3,
+                alignSelf: "center",
+                marginTop: 22,
+              }}
+              source={require("./payrowLogo.png")}
+            />
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: "400",
+                lineHeight: 28,
+                textAlign: "center",
+                marginTop: 22,
+              }}
+            >
+              Textiles INC.
+            </Text>
+            {/* <Text
             style={{
               fontSize: 14,
               fontWeight: "400",
@@ -111,140 +118,139 @@ function CashPay({ navigation }: any) {
           >
             company
           </Text> */}
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: "#4B50500D",
-              borderRadius: 8,
-              marginTop: 16,
-              width: 133,
-              height: 30,
-              alignSelf: "center",
-
-              backgroundColor: "#4B50500D",
-            }}
-          >
-            <Text
-              style={{
-                alignSelf: "center",
-                marginTop: 6,
-                fontWeight: "500",
-                fontSize: 13,
-                lineHeight: 18,
-                letterSpacing: -0.08,
-                color: "#4B5050",
-              }}
-            >
-              MID: 0987654321
-            </Text>
-          </View>
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: "#4B505040",
-
-              shadowColor: "#757E6E14",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              borderRadius: 8,
-              marginTop: 24,
-              width: 296,
-              height: 48,
-              alignSelf: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("AddItem");
-              }}
-              style={{
-                flexDirection: "row",
-              }}
-            >
-              <Text
-                style={{
-                  flex: 1,
-                  marginLeft: 16,
-                  marginTop: 14,
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                  letterSpacing: 0.1,
-                  color: "#4B5050",
-                }}
-              >
-                ADD ITEMS
-              </Text>
-              <Image
-                source={require("./plusicon.png")}
-                style={{
-                  width: 20,
-                  height: 20,
-                  marginRight: 16,
-                  marginTop: 15,
-                  backgroundColor: "#4B5050E5",
-                  borderRadius: 10,
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: "#4B505040",
-
-              shadowColor: "#757E6E14",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              borderRadius: 8,
-              marginTop: 16,
-              width: 296,
-              height: 48,
-              alignSelf: "center",
-            }}
-          >
             <View
               style={{
-                flexDirection: "row",
+                borderWidth: 1,
+                borderColor: "#4B50500D",
+                borderRadius: 8,
+                marginTop: 16,
+                width: 133,
+                height: 30,
+                alignSelf: "center",
+
+                backgroundColor: "#4B50500D",
               }}
             >
               <Text
                 style={{
-                  flex: 1,
-                  marginLeft: 16,
-                  marginTop: 14,
+                  alignSelf: "center",
+                  marginTop: 6,
                   fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                  letterSpacing: 0.1,
+                  fontSize: 13,
+                  lineHeight: 18,
+                  letterSpacing: -0.08,
                   color: "#4B5050",
                 }}
               >
-                QR MULTIPLE USE
+                MID: 0987654321
               </Text>
+            </View>
+            <View
+              style={{
+                borderWidth: 1,
+                borderColor: "#4B505040",
 
+                shadowColor: "#757E6E14",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
 
-              <Fontisto
-                style={{ marginRight: 14, marginTop: 10 }}
-                name="toggle-off"
-                size={28}
-                color="#CCCCCC"
-              />
+                borderRadius: 8,
+                marginTop: 24,
+                width: 296,
+                height: 48,
+                alignSelf: "center",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("AddItem");
+                }}
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    flex: 1,
+                    marginLeft: 16,
+                    marginTop: 14,
+                    fontWeight: "500",
+                    fontSize: 14,
+                    lineHeight: 20,
+                    letterSpacing: 0.1,
+                    color: "#4B5050",
+                  }}
+                >
+                  ADD ITEMS
+                </Text>
+                <Image
+                  source={require("./plusicon.png")}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    marginRight: 16,
+                    marginTop: 15,
+                    backgroundColor: "#4B5050E5",
+                    borderRadius: 10,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                borderWidth: 1,
+                borderColor: "#4B505040",
+
+                shadowColor: "#757E6E14",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+
+                borderRadius: 8,
+                marginTop: 16,
+                width: 296,
+                height: 48,
+                alignSelf: "center",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    flex: 1,
+                    marginLeft: 16,
+                    marginTop: 14,
+                    fontWeight: "500",
+                    fontSize: 14,
+                    lineHeight: 20,
+                    letterSpacing: 0.1,
+                    color: "#4B5050",
+                  }}
+                >
+                  QR MULTIPLE USE
+                </Text>
+
+                <Fontisto
+                  style={{ marginRight: 14, marginTop: 10 }}
+                  name="toggle-off"
+                  size={28}
+                  color="#CCCCCC"
+                />
+              </View>
             </View>
           </View>
-          </View>
         </View>
-      
+
         <View style={{ backgroundColor: "white" }}>
           <View style={{ alignSelf: "center" }}>
             <Text

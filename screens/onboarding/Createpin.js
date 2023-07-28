@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,10 +13,26 @@ import {
 } from "react-native";
 
 function CreatePin({ navigation }) {
+  const [timer, setTimer] = useState(52); // Initial value of the timer in seconds
   const et1 = useRef();
   const et2 = useRef();
   const et3 = useRef();
   const et4 = useRef();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timer > 0) {
+        setTimer((prevTimer) => prevTimer - 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  const formattedTimer = `${Math.floor(timer / 60)
+    .toString()
+    .padStart(2, "0")}:${(timer % 60).toString().padStart(2, "0")}`;
+
   return (
     <>
       <View style={styles.container}>
@@ -35,19 +51,6 @@ function CreatePin({ navigation }) {
         >
           Create Pin
         </Text>
-        {/* <View
-          style={{
-            width: "100%",
-            height: 20,
-            marginTop: 6,
-
-            alignSelf: "center",
-          }}
-        >
-          <Text style={{ alignSelf: "center", color: "#666666" }}>
-            SMS code sent to verify phone number
-          </Text>
-        </View> */}
         <View
           style={{
             flexDirection: "row",
@@ -143,7 +146,6 @@ function CreatePin({ navigation }) {
               borderColor: "#B2B2B2",
               borderRadius: 8,
               backgroundColor: "#FFFFFF",
-
               height: 48,
               justifyContent: "center",
             }}
@@ -161,7 +163,7 @@ function CreatePin({ navigation }) {
                   flex: 1,
                 }}
               >
-                00:52
+                {formattedTimer}
               </Text>
               <View
                 style={{
@@ -183,17 +185,6 @@ function CreatePin({ navigation }) {
           </View>
         </TouchableOpacity>
 
-        {/* <Image
-          source={require("../../src/Images/getStarted.png")}
-          style={{
-            width: 312,
-            height: 230,
-            alignSelf: "center",
-            marginTop: 36,
-          }}
-        /> */}
-      </View>
-      <View style={{ backgroundColor: "white" }}>
         <Image
           source={require("../../src/Images/getStarted.png")}
           style={{
@@ -201,10 +192,10 @@ function CreatePin({ navigation }) {
             height: 230,
             alignSelf: "center",
             marginTop: 36,
-            marginBottom: 16,
           }}
         />
-
+      </View>
+      <View style={{ backgroundColor: "white" }}>
         <Text
           style={{
             fontSize: 12,
@@ -220,6 +211,7 @@ function CreatePin({ navigation }) {
     </>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

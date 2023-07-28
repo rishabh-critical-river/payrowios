@@ -12,6 +12,7 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
+  ImageBackground,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -24,27 +25,38 @@ function Login({ navigation }: any) {
         > */}
         <LinearGradient colors={["#231123", "#558C8C"]} style={styles.gradient}>
           <View>
-            <View style={{ marginTop: 51, alignSelf: "center" }}>
-              <Text
+            <View style={{ marginTop: 30, alignSelf: "center" }}>
+              <ImageBackground
+                source={require("../home/HomeComponents/design.png")}
                 style={{
-                  fontSize: 57,
-                  lineHeight: 64,
-                  fontWeight: "700",
-                  color: "#fff",
+                  width: 220,
+                  height: 154,
+                  alignSelf: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                Hello!
-              </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  lineHeight: 20,
-                  fontWeight: "400",
-                  color: "#fff",
-                }}
-              >
-                Sign in to your account
-              </Text>
+                <Text
+                  style={{
+                    fontSize: 57,
+                    lineHeight: 64,
+                    fontWeight: "700",
+                    color: "#fff",
+                  }}
+                >
+                  Hello!
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    lineHeight: 20,
+                    fontWeight: "400",
+                    color: "#fff",
+                  }}
+                >
+                  Sign in to your account
+                </Text>
+              </ImageBackground>
             </View>
           </View>
         </LinearGradient>
@@ -95,7 +107,7 @@ function Login({ navigation }: any) {
                 height: 13,
               }}
             >
-              Name
+              Merchant TID
             </Text>
 
             <TextInput
@@ -109,7 +121,7 @@ function Login({ navigation }: any) {
               }}
               placeholder="  Amount"
             >
-              Binesh Walla
+              TID Number
             </TextInput>
           </View>
 
@@ -131,7 +143,7 @@ function Login({ navigation }: any) {
                 height: 16,
               }}
             >
-              Contact Number
+              Phone Number
             </Text>
             <View style={{ flexDirection: "row" }}>
               <View style={{ alignItems: "center", flexDirection: "row" }}>

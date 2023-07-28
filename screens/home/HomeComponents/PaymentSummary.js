@@ -44,20 +44,19 @@ const PaymentSummary = ({ navigation, route }) => {
           backgroundColor: "#fff",
         }}
       >
-        
- <TouchableOpacity
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("AddItem");
           }}
-          >
-        <Image
-          source={require("./arrow_back.png")}
-          style={{
-            width: 16.03,
-            height: 16.03,
-            marginRight: 35.98,
-          }}
-        />
+        >
+          <Image
+            source={require("./arrow_back.png")}
+            style={{
+              width: 16.03,
+              height: 16.03,
+              marginRight: 35.98,
+            }}
+          />
         </TouchableOpacity>
         <Text
           style={{
@@ -258,7 +257,7 @@ const PaymentSummary = ({ navigation, route }) => {
                       lineHeight: 20,
                     }}
                   >
-                    {product.totalAmount}{" "}
+                    {product.totalAmount.toFixed(2)}{" "}
                     {/* Replace with the actual product price property */}
                   </Text>
                 </View>

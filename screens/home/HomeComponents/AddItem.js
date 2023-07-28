@@ -26,8 +26,8 @@ const categories = [
     id: 1,
     name: "Fruits & Vegetables",
     items: [
-      { id: 1, name: "Apple", price: 1.99, quantity: 0 },
-      { id: 2, name: "Banana", price: 0.9, quantity: 0 },
+      { id: 1, name: "Apple", price: 1.09, quantity: 0 },
+      { id: 2, name: "Banana", price: 0.39, quantity: 0 },
       { id: 3, name: "Carrot", price: 0.49, quantity: 0 },
     ],
   },
@@ -164,7 +164,6 @@ function AddItem({ navigation }) {
   console.log("itemsWithQuantity", itemsWithQuantity);
   return (
     <>
-    
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">
@@ -191,20 +190,19 @@ function AddItem({ navigation }) {
             alignItems: "center",
           }}
         >
-          
- <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("EnterPins");
-          }}
-          >
-          <Image
-            source={require("./arrow_back.png")}
-            style={{
-              width: 16.03,
-              height: 16.03,
-              marginRight: 35.98,
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("EnterPins");
             }}
-          />
+          >
+            <Image
+              source={require("./arrow_back.png")}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
           </TouchableOpacity>
           <View>
             <Text
@@ -215,7 +213,7 @@ function AddItem({ navigation }) {
                 lineHeight: 16,
               }}
             >
-              Welcome 
+              Welcome
             </Text>
             <Text
               style={{
@@ -234,7 +232,7 @@ function AddItem({ navigation }) {
             textAlign: "center",
             fontWeight: "400",
             fontSize: 22,
-            marginTop: 36,
+            marginTop: 26,
             color: "#333333",
             lineHeight: 28,
           }}
@@ -273,53 +271,51 @@ function AddItem({ navigation }) {
           />
         </View>
 
-        <View>
-          {categories.map((category, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.containers}
-              onPress={() => handleCategoryPress(category)}
+        {categories.map((category, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.containers}
+            onPress={() => handleCategoryPress(category)}
+          >
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
             >
-              <View
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
-                <Text style={{ fontWeight: "600", flex: 1 }}>
-                  {category.name}
-                </Text>
+              <Text style={{ fontWeight: "600", flex: 1 }}>
+                {category.name}
+              </Text>
 
-                {itemsWithQuantity.reduce(
-                  (acc, item) => acc + item.quantity,
-                  0
-                ) > 0 && (
-                  <View style={styles.badge}>
-                    <Text style={{ textAlign: "center" }}>
-                      +
-                      {itemsWithQuantity?.length > 0 &&
-                        selectedCategory?.id === 1 &&
-                        itemsWithQuantity.reduce(
-                          (acc, item) => acc + item.quantity,
-                          0
-                        )}{" "}
-                      items
-                    </Text>
-                  </View>
-                )}
+              {itemsWithQuantity.reduce((acc, item) => acc + item.quantity, 0) >
+                0 && (
+                <View style={styles.badge}>
+                  <Text style={{ textAlign: "center" }}>
+                    +
+                    {itemsWithQuantity?.length > 0 &&
+                      selectedCategory?.id === 1 &&
+                      itemsWithQuantity.reduce(
+                        (acc, item) => acc + item.quantity,
+                        0
+                      )}{" "}
+                    items
+                  </Text>
+                </View>
+              )}
 
-                <Image
-                  source={
-                    selectedCategory?.id === category.id
-                      ? require("./upload.png")
-                      : require("./dropdown.png")
-                  }
-                  style={{ width: 16, height: 16 }}
-                />
-              </View>
-            </TouchableOpacity>
-          ))}
+              <Image
+                source={
+                  selectedCategory?.id === category.id
+                    ? require("./upload.png")
+                    : require("./dropdown.png")
+                }
+                style={{ width: 16, height: 16 }}
+              />
+            </View>
+          </TouchableOpacity>
+        ))}
+        <ScrollView>
           {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
             <View style={{ marginTop: 20, alignSelf: "center", width: "80%" }}>
               <FlatList
@@ -355,7 +351,7 @@ function AddItem({ navigation }) {
                               fontWeight: "500",
                             }}
                           >
-                            {item.price} AED
+                            {item.price.toFixed(2)} AED
                           </Text>
                           <Text
                             style={{
@@ -423,7 +419,7 @@ function AddItem({ navigation }) {
                             }}
                           >
                             {" "}
-                            {item.price * (item.quantity || 1)} AED
+                            {(item.price * (item.quantity || 1)).toFixed(2)} AED
                           </Text>
                         </View>
                       </View>
@@ -435,14 +431,14 @@ function AddItem({ navigation }) {
               />
             </View>
           )}
-        </View>
+        </ScrollView>
       </View>
 
       <View style={{ backgroundColor: "white" }}>
         <View style={styles.priceContainer}>
           <Text style={styles.priceLabel}>Total Price</Text>
           <View style={styles.priceTextContainer}>
-            <Text style={styles.priceText}>{totalAmount}</Text>
+            <Text style={styles.priceText}>{totalAmount.toFixed(2)}</Text>
             <Text style={styles.priceCurrency}>AED</Text>
           </View>
         </View>
