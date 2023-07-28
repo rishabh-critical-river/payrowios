@@ -184,18 +184,10 @@ function CreatePin({ navigation }) {
             </View>
           </View>
         </TouchableOpacity>
+
+        
       </View>
       <View style={{ backgroundColor: "white" }}>
-        <Image
-          source={require("../../src/Images/getStarted.png")}
-          style={{
-            width: 312,
-            height: 230,
-            alignSelf: "center",
-            marginTop: 36,
-            marginBottom: 16,
-          }}
-        />
         <Text
           style={{
             fontSize: 12,

@@ -68,8 +68,8 @@ function CashPay({ navigation }: any) {
           </View>
           <View
             style={{
-              borderBottomWidth: 1,
-              borderColor: "#4b50504d",
+              borderBottomWidth: 3,
+              borderColor: "#4B50500D",
               borderStyle: "dashed",
               paddingBottom: 30,
               marginLeft: 32,
@@ -228,7 +228,7 @@ function CashPay({ navigation }: any) {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  marginTop: 10,
+                  marginTop: 12,
 
                 }}
               >
@@ -244,7 +244,7 @@ function CashPay({ navigation }: any) {
                     color: "#4B5050",
                   }}
                 >
-                SCAN BARCODE
+                  QR MULTIPLE USE
                 </Text>
                 <MaterialCommunityIcons
                   style={{ marginRight: 16 }}

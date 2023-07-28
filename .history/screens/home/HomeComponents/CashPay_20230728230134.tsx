@@ -68,8 +68,8 @@ function CashPay({ navigation }: any) {
           </View>
           <View
             style={{
-              borderBottomWidth: 1,
-              borderColor: "#4b50504d",
+              borderBottomWidth: 3,
+              borderColor: "#4B50500D",
               borderStyle: "dashed",
               paddingBottom: 30,
               marginLeft: 32,

@@ -17,11 +17,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import {
-  AntDesign,
-  Fontisto,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { AntDesign, Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 function CashPay({ navigation }: any) {
   const [amount, setAmount] = useState("");
   const handleAmountChange = (text: any) => {
@@ -68,8 +64,8 @@ function CashPay({ navigation }: any) {
           </View>
           <View
             style={{
-              borderBottomWidth: 1,
-              borderColor: "#4b50504d",
+              borderBottomWidth: 3,
+              borderColor: "#4B50500D",
               borderStyle: "dashed",
               paddingBottom: 30,
               marginLeft: 32,
@@ -227,16 +223,14 @@ function CashPay({ navigation }: any) {
               <View
                 style={{
                   flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 10,
-
+                  alignItems:"center"
                 }}
               >
                 <Text
                   style={{
                     flex: 1,
                     marginLeft: 16,
-                    
+                    marginTop: 14,
                     fontWeight: "500",
                     fontSize: 14,
                     lineHeight: 20,
@@ -244,14 +238,14 @@ function CashPay({ navigation }: any) {
                     color: "#4B5050",
                   }}
                 >
-                SCAN BARCODE
+                  QR MULTIPLE USE
                 </Text>
                 <MaterialCommunityIcons
-                  style={{ marginRight: 16 }}
-                  name="barcode-scan"
-                  size={24}
-                  color="black"
-                />
+            style={{ marginRight: 16 }}
+            name="barcode-scan"
+            size={24}
+            color="black"
+          />
 
                 {/* <Fontisto
                   style={{ marginRight: 14, marginTop: 10 }}
