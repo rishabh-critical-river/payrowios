@@ -497,10 +497,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: "#4B5050",
 
-    // padding: 10,
+    padding: 10,
     fontSize: 20,
     height: 48,
-    width:"100%",
+    // width:"100%",
     // width: 296,
     cursor: "pointer",
     borderRadius: 70,

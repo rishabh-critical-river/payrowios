@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     height: 60,
-    // width: 60,
+    width: 60,?
     
     cursor: "pointer",
     borderRadius: 70,

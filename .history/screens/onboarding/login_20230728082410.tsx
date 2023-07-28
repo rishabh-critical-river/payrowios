@@ -72,6 +72,7 @@ function Login({ navigation }: any) {
             borderColor: "#CCCCCC",
             marginLeft: 32,
             marginRight: 32,
+        
 
             paddingTop: 24,
             paddingBottom: 29,
@@ -96,14 +97,14 @@ function Login({ navigation }: any) {
             />
           </View>
 
-          <View style={{ alignSelf: "center", marginTop: 24, width: "100%" }}>
+          <View style={{ alignSelf: "center", marginTop: 24 ,width:"100%",}}>
             <Text
               style={{
                 fontSize: 12,
                 lineHeight: 12,
                 fontWeight: "400",
                 color: "#4B5050",
-                // width: 296,
+                width: 296,
                 height: 13,
               }}
             >
@@ -116,6 +117,7 @@ function Login({ navigation }: any) {
                 fontWeight: "400",
                 fontSize: 16,
                 opacity: 0.7,
+                
 
                 borderBottomWidth: 1,
               }}
@@ -131,7 +133,7 @@ function Login({ navigation }: any) {
               marginTop: 28,
               borderBottomColor: "#333333",
               borderBottomWidth: 1,
-              width: "100%",
+              width:
             }}
           >
             <Text
@@ -140,7 +142,7 @@ function Login({ navigation }: any) {
                 lineHeight: 12,
                 fontWeight: "400",
                 color: "#4B5050",
-                // width: 296,
+                width: 296,
                 height: 16,
               }}
             >
@@ -202,14 +204,14 @@ function Login({ navigation }: any) {
               style={{
                 backgroundColor: "#99999",
 
-                // width: 296,
+                width: 296,
                 height: 1,
                 opacity: 1,
                 alignSelf: "center",
               }}
             />
           </View>
-          <View style={{ marginTop: 35, }}>
+          <View style={{ marginTop: 35 }}>
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -230,7 +232,7 @@ function Login({ navigation }: any) {
                   justifyContent: "center",
                 }}
               >
-                <View style={{ flexDirection: "row", maxWidth: "100%" }}>
+                <View style={{ flexDirection: "row" }}>
                   <Text
                     style={{
                       fontSize: 16,
@@ -497,16 +499,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: "#4B5050",
 
-    // padding: 10,
+    padding: 10,
     fontSize: 20,
     height: 48,
-    width:"100%",
-    // width: 296,
+    width: 328,
     cursor: "pointer",
     borderRadius: 70,
     justifyContent: "center",
     alignItems: "center",
-    // marginBottom: 15,
+    marginBottom: 15,
   },
   arrow: {
     display: "flex",

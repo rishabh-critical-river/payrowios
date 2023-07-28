@@ -209,7 +209,7 @@ function Login({ navigation }: any) {
               }}
             />
           </View>
-          <View style={{ marginTop: 35, }}>
+          <View style={{ marginTop: 35, width: "100%" }}>
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -225,12 +225,12 @@ function Login({ navigation }: any) {
                   borderRadius: 8,
 
                   // width: 328,
-                  width: "100%",
+                  // width: "100%",
                   height: 48,
                   justifyContent: "center",
                 }}
               >
-                <View style={{ flexDirection: "row", maxWidth: "100%" }}>
+                <View style={{ flexDirection: "row" }}>
                   <Text
                     style={{
                       fontSize: 16,
@@ -497,16 +497,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: "#4B5050",
 
-    // padding: 10,
+    padding: 10,
     fontSize: 20,
     height: 48,
-    width:"100%",
-    // width: 296,
+    width: 328,
     cursor: "pointer",
     borderRadius: 70,
     justifyContent: "center",
     alignItems: "center",
-    // marginBottom: 15,
+    marginBottom: 15,
   },
   arrow: {
     display: "flex",

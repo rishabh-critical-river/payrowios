@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     height: 60,
-    // width: 60,
-    
+    width: 60,
+    wi
     cursor: "pointer",
     borderRadius: 70,
     justifyContent: "center",
