@@ -7,7 +7,6 @@ const countries = [
   { country: "CASH PAYMENT", route: "cashPay" },
   { country: "PAY BY LINK", route: "PayByLink" },
   { country: "PAY BY QR CODE", route: "QrCodePay" }, // Update the route for this option
-  { country: "PAYMENT GATEWAY", route: "PaymentGateway" },
 ];
 
 function PayByQrCode({ navigation }) {

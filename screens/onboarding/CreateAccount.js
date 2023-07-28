@@ -43,11 +43,7 @@ function CreateAccount({ navigation }) {
 
             alignSelf: "center",
           }}
-        >
-          <Text style={{ alignSelf: "center", color: "#666666" }}>
-            SMS code sent to verify phone number
-          </Text>
-        </View>
+        ></View>
         <View
           style={{
             flexDirection: "row",

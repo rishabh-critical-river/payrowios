@@ -250,8 +250,8 @@ function AddItem({ navigation }) {
         >
           You can Select multiple items
         </Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleOpenScanner} color="white">
+        <TouchableOpacity onPress={handleOpenScanner}>
+          <View style={styles.buttonContainer}>
             <Text
               style={{
                 marginLeft: 16,
@@ -262,15 +262,15 @@ function AddItem({ navigation }) {
             >
               SCAN TO ADD
             </Text>
-          </TouchableOpacity>
-          <MaterialCommunityIcons
-            style={{ marginRight: 16 }}
-            name="barcode-scan"
-            size={24}
-            color="white"
-          />
-        </View>
 
+            <MaterialCommunityIcons
+              style={{ marginRight: 16 }}
+              name="barcode-scan"
+              size={24}
+              color="white"
+            />
+          </View>
+        </TouchableOpacity>
         {categories.map((category, index) => (
           <TouchableOpacity
             key={index}
@@ -294,7 +294,6 @@ function AddItem({ navigation }) {
                   <Text style={{ textAlign: "center" }}>
                     +
                     {itemsWithQuantity?.length > 0 &&
-                      selectedCategory?.id === 1 &&
                       itemsWithQuantity.reduce(
                         (acc, item) => acc + item.quantity,
                         0
@@ -315,9 +314,9 @@ function AddItem({ navigation }) {
             </View>
           </TouchableOpacity>
         ))}
-        <ScrollView>
+        <ScrollView style={{ marginTop: 20, marginBottom: 20 }}>
           {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
-            <View style={{ marginTop: 20, alignSelf: "center", width: "80%" }}>
+            <View style={{ alignSelf: "center", width: "80%" }}>
               <FlatList
                 data={itemsWithQuantity}
                 renderItem={({ item }) => (
