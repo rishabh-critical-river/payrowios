@@ -17,7 +17,6 @@ function TapCard({ navigation }: any) {
   return (
     <>
       <View style={styles.container}>
-       
         <Image
           style={{
             width: 150,
@@ -38,7 +37,7 @@ function TapCard({ navigation }: any) {
             color: "#4B505099",
           }}
         >
-          Tap Your Card To Pay
+          Tap Your Cards To Pay
         </Text>
         <Image
           source={require("./Animation.png")}

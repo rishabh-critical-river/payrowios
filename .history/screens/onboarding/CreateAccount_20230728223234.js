@@ -27,10 +27,10 @@ function CreateAccount({ navigation }) {
         <Text
           style={{
             marginTop: 30.47,
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: "400",
             lineHeight: 28,
-
+            color:#33333,
             alignSelf: "center",
           }}
         >

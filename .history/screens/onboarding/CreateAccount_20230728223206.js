@@ -27,10 +27,9 @@ function CreateAccount({ navigation }) {
         <Text
           style={{
             marginTop: 30.47,
-            fontSize: 18,
+            fontSize: 2,
             fontWeight: "400",
             lineHeight: 28,
-
             alignSelf: "center",
           }}
         >

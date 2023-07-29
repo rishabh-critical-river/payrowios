@@ -27,16 +27,15 @@ function CreateAccount({ navigation }) {
         <Text
           style={{
             marginTop: 30.47,
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: "400",
             lineHeight: 28,
-
             alignSelf: "center",
           }}
         >
           Enter Authentication Code
         </Text>
-        {/* <View
+        <View
           style={{
             width: "100%",
             height: 20,
@@ -48,7 +47,7 @@ function CreateAccount({ navigation }) {
           <Text style={{ alignSelf: "center", color: "#666666" }}>
             SMS code sent to verify phone number 
           </Text> 
-        </View> */}
+        </View>
         <View
           style={{
             flexDirection: "row",

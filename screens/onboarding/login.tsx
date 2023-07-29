@@ -182,7 +182,6 @@ function Login({ navigation }: any) {
 
               <TextInput
                 style={{
-                  color: "#333333",
                   fontWeight: "400",
                   fontSize: 16,
                   width: 81,
@@ -209,7 +208,7 @@ function Login({ navigation }: any) {
               }}
             />
           </View>
-          <View style={{ marginTop: 35, }}>
+          <View style={{ marginTop: 35 }}>
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -500,7 +499,7 @@ const styles = StyleSheet.create({
     // padding: 10,
     fontSize: 20,
     height: 48,
-    width:"100%",
+    width: "100%",
     // width: 296,
     cursor: "pointer",
     borderRadius: 70,

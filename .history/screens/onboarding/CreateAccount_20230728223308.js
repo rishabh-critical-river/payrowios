@@ -30,7 +30,7 @@ function CreateAccount({ navigation }) {
             fontSize: 18,
             fontWeight: "400",
             lineHeight: 28,
-
+            color:"#33333",
             alignSelf: "center",
           }}
         >
