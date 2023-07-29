@@ -165,6 +165,21 @@ function AddItem({ navigation }) {
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+        <View
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 76,
+          }}
+        >
+          <Image
+            source={require("../../../src/Images/Watermark.png")}
+            style={{
+              width: 36,
+              height: 50,
+            }}
+          />
+        </View>
         <View>
           <Modal visible={isScannerVisible} animationType="slide">
             <View
@@ -433,7 +448,32 @@ function AddItem({ navigation }) {
         </ScrollView>
       </View>
 
-      <View style={{ backgroundColor: "white" }}>
+      
+      <View
+        style={{
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+        >
+           <View
+          style={{
+            position: "absolute",
+            left: 0,
+            bottom: 20,
+            zIndex: 999,
+          }}
+        >
+        <Image
+            source={require("../../../src/Images/Watermark.png")}
+            
+            style={{
+              width: 36,
+              height: 50,
+            }}
+          />
+        </View>
+
         <View style={styles.priceContainer}>
           <Text style={styles.priceLabel}>Total Price</Text>
           <View style={styles.priceTextContainer}>

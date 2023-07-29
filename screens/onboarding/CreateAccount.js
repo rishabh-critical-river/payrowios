@@ -20,6 +20,22 @@ function CreateAccount({ navigation }) {
   return (
     <>
       <View style={styles.container}>
+        <View
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 76,
+          }}
+        >
+          <Image
+            source={require("../../src/Images/Watermark.png")}
+            style={{
+              width: 36,
+              height: 50,
+            }}
+          />
+        </View>
+
         <Image
           source={require("../../src/Images/payrowLogo.png")}
           style={styles.logo}
@@ -30,7 +46,7 @@ function CreateAccount({ navigation }) {
             fontSize: 18,
             fontWeight: "400",
             lineHeight: 28,
-
+            color: "#333333",
             alignSelf: "center",
           }}
         >
@@ -186,7 +202,31 @@ function CreateAccount({ navigation }) {
           </View>
         </TouchableOpacity>
       </View>
-      <View style={{ backgroundColor: "white" }}>
+
+      <View
+        style={{
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            bottom: 20,
+            zIndex: 999,
+          }}
+        >
+          <Image
+            source={require("../../src/Images/Watermark.png")}
+            style={{
+              width: 36,
+              height: 50,
+            }}
+          />
+        </View>
+
         <Image
           source={require("../../src/Images/getStarted.png")}
           style={{
