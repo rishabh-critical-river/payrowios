@@ -278,6 +278,7 @@ function AddItem({ navigation }) {
               />
             </TouchableOpacity>
           ))}
+
           {selectedCategory && (
             <View style={{ marginTop: 20, alignSelf: "center", width: "90%" }}>
               <FlatList

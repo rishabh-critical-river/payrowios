@@ -70,7 +70,7 @@ function CashPay({ navigation }: any) {
             style={{
               borderBottomWidth: 1,
               borderColor: "#4b50504d",
-              borderStyle: "dashed",
+
               paddingBottom: 30,
               marginLeft: 32,
               marginRight: 32,

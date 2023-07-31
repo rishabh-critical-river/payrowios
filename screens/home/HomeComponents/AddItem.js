@@ -329,134 +329,128 @@ function AddItem({ navigation }) {
             </View>
           </TouchableOpacity>
         ))}
-        <ScrollView style={{ marginTop: 20, marginBottom: 20 }}>
-          {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
-            <View style={{ alignSelf: "center", width: "80%" }}>
-              <FlatList
-                data={itemsWithQuantity}
-                renderItem={({ item }) => (
+
+        {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
+          <View style={{ marginTop: 20, alignSelf: "center", width: "80%" }}>
+            <FlatList
+              data={itemsWithQuantity}
+              renderItem={({ item }) => (
+                <View
+                  style={styles.itemContainer}
+                  onPress={() => handleItemPress(item)}
+                >
                   <View
-                    style={styles.itemContainer}
-                    onPress={() => handleItemPress(item)}
+                    style={{
+                      flexDirection: "row",
+                    }}
                   >
                     <View
-                      style={{
-                        flexDirection: "row",
-                      }}
+                      style={{ flex: 1, flexDirection: "row", marginTop: 6 }}
                     >
+                      <Image
+                        style={{ width: 58, height: 55, marginLeft: 14 }}
+                        source={require("./ellipse.png")}
+                      />
                       <View
-                        style={{ flex: 1, flexDirection: "row", marginTop: 6 }}
+                        style={{
+                          flexDirection: "column",
+                          marginLeft: 11,
+                        }}
                       >
-                        <Image
-                          style={{ width: 58, height: 55, marginLeft: 14 }}
-                          source={require("./ellipse.png")}
-                        />
-                        <View
+                        <Text
                           style={{
-                            flexDirection: "column",
-                            marginLeft: 11,
+                            marginBottom: 17,
+                            color: "#4B5050",
+                            fontSize: 14,
+                            fontWeight: "500",
                           }}
                         >
-                          <Text
-                            style={{
-                              marginBottom: 17,
-                              color: "#4B5050",
-                              fontSize: 14,
-                              fontWeight: "500",
-                            }}
-                          >
-                            {item.price.toFixed(2)} AED
-                          </Text>
-                          <Text
-                            style={{
-                              color: "#4B5050",
-                              fontSize: 12,
-                              fontWeight: "400",
-                            }}
-                          >
-                            {item.name}
-                          </Text>
-                        </View>
-                      </View>
-                      <View>
-                        <View
+                          {item.price.toFixed(2)} AED
+                        </Text>
+                        <Text
                           style={{
-                            flexDirection: "row",
-                            marginBottom: 14,
-                            marginTop: 6,
-                            justifyContent: "space-between",
-                            marginRight: 15,
-                            marginLeft: 10,
+                            color: "#4B5050",
+                            fontSize: 12,
+                            fontWeight: "400",
                           }}
                         >
-                          <TouchableOpacity
-                            onPress={() => handleDecrement(item)}
-                          >
-                            <FontAwesome
-                              name="minus-circle"
-                              size={24}
-                              color="#4B5050"
-                            />
-                          </TouchableOpacity>
-
-                          <Text>{item.quantity}</Text>
-
-                          <TouchableOpacity
-                            onPress={() => handleIncrement(item)}
-                          >
-                            <FontAwesome
-                              name="plus-circle"
-                              size={24}
-                              color="#4B5050"
-                            />
-                          </TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: "row" }}>
-                          <Text
-                            style={{
-                              color: "#4B5050",
-                              fontWeight: "500",
-                              fontSize: 10,
-                              letterSpacing: 0.1,
-                              marginTop: 2,
-                            }}
-                          >
-                            TOTAL
-                          </Text>
-                          <Text
-                            style={{
-                              color: "#4B5050",
-                              fontWeight: "500",
-                              fontSize: 12,
-                              letterSpacing: 0.1,
-                              marginRight: 15,
-                            }}
-                          >
-                            {" "}
-                            {(item.price * (item.quantity || 1)).toFixed(2)} AED
-                          </Text>
-                        </View>
+                          {item.name}
+                        </Text>
                       </View>
                     </View>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          marginBottom: 14,
+                          marginTop: 6,
+                          justifyContent: "space-between",
+                          marginRight: 15,
+                          marginLeft: 10,
+                        }}
+                      >
+                        <TouchableOpacity onPress={() => handleDecrement(item)}>
+                          <FontAwesome
+                            name="minus-circle"
+                            size={24}
+                            color="#4B5050"
+                          />
+                        </TouchableOpacity>
 
-                    {/* You can add additional item content here */}
+                        <Text>{item.quantity}</Text>
+
+                        <TouchableOpacity onPress={() => handleIncrement(item)}>
+                          <FontAwesome
+                            name="plus-circle"
+                            size={24}
+                            color="#4B5050"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={{ flexDirection: "row" }}>
+                        <Text
+                          style={{
+                            color: "#4B5050",
+                            fontWeight: "500",
+                            fontSize: 10,
+                            letterSpacing: 0.1,
+                            marginTop: 2,
+                          }}
+                        >
+                          TOTAL
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#4B5050",
+                            fontWeight: "500",
+                            fontSize: 12,
+                            letterSpacing: 0.1,
+                            marginRight: 15,
+                          }}
+                        >
+                          {" "}
+                          {(item.price * (item.quantity || 1)).toFixed(2)} AED
+                        </Text>
+                      </View>
+                    </View>
                   </View>
-                )}
-              />
-            </View>
-          )}
-        </ScrollView>
+
+                  {/* You can add additional item content here */}
+                </View>
+              )}
+            />
+          </View>
+        )}
       </View>
 
-      
       <View
         style={{
           backgroundColor: "white",
           display: "flex",
           justifyContent: "flex-end",
         }}
-        >
-           <View
+      >
+        <View
           style={{
             position: "absolute",
             left: 0,
@@ -464,9 +458,8 @@ function AddItem({ navigation }) {
             zIndex: 999,
           }}
         >
-        <Image
+          <Image
             source={require("../../../src/Images/Watermark.png")}
-            
             style={{
               width: 36,
               height: 50,
