@@ -1,3 +1,5 @@
+import ArrowBack from '@/components/arrow-back';
+import PayRowLogo from '@/components/logo';
 import {
   StyleSheet,
   Text,
@@ -19,14 +21,16 @@ function TapToPay({ navigation }: any) {
             alignItems: 'center',
           }}
         >
-          <Image
+          {/* <Image
             source={require('@/assets/icons/arrow_back.png')}
             style={{
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
             }}
-          />
+          /> */}
+          <ArrowBack />
+
           <Text
             style={{
               fontSize: 20,
