@@ -1,5 +1,5 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   StyleSheet,
   Text,
@@ -7,64 +7,68 @@ import {
   SafeAreaView,
   Image,
   StatusBar,
-} from "react-native";
-import LanguageSelection from "./screens/onboarding/LanguageSelection";
-import CreateAccount from "./screens/onboarding/CreateAccount";
-import HomeScreen from "./screens/home/HomeScreen";
-import TapToPay from "./screens/home/HomeComponents/TapToPay";
-import AddItem from "./screens/home/HomeComponents/AddItem";
-import TapCard from "./screens/home/HomeComponents/TapCard";
-import EnterPin from "./screens/home/HomeComponents/EnterPin";
-import Confirmation from "./screens/home/HomeComponents/Confirmation";
-import NewPayment from "./screens/home/HomeComponents/NewPayment";
-import Contact from "./screens/home/HomeComponents/contact";
-import Refund from "./screens/home/HomeComponents/refund";
-import OtpRefund from "./screens/home/HomeComponents/otpRefund";
-import ProductSelection from "./screens/home/HomeComponents/productSelection";
-import PaymentSummary from "./screens/home/HomeComponents/PaymentSummary";
-import PaymentMode from "./screens/home/HomeComponents/paymentMode";
-import PaymentHistory from "./screens/home/HomeComponents/PaymentHistory";
-import HistoryMethods from "./screens/home/HomeComponents/historyMethods";
-import DailyReport from "./screens/home/HomeComponents/DailyReport";
-import MonthlyReport from "./screens/home/HomeComponents/MonthlyReport";
-import AboutPayrow from "./screens/home/HomeComponents/AboutPayrow";
-import CashReceivedMachine from "./screens/home/HomeComponents/CashReceivedMachine";
-import InvoiceRecall from "./screens/home/HomeComponents/InvoiceRecall";
-import PosAndRetail from "./screens/home/HomeComponents/PosAndRetail";
-import SoftPos from "./screens/home/HomeComponents/SoftPos";
-import PayByLink from "./screens/home/HomeComponents/PayByLink";
-import PayByQrCode from "./screens/home/HomeComponents/PayByQrCode";
+} from 'react-native';
+import LanguageSelection from './screens/onboarding/LanguageSelection';
+import CreateAccount from './screens/onboarding/CreateAccount';
+import HomeScreen from './screens/home/HomeScreen';
+import TapToPay from './screens/home/HomeComponents/TapToPay';
+import AddItem from './screens/home/HomeComponents/AddItem';
+import TapCard from './screens/home/HomeComponents/TapCard';
+import EnterPin from './screens/home/HomeComponents/EnterPin';
+import Confirmation from './screens/home/HomeComponents/Confirmation';
+import NewPayment from './screens/home/HomeComponents/NewPayment';
+import Contact from './screens/home/HomeComponents/contact';
+import Refund from './screens/home/HomeComponents/refund';
+import OtpRefund from './screens/home/HomeComponents/otpRefund';
+import ProductSelection from './screens/home/HomeComponents/productSelection';
+import PaymentSummary from './screens/home/HomeComponents/PaymentSummary';
+import PaymentMode from './screens/home/HomeComponents/paymentMode';
+import PaymentHistory from './screens/home/HomeComponents/PaymentHistory';
+import HistoryMethods from './screens/home/HomeComponents/historyMethods';
+import DailyReport from './screens/home/HomeComponents/DailyReport';
+import MonthlyReport from './screens/home/HomeComponents/MonthlyReport';
+import AboutPayrow from './screens/home/HomeComponents/AboutPayrow';
+import CashReceivedMachine from './screens/home/HomeComponents/CashReceivedMachine';
+import InvoiceRecall from './screens/home/HomeComponents/InvoiceRecall';
+import PosAndRetail from './screens/home/HomeComponents/PosAndRetail';
+import SoftPos from './screens/home/HomeComponents/SoftPos';
+import PayByLink from './screens/home/HomeComponents/PayByLink';
+import PayByQrCode from './screens/home/HomeComponents/PayByQrCode';
 
-import PaymentGateWay from "./screens/home/HomeComponents/PaymentGateWay";
-import Wps from "./screens/home/HomeComponents/Wps";
-import Vat from "./screens/home/HomeComponents/Vat";
-import Kvyc from "./screens/home/HomeComponents/Kvyc";
-import BuyNowPayLater from "./screens/home/HomeComponents/BuyNowPayLater";
-import Wallet from "./screens/home/HomeComponents/Wallet";
-import PayRowPrepaids from "./screens/home/HomeComponents/PayRowPrepaid";
-import Support from "./screens/home/HomeComponents/Support";
-import NewComplain from "./screens/home/HomeComponents/NewComplain";
-import RegisterComplain from "./screens/home/HomeComponents/RegisteredComplain";
-import ContactUs from "./screens/home/HomeComponents/ContactUse";
-import InvoiceRecalltwo from "./screens/home/HomeComponents/InvoiceRecalltwo";
-import InvoiceRecallthree from "./screens/home/HomeComponents/InvoiceRecallthree";
-import PaymentDetails from "./screens/home/HomeComponents/PaymentDetails";
-import ConfirmationInvoice from "./screens/home/HomeComponents/ConfirmationInvoice";
-import CashPay from "./screens/home/HomeComponents/CashPay";
-import QRCode from "./screens/home/HomeComponents/QrCode";
-import Login from "./screens/onboarding/login";
-import CreatePin from "./screens/onboarding/Createpin";
-import ReEnterPin from "./screens/onboarding/Reenterpin";
-import EnterPins from "./screens/onboarding/Enterpin";
+import PaymentGateWay from './screens/home/HomeComponents/PaymentGateWay';
+import Wps from './screens/home/HomeComponents/Wps';
+import Vat from './screens/home/HomeComponents/Vat';
+import Kvyc from './screens/home/HomeComponents/Kvyc';
+import BuyNowPayLater from './screens/home/HomeComponents/BuyNowPayLater';
+import Wallet from './screens/home/HomeComponents/Wallet';
+import PayRowPrepaids from './screens/home/HomeComponents/PayRowPrepaid';
+import Support from './screens/home/HomeComponents/Support';
+import NewComplain from './screens/home/HomeComponents/NewComplain';
+import RegisterComplain from './screens/home/HomeComponents/RegisteredComplain';
+import ContactUs from './screens/home/HomeComponents/ContactUse';
+import InvoiceRecalltwo from './screens/home/HomeComponents/InvoiceRecalltwo';
+import InvoiceRecallthree from './screens/home/HomeComponents/InvoiceRecallthree';
+import PaymentDetails from './screens/home/HomeComponents/PaymentDetails';
+import ConfirmationInvoice from './screens/home/HomeComponents/ConfirmationInvoice';
+import CashPay from './screens/home/HomeComponents/CashPay';
+import QRCode from './screens/home/HomeComponents/QrCode';
+import Login from './screens/onboarding/login';
+import CreatePin from './screens/onboarding/Createpin';
+import ReEnterPin from './screens/onboarding/Reenterpin';
+import EnterPins from './screens/onboarding/Enterpin';
 // import SoftPose from "./screens/home/HomeComponents/SoftPose";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          defaultScreenOptions={{
+            headerShown: false,
+          }}
+        >
           <Stack.Screen
             name="selectLanaguage"
             component={LanguageSelection}

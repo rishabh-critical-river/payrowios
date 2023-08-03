@@ -1,18 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  ScrollView,
   Image,
-  Button,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
 } from "react-native";
+
 function TapToPay({ navigation }: any) {
   return (
     <>
@@ -26,13 +20,15 @@ function TapToPay({ navigation }: any) {
           }}
         >
           <Image
-            source={require("./arrow_back.png")}
+            source={require("assets/icons/arrow_back.png")}
             style={{
               width: 16.03,
               height: 16.03,
               marginRight: 35.98,
             }}
           />
+          {/* <ArrowBack /> */}
+
           <Text
             style={{
               fontSize: 20,
@@ -45,7 +41,7 @@ function TapToPay({ navigation }: any) {
           </Text>
         </View>
         <Image
-          source={require("./fab.png")}
+          source={require("@/assets/icons/fab.png")}
           style={{
             width: 137.41,
             height: 80,
@@ -159,7 +155,7 @@ function TapToPay({ navigation }: any) {
               ADD ITEMS
             </Text>
             <Image
-              source={require("./plusicon.png")}
+              source={require("@/assets/icons/plusicon.png")}
               style={{
                 width: 20,
                 height: 20,
@@ -211,7 +207,7 @@ function TapToPay({ navigation }: any) {
               SCAN BARCODE
             </Text>
             <Image
-              source={require("./Union.png")}
+              source={require("@/assets/icons/Union.png")}
               style={{
                 width: 24,
                 height: 24,
@@ -223,7 +219,7 @@ function TapToPay({ navigation }: any) {
         </View>
 
         <Image
-          source={require("./hrline.png")}
+          source={require("@/assets/icons/hrline.png")}
           style={{
             width: 296,
             alignSelf: "center",
