@@ -1,4 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useRef } from 'react';
 import {
   StyleSheet,
@@ -10,7 +11,8 @@ import {
   Keyboard,
 } from 'react-native';
 
-function ReEnterPin({ navigation }) {
+function ReEnterPin({ navigation }: any) {
+  const router = useRouter();
   const et1 = useRef(null);
   const et2 = useRef(null);
   const et3 = useRef(null);
@@ -128,15 +130,14 @@ function ReEnterPin({ navigation }) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate('AddItem');
+            // navigation.navigate('EnterPins');
+            router.push("/auth/Enterpin")
           }}
         >
           <View style={styles.buttonContent}>
             <Text
               style={styles.buttonText}
-              onPress={() => {
-                navigation.navigate('EnterPins');
-              }}
+              
             >
               SUBMIT
             </Text>

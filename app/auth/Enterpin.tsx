@@ -1,5 +1,6 @@
 import PayRowLogo from '@/components/logo';
 import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useRef } from 'react';
 import {
   StyleSheet,
@@ -13,7 +14,8 @@ import {
   Keyboard,
 } from 'react-native';
 
-function EnterPins({ navigation }) {
+function EnterPins({ navigation }: any) { 
+  const router = useRouter();
   const et1 = useRef(null);
   const et2 = useRef(null);
   const et3 = useRef(null);
@@ -128,8 +130,9 @@ function EnterPins({ navigation }) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate('AddItem');
-            // Navigate to Add Item Screen
+            // navigation.navigate('AddItem');
+
+           router.push("/products/AddItem")
           }}
         >
           <View style={styles.buttonContent}>

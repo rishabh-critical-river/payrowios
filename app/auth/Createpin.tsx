@@ -1,4 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
@@ -12,7 +13,8 @@ import {
   Keyboard,
 } from 'react-native';
 
-function CreatePin({ navigation }) {
+function CreatePin({ navigation }: any) {
+  const router = useRouter();
   const [timer, setTimer] = useState(52); // Initial value of the timer in seconds
   const et1 = useRef();
   const et2 = useRef();
@@ -134,14 +136,13 @@ function CreatePin({ navigation }) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate('ReEnterPin');
+            // navigation.navigate('ReEnterPin');
+            router.push("/auth/Reenterpin")
           }}
         >
           <View
             style={styles.buttonContent}
-            onPress={() => {
-              navigation.navigate('ReEnterPin');
-            }}
+           
           >
             <Text style={styles.buttonText}>SUBMIT</Text>
             <View style={styles.arrowIcon}>
@@ -153,7 +154,8 @@ function CreatePin({ navigation }) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            navigation.navigate('HomeScreen');
+            // navigation.navigate('HomeScreen');
+            router.push("/auth/Reenterpin")
           }}
         >
           <View
