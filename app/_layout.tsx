@@ -1,15 +1,20 @@
 import React from 'react';
-
-// import Screens from './screens';
-import { SafeAreaView, StatusBar } from 'react-native';
-import { app } from '@/styles/app';
 import { Stack } from 'expo-router';
+import { app } from '@/styles/app';
+import { SafeAreaView, StatusBar } from 'react-native';
 
 const RootLayout = () => {
   return (
-    <Stack>
-      <Stack.Screen name="(onboarding)/get-started" />
-    </Stack>
+    <SafeAreaView style={app['app-container']}>
+      <StatusBar barStyle="light-content" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="(onboarding)/get-started" />
+      </Stack>
+    </SafeAreaView>
   );
 };
 export default RootLayout;

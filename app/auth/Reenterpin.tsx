@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 
 function ReEnterPin({ navigation }) {
-  const et1 = useRef();
-  const et2 = useRef();
-  const et3 = useRef();
-  const et4 = useRef();
+  const et1 = useRef(null);
+  const et2 = useRef(null);
+  const et3 = useRef(null);
+  const et4 = useRef(null);
   return (
     <>
       <View style={styles.container}>
@@ -26,7 +26,7 @@ function ReEnterPin({ navigation }) {
           }}
         >
           <Image
-            source={require('../../src/Images/Watermark.png')}
+            source={require('@/assets/onboarding/Watermark.png')}
             style={{
               width: 36,
               height: 50,
@@ -34,7 +34,7 @@ function ReEnterPin({ navigation }) {
           />
         </View>
         <Image
-          source={require('../../src/Images/payrowLogo.png')}
+          source={require('@/assets/logos/payrow-logo.png')}
           style={styles.logo}
         />
         <Text
@@ -225,7 +225,7 @@ function ReEnterPin({ navigation }) {
           }}
         >
           <Image
-            source={require('../../src/Images/Watermark.png')}
+            source={require('@/assets/onboarding/Watermark.png')}
             style={{
               width: 36,
               height: 50,
@@ -234,7 +234,7 @@ function ReEnterPin({ navigation }) {
         </View>
 
         <Image
-          source={require('../../src/Images/getStarted.png')}
+          source={require('@/assets/onboarding/getStarted.png')}
           style={{
             width: 312,
             height: 230,
