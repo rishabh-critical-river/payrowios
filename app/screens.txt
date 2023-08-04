@@ -1,0 +1,62 @@
+import React from 'react';
+import { LanguageSelection } from '@/screens/onboarding';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import type { NativeStackNavigationOptions } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+const screenOptions = {
+  headerShown: false,
+} as NativeStackNavigationOptions;
+
+type ScreensArrayTypes = {
+  name: string;
+  component: React.FC<any>;
+};
+
+const screensArray = [
+  {
+    name: 'selectLanaguage',
+    component: LanguageSelection,
+  },
+] as ScreensArrayTypes[];
+
+const Screens = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={screenOptions}>
+        {screensArray.map((screen, index) => {
+          return <Stack.Screen key={index} {...screen} />;
+        })}
+
+        {/* <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CreatePin"
+              component={CreatePin}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ReEnterPin"
+              component={ReEnterPin}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="EnterPin"
+              component={EnterPin}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Create Account"
+              component={CreateAccount}
+              options={{ headerShown: false }}
+            /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+export default Screens;
