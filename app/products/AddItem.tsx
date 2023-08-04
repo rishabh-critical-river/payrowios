@@ -19,6 +19,8 @@ import {
 } from '@expo/vector-icons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import axios from 'axios';
+import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 // import PaymentSummary from './PaymentSummary';
 
 const categories = [
@@ -35,6 +37,7 @@ const categories = [
 ];
 
 function AddItem({ navigation }: any) {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [hasPermission, setHasPermission] = useState(null);
@@ -480,10 +483,11 @@ function AddItem({ navigation }: any) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate('PaymentSummary', {
-              orderDetails,
-              itemsWithQuantity,
-            });
+            // navigation.navigate('PaymentSummary', {
+            //   orderDetails,
+            //   itemsWithQuantity,
+            // });
+            router.push("/products/PaymentSummary")
           }}
         >
           <View style={styles.buttonContent}>
