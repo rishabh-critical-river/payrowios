@@ -17,9 +17,9 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { BarCodeScanner } from "expo-barcode-scanner";
+// import { BarCodeScanner } from "expo-barcode-scanner";
 import axios from "axios";
-import PaymentSummary from "./PaymentSummary";
+// import PaymentSummary from "./PaymentSummary";
 
 const categories = [
   {
@@ -35,6 +35,7 @@ const categories = [
 ];
 
 function AddItem({ navigation }: any) {
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [hasPermission, setHasPermission] = useState(null);
@@ -44,12 +45,12 @@ function AddItem({ navigation }: any) {
   const [itemsWithQuantity, setItemsWithQuantity] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await BarCodeScanner.requestPermissionsAsync();
+  //     setHasPermission(status === "granted");
+  //   })();
+  // }, []);
 
   useEffect(() => {
     const initialItems = categories.reduce((acc, category) => {
@@ -93,7 +94,7 @@ function AddItem({ navigation }: any) {
     await fetchOrderDetails(); // Wait for the order details to be fetched.
     ///how to navigate to payment summary screen only after the order details are fetched?
     orderDetails &&
-      navigation.navigate("paymentSummary", {
+      navigation.navigate("PaymentSummary", {
         orderDetails,
       });
   };
@@ -173,7 +174,7 @@ function AddItem({ navigation }: any) {
           }}
         >
           <Image
-            source={require("../../../src/Images/Watermark.png")}
+            source={require("@/assets/icons/Watermark.png")}
             style={{
               width: 36,
               height: 50,
@@ -188,10 +189,10 @@ function AddItem({ navigation }: any) {
                 alignItems: "center",
               }}
             >
-              <BarCodeScanner
+              {/* <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
                 style={{ width: "50%", height: "30%", marginTop: "60%" }}
-              />
+              /> */}
               <Button title="Close Scanner" onPress={handleCloseScanner} />
             </View>
           </Modal>
@@ -211,7 +212,7 @@ function AddItem({ navigation }: any) {
             }}
           >
             <Image
-              source={require("./arrow_back.png")}
+                 source={require("@/assets/icons/arrow_back.png")}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -321,8 +322,8 @@ function AddItem({ navigation }: any) {
               <Image
                 source={
                   selectedCategory?.id === category.id
-                    ? require("./upload.png")
-                    : require("./dropdown.png")
+                    ? require("@/assets/icons/upload.png")
+                    : require("@/assets/icons/dropdown.png")
                 }
                 style={{ width: 16, height: 16 }}
               />
@@ -349,7 +350,7 @@ function AddItem({ navigation }: any) {
                     >
                       <Image
                         style={{ width: 58, height: 55, marginLeft: 14 }}
-                        source={require("./ellipse.png")}
+                        source={require("@/assets/icons/ellipse.png")}
                       />
                       <View
                         style={{
@@ -459,7 +460,7 @@ function AddItem({ navigation }: any) {
           }}
         >
           <Image
-            source={require("../../../src/Images/Watermark.png")}
+            source={require("@/assets/icons/Watermark.png")}
             style={{
               width: 36,
               height: 50,
@@ -478,7 +479,7 @@ function AddItem({ navigation }: any) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("paymentSummary", {
+            navigation.navigate("PaymentSummary", {
               orderDetails,
               itemsWithQuantity,
             });
