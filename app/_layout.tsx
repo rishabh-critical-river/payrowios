@@ -1,9 +1,10 @@
 import React from 'react';
-import { Slot } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 import SWRProvider from '@/providers/swr';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+// import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useDeviceId from '@/hooks/use-device-id';
 import AuthProvider from '@/providers/auth';
+import SafeAreaProvider from '@/providers/safe-area';
 
 const RootLayout = () => {
   const state = useDeviceId();
@@ -11,13 +12,13 @@ const RootLayout = () => {
   if (state.deviceId) console.log(state.deviceId);
 
   return (
-    <AuthProvider>
-      <SafeAreaProvider>
+    <SafeAreaProvider>
+      <AuthProvider>
         <SWRProvider>
           <Slot />
         </SWRProvider>
-      </SafeAreaProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 };
 export default RootLayout;

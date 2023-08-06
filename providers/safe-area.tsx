@@ -1,11 +1,13 @@
-import { app } from '@/styles/app';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { app } from '@/styles/app';
 import { StatusBar } from 'react-native';
-const SafeAreaProvider = () => {
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const SafeAreaProvider = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <SafeAreaView style={app['app-container']}>
       <StatusBar barStyle="light-content" />
+      {children}
     </SafeAreaView>
   );
 };

@@ -109,13 +109,13 @@ function AddItem() {
     setScannedData(null);
   };
 
-  if (hasPermission === null) {
-    return <Text>Requesting camera permission...</Text>;
-  }
+  // if (hasPermission === null) {
+  //   return <Text>Requesting camera permission...</Text>;
+  // }
 
-  if (hasPermission === false) {
-    return <Text>No access to the camera.</Text>;
-  }
+  // if (hasPermission === false) {
+  //   return <Text>No access to the camera.</Text>;
+  // }
 
   const handleCategoryPress = (category) => {
     if (selectedCategory === category) {
@@ -210,7 +210,7 @@ function AddItem() {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate('EnterPins');
-              router.push('/auth/enter-pin');
+              router.back();
             }}
           >
             <Image
