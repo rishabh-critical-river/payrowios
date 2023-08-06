@@ -1,28 +1,24 @@
-import useLoginOTP from '@/apis/hooks/use-login-otp';
+import PayRowLogo from '@/components/logo';
+import OTPInput from '@/components/otp-input';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useRef } from 'react';
-
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Image,
-  Button,
   TextInput,
   TouchableOpacity,
   Keyboard,
 } from 'react-native';
 
-function CreateAccount({ navigation }: any) {
+function EnterPins({ navigation }: any) {
+  const router = useRouter();
   const et1 = useRef(null);
   const et2 = useRef(null);
   const et3 = useRef(null);
   const et4 = useRef(null);
-  const router = useRouter();
-
-  const { onSendAuthCode, onVerifyAuthCode } = useLoginOTP();
   return (
     <>
       <View style={styles.container}>
@@ -41,22 +37,17 @@ function CreateAccount({ navigation }: any) {
             }}
           />
         </View>
-
-        <Image
-          source={require('@/assets/logos/payrow-logo.png')}
-          style={styles.logo}
-        />
+        <PayRowLogo />
         <Text
           style={{
             marginTop: 30.47,
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: '400',
             lineHeight: 28,
-            color: '#333333',
             alignSelf: 'center',
           }}
         >
-          Enter Authentication Code
+          Enter Pin
         </Text>
         {/* <View
           style={{
@@ -68,90 +59,21 @@ function CreateAccount({ navigation }: any) {
           }}
         >
           <Text style={{ alignSelf: "center", color: "#666666" }}>
-            SMS code sent to verify phone number 
-          </Text> 
+            SMS code sent to verify phone number
+          </Text>
         </View> */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginLeft: 52,
-            marginRight: 52,
-            marginTop: 24,
-          }}
-        >
-          <TextInput
-            secureTextEntry={true}
-            ref={et1}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length >= 1) {
-                et2.current.focus();
-              }
-            }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            ref={et2}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length >= 1) {
-                et3.current.focus();
-              } else if (text.length < 1) {
-                et1.current.focus();
-              }
-            }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            ref={et3}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length >= 1) {
-                et4.current.focus();
-              } else if (text.length < 1) {
-                et2.current.focus();
-              }
-            }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            ref={et4}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length < 1) {
-                et3.current.focus();
-              } else {
-                Keyboard.dismiss();
-              }
-            }}
-          />
-        </View>
+        <OTPInput onChange={(otp) => console.log(otp)} value={[]} />
+
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate('AddItem');
+            // navigation.navigate('AddItem');
+
+            router.push('/products/add-item');
           }}
         >
           <View style={styles.buttonContent}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => {
-                onVerifyAuthCode();
-                // navigation.navigate('CreatePin');
-                // router.push('/auth/Createpin');
-              }}
-            >
-              SUBMIT
-            </Text>
+            <Text style={styles.buttonText}>SUBMIT</Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
@@ -161,8 +83,7 @@ function CreateAccount({ navigation }: any) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            // navigation.navigate("");
-            onSendAuthCode();
+            navigation.navigate('HomeScreen');
           }}
         >
           <View
@@ -189,7 +110,7 @@ function CreateAccount({ navigation }: any) {
                   flex: 1,
                 }}
               >
-                Send code
+                00:52
               </Text>
               <View
                 style={{
@@ -464,4 +385,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateAccount;
+export default EnterPins;

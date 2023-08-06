@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign, Entypo } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 const PaymentSummary = () => {
   const router = useRouter();
@@ -18,21 +18,22 @@ const PaymentSummary = () => {
   //     setCategories(route.params.itemsWithQuantity);
   //   }
   // }, [route.params]);
-  useEffect(() => {
-    const total = categories.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
 
-    setTotalAmount(total);
-  }, [categories]);
-  useEffect(() => {
-    if (orderDetails) {
-      const total = orderDetails.data.reduce((acc, item) => {
-        return acc + item.totalAmount;
-      }, 0);
-      setScanTotal(total);
-    }
-  }, [orderDetails]);
+  // useEffect(() => {
+  //   const total = categories?.reduce((acc, item) => {
+  //     return acc + item.price * item.quantity;
+  //   }, 0);
+
+  //   setTotalAmount(total);
+  // }, [categories]);
+  // useEffect(() => {
+  //   if (orderDetails) {
+  //     const total = orderDetails?.data?.reduce((acc, item) => {
+  //       return acc + item.totalAmount;
+  //     }, 0);
+  //     setScanTotal(total);
+  //   }
+  // }, [orderDetails]);
 
   console.log(categories, 'cat');
   return (
@@ -49,7 +50,7 @@ const PaymentSummary = () => {
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate("AddItem");
-            router.push('/products/AddItem');
+            router.push('/products/add-item');
           }}
         >
           <Image
@@ -250,8 +251,8 @@ const PaymentSummary = () => {
           </View>
           {orderDetails && (
             <View style={{ marginTop: 4 }}>
-              {orderDetails.data.map((product) => (
-                <View key={product._id} style={{ flexDirection: 'row' }}>
+              {orderDetails?.data?.map((product, index) => (
+                <View key={index} style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
                       marginLeft: 40,
@@ -263,7 +264,7 @@ const PaymentSummary = () => {
                       lineHeight: 16,
                     }}
                   >
-                    {product.purchaseBreakdown.service[0].englishName}{' '}
+                    {product?.purchaseBreakdown?.service[0]?.englishName}{' '}
                     {/* Replace with the actual product name property */}
                   </Text>
                   <Text
@@ -275,7 +276,7 @@ const PaymentSummary = () => {
                       lineHeight: 20,
                     }}
                   >
-                    {product.totalAmount.toFixed(2)}{' '}
+                    {product?.totalAmount?.toFixed(2)}{' '}
                     {/* Replace with the actual product price property */}
                   </Text>
                 </View>
@@ -284,8 +285,8 @@ const PaymentSummary = () => {
           )}
           {categories && (
             <View style={{ marginTop: 4 }}>
-              {categories?.map((product) => (
-                <View key={product.id} style={{ flexDirection: 'row' }}>
+              {categories?.map((product, index) => (
+                <View key={index} style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
                       marginLeft: 40,
@@ -309,7 +310,7 @@ const PaymentSummary = () => {
                       lineHeight: 20,
                     }}
                   >
-                    {product?.price * product?.quantity}{' '}
+                    {Number(product?.price) * Number(product?.quantity)}{' '}
                     {/* Replace with the actual product price property */}
                   </Text>
                 </View>
@@ -389,7 +390,7 @@ const PaymentSummary = () => {
           onPress={() => {
             // navigation.navigate('paymentMode');
             // Payment Mode screen
-            // router.push('/');
+            router.push('/payment/payment-mode');
           }}
         >
           <View style={styles.buttonContent}>
@@ -425,7 +426,6 @@ const styles = StyleSheet.create({
   containers: {
     width: '80%',
     height: 50,
-    borderRadius: 10,
     borderWidth: 1,
     borderColor: 'rgba(75, 80, 80, 0.25)',
     alignSelf: 'center',

@@ -97,12 +97,7 @@ function AddItem() {
       // navigation.navigate('PaymentSummary', {
       //   orderDetails,
       // });
-      router.push({
-        pathname: '/products/PaymentSummary',
-        params: {
-          orderDetails,
-        },
-      });
+      router.push('/products/payment-summary');
   };
 
   const handleOpenScanner = () => {
@@ -195,10 +190,10 @@ function AddItem() {
                 alignItems: 'center',
               }}
             >
-              {/* <BarCodeScanner
+              <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
-                style={{ width: "50%", height: "30%", marginTop: "60%" }}
-              /> */}
+                style={{ width: '50%', height: '30%', marginTop: '60%' }}
+              />
               <Button title="Close Scanner" onPress={handleCloseScanner} />
             </View>
           </Modal>
@@ -215,7 +210,7 @@ function AddItem() {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate('EnterPins');
-              router.push('/auth/Enterpin');
+              router.push('/auth/enter-pin');
             }}
           >
             <Image
@@ -489,14 +484,14 @@ function AddItem() {
             //   orderDetails,
             //   itemsWithQuantity,
             // });
-            router.push({
-              pathname: '/products/PaymentSummary',
-              params: {
-                // @ts-expect-error
-                orderDetails,
-                itemsWithQuantity,
-              },
-            });
+            router.push('/products/payment-summary');
+            // router.push({
+            //   pathname: '/products/payment-summary',
+            //   params: {
+            //     orderDetails,
+            //     itemsWithQuantity,
+            //   },
+            // });
           }}
         >
           <View style={styles.buttonContent}>

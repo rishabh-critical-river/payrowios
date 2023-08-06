@@ -1,39 +1,26 @@
+import useLoginOTP from '@/apis/hooks/use-login-otp';
+import OTPInput from '@/components/otp-input';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Image,
-  Button,
   TextInput,
   TouchableOpacity,
   Keyboard,
 } from 'react-native';
 
-function CreatePin({ navigation }: any) {
+function CreateAccount({ navigation }: any) {
+  const et1 = useRef<TextInput>(null);
+  const et2 = useRef<TextInput>(null);
+  const et3 = useRef<TextInput>(null);
+  const et4 = useRef<TextInput>(null);
   const router = useRouter();
-  const [timer, setTimer] = useState(52); // Initial value of the timer in seconds
-  const et1 = useRef();
-  const et2 = useRef();
-  const et3 = useRef();
-  const et4 = useRef();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (timer > 0) {
-        setTimer((prevTimer) => prevTimer - 1);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timer]);
-
-  const formattedTimer = `${Math.floor(timer / 60)
-    .toString()
-    .padStart(2, '0')}:${(timer % 60).toString().padStart(2, '0')}`;
+  const { onSendAuthCode, onVerifyAuthCode } = useLoginOTP();
 
   return (
     <>
@@ -58,93 +45,37 @@ function CreatePin({ navigation }: any) {
           source={require('@/assets/logos/payrow-logo.png')}
           style={styles.logo}
         />
+
         <Text
           style={{
             marginTop: 30.47,
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: '400',
             lineHeight: 28,
+            color: '#333333',
             alignSelf: 'center',
           }}
         >
-          Create Pin
+          Enter Authentication Code
         </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginLeft: 52,
-            marginRight: 52,
-            marginTop: 24,
-          }}
-        >
-          <TextInput
-            secureTextEntry={true}
-            ref={et1}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length >= 1) {
-                et2.current.focus();
-              }
-            }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            ref={et2}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length >= 1) {
-                et3.current.focus();
-              } else if (text.length < 1) {
-                et1.current.focus();
-              }
-            }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            ref={et3}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length >= 1) {
-                et4.current.focus();
-              } else if (text.length < 1) {
-                et2.current.focus();
-              }
-            }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            ref={et4}
-            style={styles.box}
-            keyboardType="number-pad"
-            maxLength={1}
-            onChangeText={(text) => {
-              if (text.length < 1) {
-                et3.current.focus();
-              } else {
-                Keyboard.dismiss();
-              }
-            }}
-          />
-        </View>
+        <OTPInput onChange={(otp) => console.log(otp)} value={[]} />
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            // navigation.navigate('ReEnterPin');
-            router.push("/auth/Reenterpin")
+            navigation.navigate('AddItem');
           }}
         >
-          <View
-            style={styles.buttonContent}
-           
-          >
-            <Text style={styles.buttonText}>SUBMIT</Text>
+          <View style={styles.buttonContent}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => {
+                // onVerifyAuthCode();
+                // navigation.navigate('CreatePin');
+                router.push('/auth/create-pin');
+              }}
+            >
+              SUBMIT
+            </Text>
             <View style={styles.arrowIcon}>
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
@@ -154,8 +85,8 @@ function CreatePin({ navigation }: any) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            // navigation.navigate('HomeScreen');
-            router.push("/auth/Reenterpin")
+            // navigation.navigate("");
+            onSendAuthCode();
           }}
         >
           <View
@@ -164,6 +95,7 @@ function CreatePin({ navigation }: any) {
               borderColor: '#B2B2B2',
               borderRadius: 8,
               backgroundColor: '#FFFFFF',
+
               height: 48,
               justifyContent: 'center',
             }}
@@ -181,7 +113,7 @@ function CreatePin({ navigation }: any) {
                   flex: 1,
                 }}
               >
-                {formattedTimer}
+                Send code
               </Text>
               <View
                 style={{
@@ -238,6 +170,7 @@ function CreatePin({ navigation }: any) {
             marginBottom: 16,
           }}
         />
+
         <Text
           style={{
             fontSize: 12,
@@ -253,7 +186,6 @@ function CreatePin({ navigation }: any) {
     </>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -456,4 +388,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreatePin;
+export default CreateAccount;
