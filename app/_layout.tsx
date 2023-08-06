@@ -1,19 +1,23 @@
 import React from 'react';
-import { Slot, Stack } from 'expo-router';
-import { app } from '@/styles/app';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { Slot } from 'expo-router';
+import SWRProvider from '@/providers/swr';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import useDeviceId from '@/hooks/use-device-id';
+import AuthProvider from '@/providers/auth';
 
 const RootLayout = () => {
+  const state = useDeviceId();
+  // Generate a unique device id
+  if (state.deviceId) console.log(state.deviceId);
+
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <SafeAreaView style={app['app-container']}>
-        <StatusBar barStyle="light-content" />
-      </SafeAreaView>
-    </Stack>
+    <AuthProvider>
+      <SafeAreaProvider>
+        <SWRProvider>
+          <Slot />
+        </SWRProvider>
+      </SafeAreaProvider>
+    </AuthProvider>
   );
 };
 export default RootLayout;
