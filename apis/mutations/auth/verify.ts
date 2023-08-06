@@ -1,25 +1,22 @@
 import api from '@/apis/config';
 
-type Payload = {
-  tid: string | number;
-  mobileNumber: string | number;
-};
+type Payload = string; // base64 encoded string
 type Response = {
   success: boolean;
   message: string;
 };
 
 /**
- * Verify the Device is
+ * Verify Auth Code
  * @returns
  */
-const verifyDevice = async (payload: Payload) => {
+const verifyAuthCode = async (payload: Payload) => {
   const response = await api.put<Response>(`/onboarding/login/verify`, payload);
   return response;
 };
-export default verifyDevice;
+export default verifyAuthCode;
 
 /**
  * @endpoint https://payrowdev.uaenorth.cloudapp.azure.com
- * @api {put} /onboarding/login/verify Verify the Device is
+ * @api {put} /onboarding/login/verify Verify Auth Code
  */

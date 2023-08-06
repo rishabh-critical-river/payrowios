@@ -42,3 +42,12 @@ keyValidation: '12398'
 }
 
 => need to encrypt and send in req body
+
+```jsx
+{
+  code: '5662',
+  tid: '072837',
+  imeiNumber: '584096016d08e2b9',
+  keyValidation: '12398'
+}
+```
