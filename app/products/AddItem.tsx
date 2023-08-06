@@ -1,12 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   FlatList,
-  SafeAreaView,
-  ScrollView,
   Image,
   Button,
   TouchableOpacity,
@@ -19,6 +16,7 @@ import {
 } from '@expo/vector-icons';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import axios from 'axios';
+import { useRouter } from 'expo-router';
 // import PaymentSummary from './PaymentSummary';
 
 const categories = [
@@ -34,7 +32,8 @@ const categories = [
   // Add more categories as needed
 ];
 
-function AddItem({ navigation }: any) {
+function AddItem() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [hasPermission, setHasPermission] = useState(null);
@@ -48,7 +47,6 @@ function AddItem({ navigation }: any) {
     (async () => {
       const { status, granted } =
         await BarCodeScanner.requestPermissionsAsync();
-
       setHasPermission(granted);
     })();
   }, []);
@@ -83,6 +81,7 @@ function AddItem({ navigation }: any) {
       });
 
       setOrderDetails(response.data);
+      console.log('response', response.data);
     } catch (error) {
       console.error(error);
     }
@@ -95,8 +94,14 @@ function AddItem({ navigation }: any) {
     await fetchOrderDetails(); // Wait for the order details to be fetched.
     ///how to navigate to payment summary screen only after the order details are fetched?
     orderDetails &&
-      navigation.navigate('PaymentSummary', {
-        orderDetails,
+      // navigation.navigate('PaymentSummary', {
+      //   orderDetails,
+      // });
+      router.push({
+        pathname: '/products/PaymentSummary',
+        params: {
+          orderDetails,
+        },
       });
   };
 
@@ -209,7 +214,8 @@ function AddItem({ navigation }: any) {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('EnterPins');
+              // navigation.navigate('EnterPins');
+              router.push('/auth/Enterpin');
             }}
           >
             <Image
@@ -444,7 +450,6 @@ function AddItem({ navigation }: any) {
           </View>
         )}
       </View>
-
       <View
         style={{
           backgroundColor: 'white',
@@ -480,9 +485,17 @@ function AddItem({ navigation }: any) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate('PaymentSummary', {
-              orderDetails,
-              itemsWithQuantity,
+            // navigation.navigate('PaymentSummary', {
+            //   orderDetails,
+            //   itemsWithQuantity,
+            // });
+            router.push({
+              pathname: '/products/PaymentSummary',
+              params: {
+                // @ts-expect-error
+                orderDetails,
+                itemsWithQuantity,
+              },
             });
           }}
         >
@@ -518,7 +531,7 @@ const styles = StyleSheet.create({
   containers: {
     width: '80%',
     height: 50,
-    borderRadius: 10,
+
     borderWidth: 1,
     borderColor: 'rgba(75, 80, 80, 0.25)',
     alignSelf: 'center',

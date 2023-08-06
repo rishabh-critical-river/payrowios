@@ -1,5 +1,5 @@
-import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
+import React from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   StyleSheet,
   Text,
@@ -9,27 +9,57 @@ import {
   TextInput,
   ImageBackground,
   ScrollView,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import PayRowLogo from "@/components/logo";
-import { useRouter } from "expo-router";
+  Button,
+} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import PayRowLogo from '@/components/logo';
+import { useRouter } from 'expo-router';
+import useCheckDevice from '@/apis/hooks/use-check-device';
+import PanelView from '@/components/view/PanelView';
 
 function Login({ navigation }: any) {
   const router = useRouter();
+  const { state, isValid, onChangeState, onCheckDevice } = useCheckDevice();
+  console.log(state);
 
   return (
     <ScrollView>
+      <PanelView show={state.alert}>
+        <View
+          style={{
+            // width: 200,
+            height: '100%',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
+          }}
+        >
+          <Button
+            title="Continue"
+            onPress={() => router.replace('/auth/CreateAccount')}
+          />
+          <Button
+            title="Cancle"
+            onPress={() => onChangeState('alert', false)}
+          />
+        </View>
+      </PanelView>
       <View style={styles.container}>
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             right: 0,
             top: 76,
             zIndex: 999,
           }}
         >
           <Image
-            source={require("@/assets/onboarding/Watermark_grey.png")}
+            source={require('@/assets/onboarding/Watermark_grey.png')}
             style={{
               width: 36,
               height: 50,
@@ -41,25 +71,25 @@ function Login({ navigation }: any) {
           colors={["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 1)"]}
         > */}
 
-        <LinearGradient colors={["#231123", "#558C8C"]} style={styles.gradient}>
+        <LinearGradient colors={['#231123', '#558C8C']} style={styles.gradient}>
           <View>
-            <View style={{ marginTop: 30, alignSelf: "center" }}>
+            <View style={{ marginTop: 30, alignSelf: 'center' }}>
               <ImageBackground
-                source={require("@/assets/onboarding/design.png")}
+                source={require('@/assets/onboarding/design.png')}
                 style={{
                   width: 220,
                   height: 154,
-                  alignSelf: "center",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
                 <Text
                   style={{
                     fontSize: 57,
                     lineHeight: 64,
-                    fontWeight: "700",
-                    color: "#fff",
+                    fontWeight: '700',
+                    color: '#fff',
                   }}
                 >
                   Hello!
@@ -68,8 +98,8 @@ function Login({ navigation }: any) {
                   style={{
                     fontSize: 14,
                     lineHeight: 20,
-                    fontWeight: "400",
-                    color: "#fff",
+                    fontWeight: '400',
+                    color: '#fff',
                   }}
                 >
                   Sign in to your account
@@ -82,12 +112,12 @@ function Login({ navigation }: any) {
 
         <View
           style={{
-            position: "relative",
-            backgroundColor: "#fff",
+            position: 'relative',
+            backgroundColor: '#fff',
             top: -80,
             zIndex: 999,
             borderWidth: 1,
-            borderColor: "#CCCCCC",
+            borderColor: '#CCCCCC',
             marginLeft: 32,
             marginRight: 32,
             paddingTop: 24,
@@ -100,20 +130,20 @@ function Login({ navigation }: any) {
         >
           <View
             style={{
-              display: "flex",
-              alignSelf: "center",
+              display: 'flex',
+              alignSelf: 'center',
             }}
           >
             <PayRowLogo />
           </View>
 
-          <View style={{ alignSelf: "center", marginTop: 24, width: "100%" }}>
+          <View style={{ alignSelf: 'center', marginTop: 24, width: '100%' }}>
             <Text
               style={{
                 fontSize: 12,
                 lineHeight: 12,
-                fontWeight: "400",
-                color: "#4B5050",
+                fontWeight: '400',
+                color: '#4B5050',
                 height: 13,
               }}
             >
@@ -123,39 +153,42 @@ function Login({ navigation }: any) {
               style={{
                 opacity: 0.7,
                 fontSize: 16,
-                fontWeight: "400",
+                fontWeight: '400',
                 borderBottomWidth: 1,
               }}
               placeholder="TID Number"
               keyboardType="numeric"
+              maxLength={6}
+              onChangeText={(value) => onChangeState('tid', value)}
+              value={state.tid}
             />
           </View>
 
           <View
             style={{
-              alignSelf: "center",
+              alignSelf: 'center',
               marginTop: 28,
-              borderBottomColor: "#333333",
+              borderBottomColor: '#333333',
               borderBottomWidth: 1,
-              width: "100%",
+              width: '100%',
             }}
           >
             <Text
               style={{
                 fontSize: 12,
                 lineHeight: 12,
-                fontWeight: "400",
-                color: "#4B5050",
+                fontWeight: '400',
+                color: '#4B5050',
                 // width: 296,
                 height: 16,
               }}
             >
               Phone Number
             </Text>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ alignItems: "center", flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ alignItems: 'center', flexDirection: 'row' }}>
                 <Image
-                  source={require("@/assets/onboarding/UAE.png")}
+                  source={require('@/assets/onboarding/UAE.png')}
                   style={{
                     width: 18,
                     height: 18,
@@ -163,7 +196,7 @@ function Login({ navigation }: any) {
                   }}
                 />
                 <Image
-                  source={require("@/assets/onboarding/IconPlacholder.png")}
+                  source={require('@/assets/onboarding/IconPlacholder.png')}
                   style={{
                     width: 20,
                     height: 20,
@@ -171,24 +204,25 @@ function Login({ navigation }: any) {
                   }}
                 />
               </View>
-              <TextInput
+              <Text
                 style={{
-                  color: "black",
-                  fontWeight: "400",
+                  color: 'black',
+                  fontWeight: '400',
                   fontSize: 16,
-                  width: 37,
+
                   height: 24,
                   opacity: 0.7,
                   marginRight: 4,
+                  // width: '100%',
                 }}
-                placeholder="Amount"
+                // placeholder="Amount"
               >
                 +971
-              </TextInput>
+              </Text>
 
               <TextInput
                 style={{
-                  fontWeight: "400",
+                  fontWeight: '400',
                   fontSize: 16,
                   width: 81,
                   height: 24,
@@ -197,54 +231,58 @@ function Login({ navigation }: any) {
                   // borderColor: "#99999",
                   // borderBottomWidth: 1,
                 }}
-                placeholder="  Amount"
-              >
-                561503987
-              </TextInput>
+                placeholder="Amount"
+                keyboardType="numeric"
+                maxLength={10}
+                value={state.mobileNumber}
+                onChangeText={(value) => onChangeState('mobileNumber', value)}
+              ></TextInput>
             </View>
             <View
               //horizontal line
               style={{
-                backgroundColor: "#99999",
+                backgroundColor: '#99999',
 
                 // width: 296,
                 height: 1,
                 opacity: 1,
-                alignSelf: "center",
+                alignSelf: 'center',
               }}
             />
           </View>
           <View style={{ marginTop: 35 }}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => {
-                // navigation.navigate('Create Account');
-                router.push("/auth/CreateAccount");
-              }}
+              // onPress={() => {
+              //   // navigation.navigate('Create Account');
+              //   // router.push('/auth/CreateAccount');
+              // }}
+              onPress={onCheckDevice}
+              disabled={!isValid}
             >
               <View
                 style={{
                   borderWidth: 1,
 
-                  borderColor: "#4B5050",
-                  backgroundColor: "#4B5050",
+                  borderColor: '#4B5050',
+                  backgroundColor: '#4B5050',
                   borderRadius: 8,
 
                   // width: 328,
-                  width: "100%",
+                  width: '100%',
                   height: 48,
-                  justifyContent: "center",
+                  justifyContent: 'center',
                 }}
               >
-                <View style={{ flexDirection: "row", maxWidth: "100%" }}>
+                <View style={{ flexDirection: 'row', maxWidth: '100%' }}>
                   <Text
                     style={{
                       fontSize: 16,
                       paddingLeft: 16,
-                      fontWeight: "500",
+                      fontWeight: '500',
                       lineHeight: 24,
-                      justifyContent: "center",
-                      color: "white",
+                      justifyContent: 'center',
+                      color: 'white',
                       letterSpacing: 0.1,
                       flex: 1,
                     }}
@@ -253,8 +291,8 @@ function Login({ navigation }: any) {
                   </Text>
                   <View
                     style={{
-                      justifyContent: "center",
-                      alignItems: "center",
+                      justifyContent: 'center',
+                      alignItems: 'center',
                       marginRight: 16,
                     }}
                   >
@@ -268,7 +306,7 @@ function Login({ navigation }: any) {
         <View
           style={{
             borderWidth: 1,
-            borderColor: "#CCCCCC",
+            borderColor: '#CCCCCC',
             marginLeft: 32,
             marginRight: 32,
             marginTop: -80,
@@ -283,28 +321,28 @@ function Login({ navigation }: any) {
           <View style={{ marginBottom: 16 }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                navigation.navigate('');
               }}
               style={{
                 borderWidth: 1,
-                borderColor: "#4B505040",
+                borderColor: '#4B505040',
                 borderRadius: 9,
 
-                width: "100%",
+                width: '100%',
                 height: 44,
-                alignSelf: "center",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
+                alignSelf: 'center',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: "500",
+                  fontWeight: '500',
                   flex: 1,
 
-                  color: "#4B5050",
+                  color: '#4B5050',
                   lineHeight: 20,
 
                   marginLeft: 16,
@@ -318,7 +356,7 @@ function Login({ navigation }: any) {
                 style={{
                   width: 20, // Set the desired width
                   height: 20, // Set the desired height
-                  fontWeight: "bold", // Set the desired font weight (bold)
+                  fontWeight: 'bold', // Set the desired font weight (bold)
                   marginRight: 8,
                 }}
                 color="#4B5050E5"
@@ -328,28 +366,28 @@ function Login({ navigation }: any) {
           <View>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                navigation.navigate('');
               }}
               style={{
                 borderWidth: 1,
-                borderColor: "#4B505040",
+                borderColor: '#4B505040',
                 borderRadius: 9,
 
-                width: "100%",
+                width: '100%',
                 height: 44,
-                alignSelf: "center",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
+                alignSelf: 'center',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: "500",
+                  fontWeight: '500',
                   flex: 1,
 
-                  color: "#4B5050",
+                  color: '#4B5050',
                   lineHeight: 20,
 
                   marginLeft: 16,
@@ -363,7 +401,7 @@ function Login({ navigation }: any) {
                 style={{
                   width: 20, // Set the desired width
                   height: 20, // Set the desired height
-                  fontWeight: "bold", // Set the desired font weight (bold)
+                  fontWeight: 'bold', // Set the desired font weight (bold)
                   marginRight: 8,
                 }}
                 color="#4B5050E5"
@@ -374,21 +412,21 @@ function Login({ navigation }: any) {
       </View>
       <View
         style={{
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "flex-end",
+          backgroundColor: 'white',
+          display: 'flex',
+          justifyContent: 'flex-end',
         }}
       >
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             bottom: 20,
             zIndex: 999,
           }}
         >
           <Image
-            source={require("@/assets/onboarding/Watermark.png")}
+            source={require('@/assets/onboarding/Watermark.png')}
             style={{
               width: 36,
               height: 50,
@@ -445,9 +483,9 @@ function Login({ navigation }: any) {
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             paddingBottom: 15,
           }}
         >
@@ -461,23 +499,23 @@ function Login({ navigation }: any) {
 export default Login;
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   gradient: {
-    width: "100%",
+    width: '100%',
     height: 268,
   },
   text: {
-    color: "white",
+    color: 'white',
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 33,
   },
   selectLanguage: {
@@ -485,91 +523,91 @@ const styles = StyleSheet.create({
     height: 28,
     fontSize: 17,
 
-    color: "#333333",
-    fontWeight: "400",
+    color: '#333333',
+    fontWeight: '400',
     marginTop: 24.47,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   languageText: {
     fontSize: 14,
     paddingLeft: 16,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 20,
-    justifyContent: "center",
-    color: "#4B5050CC",
+    justifyContent: 'center',
+    color: '#4B5050CC',
   },
   languages: {
-    flexDirection: "column",
+    flexDirection: 'column',
 
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   shadowProp: {
-    shadowColor: "#171717",
+    shadowColor: '#171717',
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
   box: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    borderColor: "#4B505033",
-    backgroundColor: "#ffffff",
+    borderColor: '#4B505033',
+    backgroundColor: '#ffffff',
     borderRadius: 8,
     marginBottom: 15,
     width: 328,
     height: 48,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   button: {
-    alignSelf: "center",
-    color: "#4B5050",
+    alignSelf: 'center',
+    color: '#4B5050',
 
     // padding: 10,
     fontSize: 20,
     height: 48,
-    width: "100%",
+    width: '100%',
     // width: 296,
-    cursor: "pointer",
+    cursor: 'pointer',
     borderRadius: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     // marginBottom: 15,
   },
   arrow: {
-    display: "flex",
-    position: "relative",
+    display: 'flex',
+    position: 'relative',
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: 'white',
     width: 40,
     height: 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   arrowTriangle: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderRightWidth: 1,
-    transform: [{ rotate: "45deg" }],
+    transform: [{ rotate: '45deg' }],
     right: 9,
     top: 19,
   },
   arrowTriangleRight: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderLeftWidth: 1,
-    transform: [{ rotate: "-45deg" }],
+    transform: [{ rotate: '-45deg' }],
     right: 9,
     top: 36,
   },
