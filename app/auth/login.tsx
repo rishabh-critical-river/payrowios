@@ -263,6 +263,7 @@ function Login({ navigation }: any) {
                 </View>
               </View>
             </TouchableOpacity>
+            
           </View>
         </View>
         <View
