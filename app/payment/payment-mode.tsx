@@ -80,7 +80,7 @@ function PayByQrCode() {
               alignSelf: "center",
               marginTop: 33,
             }}
-            source={require("./payrowLogo.png")}
+            source={require("@/assets/onboarding/payrowLogo.png")}
           />
           <Text
             style={{
@@ -237,21 +237,21 @@ function PayByQrCode() {
             }}
           >
             <Image
-              source={require("../fab.png")}
+              source={require("@/assets/logos/fab.png")}
               style={{
                 width: 72.15,
                 height: 42,
               }}
             />
             <Image
-              source={require("../visa.png")}
+              source={require("@/assets/icons/visa.png")}
               style={{
                 width: 52.15,
                 height: 33,
               }}
             />
             <Image
-              source={require("../mastercard.png")}
+              source={require("@/assets/icons/mastercard.png")}
               style={{
                 width: 51.62,
                 height: 32,
