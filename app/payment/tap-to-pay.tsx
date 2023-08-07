@@ -46,10 +46,12 @@ function PayByQrCode() {
         }}
       >
         <TouchableOpacity
-          onPress={router.back}
+          onPress={() => {
+            navigation.navigate("paymentSummary");
+          }}
         >
           <Image
-            source={require("@/assets/icons/arrow_back.png")}
+            source={require("./arrow_back.png")}
             style={{
               width: 16.03,
               height: 16.03,
