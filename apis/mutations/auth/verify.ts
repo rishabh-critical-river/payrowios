@@ -1,9 +1,10 @@
 import api from '@/apis/config';
 
-type Payload = string; // base64 encoded string
+type Payload = {
+  data: string;
+}; // base64 encoded string
 type Response = {
-  success: boolean;
-  message: string;
+  encrypt: string;
 };
 
 /**
@@ -11,6 +12,7 @@ type Response = {
  * @returns
  */
 const verifyAuthCode = async (payload: Payload) => {
+  console.log({ payload });
   const response = await api.put<Response>(`/onboarding/login/verify`, payload);
   return response;
 };

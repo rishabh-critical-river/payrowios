@@ -2,16 +2,20 @@ import OTPInput from '@/components/otp-input';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useRef } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
 function ReEnterPin() {
   const router = useRouter();
-  const et1 = useRef(null);
-  const et2 = useRef(null);
-  const et3 = useRef(null);
-  const et4 = useRef(null);
+
   return (
-    <>
+    <ScrollView>
       <View style={styles.container}>
         <View
           style={{
@@ -56,7 +60,7 @@ function ReEnterPin() {
             SMS code sent to verify phone number
           </Text>
         </View> */}
-        <OTPInput onChange={(otp) => console.log(otp)} value={[]} />
+        <OTPInput onChangeOTP={(otp) => console.log(otp)} />
 
         <TouchableOpacity
           style={styles.goToSummaryButton}
@@ -77,7 +81,7 @@ function ReEnterPin() {
           style={styles.resendCode}
           onPress={() => {
             // navigation.navigate('HomeScreen');
-            router.push('/auth/home');
+            router.push('/home/');
           }}
         >
           <View
@@ -86,7 +90,6 @@ function ReEnterPin() {
               borderColor: '#B2B2B2',
               borderRadius: 8,
               backgroundColor: '#FFFFFF',
-
               height: 48,
               justifyContent: 'center',
             }}
@@ -184,7 +187,7 @@ function ReEnterPin() {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
-    </>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({

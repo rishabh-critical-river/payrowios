@@ -1,29 +1,24 @@
-import useLoginOTP from '@/apis/hooks/use-login-otp';
+import React from 'react';
+import { useRouter } from 'expo-router';
 import OTPInput from '@/components/otp-input';
 import { AntDesign } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React, { useRef } from 'react';
+import useLoginOTP from '@/apis/hooks/use-login-otp';
 
 import {
+  ScrollView,
   StyleSheet,
   Text,
   View,
   Image,
-  TextInput,
   TouchableOpacity,
-  Keyboard,
 } from 'react-native';
 
-function CreateAccount({ navigation }: any) {
-  const et1 = useRef<TextInput>(null);
-  const et2 = useRef<TextInput>(null);
-  const et3 = useRef<TextInput>(null);
-  const et4 = useRef<TextInput>(null);
+function CreateAccount() {
   const router = useRouter();
-  const { onSendAuthCode, onVerifyAuthCode } = useLoginOTP();
+  const { onSendAuthCode, onVerifyAuthCode, onChangeState } = useLoginOTP();
 
   return (
-    <>
+    <ScrollView>
       <View style={styles.container}>
         <View
           style={{
@@ -58,11 +53,13 @@ function CreateAccount({ navigation }: any) {
         >
           Enter Authentication Code
         </Text>
-        <OTPInput onChange={(otp) => console.log(otp)} value={[]} />
+        <OTPInput onChangeOTP={(otp) => onChangeState('code', otp)} />
+
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate('AddItem');
+            // navigation.navigate('AddItem');
+            router.push('/products/add-item');
           }}
         >
           <View style={styles.buttonContent}>
@@ -73,6 +70,7 @@ function CreateAccount({ navigation }: any) {
                 // navigation.navigate('CreatePin');
                 router.push('/auth/create-pin');
               }}
+              // onPress={() => onVerifyAuthCode()}
             >
               SUBMIT
             </Text>
@@ -84,20 +82,16 @@ function CreateAccount({ navigation }: any) {
 
         <TouchableOpacity
           style={styles.resendCode}
-          onPress={() => {
-            // navigation.navigate("");
-            onSendAuthCode();
-          }}
+          onPress={() => onSendAuthCode()}
         >
           <View
             style={{
-              borderWidth: 0.5,
-              borderColor: '#B2B2B2',
-              borderRadius: 8,
-              backgroundColor: '#FFFFFF',
-
               height: 48,
+              borderRadius: 8,
+              borderWidth: 0.5,
               justifyContent: 'center',
+              borderColor: '#B2B2B2',
+              backgroundColor: '#FFFFFF',
             }}
           >
             <View style={{ flexDirection: 'row' }}>
@@ -135,7 +129,6 @@ function CreateAccount({ navigation }: any) {
           </View>
         </TouchableOpacity>
       </View>
-
       <View
         style={{
           backgroundColor: 'white',
@@ -183,7 +176,7 @@ function CreateAccount({ navigation }: any) {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
-    </>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({

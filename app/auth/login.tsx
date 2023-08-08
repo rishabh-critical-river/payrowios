@@ -22,6 +22,16 @@ function Login({ navigation }: any) {
   const { state, isValid, onChangeState, onCheckDevice } = useCheckDevice();
   console.log(state);
 
+  const onCreateAccount = React.useCallback(() => {
+    router.push({
+      pathname: '/auth/create-account',
+      params: {
+        tid: state.tid,
+        mobileNumber: state.mobileNumber,
+      },
+    });
+  }, [state.tid, state.mobileNumber]);
+
   return (
     <ScrollView>
       <PanelView show={state.alert}>
@@ -89,10 +99,7 @@ function Login({ navigation }: any) {
               </Text>
             </View>
             <View style={{ flexDirection: 'column', gap: 16 }}>
-              <Button
-                title="Continue"
-                onPress={() => router.replace('/auth/create-account')}
-              />
+              <Button title="Continue" onPress={onCreateAccount} />
               <Button
                 title="Cancle"
                 onPress={() => onChangeState('alert', false)}
@@ -310,17 +317,15 @@ function Login({ navigation }: any) {
                 router.push('/auth/create-account');
               }}
               // onPress={onCheckDevice}
+              // onPress={onCreateAccount}
               disabled={!isValid}
             >
               <View
                 style={{
                   borderWidth: 1,
-
                   borderColor: '#4B5050',
                   backgroundColor: '#4B5050',
                   borderRadius: 8,
-
-                  // width: 328,
                   width: '100%',
                   height: 48,
                   justifyContent: 'center',

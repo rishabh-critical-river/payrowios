@@ -89,6 +89,7 @@ const GetStartedScreen = () => {
           style={styles.button}
           onPress={() => {
             router.push('/auth/login');
+            // router.push('/test');
           }}
           activeOpacity={0.8}
         >
