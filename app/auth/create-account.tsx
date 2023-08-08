@@ -65,12 +65,12 @@ function CreateAccount() {
           <View style={styles.buttonContent}>
             <Text
               style={styles.buttonText}
-              onPress={() => {
-                // onVerifyAuthCode();
-                // navigation.navigate('CreatePin');
-                router.push('/auth/create-pin');
-              }}
-              // onPress={() => onVerifyAuthCode()}
+              // onPress={() => {
+              //   // onVerifyAuthCode();
+              //   // navigation.navigate('CreatePin');
+              //   router.push('/auth/create-pin');
+              // }}
+              onPress={() => onVerifyAuthCode()}
             >
               SUBMIT
             </Text>

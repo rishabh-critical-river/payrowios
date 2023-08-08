@@ -34,10 +34,9 @@ function Login({ navigation }: any) {
 
   return (
     <ScrollView>
-      <PanelView show={state.alert}>
+      {state.alert && (
         <View
           style={{
-            // width: 200,
             height: '100%',
             backgroundColor: 'rgba(0,0,0,0.5)',
             position: 'fixed',
@@ -52,16 +51,10 @@ function Login({ navigation }: any) {
           <View
             style={{
               width: '90%',
-              // height: '100%',
-              backgroundColor: '#fff',
               marginLeft: 32,
               marginRight: 32,
               padding: 24,
-
-              // display: 'flex',
-              // alignItems: 'center',
-              // justifyContent: 'center',
-              // gap: 10,
+              backgroundColor: '#fff',
             }}
           >
             <View
@@ -107,7 +100,7 @@ function Login({ navigation }: any) {
             </View>
           </View>
         </View>
-      </PanelView>
+      )}
       <View style={styles.container}>
         <View
           style={{
@@ -312,12 +305,11 @@ function Login({ navigation }: any) {
           <View style={{ marginTop: 35 }}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => {
-                // navigation.navigate('Create Account');
-                router.push('/auth/create-account');
-              }}
-              // onPress={onCheckDevice}
-              // onPress={onCreateAccount}
+              // onPress={() => {
+              //   // navigation.navigate('Create Account');
+              //   router.push('/auth/create-account');
+              // }}
+              onPress={onCheckDevice}
               disabled={!isValid}
             >
               <View

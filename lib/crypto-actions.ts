@@ -15,7 +15,7 @@ const cryptoActions = {
     const AES = params.AES;
     const ALG = params.ALG;
     const encrypted = CryptoJS.AES.encrypt(params.plaintext, key, {
-      i: iv,
+      iv,
     });
     const encryptedBase64 = encrypted.toString();
     return encryptedBase64;
@@ -26,7 +26,7 @@ const cryptoActions = {
     const AES = params.AES;
     const ALG = params.ALG;
     const decrypt = CryptoJS.AES.decrypt(params.plaintext, key, {
-      i: iv,
+      iv,
     });
     return decrypt.toString(CryptoJS.enc.Utf8);
   },

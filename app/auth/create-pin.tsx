@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 function CreatePin() {
+  const [code, setCode] = React.useState('');
   const router = useRouter();
   const [timer, setTimer] = useState(52); // Initial value of the timer in seconds
 
@@ -29,6 +30,7 @@ function CreatePin() {
     .toString()
     .padStart(2, '0')}:${(timer % 60).toString().padStart(2, '0')}`;
 
+  console.log(otp);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -63,13 +65,18 @@ function CreatePin() {
         >
           Create Pin
         </Text>
-        <OTPInput onChangeOTP={(otp) => console.log(otp)} />
+        <OTPInput onChangeOTP={(otp) => setCode(otp)} />
 
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
             // navigation.navigate('ReEnterPin');
-            router.push('/auth/re-enter-pin');
+            router.push({
+              pathname: '/auth/re-enter-pin',
+              params: {
+                code,
+              },
+            });
           }}
         >
           <View style={styles.buttonContent}>
