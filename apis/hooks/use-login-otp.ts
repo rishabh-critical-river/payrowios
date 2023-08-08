@@ -54,9 +54,9 @@ const useLoginOTP = () => {
         });
         if (data.data) {
           const decode = base64.decode(data.data);
-          console.log(typeof decode);
-          console.log({ decode });
-          onChangeState('decode', decode);
+          const parseDecode = JSON.parse(decode.replace(/\\/g, ''));
+          console.log(parseDecode, "check");
+          onChangeState('decode', parseDecode);
         }
       } catch (error: any) {
         console.log(error);
