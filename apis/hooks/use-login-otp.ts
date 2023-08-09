@@ -2,7 +2,7 @@ import React from 'react';
 import loginOTP from '../mutations/auth/login-otp';
 import base64 from '@/lib/base64';
 import verifyAuthCode from '../mutations/auth/verify';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import cryptoActions from '@/lib/crypto-actions';
 import keyValidation from '@/lib/num-characters';
 import useDeviceId from '@/hooks/use-device-id';
@@ -100,17 +100,28 @@ const useLoginOTP = () => {
 
         console.log({ encryptedBase64 });
         // Verify Auth Code
-        // const res = await verifyAuthCode({ data: encryptedBase64 });
-        // console.log('Verify Auth Code', res.data);
+        const res = await verifyAuthCode({ data: encryptedBase64 });
+        console.log('Verify Auth Code', res.data);
         // Decrypt Response Data
-        // const decryptedBase64 = cryptoActions.decrypt({
-        //   iv: state.decode.iv,
-        //   key: state.decode.key,
-        //   AES: state.decode.AES,
-        //   ALG: state.decode.ALG,
-        //   plaintext: res.data.encrypt,
-        // });
-        // console.log({ decryptedBase64 });
+        const decryptedBase64 = cryptoActions.decrypt({
+          iv: state.decode.iv,
+          key: state.decode.key,
+          AES: state.decode.AES,
+          ALG: state.decode.ALG,
+          plaintext: res.data.encrypt,
+        });
+        const decryptedData = decryptedBase64.replace(/\\/g, '');
+        const decryptedJson = JSON.parse(decryptedData);
+        console.log(decryptedJson, "decryptedJson");
+        if (decryptedJson.success === true) {
+          router.push({
+            pathname: '/auth/create-pin',
+            params: {
+              tid: params.tid
+            }
+
+          });
+        }
       }
     } catch (error) {
       console.log(error);
