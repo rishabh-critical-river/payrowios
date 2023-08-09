@@ -1,6 +1,8 @@
+import useCreatePin from '@/apis/hooks/use-create-pin';
 import OTPInput from '@/components/otp-input';
+import { Params } from '@/typings/params';
 import { AntDesign } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useRef } from 'react';
 import {
   ScrollView,
@@ -13,6 +15,11 @@ import {
 
 function ReEnterPin() {
   const router = useRouter();
+  const params = useLocalSearchParams<Params>();
+
+  console.log({ params });
+
+  const { onChangeState, onConfirmPin, state } = useCreatePin();
 
   return (
     <ScrollView>
@@ -60,13 +67,14 @@ function ReEnterPin() {
             SMS code sent to verify phone number
           </Text>
         </View> */}
-        <OTPInput onChangeOTP={(otp) => console.log(otp)} />
+        <OTPInput onChangeOTP={(pin) => onChangeState('pin', pin)} />
 
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
+            onConfirmPin();
             // navigation.navigate('EnterPins');
-            router.push('/auth/enter-pin');
+            // router.push('/auth/enter-pin');
           }}
         >
           <View style={styles.buttonContent}>

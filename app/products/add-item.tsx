@@ -17,6 +17,7 @@ import {
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import axios from 'axios';
 import { useRouter } from 'expo-router';
+import useUserToken from '@/apis/hooks/use-user-data';
 // import PaymentSummary from './PaymentSummary';
 
 const categories = [
@@ -33,6 +34,9 @@ const categories = [
 ];
 
 function AddItem() {
+  const datax = useUserToken();
+  console.log('Token data ', datax);
+
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);

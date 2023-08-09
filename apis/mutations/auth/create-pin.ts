@@ -1,8 +1,7 @@
 import api from '@/apis/config';
 
 type Payload = {
-  tid: string | number;
-  mobileNumber: string | number;
+  data: string;
 };
 type Response = {
   success: boolean;
@@ -12,11 +11,11 @@ type Response = {
 /**
  * Create Pin
  */
-const checkDevice = async (payload: Payload) => {
+const createPin = async (payload: Payload) => {
   const response = await api.post<Response>(`/onboarding/login/pin`, payload);
   return response;
 };
-export default checkDevice;
+export default createPin;
 
 /**
  * @endpoint https://payrowdev.uaenorth.cloudapp.azure.com

@@ -17,12 +17,12 @@ const useLoginOTP = () => {
   const params = useLocalSearchParams<Params>();
 
   const [state, setState] = React.useState({
-    code: '4802',
+    code: '',
     decode: {
-      key: 'J/PYjc1ftDFK5+77U1PB80v2TamokGap5yCIP2YI6tQ=',
-      iv: 'gaOr3uvhZEwFeSbRHwlHcg==',
-      AES: 'AES/CBC/NoPADDING',
-      ALG: 'AES/CBC/PKCS5PADDING',
+      key: '',
+      iv: '',
+      AES: '',
+      ALG: '',
     },
   });
 
@@ -55,8 +55,9 @@ const useLoginOTP = () => {
         if (data.data) {
           const decode = base64.decode(data.data);
           const parseDecode = JSON.parse(decode.replace(/\\/g, ''));
-          console.log(parseDecode, "check");
+          console.log(parseDecode, 'check');
           onChangeState('decode', parseDecode);
+          onChangeState('code', '');
         }
       } catch (error: any) {
         console.log(error);
@@ -70,10 +71,10 @@ const useLoginOTP = () => {
   const onVerifyAuthCode = React.useCallback(async () => {
     try {
       if (!deviceId) {
-        throw new Error('Device Id is is required');
+        throw new Error('Device Id is required');
       }
       if (!params.tid) {
-        throw new Error('TID is is required');
+        throw new Error('TID is required');
       }
       if (!state.code) {
         throw new Error('Auth Code is required');
@@ -112,14 +113,17 @@ const useLoginOTP = () => {
         });
         const decryptedData = decryptedBase64.replace(/\\/g, '');
         const decryptedJson = JSON.parse(decryptedData);
-        console.log(decryptedJson, "decryptedJson");
+        console.log(decryptedJson, 'decryptedJson');
         if (decryptedJson.success === true) {
           router.push({
             pathname: '/auth/create-pin',
             params: {
-              tid: params.tid
-            }
-
+              tid: params.tid,
+              iv: state.decode.iv,
+              key: state.decode.key,
+              AES: state.decode.AES,
+              ALG: state.decode.ALG,
+            },
           });
         }
       }
@@ -147,7 +151,3 @@ const useLoginOTP = () => {
 };
 
 export default useLoginOTP;
-
-function removeBackslash(jsonString: string) {
-  return jsonString.replace(/\\/g, '');
-}
