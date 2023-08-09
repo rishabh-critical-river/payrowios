@@ -22,12 +22,21 @@ function Login({ navigation }: any) {
   const { state, isValid, onChangeState, onCheckDevice } = useCheckDevice();
   console.log(state);
 
+  const onCreateAccount = React.useCallback(() => {
+    router.push({
+      pathname: '/auth/create-account',
+      params: {
+        tid: state.tid,
+        mobileNumber: state.mobileNumber,
+      },
+    });
+  }, [state.tid, state.mobileNumber]);
+
   return (
     <ScrollView>
-      <PanelView show={state.alert}>
+      {state.alert && (
         <View
           style={{
-            // width: 200,
             height: '100%',
             backgroundColor: 'rgba(0,0,0,0.5)',
             position: 'fixed',
@@ -42,16 +51,10 @@ function Login({ navigation }: any) {
           <View
             style={{
               width: '90%',
-              // height: '100%',
-              backgroundColor: '#fff',
               marginLeft: 32,
               marginRight: 32,
               padding: 24,
-
-              // display: 'flex',
-              // alignItems: 'center',
-              // justifyContent: 'center',
-              // gap: 10,
+              backgroundColor: '#fff',
             }}
           >
             <View
@@ -89,10 +92,7 @@ function Login({ navigation }: any) {
               </Text>
             </View>
             <View style={{ flexDirection: 'column', gap: 16 }}>
-              <Button
-                title="Continue"
-                onPress={() => router.replace('/auth/create-account')}
-              />
+              <Button title="Continue" onPress={onCreateAccount} />
               <Button
                 title="Cancle"
                 onPress={() => onChangeState('alert', false)}
@@ -100,7 +100,7 @@ function Login({ navigation }: any) {
             </View>
           </View>
         </View>
-      </PanelView>
+      )}
       <View style={styles.container}>
         <View
           style={{
@@ -305,22 +305,19 @@ function Login({ navigation }: any) {
           <View style={{ marginTop: 35 }}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => {
-                // navigation.navigate('Create Account');
-                router.push('/auth/create-account');
-              }}
-              // onPress={onCheckDevice}
+              // onPress={() => {
+              //   // navigation.navigate('Create Account');
+              //   router.push('/auth/create-account');
+              // }}
+              onPress={onCheckDevice}
               disabled={!isValid}
             >
               <View
                 style={{
                   borderWidth: 1,
-
                   borderColor: '#4B5050',
                   backgroundColor: '#4B5050',
                   borderRadius: 8,
-
-                  // width: 328,
                   width: '100%',
                   height: 48,
                   justifyContent: 'center',

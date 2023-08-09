@@ -49,7 +49,13 @@ const useCheckDevice = () => {
       try {
         const { status, data } = await checkDevice(payload);
         if (status === 200) {
-          router.replace('/auth/CreateAccount');
+          router.push({
+            pathname: '/auth/create-account',
+            params: {
+              tid: state.tid,
+              mobileNumber: state.mobileNumber,
+            },
+          });
         }
         console.log({ status, data });
       } catch (error: any) {

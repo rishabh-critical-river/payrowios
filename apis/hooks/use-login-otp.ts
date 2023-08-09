@@ -2,12 +2,28 @@ import React from 'react';
 import loginOTP from '../mutations/auth/login-otp';
 import base64 from '@/lib/base64';
 import verifyAuthCode from '../mutations/auth/verify';
-import { nanoid } from 'nanoid';
-import { AES, enc } from 'crypto-js';
+import { router, useLocalSearchParams } from 'expo-router';
+import cryptoActions from '@/lib/crypto-actions';
+import keyValidation from '@/lib/num-characters';
+import useDeviceId from '@/hooks/use-device-id';
+
+type Params = {
+  tid: string;
+  mobileNumber: string;
+};
 
 const useLoginOTP = () => {
+  const { deviceId } = useDeviceId();
+  const params = useLocalSearchParams<Params>();
+
   const [state, setState] = React.useState({
-    tid: '072857',
+    code: '',
+    decode: {
+      key: '',
+      iv: '',
+      AES: '',
+      ALG: '',
+    },
   });
 
   type Key = keyof typeof state;
@@ -22,49 +38,109 @@ const useLoginOTP = () => {
     [state]
   );
 
+  console.log(state);
+
+  /**
+   * Send Auth Code
+   */
   const onSendAuthCode = React.useCallback(async () => {
-    try {
-      const { status, data } = await loginOTP({
-        tid: state.tid,
-      });
-      // console.log({ status, data });
-      if (data.data) {
-        const decode = base64.decode(data.data);
-        console.log({ decode });
-      }
-    } catch (error: any) {
-      console.log(error);
+    if (!params.tid) {
+      throw new Error('TID is required');
     }
-  }, [state]);
+    if (params.tid) {
+      try {
+        const { data } = await loginOTP({
+          tid: params?.tid,
+        });
+        if (data.data) {
+          const decode = base64.decode(data.data);
+          const parseDecode = JSON.parse(decode.replace(/\\/g, ''));
+          console.log(parseDecode, 'check');
+          onChangeState('decode', parseDecode);
+          onChangeState('code', '');
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
+    }
+  }, [params?.tid]);
+
+  /**
+   * Verify Auth Code
+   */
   const onVerifyAuthCode = React.useCallback(async () => {
     try {
-      const jsonObject = JSON.stringify({
-        code: '8557',
-        tid: '072837',
-        keyValidation: nanoid(5),
-        imeiNumber: '7685203077',
-      });
-      // "{\"key\":\"J/PYjc1ftDFK5+77U1PB80v2TamokGap5yCIP2YI6tQ=\",\"iv\":\"gaOr3uvhZEwFeSbRHwlHcg==\",\"AES\":\"AES/CBC/NoPADDING\",\"ALG\":\"AES/CBC/PKCS5PADDING\"}"
+      if (!deviceId) {
+        throw new Error('Device Id is required');
+      }
+      if (!params.tid) {
+        throw new Error('TID is required');
+      }
+      if (!state.code) {
+        throw new Error('Auth Code is required');
+      }
 
-      const decrypt = {
-        iv: 'gaOr3uvhZEwFeSbRHwlHcg==',
-        AES: 'AES/CBC/NoPADDING',
-        ALG: 'AES/CBC/PKCS5PADDING',
-      };
-      const encryptedBytes = AES.encrypt(jsonObject, decrypt.AES, {
-        iv: decrypt.iv as any,
-      });
-      const encryptedBase64 = encryptedBytes.toString(enc.Base64 as any);
+      if (state.decode) {
+        const plaintext = JSON.stringify({
+          code: state.code,
+          tid: params.tid,
+          imeiNumber: deviceId,
+          keyValidation: keyValidation(5),
+        });
 
-      const response = await verifyAuthCode(encryptedBase64);
-      console.log('Verify Auth Code', {
-        status: response.status,
-        data: response.data,
-      });
-    } catch (error: any) {
+        // console.log({ plaintext });
+
+        // Encrypt Plaintext
+        const encryptedBase64 = cryptoActions.encrypt({
+          iv: state.decode.iv,
+          key: state.decode.key,
+          AES: state.decode.AES,
+          ALG: state.decode.ALG,
+          plaintext,
+        });
+
+        console.log({ encryptedBase64 });
+        // Verify Auth Code
+        const res = await verifyAuthCode({ data: encryptedBase64 });
+        console.log('Verify Auth Code', res.data);
+        // Decrypt Response Data
+        const decryptedBase64 = cryptoActions.decrypt({
+          iv: state.decode.iv,
+          key: state.decode.key,
+          AES: state.decode.AES,
+          ALG: state.decode.ALG,
+          plaintext: res.data.encrypt,
+        });
+        const decryptedData = decryptedBase64.replace(/\\/g, '');
+        const decryptedJson = JSON.parse(decryptedData);
+        console.log(decryptedJson, 'decryptedJson');
+        if (decryptedJson.success === true) {
+          router.push({
+            pathname: '/auth/create-pin',
+            params: {
+              tid: params.tid,
+              iv: state.decode.iv,
+              key: state.decode.key,
+              AES: state.decode.AES,
+              ALG: state.decode.ALG,
+            },
+          });
+        }
+      }
+    } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [
+    deviceId,
+    params.tid,
+    state.code,
+    state.decode.key,
+    state.decode.iv,
+    state.decode.AES,
+    state.decode.ALG,
+  ]);
+
+  // console.log('Removed', removeBackslash(state.decode?.key));
 
   return {
     state,
@@ -75,35 +151,3 @@ const useLoginOTP = () => {
 };
 
 export default useLoginOTP;
-
-//   val encrypt = EncryptDecrypt.encrypt(
-//     jsonObject.toString(),
-//     sharedPreferenceUtil.getAESKey(),
-//     sharedPreferenceUtil.getIV(), sharedPreferenceUtil.getAlg()
-// )
-
-//     val jsonObject = JSONObject()
-// jsonObject.put("code", authCodeRequest.code)
-// jsonObject.put("tid", authCodeRequest.tid)
-// jsonObject.put("keyValidation", authCodeRequest.keyValidation)
-// jsonObject.put("imeiNumber", authCodeRequest.imeiNumber)
-
-// const jsonObject = {
-//   code: '5150',
-//   tid: '072837',
-//   imeiNumber: '7685203077',
-//   keyValidation: nanoid(5),
-// };
-// const encrypt = JSON.stringify({
-//   // code: '5150',
-//   // tid: '072837',
-//   // imeiNumber: '7685203077',
-//   // keyValidation: nanoid(5),
-//   iv: 'gaOr3uvhZEwFeSbRHwlHcg==',
-//   AES: 'AES/CBC/NoPADDING',
-//   ALG: 'AES/CBC/PKCS5PADDING',
-// }).replace(/"/g, '');
-
-// console.log({ encrypt });
-// const data = base64.encode(encrypt);
-// console.log({ data });

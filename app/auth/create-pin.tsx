@@ -1,10 +1,21 @@
 import OTPInput from '@/components/otp-input';
+import { Params } from '@/typings/params';
 import { AntDesign } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 
 function CreatePin() {
+  const params = useLocalSearchParams<Params>();
+
+  const [pin, setPin] = React.useState('');
   const router = useRouter();
   const [timer, setTimer] = useState(52); // Initial value of the timer in seconds
 
@@ -23,7 +34,7 @@ function CreatePin() {
     .padStart(2, '0')}:${(timer % 60).toString().padStart(2, '0')}`;
 
   return (
-    <>
+    <ScrollView>
       <View style={styles.container}>
         <View
           style={{
@@ -56,13 +67,20 @@ function CreatePin() {
         >
           Create Pin
         </Text>
-        <OTPInput onChange={(otp) => console.log(otp)} value={[]} />
+        <OTPInput onChangeOTP={(code) => setPin(code)} />
 
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
             // navigation.navigate('ReEnterPin');
-            router.push('/auth/re-enter-pin');
+            // onConfirmPin();
+            router.push({
+              pathname: '/auth/re-enter-pin',
+              params: {
+                ...params,
+                pin,
+              },
+            });
           }}
         >
           <View style={styles.buttonContent}>
@@ -172,7 +190,7 @@ function CreatePin() {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
-    </>
+    </ScrollView>
   );
 }
 

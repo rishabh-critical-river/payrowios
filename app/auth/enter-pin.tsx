@@ -1,26 +1,29 @@
+import useCreatePin from '@/apis/hooks/use-create-pin';
 import PayRowLogo from '@/components/logo';
 import OTPInput from '@/components/otp-input';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
-  TextInput,
   TouchableOpacity,
-  Keyboard,
+  ScrollView,
 } from 'react-native';
 
 function EnterPins({ navigation }: any) {
   const router = useRouter();
-  const et1 = useRef(null);
-  const et2 = useRef(null);
-  const et3 = useRef(null);
-  const et4 = useRef(null);
+
+  const { onChangeState, onLoginByPin } =
+    useCreatePin();
+    // {
+    //   onSuccess:router.push('/products/add-item');
+    // }
+
   return (
-    <>
+    <ScrollView>
       <View style={styles.container}>
         <View
           style={{
@@ -62,14 +65,14 @@ function EnterPins({ navigation }: any) {
             SMS code sent to verify phone number
           </Text>
         </View> */}
-        <OTPInput onChange={(otp) => console.log(otp)} value={[]} />
+        <OTPInput onChangeOTP={(pin) => onChangeState('pin', pin)} />
 
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
             // navigation.navigate('AddItem');
-
-            router.push('/products/add-item');
+            onLoginByPin();
+            // router.push('/products/add-item');
           }}
         >
           <View style={styles.buttonContent}>
@@ -180,7 +183,7 @@ function EnterPins({ navigation }: any) {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
-    </>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({

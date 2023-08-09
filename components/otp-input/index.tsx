@@ -1,149 +1,288 @@
-import React from 'react';
-import { View, Keyboard, TextInput, StyleSheet } from 'react-native';
-
-type n = number[];
-
-type Props = {
-  value: n;
-  onChange?: (otp: string) => void;
-};
-
 /**
- * This is a component that renders a 4 digit OTP input
- * @param value - The value of the OTP input
- * @param onChange - The callback function that is called when the OTP changes
- * @returns
+ * This Component from
+ * https://github.com/naveenvignesh5/react-native-otp-textinput
  */
 
-const OTPInput = (props: Props) => {
-  const value = React.useMemo(() => {
-    if (props.value) {
-      return props.value;
+import React, { Component } from 'react';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  ViewStyle,
+  KeyboardType,
+  NativeSyntheticEvent,
+  TextInputKeyPressEventData,
+} from 'react-native';
+
+interface IState {
+  focusedInput: number;
+  otpText: string[];
+}
+interface IProps {
+  defaultValue: string;
+  inputCount: number;
+  containerStyle: ViewStyle;
+  textInputStyle: ViewStyle;
+  inputCellLength: number;
+  activeColor: string | string[];
+  inActiveColor: string | string[];
+  onChangeOTP(text: string): void;
+  handleCellTextChange?(text: string, cellIndex: number): void;
+  keyboardType: KeyboardType;
+  testIDPrefix: string;
+  autoFocus: boolean;
+}
+
+const DEFAULT_ACTIVE_COLOR: string = '#3CB371';
+const DEFAULT_INACTIVE_COLOR: string = '#DCDCDC';
+const DEFAULT_TEST_ID_PREFIX: string = 'SIMPLE_OTP';
+const DEFAULT_KEYBOARD_TYPE: KeyboardType = 'numeric';
+
+class OTPInput extends Component<IProps, IState> {
+  static defaultProps: Partial<IProps> = {
+    defaultValue: '',
+    inputCount: 4,
+    activeColor: DEFAULT_ACTIVE_COLOR,
+    inActiveColor: DEFAULT_INACTIVE_COLOR,
+    inputCellLength: 1,
+    containerStyle: {},
+    textInputStyle: {},
+    onChangeOTP: () => {},
+    keyboardType: DEFAULT_KEYBOARD_TYPE,
+    testIDPrefix: DEFAULT_TEST_ID_PREFIX,
+    autoFocus: false,
+  };
+
+  inputs: TextInput[];
+
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+      focusedInput: 0,
+      otpText: this.getOTPTextChucks(
+        props.inputCount || 4,
+        props.inputCellLength,
+        props.defaultValue
+      ),
+    };
+
+    this.inputs = [];
+
+    this.checkTintColorCount();
+  }
+
+  getOTPTextChucks = (
+    inputCount: number,
+    inputCellLength: number,
+    text: string
+  ): string[] => {
+    let matches =
+      text.match(new RegExp('.{1,' + inputCellLength + '}', 'g')) || [];
+
+    return matches.slice(0, inputCount);
+  };
+
+  checkTintColorCount = () => {
+    const { activeColor, inActiveColor, inputCount } = this.props;
+
+    if (typeof activeColor !== 'string' && activeColor.length !== inputCount) {
+      throw new Error(
+        "If tint color is an array it's length should be equal to input count"
+      );
     }
-    return [0, 0, 0, 0];
-  }, [props.value]);
 
-  const et1 = React.useRef<TextInput>(null);
-  const et2 = React.useRef<TextInput>(null);
-  const et3 = React.useRef<TextInput>(null);
-  const et4 = React.useRef<TextInput>(null);
-  const [otp, setOtp] = React.useState(value);
-  const onOtpChange = React.useCallback(
-    (index: number, value: string) => {
-      if (isNaN(Number(value))) {
-        // Do nothing when a non digit is pressed
-        return;
-      }
-      const draft = otp.concat();
-      draft[index] = Number(value);
-      setOtp(draft);
-      if (index > 3) {
-        if (props.onChange) {
-          props.onChange(draft.join(''));
+    if (
+      typeof inActiveColor !== 'string' &&
+      inActiveColor.length !== inputCount
+    ) {
+      throw new Error(
+        "If off tint color is an array it's length should be equal to input count"
+      );
+    }
+  };
+
+  basicValidation = (text: string) => {
+    const validText = /^[0-9a-zA-Z]+$/;
+    return text.match(validText);
+  };
+
+  onTextChange = (text: string, i: number) => {
+    const { inputCellLength, inputCount, onChangeOTP, handleCellTextChange } =
+      this.props;
+
+    if (text && !this.basicValidation(text)) {
+      return;
+    }
+
+    this.setState(
+      (prevState: IState) => {
+        let { otpText } = prevState;
+
+        otpText[i] = text;
+
+        return {
+          otpText,
+        };
+      },
+      () => {
+        onChangeOTP(this.state.otpText.join(''));
+        handleCellTextChange && handleCellTextChange(text, i);
+        if (text.length === inputCellLength && i !== inputCount - 1) {
+          this.inputs[i + 1].focus();
         }
-        Keyboard.dismiss();
       }
-    },
-    [otp]
-  );
+    );
+  };
 
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: 52,
-        marginRight: 52,
-        marginTop: 24,
-      }}
-    >
-      {/* {[et1, et2, et3, et4].map((ref, index) => (
+  onInputFocus = (i: number) => {
+    const { otpText } = this.state;
+
+    const prevIndex = i - 1;
+
+    if (prevIndex > -1 && !otpText[prevIndex] && !otpText.join('')) {
+      this.inputs[prevIndex].focus();
+      return;
+    }
+
+    this.setState({ focusedInput: i });
+  };
+
+  onKeyPress = (
+    e: NativeSyntheticEvent<TextInputKeyPressEventData>,
+    i: number
+  ) => {
+    const val = this.state.otpText[i] || '';
+    const { onChangeOTP, inputCellLength, inputCount } = this.props;
+    const { otpText } = this.state;
+
+    if (e.nativeEvent.key !== 'Backspace' && val && i !== inputCount - 1) {
+      this.inputs[i + 1].focus();
+      return;
+    }
+
+    if (e.nativeEvent.key === 'Backspace' && i !== 0) {
+      if (!val.length && otpText[i - 1].length === inputCellLength) {
+        this.setState(
+          (prevState) => {
+            let { otpText } = prevState;
+
+            otpText[i - 1] = otpText[i - 1]
+              .split('')
+              .splice(0, otpText[i - 1].length - 1)
+              .join('');
+
+            return {
+              otpText,
+            };
+          },
+          () => {
+            onChangeOTP(this.state.otpText.join(''));
+            this.inputs[i - 1].focus();
+          }
+        );
+      }
+    }
+  };
+
+  clear = () => {
+    this.setState(
+      {
+        otpText: [],
+      },
+      () => {
+        this.inputs[0].focus();
+        this.props.onChangeOTP('');
+      }
+    );
+  };
+
+  setValue = (value: string, isPaste: boolean = false) => {
+    const { inputCount, inputCellLength } = this.props;
+
+    const updatedFocusInput = isPaste ? inputCount - 1 : value.length - 1;
+
+    this.setState(
+      {
+        otpText: this.getOTPTextChucks(inputCount, inputCellLength, value),
+      },
+      () => {
+        if (this.inputs[updatedFocusInput]) {
+          this.inputs[updatedFocusInput].focus();
+        }
+
+        this.props.onChangeOTP(value);
+      }
+    );
+  };
+
+  render() {
+    const {
+      inputCount,
+      inActiveColor,
+      activeColor,
+      defaultValue,
+      inputCellLength,
+      containerStyle,
+      textInputStyle,
+      keyboardType,
+      testIDPrefix,
+      autoFocus,
+      ...textInputProps
+    } = this.props;
+
+    const { focusedInput, otpText } = this.state;
+
+    const TextInputs = [];
+
+    for (let i = 0; i < inputCount; i += 1) {
+      const _tintColor =
+        typeof activeColor === 'string' ? activeColor : activeColor[i];
+      const _offTintColor =
+        typeof inActiveColor === 'string' ? inActiveColor : inActiveColor[i];
+
+      const inputStyle = [
+        styles.textInput,
+        textInputStyle,
+        {
+          borderColor: _offTintColor,
+        },
+      ];
+
+      if (focusedInput === i) {
+        inputStyle.push({
+          borderColor: _tintColor,
+        });
+      }
+
+      TextInputs.push(
         <TextInput
-          key={index}
-          secureTextEntry={true}
-          ref={ref}
-          style={styles.box}
-          keyboardType="number-pad"
-          maxLength={1}
-          onChangeText={(text) => {
-            if (text.length >= 1) {
-              if (index < 3) {
-                [et1, et2, et3, et4][index + 1].current?.focus();
-              }
-            }
-            if (text.length < 1) {
-              if (index > 0) {
-                [et1, et2, et3, et4][index - 1].current?.focus();
-              }
-            }
-            if (index === 3) {
-              Keyboard.dismiss();
+          ref={(e) => {
+            if (e) {
+              this.inputs[i] = e;
             }
           }}
-          onChange={({ nativeEvent }) => onOtpChange(index, nativeEvent.text)}
+          key={i}
+          autoCorrect={false}
+          keyboardType={keyboardType}
+          autoFocus={autoFocus && i === 0}
+          value={otpText[i] || ''}
+          style={inputStyle}
+          maxLength={this.props.inputCellLength}
+          onFocus={() => this.onInputFocus(i)}
+          onChangeText={(text) => this.onTextChange(text, i)}
+          multiline={false}
+          onKeyPress={(e) => this.onKeyPress(e, i)}
+          selectionColor={_tintColor}
+          {...textInputProps}
+          testID={`${testIDPrefix}${i}`}
         />
-      ))} */}
-      <TextInput
-        secureTextEntry={true}
-        ref={et1}
-        style={styles.box}
-        keyboardType="number-pad"
-        maxLength={1}
-        onChangeText={(text) => {
-          if (text.length >= 1) {
-            et2.current?.focus();
-          }
-        }}
-        onChange={({ nativeEvent }) => onOtpChange(0, nativeEvent.text)}
-      />
-      <TextInput
-        secureTextEntry={true}
-        ref={et2}
-        style={styles.box}
-        keyboardType="number-pad"
-        maxLength={1}
-        onChangeText={(text) => {
-          if (text.length >= 1) {
-            et3.current?.focus();
-          } else if (text.length < 1) {
-            et1.current?.focus();
-          }
-        }}
-        onChange={({ nativeEvent }) => onOtpChange(1, nativeEvent.text)}
-      />
-      <TextInput
-        secureTextEntry={true}
-        ref={et3}
-        style={styles.box}
-        keyboardType="number-pad"
-        maxLength={1}
-        onChangeText={(text) => {
-          if (text.length >= 1) {
-            et4.current?.focus();
-          } else if (text.length < 1) {
-            et2.current?.focus();
-          }
-        }}
-        onChange={({ nativeEvent }) => onOtpChange(2, nativeEvent.text)}
-      />
-      <TextInput
-        secureTextEntry={true}
-        ref={et4}
-        style={styles.box}
-        keyboardType="number-pad"
-        maxLength={1}
-        onChangeText={(text) => {
-          if (text.length < 1) {
-            et3.current?.focus();
-          } else {
-            Keyboard.dismiss();
-          }
-        }}
-        onChange={({ nativeEvent }) => onOtpChange(3, nativeEvent.text)}
-      />
-    </View>
-  );
-};
+      );
+    }
+
+    return <View style={[styles.container, containerStyle]}>{TextInputs}</View>;
+  }
+}
 
 export default OTPInput;
 
@@ -155,7 +294,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  box: {
+  textInput: {
     display: 'flex',
     flexDirection: 'row',
     textAlign: 'center',
