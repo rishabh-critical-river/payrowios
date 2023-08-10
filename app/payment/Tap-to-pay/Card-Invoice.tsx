@@ -1,26 +1,20 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
-  FlatList,
-  SafeAreaView,
   ScrollView,
   Image,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import Modal from "react-native-modal";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Avatar } from "react-native-elements";
+import { AntDesign } from "@expo/vector-icons";
 const countries = [{ country: "TRANSACTION ID" }, { country: "BY DATE" }];
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-function InvoiceRecallthree({ navigation }) {
+function InvoiceRecallthree({ navigation }:any) {
   const router = useRouter();
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -157,14 +151,15 @@ function InvoiceRecallthree({ navigation }) {
                 justifyContent: "space-between",
                 marginLeft: 32,
                 marginRight: 32,
-                color: "#4B5050",
-                fontWeight: "400",
-                fontSize: 12,
+               
+                
               }}
             >
-              <Text style={{ color: "#4B5050B2" }}>Merchant#</Text>
+              <Text style={{ color: "#4B5050B2",fontWeight: "400",
+                fontSize: 12, }}>Merchant#</Text>
 
-              <Text style={{ color: "#4B5050B2" }}>003125403</Text>
+              <Text style={{ color: "#4B5050B2" ,fontWeight: "400",
+                fontSize: 12,}}>003125403</Text>
             </View>
             <View
               style={{
@@ -528,7 +523,7 @@ function InvoiceRecallthree({ navigation }) {
               }}
               onPress={() => {
                 // navigation.navigate("ConfirmationInvoice");
-                // router.push("ConfirmationInvoice")
+                // router.push("/payment/Tap-to-pay/confirmation-invoice")
                 toggleModal();
               }}
             >
