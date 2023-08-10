@@ -1,30 +1,31 @@
 import api from '@/apis/config';
-import useSWR from 'swr';
+
 type options = {
   imei: string | number;
 };
 type Data = {
   success: boolean;
   message: string;
-  data: string;
+  data: any;
 };
 
 /**
- * Check if the IMEI is valid
- *
- * Return the base64 encoded string of the IMEI
+ * Get the list of products
  * ```tsx
  * {
  *  success: true,
- *  message: "IMEI is valid",
- *  data: "base64 encoded string of the IMEI"
+ *  data: [Array of products]
  * }
  * ```
  * @param imei
  * @returns
  */
-const getProducts = async () => {
-  const response = await api.get<Data>(`/services/smbServices/product`);
+const getProducts = async (token: string) => {
+  const response = await api.get<Data>(`/services/smbServices/product`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response;
 };
 export default getProducts;

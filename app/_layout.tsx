@@ -1,11 +1,12 @@
 import React from 'react';
-import { Slot } from 'expo-router';
+import { Redirect, Slot, useFocusEffect, useRouter } from 'expo-router';
 import SWRProvider from '@/providers/swr';
 import useDeviceId from '@/hooks/use-device-id';
 import AuthProvider from '@/providers/auth';
 import SafeAreaProvider from '@/providers/safe-area';
 import { Provider } from 'react-redux';
 import store from '@/store';
+import useStorageData from '@/apis/hooks/use-storage-data';
 
 const RootLayout = () => {
   const state = useDeviceId();

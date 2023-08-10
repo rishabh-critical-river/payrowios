@@ -1,117 +1,144 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
-  FlatList,
   Image,
-  Button,
   TouchableOpacity,
-  Modal,
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  VirtualizedList,
 } from 'react-native';
 import {
   AntDesign,
   FontAwesome,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import axios from 'axios';
 import { useRouter } from 'expo-router';
-import useUserToken from '@/apis/hooks/use-user-data';
 // import PaymentSummary from './PaymentSummary';
+import styles from '@/styles/add-item';
+import ItemDropdownButton from '@/components/add-item/item-dropdown';
+import ListItem from '@/components/add-item/list-item';
+import itemData from '@/components/add-item/dummy';
+import FooterText from '@/components/footer';
+import PanelView from '@/components/view/PanelView';
+import { FlashList } from '@shopify/flash-list';
+import { ScrollView } from 'react-native-gesture-handler';
+import useProduct from '@/apis/hooks/use-product';
+import getProducts from '@/apis/queries/product/get-product';
+import useStorageData from '@/apis/hooks/use-storage-data';
 
-const categories = [
-  {
-    id: 1,
-    name: 'Fruits & Vegetables',
-    items: [
-      { id: 1, name: 'Apple', price: 1.09, quantity: 0 },
-      { id: 2, name: 'Banana', price: 0.39, quantity: 0 },
-      { id: 3, name: 'Carrot', price: 0.49, quantity: 0 },
-    ],
-  },
-  // Add more categories as needed
-];
+type Item = {
+  _id: any;
+  id: string;
+  price: number;
+  quantity: number;
+  itemName: string;
+  itemDescription: string;
+  status: string;
+};
+type Response = {} & CategoryTypes;
 
-function AddItem() {
-  const datax = useUserToken();
-  console.log('Token data ', datax);
+type CategoryTypes = {
+  _id: any;
+  id: string;
+  serviceCode: string;
+  serviceName: string;
+  status: string;
+  serviceItems: Item[];
+};
 
+function AddItems() {
+  // const {}=useHe
+  const { height } = Dimensions.get('window');
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scannedData, setScannedData] = useState(null);
-  const [isScannerVisible, setIsScannerVisible] = useState(false);
-  const [orderDetails, setOrderDetails] = useState(null);
-  const [itemsWithQuantity, setItemsWithQuantity] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
+  const {
+    state,
+    loading,
+    selected,
+    calculation,
+    scrollEnabled,
+    onPressCategory,
+    onPressCategoryItem,
+    onPressItemIncrement,
+    onPressItemDecrement,
+  } = useAddItems();
 
-  useEffect(() => {
-    (async () => {
-      const { status, granted } =
-        await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(granted);
-    })();
-  }, []);
+  // const [hasPermission, setHasPermission] = useState(null);
+  // const [scannedData, setScannedData] = useState(null);
+  // const [isScannerVisible, setIsScannerVisible] = useState(false);
+  // const [orderDetails, setOrderDetails] = useState(null);
+  // const [itemsWithQuantity, setItemsWithQuantity] = useState<CategoryTypes[]>(
+  //   []
+  // );
+  // const [totalAmount, setTotalAmount] = useState(0);
 
-  useEffect(() => {
-    const initialItems = categories.reduce((acc, category) => {
-      const itemsWithInitialQuantity = category.items.map((item) => ({
-        ...item,
-      }));
-      return [...acc, ...itemsWithInitialQuantity];
-    }, []);
-    setItemsWithQuantity(initialItems);
-  }, [categories]);
-  useEffect(() => {
-    const total = itemsWithQuantity.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status, granted } =
+  //       await BarCodeScanner.requestPermissionsAsync();
+  //     setHasPermission(granted);
+  //   })();
+  // }, []);
 
-    setTotalAmount(total);
-  }, [itemsWithQuantity]);
+  // useEffect(() => {
+  //   const initialItems = categories.reduce((acc, category) => {
+  //     const itemsWithInitialQuantity = category.items.map((item) => ({
+  //       ...item,
+  //     }));
+  //     return [...acc, ...itemsWithInitialQuantity];
+  //   }, []);
+  //   setItemsWithQuantity(initialItems);
+  // }, [categories]);
+  // useEffect(() => {
+  //   const total = itemsWithQuantity.reduce((acc, item) => {
+  //     return acc + item.price * item.quantity;
+  //   }, 0);
 
-  const apiUrl =
-    'https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/000000024279';
+  //   setTotalAmount(total);
+  // }, [itemsWithQuantity]);
 
-  const fetchOrderDetails = async () => {
-    try {
-      const response = await axios.get(apiUrl, {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o',
-        },
-      });
+  // const apiUrl =
+  //   'https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/000000024279';
 
-      setOrderDetails(response.data);
-      console.log('response', response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchOrderDetails = async () => {
+  //   try {
+  //     const response = await axios.get(apiUrl, {
+  //       headers: {
+  //         Authorization:
+  //           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o',
+  //       },
+  //     });
 
-  const handleBarCodeScanned = async ({ data }) => {
-    console.log('data', data);
-    setScannedData(data);
-    setIsScannerVisible(false);
-    await fetchOrderDetails(); // Wait for the order details to be fetched.
-    ///how to navigate to payment summary screen only after the order details are fetched?
-    orderDetails &&
-      // navigation.navigate('PaymentSummary', {
-      //   orderDetails,
-      // });
-      router.push('/products/payment-summary');
-  };
+  //     setOrderDetails(response.data);
+  //     console.log('response', response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const handleBarCodeScanned = async ({ data }) => {
+  //   setScannedData(data);
+  //   setIsScannerVisible(false);
+  //   await fetchOrderDetails(); // Wait for the order details to be fetched.
+  //   ///how to navigate to payment summary screen only after the order details are fetched?
+
+  //   if (orderDetails) {
+  //     // navigation.navigate('PaymentSummary', {
+  //     //   orderDetails,
+  //     // });
+  //     router.push('/products/payment-summary');
+  //   }
+  // };
 
   const handleOpenScanner = () => {
-    setIsScannerVisible(true);
+    // setIsScannerVisible(true);
   };
 
-  const handleCloseScanner = () => {
-    setIsScannerVisible(false);
-    setScannedData(null);
-  };
+  // const handleCloseScanner = () => {
+  //   setIsScannerVisible(false);
+  //   setScannedData(null);
+  // };
 
   // if (hasPermission === null) {
   //   return <Text>Requesting camera permission...</Text>;
@@ -121,53 +148,6 @@ function AddItem() {
   //   return <Text>No access to the camera.</Text>;
   // }
 
-  const handleCategoryPress = (category) => {
-    if (selectedCategory === category) {
-      setSelectedCategory(null);
-    } else {
-      setSelectedCategory(category);
-    }
-  };
-
-  const handleItemPress = (item) => {
-    const updatedItems = [...selectedItems];
-    const itemIndex = updatedItems.findIndex(
-      (selectedItem) => selectedItem.name === item.name
-    );
-
-    if (itemIndex === -1) {
-      updatedItems.push(item);
-    } else {
-      updatedItems.splice(itemIndex, 1);
-    }
-
-    setSelectedItems(updatedItems);
-  };
-
-  const handleIncrement = (item) => {
-    setItemsWithQuantity((prevItems) => {
-      const updatedItems = prevItems.map((currentItem) => {
-        if (currentItem.id === item.id) {
-          return { ...currentItem, quantity: currentItem.quantity + 1 };
-        }
-        return currentItem;
-      });
-      return updatedItems;
-    });
-  };
-
-  const handleDecrement = (item) => {
-    setItemsWithQuantity((prevItems) => {
-      const updatedItems = prevItems.map((currentItem) => {
-        if (currentItem.id === item.id && currentItem.quantity > 0) {
-          return { ...currentItem, quantity: currentItem.quantity - 1 };
-        }
-        return currentItem;
-      });
-      return updatedItems;
-    });
-  };
-  console.log('itemsWithQuantity', itemsWithQuantity);
   return (
     <>
       <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
@@ -186,7 +166,7 @@ function AddItem() {
             }}
           />
         </View>
-        <View>
+        {/* <View>
           <Modal visible={isScannerVisible} animationType="slide">
             <View
               style={{
@@ -201,8 +181,7 @@ function AddItem() {
               <Button title="Close Scanner" onPress={handleCloseScanner} />
             </View>
           </Modal>
-        </View>
-
+        </View> */}
         <View
           style={{
             marginLeft: 19.98,
@@ -267,7 +246,7 @@ function AddItem() {
             marginTop: 9,
             color: '#4B5050',
             fontSize: 14,
-            fontWeight: 400,
+            fontWeight: '400',
           }}
         >
           You can Select multiple items
@@ -279,7 +258,7 @@ function AddItem() {
                 marginLeft: 16,
                 color: 'white',
                 fontSize: 16,
-                fontWeight: 500,
+                fontWeight: '500',
               }}
             >
               SCAN TO ADD
@@ -293,161 +272,238 @@ function AddItem() {
             />
           </View>
         </TouchableOpacity>
-        {categories.map((category, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.containers}
-            onPress={() => handleCategoryPress(category)}
+        <PanelView
+          show={
+            !loading && Number(state?.length) >= 0 && Number(state?.length) <= 0
+          }
+        >
+          <View
+            style={{
+              width: '80%',
+              alignItems: 'center',
+              alignSelf: 'center',
+              justifyContent: 'center',
+              height: height / 1.7,
+            }}
           >
-            <View
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}
-            >
-              <Text style={{ fontWeight: '600', flex: 1 }}>
-                {category.name}
-              </Text>
-
-              {itemsWithQuantity.reduce((acc, item) => acc + item.quantity, 0) >
-                0 && (
-                <View style={styles.badge}>
-                  <Text style={{ textAlign: 'center' }}>
-                    +
-                    {itemsWithQuantity?.length > 0 &&
-                      itemsWithQuantity.reduce(
-                        (acc, item) => acc + item.quantity,
-                        0
-                      )}{' '}
-                    items
-                  </Text>
-                </View>
-              )}
-
-              <Image
-                source={
-                  selectedCategory?.id === category.id
-                    ? require('@/assets/icons/upload.png')
-                    : require('@/assets/icons/dropdown.png')
-                }
-                style={{ width: 16, height: 16 }}
-              />
-            </View>
-          </TouchableOpacity>
-        ))}
-
-        {itemsWithQuantity?.length > 0 && selectedCategory?.id === 1 && (
-          <View style={{ marginTop: 20, alignSelf: 'center', width: '80%' }}>
-            <FlatList
-              data={itemsWithQuantity}
-              renderItem={({ item }) => (
-                <View
-                  style={styles.itemContainer}
-                  onPress={() => handleItemPress(item)}
-                >
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                    }}
-                  >
-                    <View
-                      style={{ flex: 1, flexDirection: 'row', marginTop: 6 }}
-                    >
-                      <Image
-                        style={{ width: 58, height: 55, marginLeft: 14 }}
-                        source={require('@/assets/icons/ellipse.png')}
-                      />
-                      <View
-                        style={{
-                          flexDirection: 'column',
-                          marginLeft: 11,
-                        }}
-                      >
-                        <Text
-                          style={{
-                            marginBottom: 17,
-                            color: '#4B5050',
-                            fontSize: 14,
-                            fontWeight: '500',
-                          }}
-                        >
-                          {item.price.toFixed(2)} AED
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#4B5050',
-                            fontSize: 12,
-                            fontWeight: '400',
-                          }}
-                        >
-                          {item.name}
-                        </Text>
-                      </View>
-                    </View>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          marginBottom: 14,
-                          marginTop: 6,
-                          justifyContent: 'space-between',
-                          marginRight: 15,
-                          marginLeft: 10,
-                        }}
-                      >
-                        <TouchableOpacity onPress={() => handleDecrement(item)}>
-                          <FontAwesome
-                            name="minus-circle"
-                            size={24}
-                            color="#4B5050"
-                          />
-                        </TouchableOpacity>
-
-                        <Text>{item.quantity}</Text>
-
-                        <TouchableOpacity onPress={() => handleIncrement(item)}>
-                          <FontAwesome
-                            name="plus-circle"
-                            size={24}
-                            color="#4B5050"
-                          />
-                        </TouchableOpacity>
-                      </View>
-                      <View style={{ flexDirection: 'row' }}>
-                        <Text
-                          style={{
-                            color: '#4B5050',
-                            fontWeight: '500',
-                            fontSize: 10,
-                            letterSpacing: 0.1,
-                            marginTop: 2,
-                          }}
-                        >
-                          TOTAL
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#4B5050',
-                            fontWeight: '500',
-                            fontSize: 12,
-                            letterSpacing: 0.1,
-                            marginRight: 15,
-                          }}
-                        >
-                          {' '}
-                          {(item.price * (item.quantity || 1)).toFixed(2)} AED
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-
-                  {/* You can add additional item content here */}
-                </View>
-              )}
-            />
+            <Text>No items found</Text>
           </View>
-        )}
+        </PanelView>
+        <PanelView show={loading}>
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <ActivityIndicator size={'large'} color={'#4B5050'} />
+          </View>
+        </PanelView>
+        <PanelView show={!loading}>
+          <ScrollView scrollEnabled={true}>
+            {state &&
+              state.map((parentItem, parentIndex) => {
+                const totalQuantity = parentItem?.serviceItems?.reduce(
+                  (acc, item) => acc + item.quantity,
+                  0
+                );
+                return (
+                  <React.Fragment key={parentIndex}>
+                    <ItemDropdownButton
+                      active={selected === parentItem}
+                      name={parentItem.serviceName}
+                      quantity={totalQuantity}
+                      onPress={() => onPressCategory(parentItem)}
+                    />
+                    <PanelView show={selected?.id === parentItem.id}>
+                      {/* {selected?.serviceItems.map((item, index) => {
+                        return (
+                          <TouchableOpacity
+                            onPress={() => onPressCategoryItem(item)}
+                          >
+                            <View
+                              style={{
+                                width: '80%',
+                                alignSelf: 'center',
+                                justifyContent: 'space-between',
+                              }}
+                              key={index}
+                            >
+                              <Text>{item.quantity}</Text>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  onPressItemIncrement(parentItem.id, item)
+                                }
+                              >
+                                <Text>Increase</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  onPressItemDecrement(parentItem.id, item)
+                                }
+                              >
+                                <Text>Decrease</Text>
+                              </TouchableOpacity>
+                            </View>
+                          </TouchableOpacity>
+                        );
+                      })} */}
+                      {selected && selected?.serviceItems?.length > 0 && (
+                        <ScrollView
+                          style={{
+                            marginTop: 20,
+                            alignSelf: 'center',
+                            width: '80%',
+                            height: 200,
+                          }}
+                        >
+                          {selected?.serviceItems?.map((item, index) => {
+                            return (
+                              <TouchableOpacity
+                                key={index}
+                                onPress={() => onPressCategoryItem(item)}
+                              >
+                                <ListItem
+                                  key={index}
+                                  name={item.itemName}
+                                  price={item.price}
+                                  quantity={item.quantity}
+                                  onAdd={() =>
+                                    onPressItemIncrement(parentItem.id, item)
+                                  }
+                                  onRemove={() =>
+                                    onPressItemDecrement(parentItem.id, item)
+                                  }
+                                />
+                                {/* <View style={styles.itemContainer}>
+                                  <View
+                                    style={{
+                                      flexDirection: 'row',
+                                    }}
+                                  >
+                                    <View
+                                      style={{
+                                        flex: 1,
+                                        flexDirection: 'row',
+                                        marginTop: 6,
+                                      }}
+                                    >
+                                      <Image
+                                        style={{
+                                          width: 58,
+                                          height: 55,
+                                          marginLeft: 14,
+                                        }}
+                                        source={require('@/assets/icons/ellipse.png')}
+                                      />
+                                      <View
+                                        style={{
+                                          flexDirection: 'column',
+                                          marginLeft: 11,
+                                        }}
+                                      >
+                                        <Text
+                                          style={{
+                                            marginBottom: 17,
+                                            color: '#4B5050',
+                                            fontSize: 14,
+                                            fontWeight: '500',
+                                          }}
+                                        >
+                                          {price.toFixed(2)} AED
+                                        </Text>
+                                        <Text
+                                          style={{
+                                            color: '#4B5050',
+                                            fontSize: 12,
+                                            fontWeight: '400',
+                                          }}
+                                        >
+                                          {itemName}
+                                        </Text>
+                                      </View>
+                                    </View>
+                                    <View>
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginBottom: 14,
+                                          marginTop: 6,
+                                          justifyContent: 'space-between',
+                                          marginRight: 15,
+                                          marginLeft: 10,
+                                        }}
+                                      >
+                                        <TouchableOpacity
+                                          onPress={() =>
+                                            onPressItemDecrement(
+                                              parentItem.id,
+                                              item
+                                            )
+                                          }
+                                        >
+                                          <FontAwesome
+                                            name="minus-circle"
+                                            size={24}
+                                            color="#4B5050"
+                                          />
+                                        </TouchableOpacity>
+
+                                        <Text>{quantity}</Text>
+
+                                        <TouchableOpacity
+                                          onPress={() =>
+                                            onPressItemIncrement(
+                                              parentItem.id,
+                                              item
+                                            )
+                                          }
+                                        >
+                                          <FontAwesome
+                                            name="plus-circle"
+                                            size={24}
+                                            color="#4B5050"
+                                          />
+                                        </TouchableOpacity>
+                                      </View>
+                                      <View style={{ flexDirection: 'row' }}>
+                                        <Text
+                                          style={{
+                                            color: '#4B5050',
+                                            fontWeight: '500',
+                                            fontSize: 10,
+                                            letterSpacing: 0.1,
+                                            marginTop: 2,
+                                          }}
+                                        >
+                                          TOTAL
+                                        </Text>
+                                        <Text
+                                          style={{
+                                            color: '#4B5050',
+                                            fontWeight: '500',
+                                            fontSize: 12,
+                                            letterSpacing: 0.1,
+                                            marginRight: 15,
+                                          }}
+                                        >
+                                          {(price * (quantity || 1)).toFixed(
+                                            2
+                                          )}{' '}
+                                          AED
+                                        </Text>
+                                      </View>
+                                    </View>
+                                  </View>
+                                </View> */}
+                              </TouchableOpacity>
+                            );
+                          })}
+                        </ScrollView>
+                      )}
+                    </PanelView>
+                  </React.Fragment>
+                );
+              })}
+          </ScrollView>
+        </PanelView>
       </View>
       <View
         style={{
@@ -473,14 +529,17 @@ function AddItem() {
           />
         </View>
 
-        <View style={styles.priceContainer}>
-          <Text style={styles.priceLabel}>Total Price</Text>
-          <View style={styles.priceTextContainer}>
-            <Text style={styles.priceText}>{totalAmount.toFixed(2)}</Text>
-            <Text style={styles.priceCurrency}>AED</Text>
+        <PanelView show={!loading && Number(state?.length) > 0}>
+          <View style={styles.priceContainer}>
+            <Text style={styles.priceLabel}>Total Price</Text>
+            <View style={styles.priceTextContainer}>
+              <Text style={styles.priceText}>
+                {calculation?.total?.toFixed(2)}
+              </Text>
+              <Text style={styles.priceCurrency}>AED</Text>
+            </View>
           </View>
-        </View>
-
+        </PanelView>
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
@@ -505,142 +564,179 @@ function AddItem() {
             </View>
           </View>
         </TouchableOpacity>
-
-        <Text style={styles.footerText}>
-          ©2022 PayRow Company. All rights reserved
-        </Text>
+        <FooterText />
       </View>
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  buttonContainer: {
-    width: '80%',
-    height: 48,
-    backgroundColor: '#4B5050',
-    alignSelf: 'center',
-    borderRadius: 8,
-    marginTop: 20,
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  containers: {
-    width: '80%',
-    height: 50,
+export default AddItems;
 
-    borderWidth: 1,
-    borderColor: 'rgba(75, 80, 80, 0.25)',
-    alignSelf: 'center',
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 15,
-    paddingRight: 15,
-    shadowColor: '#757e6e',
-    shadowOffset: {
-      width: 0,
-      height: 1,
+const useAddItems = () => {
+  const { user } = useStorageData('user');
+  const safeRef = React.useRef<boolean>(false);
+  const [loading, setLoading] = React.useState(false);
+  const [scrollEnabled, setScrollEnabled] = React.useState(true);
+  const [state, setState] = React.useState<CategoryTypes[] | null>([]);
+
+  const fetchProducts = React.useCallback(async () => {
+    setLoading(true);
+    if (user?.token) {
+      try {
+        const { data } = await getProducts(user?.token);
+        if (data.data && data.data.length > 0) {
+          const itemData = data.data as Response[];
+          const categories = itemData.map((value) => {
+            const items = value?.serviceItems?.map((item) => {
+              return {
+                id: item._id,
+                price: 1.0,
+                quantity: 0,
+                itemName: item.itemName,
+                itemDescription: item.itemDescription,
+                status: item.status,
+              };
+            });
+            return {
+              id: value._id,
+              serviceCode: value.serviceCode,
+              serviceName: value.serviceName,
+              status: value.status,
+              serviceItems: items,
+            };
+          });
+          setState(categories as CategoryTypes[]);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(true);
+        setInterval(() => {
+          setLoading(false);
+        }, 5000);
+      }
+    }
+  }, [user?.token]);
+
+  React.useEffect(() => {
+    safeRef.current = true;
+    if (safeRef.current) {
+      void fetchProducts();
+    }
+    return () => {
+      safeRef.current = false;
+    };
+  }, [user?.token]);
+
+  const [selected, setSelected] = useState<CategoryTypes | null>(null);
+  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+
+  // Calculate Meta Data
+  const calculation = React.useMemo(() => {
+    if (typeof state !== 'undefined') {
+      const total = state?.reduce((acc, category) => {
+        const categoryTotal = category?.serviceItems?.reduce((acc, item) => {
+          return acc + item?.price * item?.quantity;
+        }, 0);
+        return acc + categoryTotal;
+      }, 0);
+
+      return {
+        total,
+      };
+    }
+  }, [state]);
+  /**
+   * For Select Category
+   */
+  const onPressCategory = React.useCallback(
+    (category: CategoryTypes) => {
+      if (selected === category) {
+        setSelected(null);
+        setScrollEnabled(true);
+      } else {
+        setSelected(category);
+        setScrollEnabled(false);
+      }
     },
-    shadowOpacity: 0.08,
-    shadowRadius: 3,
-    borderRadius: 8,
-  },
-  badge: {
-    width: 71,
-    height: 26,
-    borderRadius: 8,
-    backgroundColor: '#4B50500D',
-    textAlign: 'center',
-    paddingTop: 4,
-    marginRight: 22,
-  },
-  itemContainer: {
-    width: '100%',
-    alignSelf: 'center',
-    height: 77,
-    borderRadius: 10,
-    marginBottom: 16,
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(75, 80, 80, 0.2)',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  priceContainer: {
-    width: '80%',
-    alignSelf: 'center',
-    height: 48,
-    borderRadius: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(75, 80, 80, 0.2)',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  priceLabel: {
-    fontWeight: '500',
-    flex: 1,
-    fontSize: 14,
-    lineHeight: 20,
-    marginLeft: 16,
-  },
-  priceTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  priceText: {
-    fontSize: 22,
-    fontWeight: '500',
-    lineHeight: 28,
-  },
-  priceCurrency: {
-    color: '#4B505099',
-    marginRight: 14,
-    marginLeft: 9,
-  },
-  goToSummaryButton: {
-    alignSelf: 'center',
-    marginTop: 16,
-    width: '80%',
-  },
-  buttonContent: {
-    borderWidth: 0.6,
-    borderColor: '#4B5050',
-    backgroundColor: '#4B5050',
-    borderRadius: 8,
-    marginBottom: 16,
-    height: 48,
-    width: '100%',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  buttonText: {
-    fontSize: 16,
-    paddingLeft: 16,
-    paddingTop: 12,
-    fontWeight: '500',
-    lineHeight: 24,
-    justifyContent: 'center',
-    color: 'white',
-    letterSpacing: 0.1,
-    flex: 1,
-  },
-  arrowIcon: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  footerText: {
-    fontSize: 12,
-    backgroundColor: 'white',
-    color: '#7f7f7f',
-    textAlign: 'center',
-    paddingBottom: 15,
-  },
-});
+    [selected]
+  );
 
-export default AddItem;
+  /**
+   * For Select Category Item
+   */
+  const onPressCategoryItem = React.useCallback(
+    (item: Item) => {
+      const draft = [...selectedItems];
+      const findItem = draft.find(
+        (selectedItem) => selectedItem.id === item.id
+      );
+      if (findItem?.id === item.id) {
+        draft.splice(draft.indexOf(findItem), 1);
+      } else {
+        draft.push(item);
+      }
+      setSelectedItems(draft);
+    },
+    [selectedItems]
+  );
+
+  /**
+   * For Increment Item
+   */
+  const onPressItemIncrement = React.useCallback(
+    (parentId: any, item: Item) => {
+      if (state) {
+        const draft = [...state];
+        draft.forEach((currentItem) => {
+          if (currentItem.id === parentId) {
+            const innerItem = currentItem.serviceItems.find(
+              (currentItem) => currentItem.id === item.id
+            );
+            if (innerItem) {
+              innerItem.quantity += 1;
+            }
+          }
+        });
+        setState(draft);
+      }
+    },
+    [state]
+  );
+  /**
+   * For Decrement Item
+   */
+  const onPressItemDecrement = React.useCallback(
+    (parentId: any, item: Item) => {
+      if (state) {
+        const draft = [...state];
+        draft.forEach((currentItem) => {
+          if (currentItem.id === parentId) {
+            const innerItem = currentItem?.serviceItems?.find(
+              (currentItem) => currentItem.id === item.id
+            );
+            if (innerItem) {
+              if (innerItem.quantity > 0) {
+                innerItem.quantity = innerItem.quantity - 1;
+              }
+            }
+          }
+        });
+        setState(draft);
+      }
+    },
+    [state]
+  );
+
+  return {
+    state,
+    loading,
+    selected,
+    calculation,
+    scrollEnabled,
+    onPressCategory,
+    onPressCategoryItem,
+    onPressItemIncrement,
+    onPressItemDecrement,
+  };
+};
