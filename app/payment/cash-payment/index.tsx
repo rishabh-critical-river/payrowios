@@ -49,6 +49,9 @@ function CashPayment({ navigation }: any) {
               alignItems: "center",
             }}
           >
+             <TouchableOpacity
+            onPress={router.back}
+         >
             <Image
               source={require("@/assets/icons/arrow_back.png")}
               style={{
@@ -57,6 +60,7 @@ function CashPayment({ navigation }: any) {
                 marginRight: 35.98,
               }}
             />
+            </TouchableOpacity>
             <Text
               style={{
                 fontSize: 20,
@@ -481,8 +485,8 @@ function CashPayment({ navigation }: any) {
           <TouchableOpacity
             style={styles.goToSummaryButton}
             onPress={() => {
-              // navigation.navigate("InvoiceRecallthree");
-              // router.push("/payment/Tap-to-pay/Card-Invoice")
+              
+              router.push("/payment/cash-payment/cash-invoice")
             }}
           >
             <View style={styles.buttonContent}>
