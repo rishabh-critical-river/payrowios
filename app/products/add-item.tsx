@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -8,25 +8,29 @@ import {
   Dimensions,
   FlatList,
   VirtualizedList,
-} from 'react-native';
+  Modal,
+  Button,
+} from "react-native";
 import {
   AntDesign,
   FontAwesome,
   MaterialCommunityIcons,
-} from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+} from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 // import PaymentSummary from './PaymentSummary';
-import styles from '@/styles/add-item';
-import ItemDropdownButton from '@/components/add-item/item-dropdown';
-import ListItem from '@/components/add-item/list-item';
-import itemData from '@/components/add-item/dummy';
-import FooterText from '@/components/footer';
-import PanelView from '@/components/view/PanelView';
-import { FlashList } from '@shopify/flash-list';
-import { ScrollView } from 'react-native-gesture-handler';
-import useProduct from '@/apis/hooks/use-product';
-import getProducts from '@/apis/queries/product/get-product';
-import useStorageData from '@/apis/hooks/use-storage-data';
+import styles from "@/styles/add-item";
+import ItemDropdownButton from "@/components/add-item/item-dropdown";
+import ListItem from "@/components/add-item/list-item";
+import itemData from "@/components/add-item/dummy";
+import FooterText from "@/components/footer";
+import PanelView from "@/components/view/PanelView";
+import { FlashList } from "@shopify/flash-list";
+import { ScrollView } from "react-native-gesture-handler";
+import useProduct from "@/apis/hooks/use-product";
+import getProducts from "@/apis/queries/product/get-product";
+import useStorageData from "@/apis/hooks/use-storage-data";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import axios from "axios";
 
 type Item = {
   _id: any;
@@ -50,7 +54,7 @@ type CategoryTypes = {
 
 function AddItems() {
   // const {}=useHe
-  const { height } = Dimensions.get('window');
+  const { height } = Dimensions.get("window");
   const router = useRouter();
   const {
     state,
@@ -63,131 +67,99 @@ function AddItems() {
     onPressItemIncrement,
     onPressItemDecrement,
   } = useAddItems();
+  const [hasPermission, setHasPermission] = useState<null | boolean>(null);
 
-  // const [hasPermission, setHasPermission] = useState(null);
-  // const [scannedData, setScannedData] = useState(null);
-  // const [isScannerVisible, setIsScannerVisible] = useState(false);
-  // const [orderDetails, setOrderDetails] = useState(null);
-  // const [itemsWithQuantity, setItemsWithQuantity] = useState<CategoryTypes[]>(
-  //   []
-  // );
-  // const [totalAmount, setTotalAmount] = useState(0);
+  const [scannedData, setScannedData] = useState(null);
+  const [isScannerVisible, setIsScannerVisible] = useState(false);
+  const [orderDetails, setOrderDetails] = useState(null);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status, granted } =
-  //       await BarCodeScanner.requestPermissionsAsync();
-  //     setHasPermission(granted);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
-  // useEffect(() => {
-  //   const initialItems = categories.reduce((acc, category) => {
-  //     const itemsWithInitialQuantity = category.items.map((item) => ({
-  //       ...item,
-  //     }));
-  //     return [...acc, ...itemsWithInitialQuantity];
-  //   }, []);
-  //   setItemsWithQuantity(initialItems);
-  // }, [categories]);
-  // useEffect(() => {
-  //   const total = itemsWithQuantity.reduce((acc, item) => {
-  //     return acc + item.price * item.quantity;
-  //   }, 0);
-
-  //   setTotalAmount(total);
-  // }, [itemsWithQuantity]);
-
-  // const apiUrl =
-  //   'https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/000000024279';
-
-  // const fetchOrderDetails = async () => {
-  //   try {
-  //     const response = await axios.get(apiUrl, {
-  //       headers: {
-  //         Authorization:
-  //           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o',
-  //       },
-  //     });
-
-  //     setOrderDetails(response.data);
-  //     console.log('response', response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const handleBarCodeScanned = async ({ data }) => {
-  //   setScannedData(data);
-  //   setIsScannerVisible(false);
-  //   await fetchOrderDetails(); // Wait for the order details to be fetched.
-  //   ///how to navigate to payment summary screen only after the order details are fetched?
-
-  //   if (orderDetails) {
-  //     // navigation.navigate('PaymentSummary', {
-  //     //   orderDetails,
-  //     // });
-  //     router.push('/products/payment-summary');
-  //   }
-  // };
-
-  const handleOpenScanner = () => {
-    // setIsScannerVisible(true);
+  const handleBarCodeScanned = async ({ data }: any) => {
+    setScannedData(data);
+    setIsScannerVisible(false);
+    if (data) {
+      await fetchOrderDetails(data);
+    }
   };
 
-  // const handleCloseScanner = () => {
-  //   setIsScannerVisible(false);
-  //   setScannedData(null);
-  // };
+  const fetchOrderDetails = async (data: any) => {
+    const apiUrl = `https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/${data}`;
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o",
+        },
+      });
+      setOrderDetails(response.data);
+      router.push({
+        pathname: "/products/payment-summary",
+        params: {
+          orderDetails: response.data,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleOpenScanner = () => {
+    setIsScannerVisible(true);
+  };
 
-  // if (hasPermission === null) {
-  //   return <Text>Requesting camera permission...</Text>;
-  // }
-
-  // if (hasPermission === false) {
-  //   return <Text>No access to the camera.</Text>;
-  // }
-
+  const handleCloseScanner = () => {
+    setIsScannerVisible(false);
+    setScannedData(null);
+  };
+  if (hasPermission === null) {
+    return <Text>Requesting camera permission...</Text>;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera.</Text>;
+  }
   return (
     <>
-      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
+      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             right: 0,
             top: 76,
           }}
         >
           <Image
-            source={require('@/assets/icons/Watermark.png')}
+            source={require("@/assets/icons/Watermark.png")}
             style={{
               width: 36,
               height: 50,
             }}
           />
         </View>
-        {/* <View>
+        <View>
           <Modal visible={isScannerVisible} animationType="slide">
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-              }}
-            >
+            <View style={{ flex: 1 }}>
               <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
-                style={{ width: '50%', height: '30%', marginTop: '60%' }}
+                style={{
+                  width: "50%",
+                  height: "50%",
+                }}
               />
               <Button title="Close Scanner" onPress={handleCloseScanner} />
             </View>
           </Modal>
-        </View> */}
+        </View>
         <View
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <TouchableOpacity
@@ -197,7 +169,7 @@ function AddItems() {
             }}
           >
             <Image
-              source={require('@/assets/icons/arrow_back.png')}
+              source={require("@/assets/icons/arrow_back.png")}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -208,8 +180,8 @@ function AddItems() {
           <View>
             <Text
               style={{
-                color: '#4B5050',
-                fontWeight: '400',
+                color: "#4B5050",
+                fontWeight: "400",
                 fontSize: 12,
                 lineHeight: 16,
               }}
@@ -219,8 +191,8 @@ function AddItems() {
             <Text
               style={{
                 fontSize: 14,
-                fontWeight: '500',
-                color: '#333333',
+                fontWeight: "500",
+                color: "#333333",
                 lineHeight: 20,
               }}
             >
@@ -230,11 +202,11 @@ function AddItems() {
         </View>
         <Text
           style={{
-            textAlign: 'center',
-            fontWeight: '400',
+            textAlign: "center",
+            fontWeight: "400",
             fontSize: 22,
             marginTop: 26,
-            color: '#333333',
+            color: "#333333",
             lineHeight: 28,
           }}
         >
@@ -242,11 +214,11 @@ function AddItems() {
         </Text>
         <Text
           style={{
-            textAlign: 'center',
+            textAlign: "center",
             marginTop: 9,
-            color: '#4B5050',
+            color: "#4B5050",
             fontSize: 14,
-            fontWeight: '400',
+            fontWeight: "400",
           }}
         >
           You can Select multiple items
@@ -256,9 +228,9 @@ function AddItems() {
             <Text
               style={{
                 marginLeft: 16,
-                color: 'white',
+                color: "white",
                 fontSize: 16,
-                fontWeight: '500',
+                fontWeight: "500",
               }}
             >
               SCAN TO ADD
@@ -279,10 +251,10 @@ function AddItems() {
         >
           <View
             style={{
-              width: '80%',
-              alignItems: 'center',
-              alignSelf: 'center',
-              justifyContent: 'center',
+              width: "80%",
+              alignItems: "center",
+              alignSelf: "center",
+              justifyContent: "center",
               height: height / 1.7,
             }}
           >
@@ -291,9 +263,9 @@ function AddItems() {
         </PanelView>
         <PanelView show={loading}>
           <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
-            <ActivityIndicator size={'large'} color={'#4B5050'} />
+            <ActivityIndicator size={"large"} color={"#4B5050"} />
           </View>
         </PanelView>
         <PanelView show={!loading}>
@@ -349,8 +321,8 @@ function AddItems() {
                         <ScrollView
                           style={{
                             marginTop: 20,
-                            alignSelf: 'center',
-                            width: '80%',
+                            alignSelf: "center",
+                            width: "80%",
                             height: 200,
                           }}
                         >
@@ -507,21 +479,21 @@ function AddItems() {
       </View>
       <View
         style={{
-          backgroundColor: 'white',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "flex-end",
         }}
       >
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             left: 0,
             bottom: 20,
             zIndex: 999,
           }}
         >
           <Image
-            source={require('@/assets/icons/Watermark.png')}
+            source={require("@/assets/icons/Watermark.png")}
             style={{
               width: 36,
               height: 50,
@@ -547,7 +519,7 @@ function AddItems() {
             //   orderDetails,
             //   itemsWithQuantity,
             // });
-            router.push('/products/payment-summary');
+            router.push("/products/payment-summary");
             // router.push({
             //   pathname: '/products/payment-summary',
             //   params: {
@@ -573,7 +545,7 @@ function AddItems() {
 export default AddItems;
 
 const useAddItems = () => {
-  const { user } = useStorageData('user');
+  const { user } = useStorageData("user");
   const safeRef = React.useRef<boolean>(false);
   const [loading, setLoading] = React.useState(false);
   const [scrollEnabled, setScrollEnabled] = React.useState(true);
@@ -633,7 +605,7 @@ const useAddItems = () => {
 
   // Calculate Meta Data
   const calculation = React.useMemo(() => {
-    if (typeof state !== 'undefined') {
+    if (typeof state !== "undefined") {
       const total = state?.reduce((acc, category) => {
         const categoryTotal = category?.serviceItems?.reduce((acc, item) => {
           return acc + item?.price * item?.quantity;
