@@ -27,26 +27,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import useProduct from '@/apis/hooks/use-product';
 import getProducts from '@/apis/queries/product/get-product';
 import useStorageData from '@/apis/hooks/use-storage-data';
-
-type Item = {
-  _id: any;
-  id: string;
-  price: number;
-  quantity: number;
-  itemName: string;
-  itemDescription: string;
-  status: string;
-};
-type Response = {} & CategoryTypes;
-
-type CategoryTypes = {
-  _id: any;
-  id: string;
-  serviceCode: string;
-  serviceName: string;
-  status: string;
-  serviceItems: Item[];
-};
+import { ProductTypes } from '@/typings/product';
+type Response = {} & ProductTypes;
 
 function AddItems() {
   // const {}=useHe
@@ -577,7 +559,7 @@ const useAddItems = () => {
   const safeRef = React.useRef<boolean>(false);
   const [loading, setLoading] = React.useState(false);
   const [scrollEnabled, setScrollEnabled] = React.useState(true);
-  const [state, setState] = React.useState<CategoryTypes[] | null>([]);
+  const [state, setState] = React.useState<ProductTypes[] | null>([]);
 
   const fetchProducts = React.useCallback(async () => {
     setLoading(true);
@@ -605,7 +587,7 @@ const useAddItems = () => {
               serviceItems: items,
             };
           });
-          setState(categories as CategoryTypes[]);
+          setState(categories as ProductTypes[]);
           setLoading(false);
         }
       } catch (error) {
@@ -628,8 +610,8 @@ const useAddItems = () => {
     };
   }, [user?.token]);
 
-  const [selected, setSelected] = useState<CategoryTypes | null>(null);
-  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
+  const [selected, setSelected] = useState<ProductTypes | null>(null);
+  const [selectedItems, setSelectedItems] = useState<ItemTypes[]>([]);
 
   // Calculate Meta Data
   const calculation = React.useMemo(() => {
@@ -650,7 +632,7 @@ const useAddItems = () => {
    * For Select Category
    */
   const onPressCategory = React.useCallback(
-    (category: CategoryTypes) => {
+    (category: ProductTypes) => {
       if (selected === category) {
         setSelected(null);
         setScrollEnabled(true);
@@ -666,7 +648,7 @@ const useAddItems = () => {
    * For Select Category Item
    */
   const onPressCategoryItem = React.useCallback(
-    (item: Item) => {
+    (item: ItemTypes) => {
       const draft = [...selectedItems];
       const findItem = draft.find(
         (selectedItem) => selectedItem.id === item.id
@@ -685,7 +667,7 @@ const useAddItems = () => {
    * For Increment Item
    */
   const onPressItemIncrement = React.useCallback(
-    (parentId: any, item: Item) => {
+    (parentId: any, item: ItemTypes) => {
       if (state) {
         const draft = [...state];
         draft.forEach((currentItem) => {
@@ -707,7 +689,7 @@ const useAddItems = () => {
    * For Decrement Item
    */
   const onPressItemDecrement = React.useCallback(
-    (parentId: any, item: Item) => {
+    (parentId: any, item: ItemTypes) => {
       if (state) {
         const draft = [...state];
         draft.forEach((currentItem) => {
