@@ -30,7 +30,7 @@ const TaptoPay: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     if (secondsLeft === 24) {
       // navigation.navigate("EnterPin");
-      router.push("/payment/Tap-to-pay/EnterPin")
+      router.push("/payment/tap-to-pay/EnterPin")
     }
   }, [secondsLeft, navigation]);
 
