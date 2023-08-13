@@ -1,0 +1,61 @@
+const user = {
+  role: 'store owner',
+  id: '64bd5b36f0106662528fdf6e',
+  userId: 'PRMID63',
+  firstName: 'PayNet',
+  lastName: 'User',
+  merchantId: 'PRMID63',
+  reportingID: 'PRMID63',
+  storeId: 'Owner',
+  mobileNumber: 9718247826581,
+  emailId: 'rishabh.raj@criticalriver.com',
+  businessType: 'Grocery Store',
+  key: 'J/PYjc1ftDFK5+77U1PB80v2TamokGap5yCIP2YI6tQ=',
+  iv: 'gaOr3uvhZEwFeSbRHwlHcg==',
+  AES: 'AES/CBC/NoPADDING',
+  validation: 'Key Validation',
+  iat: 1691722165,
+};
+
+const categoryItem = [
+  {
+    _id: '634d137b1c7eda7dfa7b1397',
+    serviceCode: '1731',
+    serviceName: 'ELECTRICAL CONTRACTORS',
+    status: 'Active',
+    serviceItems: [
+      {
+        _id: '634d14011c7eda7dfa7b13a7',
+        itemDescription: 'Apprentice Electrician',
+        itemName: 'Apprentice Electrician',
+        price: 1.8,
+        quantity: 0,
+        status: 'Active',
+      },
+      {
+        _id: '634d206d1c7eda7dfa7b13b1',
+        itemDescription: 'Journeyman Electrician',
+        itemName: 'Journeyman Electrician',
+        price: 1.8,
+        quantity: 0,
+        status: 'Active',
+      },
+      {
+        _id: '634d20871c7eda7dfa7b13b9',
+        itemDescription: 'Estimator',
+        itemName: 'Estimator',
+        price: 1.8,
+        quantity: 0,
+        status: 'Active',
+      },
+      {
+        _id: '634d209e1c7eda7dfa7b13c3',
+        itemDescription: 'Project Supervisor',
+        itemName: 'Project Supervisor',
+        price: 1.8,
+        quantity: 0,
+        status: 'Active',
+      },
+    ],
+  },
+];

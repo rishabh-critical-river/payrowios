@@ -88,8 +88,8 @@ const GetStartedScreen = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            router.push('/auth/login');
-            // router.push('/products/add-item');
+            // router.push('/auth/login');
+            router.push('/products/add-item');
             // router.push('/test');
           }}
           activeOpacity={0.8}

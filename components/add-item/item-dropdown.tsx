@@ -6,7 +6,7 @@ type DropdownTypes = {
   name: string;
   active: boolean;
   quantity: number;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const ItemDropdownButton = ({

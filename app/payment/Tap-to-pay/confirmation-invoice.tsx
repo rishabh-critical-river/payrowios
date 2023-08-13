@@ -13,7 +13,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-function ConfirmationInvoice({ navigation }) {
+import { useRouter } from "expo-router";
+function ConfirmationInvoice({ navigation }:any) {
+
+  const router = useRouter();
   return (
     <>
       <View style={styles.container}>
@@ -27,9 +30,7 @@ function ConfirmationInvoice({ navigation }) {
           }}
         >
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("InvoiceRecallthree");
-            }}
+            onPress={router.back}
           >
             <Image
               source={require("@/assets/icons/arrow_back.png")}

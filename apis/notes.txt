@@ -1,1 +1,104 @@
-https://payrowdev.uaenorth.cloudapp.azure.com/api/orders/
+https://payrowdev.uaenorth.cloudapp.azure.com/api/orders/ ( Post ) 
+{
+  "role": "store owner",
+  "id": "64bd5b36f0106662528fdf6e",
+  "userId": "PRMID63",
+  "firstName": "PayNet",
+  "lastName": "User",
+  "merchantId": "PRMID63",
+  "reportingID": "PRMID63",
+  "storeId": "Owner",
+  "mobileNumber": 9718247826581,
+  "emailId": "rishabh.raj@criticalriver.com",
+  "businessType": "Grocery Store",
+  "key": "J/PYjc1ftDFK5+77U1PB80v2TamokGap5yCIP2YI6tQ=",
+  "iv": "gaOr3uvhZEwFeSbRHwlHcg==",
+  "AES": "AES/CBC/NoPADDING",
+  "validation": "Key Validation",
+  "iat": 1691722165
+}
+ 
+{
+"storeId":"RAZZ101",
+"orderNumber": "2737263212227",
+"channel" : "Cash",
+"merchantPhone":"8877673188",
+"posType":"pos",
+"posId":"RAMZ101",
+"posEmail":"ramz@gmail.com",
+"posMobile":"923982382",
+"paymentDate":"2022-12-15T16:00:00Z",
+"purchaseBreakdown" : {
+    "service": [
+      {
+        "serviceCode": "10000",
+        "serviceCat":"FRUITS10",
+        "englishName":"Automobile Repair",
+        "arabicName":"",
+        "quantity" : 1,
+        "transactionAmount":3,
+        "totalAmount":3
+      },
+      {
+        "serviceCode": "10001",
+        "serviceCat":"VEGS10",
+        "englishName":"Detailing & Services",
+        "arabicName":"",
+        "quantity" : 1,
+        "transactionAmount":9000,
+        "totalAmount":9050
+      },
+       {
+        "serviceCode": "10001",
+        "serviceCat":"VEGS10",
+        "englishName":"Ration Card ",
+        "arabicName":"",
+        "quantity" : 1,
+        "transactionAmount":9,
+        "totalAmount":9
+      },
+      {
+        "serviceCode": "10001",
+        "serviceCat":"VEGS10",
+        "englishName":"Aadhar Card Gen",
+        "arabicName":"",
+        "quantity" : 1,
+        "transactionAmount":9,
+       "totalAmount":9
+      },
+       {
+        "serviceCode": "10001",
+        "serviceCat":"VEGS10",
+        "englishName":"Tomato",
+        "arabicName":"",
+        "quantity" : 1,
+        "transactionAmount":9,
+        "totalAmount":9
+      }
+    ]
+  },
+  "totalTaxAmount":1,
+  "totalAmount":716162,
+  "toggleExpiration": true,
+  "distributorId":"MANZ101",
+  "userId":"NAM101",
+  "mainMerchantId":"KAZZ101"
+}
+For Invoice generation - api/report/generate/invoice/{InvoiceNumber}
+orderNumber = invoice Number
+For email- [19:01] Srihari Nallapu
+
+@POST("gateway/payrow/sendUrl")
+
+[19:01] Srihari Nallapu
+
+endURLRequest(val subject: String, val email: String, val url: String)
+
+[19:02] Srihari Nallapu
+
+SendURLRequest(
+    "PayRow Receipt",
+    etEmail.text.toString(),
+    it.message
+)
+for by link- @POST("gateway/payrow/purchaseorderlink")

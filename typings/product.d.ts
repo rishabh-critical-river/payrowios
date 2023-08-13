@@ -1,16 +1,14 @@
 export type ItemTypes = {
-  _id: any;
-  id: string;
+  _id: string;
   price: number;
   quantity: number;
   itemName: string;
-  itemDescription: string;
   status: string;
+  itemDescription: string;
 };
 
 export type ProductTypes = {
-  _id: any;
-  id: string;
+  _id: string;
   serviceCode: string;
   serviceName: string;
   status: string;

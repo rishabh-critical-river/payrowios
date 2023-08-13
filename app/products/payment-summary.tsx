@@ -1,41 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { AntDesign, Entypo } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import useProduct from '@/store/hooks/use-product';
+
+const selectedItems = [
+  {
+    _id: '634d14011c7eda7dfa7b13a7',
+    itemDescription: 'Apprentice Electrician',
+    itemName: 'Apprentice Electrician',
+    price: 1.8,
+    quantity: 1,
+    status: 'Active',
+  },
+  {
+    _id: '634d206d1c7eda7dfa7b13b1',
+    itemDescription: 'Journeyman Electrician',
+    itemName: 'Journeyman Electrician',
+    price: 1.8,
+    quantity: 3,
+    status: 'Active',
+  },
+];
 
 const PaymentSummary = () => {
   const router = useRouter();
-  const [orderDetails, setOrderDetails] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [totalAmount, setTotalAmount] = useState();
-  const [scanTotal, setScanTotal] = useState(0);
+  const { state } = useProduct();
+  // console.log(state.selectedItems);
+  // const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+  // const [totalAmount, setTotalAmount] = useState<number>(0);
+  // const [scanTotal, setScanTotal] = useState(0);
+  // const params = useLocalSearchParams<Params>();
+  // console.log(params, 'params');
 
   // useEffect(() => {
-  //   if (route.params && route.params.orderDetails) {
-  //     setOrderDetails(route.params.orderDetails);
+  //   if (params && params.orderDetails) {
+  //     setOrderDetails(params.orderDetails);
   //   }
-  //   if (route.params && route.params.itemsWithQuantity) {
-  //     setCategories(route.params.itemsWithQuantity);
+  // }, [params]);
+  // useEffect(() => {
+  //   if (orderDetails && orderDetails.data) {
+  //     // Map through the order items
   //   }
-  // }, [route.params]);
-
+  // }, [orderDetails, params]);
   // useEffect(() => {
-  //   const total = categories?.reduce((acc, item) => {
-  //     return acc + item.price * item.quantity;
-  //   }, 0);
-
-  //   setTotalAmount(total);
-  // }, [categories]);
-  // useEffect(() => {
-  //   if (orderDetails) {
-  //     const total = orderDetails?.data?.reduce((acc, item) => {
-  //       return acc + item.totalAmount;
-  //     }, 0);
-  //     setScanTotal(total);
+  //   if (orderDetails && orderDetails.data) {
+  //     console.log(orderDetails.data, "orderDetails.data");
   //   }
   // }, [orderDetails]);
+  // // useEffect(() => {
+  // //   if (orderDetails) {
+  // //     const total = orderDetails.data.reduce((acc: any, item: any) => {
+  // //       return acc + item.totalAmount;
+  // //     }, 0);
+  // //     setScanTotal(total);
+  // //   }
+  // // }, [orderDetails]);
 
-  console.log(categories, 'cat');
   return (
     <>
       <View
@@ -249,9 +270,9 @@ const PaymentSummary = () => {
               Price
             </Text>
           </View>
-          {orderDetails && (
+          {selectedItems.length > 0 && (
             <View style={{ marginTop: 4 }}>
-              {orderDetails?.data?.map((product, index) => (
+              {selectedItems?.map((item, index) => (
                 <View key={index} style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
@@ -264,8 +285,7 @@ const PaymentSummary = () => {
                       lineHeight: 16,
                     }}
                   >
-                    {product?.purchaseBreakdown?.service[0]?.englishName}{' '}
-                    {/* Replace with the actual product name property */}
+                    {item.itemName}
                   </Text>
                   <Text
                     style={{
@@ -276,42 +296,8 @@ const PaymentSummary = () => {
                       lineHeight: 20,
                     }}
                   >
-                    {product?.totalAmount?.toFixed(2)}{' '}
-                    {/* Replace with the actual product price property */}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          )}
-          {categories && (
-            <View style={{ marginTop: 4 }}>
-              {categories?.map((product, index) => (
-                <View key={index} style={{ flexDirection: 'row' }}>
-                  <Text
-                    style={{
-                      marginLeft: 40,
-                      flex: 1,
-                      marginRight: 36,
-                      fontWeight: '400',
-                      color: '#4B5050',
-                      fontSize: 12,
-                      lineHeight: 16,
-                    }}
-                  >
-                    {product?.name}{' '}
-                    {/* Replace with the actual product name property */}
-                  </Text>
-                  <Text
-                    style={{
-                      marginRight: 36,
-                      fontWeight: '500',
-                      color: '#4B5050',
-                      fontSize: 12,
-                      lineHeight: 20,
-                    }}
-                  >
-                    {Number(product?.price) * Number(product?.quantity)}{' '}
-                    {/* Replace with the actual product price property */}
+                    {(Number(item.price) * Number(item.quantity)).toFixed(2)}{' '}
+                    AED
                   </Text>
                 </View>
               ))}
@@ -359,31 +345,34 @@ const PaymentSummary = () => {
         >
           <Text style={styles.priceLabel}>Total Price</Text>
           <View style={styles.priceTextContainer}>
-            <Text style={styles.priceText}>{totalAmount + scanTotal}</Text>
+            <Text style={styles.priceText}>{state.total.toFixed(2)}</Text>
             <Text style={styles.priceCurrency}>AED</Text>
           </View>
         </View>
-        <View
-          style={{
-            width: '80%',
-            alignSelf: 'center',
-            height: 48,
-            borderRadius: 10,
 
-            borderWidth: 1,
-            borderColor: 'rgba(75, 80, 80, 0.2)',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={styles.priceLabel}>CANCEL</Text>
-          <View style={styles.priceTextContainer}>
-            <Image
-              style={{ width: 24, height: 24, marginRight: 16 }}
-              source={require('@/assets/icons/clearblack.png')}
-            />
+        <TouchableOpacity onPress={router.back} activeOpacity={0.5}>
+          <View
+            style={{
+              width: '80%',
+              alignSelf: 'center',
+              height: 48,
+              borderRadius: 10,
+
+              borderWidth: 1,
+              borderColor: 'rgba(75, 80, 80, 0.2)',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Text style={styles.priceLabel}>CANCEL</Text>
+            <View style={styles.priceTextContainer}>
+              <Image
+                style={{ width: 24, height: 24, marginRight: 16 }}
+                source={require('@/assets/icons/clearblack.png')}
+              />
+            </View>
           </View>
-        </View>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.goToSummaryButton}

@@ -520,8 +520,8 @@ function CardInvoice({ navigation }:any) {
                 marginBottom: 32,
               }}
               onPress={() => {
-                // navigation.navigate("ConfirmationInvoice");
-                router.push("/payment/Tap-to-pay/confirmation-invoice")
+               
+                router.push("/payment/cash-payment/confirmation-invoice")
                 toggleModal();
               }}
             >
