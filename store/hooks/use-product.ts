@@ -2,7 +2,7 @@ import React from 'react';
 import useAppDispatch from './use-dispatch';
 import useAppSelector from './use-selector';
 import productSlilce from '../slices/product';
-import { ItemTypes, ProductTypes } from '@/typings/product';
+import { ProductTypes } from '@/typings/product';
 
 const { actions } = productSlilce;
 
@@ -20,13 +20,6 @@ const useProduct = () => {
    */
   const updateProducts = React.useCallback((items: ProductTypes[]) => {
     dispatch(actions.updateProducts(items));
-  }, []);
-  /**
-   * @description Update products
-   */
-  const onSelectItems = React.useCallback((items: ItemTypes) => {
-    console.log(items);
-    dispatch(actions.onSelectItems(items));
   }, []);
 
   /**
@@ -62,10 +55,9 @@ const useProduct = () => {
     []
   );
 
-  console.log(state?.selectedItems);
   return {
     state,
-    onSelectItems,
+
     updateProducts,
     updateCurrentID,
     updateItemIncrement,

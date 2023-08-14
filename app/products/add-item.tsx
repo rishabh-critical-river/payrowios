@@ -18,19 +18,18 @@ import ListItem from '@/components/add-item/list-item';
 import FooterText from '@/components/footer';
 import PanelView from '@/components/view/PanelView';
 import { ScrollView } from 'react-native-gesture-handler';
-import getProducts from '@/apis/queries/product/get-product';
 import useStorageData from '@/apis/hooks/use-storage-data';
-import { ItemTypes, ProductTypes } from '@/typings/product';
+import { ProductTypes } from '@/typings/product';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import axios from 'axios';
 import useProduct from '@/store/hooks/use-product';
-
-type Response = {} & ProductTypes;
+import items from '@/constants/items';
 
 function AddItems() {
   const router = useRouter();
   const { height } = Dimensions.get('window');
   const { user } = useStorageData('user', { decode: false });
+
   const safeRef = React.useRef<boolean>(false);
   const [loading, setLoading] = React.useState(false);
   const {
@@ -39,50 +38,54 @@ function AddItems() {
     updateItemIncrement,
     updateItemDecrement,
     updateCurrentID,
-    onSelectItems,
+    // onSelectItems,
   } = useProduct();
 
+  console.log(
+    state?.purchaseBreakdown?.service.length,
+    state?.purchaseBreakdown?.service
+  );
   /**
    * Fetch Products from API
    */
 
   const fetchProducts = React.useCallback(async () => {
-    setLoading(true);
+    // setLoading(true);
     if (state.items.length <= 0) {
       if (user?.token) {
         try {
-          const { data } = await getProducts(user?.token);
-          if (data.data && data.data.length > 0) {
-            const itemData = data.data as Response[];
-            const categories = itemData.map((value) => {
-              const items = value?.serviceItems?.map((item) => {
-                return {
-                  _id: item._id,
-                  price: 1.8,
-                  quantity: 0,
-                  itemName: item.itemName,
-                  itemDescription: item.itemDescription,
-                  status: item.status,
-                };
-              });
+          // const { data } = await getProducts(user?.token);
+          // if (data.data && data.data.length > 0) {
+          const itemData = items;
+          const categories = itemData.map((value) => {
+            const items = value?.serviceItems?.map((item) => {
               return {
-                _id: value._id,
-                serviceCode: value.serviceCode,
-                serviceName: value.serviceName,
-                status: value.status,
-                serviceItems: items,
+                _id: item._id,
+                price: 1.8,
+                quantity: 0,
+                itemName: item.itemName,
+                itemDescription: item.itemDescription,
+                status: item.status,
               };
             });
-            // Store Data in Redux Store
-            updateProducts(categories as ProductTypes[]);
-            setLoading(false);
-          }
+            return {
+              _id: value._id,
+              serviceCode: value.serviceCode,
+              serviceName: value.serviceName,
+              status: value.status,
+              serviceItems: items,
+            };
+          });
+          // Store Data in Redux Store
+          updateProducts(categories.slice(0, 2) as ProductTypes[]);
+          // setLoading(false);
+          // }
         } catch (error) {
           console.log(error);
-          setLoading(true);
-          setInterval(() => {
-            setLoading(false);
-          }, 5000);
+
+          // setInterval(() => {
+          //   setLoading(false);
+          // }, 5000);
         }
       }
     }
@@ -197,12 +200,7 @@ function AddItems() {
             alignItems: 'center',
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              // navigation.navigate('EnterPins');
-              router.back();
-            }}
-          >
+          <TouchableOpacity onPress={router.back}>
             <Image
               source={require('@/assets/icons/arrow_back.png')}
               style={{
@@ -279,7 +277,7 @@ function AddItems() {
             />
           </View>
         </TouchableOpacity>
-        {/*  */}
+
         <PanelView
           show={
             !loading &&
@@ -326,17 +324,19 @@ function AddItems() {
                       {parentItem?.serviceItems?.length > 0 && (
                         <ScrollView
                           style={{
-                            marginTop: 20,
-                            alignSelf: 'center',
                             width: '80%',
                             height: 200,
+                            marginTop: 20,
+                            alignSelf: 'center',
                           }}
                         >
                           {parentItem?.serviceItems?.map((item, index) => {
                             return (
                               <TouchableOpacity
                                 key={index}
-                                onPress={() => onSelectItems(item)}
+                                onPress={() =>
+                                  updateItemIncrement(parentItem._id, item._id)
+                                }
                               >
                                 <ListItem
                                   key={index}

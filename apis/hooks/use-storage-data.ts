@@ -1,6 +1,5 @@
 import React from 'react';
 import storage from '@/lib/storage';
-import jwt_decode from 'jwt-decode';
 
 type State<K extends string, S extends null> = {
   [key in K]: S;
@@ -26,9 +25,9 @@ function useStorageData<k extends string>(
       const payload = {
         [key]: JSON.parse(persisted),
       };
-      const decoded = jwt_decode(payload?.token);
-      console.log(decoded);
+
       if (options?.decode) {
+        console.log('decoded');
       } else {
         setState(payload);
       }

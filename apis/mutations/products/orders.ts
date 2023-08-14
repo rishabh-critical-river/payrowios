@@ -37,8 +37,12 @@ type Response = {
 /**
  * Create Pin
  */
-const orders = async (payload: Payload) => {
-  const response = await api.post<Response>(`/api/orders`, payload);
+const orders = async (payload: Payload, token: string) => {
+  const response = await api.post<Response>(`/api/orders`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response;
 };
 export default orders;

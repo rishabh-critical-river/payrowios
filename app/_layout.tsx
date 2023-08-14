@@ -1,12 +1,12 @@
 import React from 'react';
-import { Redirect, Slot, useFocusEffect, useRouter } from 'expo-router';
+import { Slot } from 'expo-router';
 import SWRProvider from '@/providers/swr';
 import useDeviceId from '@/hooks/use-device-id';
 import AuthProvider from '@/providers/auth';
 import SafeAreaProvider from '@/providers/safe-area';
 import { Provider } from 'react-redux';
 import store from '@/store';
-import useStorageData from '@/apis/hooks/use-storage-data';
+import Providers from '@/providers';
 
 const RootLayout = () => {
   const state = useDeviceId();
@@ -15,13 +15,15 @@ const RootLayout = () => {
 
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <AuthProvider>
-          <SWRProvider>
-            <Slot />
-          </SWRProvider>
-        </AuthProvider>
-      </SafeAreaProvider>
+      <Providers>
+        <SafeAreaProvider>
+          <AuthProvider>
+            <SWRProvider>
+              <Slot />
+            </SWRProvider>
+          </AuthProvider>
+        </SafeAreaProvider>
+      </Providers>
     </Provider>
   );
 };

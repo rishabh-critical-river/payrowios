@@ -48,7 +48,7 @@ https://payrowdev.uaenorth.cloudapp.azure.com/api/orders/ ( Post )
   "userId":"NAM101",
   "mainMerchantId":"KAZZ101"
 }
-For Invoice generation - api/report/generate/invoice/{InvoiceNumber}
+For Invoice generation - api/report/generate/invoice/9414938085
 orderNumber = invoice Number
 For email- [19:01] Srihari Nallapu
 

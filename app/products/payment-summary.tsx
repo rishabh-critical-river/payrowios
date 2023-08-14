@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import useProduct from '@/store/hooks/use-product';
 
 const selectedItems = [
   {
@@ -25,37 +24,6 @@ const selectedItems = [
 
 const PaymentSummary = () => {
   const router = useRouter();
-  const { state } = useProduct();
-  // console.log(state.selectedItems);
-  // const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
-  // const [totalAmount, setTotalAmount] = useState<number>(0);
-  // const [scanTotal, setScanTotal] = useState(0);
-  // const params = useLocalSearchParams<Params>();
-  // console.log(params, 'params');
-
-  // useEffect(() => {
-  //   if (params && params.orderDetails) {
-  //     setOrderDetails(params.orderDetails);
-  //   }
-  // }, [params]);
-  // useEffect(() => {
-  //   if (orderDetails && orderDetails.data) {
-  //     // Map through the order items
-  //   }
-  // }, [orderDetails, params]);
-  // useEffect(() => {
-  //   if (orderDetails && orderDetails.data) {
-  //     console.log(orderDetails.data, "orderDetails.data");
-  //   }
-  // }, [orderDetails]);
-  // // useEffect(() => {
-  // //   if (orderDetails) {
-  // //     const total = orderDetails.data.reduce((acc: any, item: any) => {
-  // //       return acc + item.totalAmount;
-  // //     }, 0);
-  // //     setScanTotal(total);
-  // //   }
-  // // }, [orderDetails]);
 
   return (
     <>
@@ -345,7 +313,7 @@ const PaymentSummary = () => {
         >
           <Text style={styles.priceLabel}>Total Price</Text>
           <View style={styles.priceTextContainer}>
-            <Text style={styles.priceText}>{state.total.toFixed(2)}</Text>
+            <Text style={styles.priceText}>{0}</Text>
             <Text style={styles.priceCurrency}>AED</Text>
           </View>
         </View>
@@ -357,7 +325,6 @@ const PaymentSummary = () => {
               alignSelf: 'center',
               height: 48,
               borderRadius: 10,
-
               borderWidth: 1,
               borderColor: 'rgba(75, 80, 80, 0.2)',
               flexDirection: 'row',
@@ -526,3 +493,34 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
 });
+
+// console.log(state.selectedItems);
+// const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+// const [totalAmount, setTotalAmount] = useState<number>(0);
+// const [scanTotal, setScanTotal] = useState(0);
+// const params = useLocalSearchParams<Params>();
+// console.log(params, 'params');
+
+// useEffect(() => {
+//   if (params && params.orderDetails) {
+//     setOrderDetails(params.orderDetails);
+//   }
+// }, [params]);
+// useEffect(() => {
+//   if (orderDetails && orderDetails.data) {
+//     // Map through the order items
+//   }
+// }, [orderDetails, params]);
+// useEffect(() => {
+//   if (orderDetails && orderDetails.data) {
+//     console.log(orderDetails.data, "orderDetails.data");
+//   }
+// }, [orderDetails]);
+// // useEffect(() => {
+// //   if (orderDetails) {
+// //     const total = orderDetails.data.reduce((acc: any, item: any) => {
+// //       return acc + item.totalAmount;
+// //     }, 0);
+// //     setScanTotal(total);
+// //   }
+// // }, [orderDetails]);
