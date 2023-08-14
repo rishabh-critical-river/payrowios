@@ -38,43 +38,7 @@ https://payrowdev.uaenorth.cloudapp.azure.com/api/orders/ ( Post )
         "quantity" : 1,
         "transactionAmount":3,
         "totalAmount":3
-      },
-      {
-        "serviceCode": "10001",
-        "serviceCat":"VEGS10",
-        "englishName":"Detailing & Services",
-        "arabicName":"",
-        "quantity" : 1,
-        "transactionAmount":9000,
-        "totalAmount":9050
-      },
-       {
-        "serviceCode": "10001",
-        "serviceCat":"VEGS10",
-        "englishName":"Ration Card ",
-        "arabicName":"",
-        "quantity" : 1,
-        "transactionAmount":9,
-        "totalAmount":9
-      },
-      {
-        "serviceCode": "10001",
-        "serviceCat":"VEGS10",
-        "englishName":"Aadhar Card Gen",
-        "arabicName":"",
-        "quantity" : 1,
-        "transactionAmount":9,
-       "totalAmount":9
-      },
-       {
-        "serviceCode": "10001",
-        "serviceCat":"VEGS10",
-        "englishName":"Tomato",
-        "arabicName":"",
-        "quantity" : 1,
-        "transactionAmount":9,
-        "totalAmount":9
-      }
+      },      
     ]
   },
   "totalTaxAmount":1,

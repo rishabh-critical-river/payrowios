@@ -28,17 +28,79 @@ import useProduct from '@/store/hooks/use-product';
 type Response = {} & ProductTypes;
 
 function AddItems() {
-  const { height } = Dimensions.get('window');
   const router = useRouter();
+  const { height } = Dimensions.get('window');
+  const { user } = useStorageData('user', { decode: false });
+  const safeRef = React.useRef<boolean>(false);
+  const [loading, setLoading] = React.useState(false);
   const {
     state,
-    loading,
     updateProducts,
-    updateItemDecrement,
     updateItemIncrement,
+    updateItemDecrement,
     updateCurrentID,
     onSelectItems,
-  } = useAddItems();
+  } = useProduct();
+
+  /**
+   * Fetch Products from API
+   */
+
+  const fetchProducts = React.useCallback(async () => {
+    setLoading(true);
+    if (state.items.length <= 0) {
+      if (user?.token) {
+        try {
+          const { data } = await getProducts(user?.token);
+          if (data.data && data.data.length > 0) {
+            const itemData = data.data as Response[];
+            const categories = itemData.map((value) => {
+              const items = value?.serviceItems?.map((item) => {
+                return {
+                  _id: item._id,
+                  price: 1.8,
+                  quantity: 0,
+                  itemName: item.itemName,
+                  itemDescription: item.itemDescription,
+                  status: item.status,
+                };
+              });
+              return {
+                _id: value._id,
+                serviceCode: value.serviceCode,
+                serviceName: value.serviceName,
+                status: value.status,
+                serviceItems: items,
+              };
+            });
+            // Store Data in Redux Store
+            updateProducts(categories as ProductTypes[]);
+            setLoading(false);
+          }
+        } catch (error) {
+          console.log(error);
+          setLoading(true);
+          setInterval(() => {
+            setLoading(false);
+          }, 5000);
+        }
+      }
+    }
+  }, [user?.token]);
+
+  React.useEffect(() => {
+    safeRef.current = true;
+    if (safeRef.current) {
+      void fetchProducts();
+    }
+    return () => {
+      safeRef.current = false;
+    };
+  }, [user?.token]);
+
+  /**
+   * Fetch Products By QR Code
+   */
 
   const [hasPermission, setHasPermission] = useState<null | boolean>(null);
 
@@ -370,100 +432,6 @@ function AddItems() {
 }
 
 export default AddItems;
-
-const useAddItems = () => {
-  const { user } = useStorageData('user');
-  console.log(user);
-  const safeRef = React.useRef<boolean>(false);
-  const [loading, setLoading] = React.useState(false);
-  const {
-    state,
-    updateProducts,
-    updateItemDecrement,
-    updateItemIncrement,
-    updateCurrentID,
-    onSelectItems,
-  } = useProduct();
-
-  /**
-   * Fetch Products from API
-   */
-
-  const fetchProducts = React.useCallback(async () => {
-    setLoading(true);
-    if (state.items.length <= 0) {
-      if (user?.token) {
-        try {
-          const { data } = await getProducts(user?.token);
-          if (data.data && data.data.length > 0) {
-            const itemData = data.data as Response[];
-            const categories = itemData.map((value) => {
-              const items = value?.serviceItems?.map((item) => {
-                return {
-                  _id: item._id,
-                  price: 1.8,
-                  quantity: 0,
-                  itemName: item.itemName,
-                  itemDescription: item.itemDescription,
-                  status: item.status,
-                };
-              });
-              return {
-                _id: value._id,
-                serviceCode: value.serviceCode,
-                serviceName: value.serviceName,
-                status: value.status,
-                serviceItems: items,
-              };
-            });
-            // Store Data in Redux Store
-            updateProducts(categories as ProductTypes[]);
-            setLoading(false);
-          }
-        } catch (error) {
-          console.log(error);
-          setLoading(true);
-          setInterval(() => {
-            setLoading(false);
-          }, 5000);
-        }
-      }
-    }
-  }, [user?.token]);
-
-  React.useEffect(() => {
-    safeRef.current = true;
-    if (safeRef.current) {
-      void fetchProducts();
-    }
-    return () => {
-      safeRef.current = false;
-    };
-  }, [user?.token]);
-
-  // const [current, setCurrent] = React.useState('');
-
-  // const onPressCurrent = React.useCallback(
-  //   (id: string) => {
-  //     if (current === id) {
-  //       setCurrent('');
-  //     } else {
-  //       setCurrent(id);
-  //     }
-  //   },
-  //   [current]
-  // );
-
-  return {
-    state,
-    loading,
-    updateProducts,
-    onSelectItems,
-    updateCurrentID,
-    updateItemDecrement,
-    updateItemIncrement,
-  };
-};
 
 // const [selected, setSelected] = useState<ProductTypes | null>(null);
 // const [selectedItems, setSelectedItems] = useState<ItemTypes[]>([]);
