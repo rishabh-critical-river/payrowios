@@ -16,6 +16,7 @@ import PayRowLogo from "@/components/logo";
 import { useRouter } from "expo-router";
 import useCheckDevice from "@/apis/hooks/use-check-device";
 import PanelView from "@/components/view/PanelView";
+import Modal from "react-native-modal";
 
 function Login({ navigation }: any) {
   const router = useRouter();
@@ -34,73 +35,68 @@ function Login({ navigation }: any) {
 
   return (
     <ScrollView>
-      {state.alert && (
+      <Modal
+        isVisible={state.alert}
+        style={{
+          justifyContent: "center",
+          margin: 0,
+          padding: 16,
+        }}
+        onBackdropPress={() => onChangeState("alert", false)}
+      >
         <View
           style={{
-            height: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 10,
+            borderRadius: 8,
+            backgroundColor: "white",
+            padding: 16,
           }}
         >
           <View
+            style={
+              {
+                // marginBottom: 20,
+              }
+            }
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "500",
+                lineHeight: 28,
+                color: "#333333",
+              }}
+            >
+              Account Exist
+            </Text>
+          </View>
+          <View
             style={{
-              width: "90%",
-              marginLeft: 32,
-              marginRight: 32,
-              padding: 24,
-              backgroundColor: "#fff",
+              marginBottom: 20,
             }}
           >
-            <View
+            <Text
               style={{
-                marginBottom: 20,
+                fontSize: 13,
+                fontWeight: "400",
+                lineHeight: 20,
+                color: "#333333",
               }}
             >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: "500",
-                  lineHeight: 28,
-                  color: "#333333",
-                }}
-              >
-                Account Exist
-              </Text>
-            </View>
-            <View
-              style={{
-                marginBottom: 20,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 13,
-                  fontWeight: "400",
-                  lineHeight: 20,
-                  color: "#333333",
-                }}
-              >
-                TID and phone number are already registered on another device
-                .If you click continue,you will be logout from the previous
-                device and login here .{" "}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "column", gap: 16 }}>
-              <Button title="Continue" onPress={onCreateAccount} />
-              <Button
-                title="Cancle"
-                onPress={() => onChangeState("alert", false)}
-              />
-            </View>
+              TID and phone number are already registered on another device .If
+              you click continue,you will be logout from the previous device and
+              login here .{" "}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "column", gap: 16 }}>
+            <Button title="Continue" onPress={onCreateAccount} />
+            <Button
+              title="Cancle"
+              onPress={() => onChangeState("alert", false)}
+            />
           </View>
         </View>
-      )}
+      </Modal>
+
       <View style={styles.container}>
         <View
           style={{
