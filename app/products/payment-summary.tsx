@@ -2,28 +2,15 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-
-const selectedItems = [
-  {
-    _id: '634d14011c7eda7dfa7b13a7',
-    itemDescription: 'Apprentice Electrician',
-    itemName: 'Apprentice Electrician',
-    price: 1.8,
-    quantity: 1,
-    status: 'Active',
-  },
-  {
-    _id: '634d206d1c7eda7dfa7b13b1',
-    itemDescription: 'Journeyman Electrician',
-    itemName: 'Journeyman Electrician',
-    price: 1.8,
-    quantity: 3,
-    status: 'Active',
-  },
-];
+import useProduct from '@/store/hooks/use-product';
+import { OrderMetaContext } from '@/providers/context/order-meta';
 
 const PaymentSummary = () => {
   const router = useRouter();
+  const [orderMeta] = React.useContext(OrderMetaContext);
+  const { state } = useProduct();
+
+  const services = state?.purchaseBreakdown?.service;
 
   return (
     <>
@@ -135,7 +122,8 @@ const PaymentSummary = () => {
                 color: '#020202',
               }}
             >
-              16-Mar-23
+              {/* 16-Mar-23 */}
+              {orderMeta?.date}
               {/* Replace with the actual date property */}
             </Text>
           </View>
@@ -166,7 +154,7 @@ const PaymentSummary = () => {
                 color: '#020202',
               }}
             >
-              3245000
+              {orderMeta?.user?.merchantId}
               {/* Replace with the actual merchant property */}
             </Text>
           </View>
@@ -197,7 +185,7 @@ const PaymentSummary = () => {
                 color: '#020202',
               }}
             >
-              3245000
+              {orderMeta?.orderNumber}
               {/* Replace with the actual order number property */}
             </Text>
           </View>
@@ -238,9 +226,9 @@ const PaymentSummary = () => {
               Price
             </Text>
           </View>
-          {selectedItems.length > 0 && (
+          {services.length > 0 && (
             <View style={{ marginTop: 4 }}>
-              {selectedItems?.map((item, index) => (
+              {services?.map((item, index) => (
                 <View key={index} style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
@@ -253,7 +241,7 @@ const PaymentSummary = () => {
                       lineHeight: 16,
                     }}
                   >
-                    {item.itemName}
+                    {item.englishName}
                   </Text>
                   <Text
                     style={{
@@ -264,7 +252,9 @@ const PaymentSummary = () => {
                       lineHeight: 20,
                     }}
                   >
-                    {(Number(item.price) * Number(item.quantity)).toFixed(2)}{' '}
+                    {(Number(item.quantity) * Number(item.totalAmount)).toFixed(
+                      2
+                    )}{' '}
                     AED
                   </Text>
                 </View>
@@ -313,7 +303,7 @@ const PaymentSummary = () => {
         >
           <Text style={styles.priceLabel}>Total Price</Text>
           <View style={styles.priceTextContainer}>
-            <Text style={styles.priceText}>{0}</Text>
+            <Text style={styles.priceText}>{state.total.toFixed(2)}</Text>
             <Text style={styles.priceCurrency}>AED</Text>
           </View>
         </View>

@@ -30,6 +30,10 @@ const cryptoActions = {
     });
     return decrypt.toString(CryptoJS.enc.Utf8);
   },
+  orderNumber: (length: number) => {
+    const random = CryptoJS.lib.WordArray.random(length);
+    return random.toString(CryptoJS.enc.Hex);
+  },
 };
 
 export default cryptoActions;

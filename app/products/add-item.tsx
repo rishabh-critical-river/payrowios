@@ -23,7 +23,7 @@ import { ProductTypes } from '@/typings/product';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import axios from 'axios';
 import useProduct from '@/store/hooks/use-product';
-import items from '@/constants/items';
+import getProducts from '@/apis/queries/product/get-product';
 
 function AddItems() {
   const router = useRouter();
@@ -50,36 +50,36 @@ function AddItems() {
    */
 
   const fetchProducts = React.useCallback(async () => {
-    // setLoading(true);
+    setLoading(true);
     if (state.items.length <= 0) {
       if (user?.token) {
         try {
-          // const { data } = await getProducts(user?.token);
-          // if (data.data && data.data.length > 0) {
-          const itemData = items;
-          const categories = itemData.map((value) => {
-            const items = value?.serviceItems?.map((item) => {
+          const { data } = await getProducts(user?.token);
+          setLoading(false);
+          if (data.data && data.data.length > 0) {
+            const itemData = data.data;
+            const categories = itemData.map((value) => {
+              const items = value?.serviceItems?.map((item) => {
+                return {
+                  _id: item._id,
+                  price: 100,
+                  quantity: 0,
+                  itemName: item.itemName,
+                  itemDescription: item.itemDescription,
+                  status: item.status,
+                };
+              });
               return {
-                _id: item._id,
-                price: 1.8,
-                quantity: 0,
-                itemName: item.itemName,
-                itemDescription: item.itemDescription,
-                status: item.status,
+                _id: value._id,
+                serviceCode: value.serviceCode,
+                serviceName: value.serviceName,
+                status: value.status,
+                serviceItems: items,
               };
             });
-            return {
-              _id: value._id,
-              serviceCode: value.serviceCode,
-              serviceName: value.serviceName,
-              status: value.status,
-              serviceItems: items,
-            };
-          });
-          // Store Data in Redux Store
-          updateProducts(categories.slice(0, 2) as ProductTypes[]);
-          // setLoading(false);
-          // }
+            // Store Data in Redux Store
+            updateProducts(categories as ProductTypes[]);
+          }
         } catch (error) {
           console.log(error);
 
