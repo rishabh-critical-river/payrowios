@@ -627,14 +627,14 @@ function CashPayment({ navigation }: any) {
               <TouchableOpacity
                 style={{
                   marginLeft: 32,
-                  marginRight: 32,
+                  marginRight: 16,
 
                   // width: "80%",
                   marginTop: 42,
-                  marginBottom: 32,
+                  marginBottom: 16,
                 }}
                 onPress={() => {
-                  // router.push("/payment/cash-payment/confirmation-invoice")
+                  router.push("/payment/pay-by-link/confirmation-invoice");
                   toggleModal();
                 }}
               >
