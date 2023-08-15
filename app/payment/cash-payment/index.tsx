@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { PaymentMode } from '@/apis/enums';
@@ -37,7 +38,8 @@ function CashPayment() {
         return console.log('TAPTOPAY');
       }
       case PaymentMode.CASHPAYMENT: {
-        return onPayByCash();
+        return router.push('/payment/cash-payment/cash-invoice');
+        // return onPayByCash();
       }
       case PaymentMode.PAYBYLINK: {
         return console.log('PAYBYLINK');
@@ -55,73 +57,76 @@ function CashPayment() {
 
   const totalAmount = state.total;
 
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <View style={styles.container}>
-          <View
-            style={{
-              marginLeft: 16,
-              marginTop: 17,
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <TouchableOpacity onPress={router.back}>
-              <Image
-                source={require('@/assets/icons/arrow_back.png')}
-                style={{
-                  width: 16.03,
-                  height: 16.03,
-                  marginRight: 35.98,
-                }}
-              />
-            </TouchableOpacity>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: '500',
-                lineHeight: 32,
-                letterSpacing: 0.5,
-              }}
-            >
-              Cash Invoice
-            </Text>
-          </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: '#4b50504d',
+  const finalAmount = totalAmount + percentange(5, Number(totalAmount));
 
-              paddingBottom: 30,
-              marginLeft: 32,
-              marginRight: 32,
-            }}
-          >
-            <Image
+  return (
+    <ScrollView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          // style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <View style={styles.container}>
+            <View
               style={{
-                width: 150,
-                height: 48.3,
-                alignSelf: 'center',
-                marginTop: 22,
-              }}
-              source={require('@/assets/onboarding/payrowLogo.png')}
-            />
-            <Text
-              style={{
-                fontSize: 22,
-                fontWeight: '400',
-                lineHeight: 28,
-                textAlign: 'center',
-                marginTop: 22,
+                marginLeft: 16,
+                marginTop: 17,
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
-              Textiles INC.
-            </Text>
-            {/* <Text
+              <TouchableOpacity onPress={router.back}>
+                <Image
+                  source={require('@/assets/icons/arrow_back.png')}
+                  style={{
+                    width: 16.03,
+                    height: 16.03,
+                    marginRight: 35.98,
+                  }}
+                />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '500',
+                  lineHeight: 32,
+                  letterSpacing: 0.5,
+                }}
+              >
+                Cash Invoice
+              </Text>
+            </View>
+            <View
+              style={{
+                borderBottomWidth: 1,
+                borderColor: '#4b50504d',
+
+                paddingBottom: 30,
+                marginLeft: 32,
+                marginRight: 32,
+              }}
+            >
+              <Image
+                style={{
+                  width: 150,
+                  height: 48.3,
+                  alignSelf: 'center',
+                  marginTop: 22,
+                }}
+                source={require('@/assets/onboarding/payrowLogo.png')}
+              />
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontWeight: '400',
+                  lineHeight: 28,
+                  textAlign: 'center',
+                  marginTop: 22,
+                }}
+              >
+                Textiles INC.
+              </Text>
+              {/* <Text
             style={{
               fontSize: 14,
               fontWeight: "400",
@@ -147,273 +152,333 @@ function CashPayment() {
           >
             company
           </Text> */}
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: '#4B50500D',
-                borderRadius: 8,
-                marginTop: 16,
-                width: 133,
-                height: 30,
-                alignSelf: 'center',
-
-                backgroundColor: '#4B50500D',
-              }}
-            >
-              <Text
-                style={{
-                  alignSelf: 'center',
-                  marginTop: 6,
-                  fontWeight: '500',
-                  fontSize: 13,
-                  lineHeight: 18,
-                  letterSpacing: -0.08,
-                  color: '#4B5050',
-                }}
-              >
-                MID: 0987654321
-              </Text>
-            </View>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: '#4B505040',
-
-                shadowColor: '#757E6E14',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-
-                borderRadius: 8,
-                marginTop: 24,
-                width: 296,
-                height: 48,
-                alignSelf: 'center',
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  // navigation.navigate("AddItem");
-                  router.push('/products/add-item');
-                }}
-                style={{
-                  flexDirection: 'row',
-                }}
-              >
-                <Text
-                  style={{
-                    flex: 1,
-                    marginLeft: 16,
-                    marginTop: 14,
-                    fontWeight: '500',
-                    fontSize: 14,
-                    lineHeight: 20,
-                    letterSpacing: 0.1,
-                    color: '#4B5050',
-                  }}
-                >
-                  ADD ITEMS
-                </Text>
-                <Image
-                  source={require('@/assets/icons/plusicon.png')}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginRight: 16,
-                    marginTop: 15,
-                    backgroundColor: '#4B5050E5',
-                    borderRadius: 10,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: '#4B505040',
-
-                shadowColor: '#757E6E14',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-
-                borderRadius: 8,
-                marginTop: 16,
-                width: 296,
-                height: 48,
-                alignSelf: 'center',
-              }}
-            >
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 10,
+                  borderWidth: 1,
+                  borderColor: '#4B50500D',
+                  borderRadius: 8,
+                  marginTop: 16,
+                  width: 133,
+                  height: 30,
+                  alignSelf: 'center',
+
+                  backgroundColor: '#4B50500D',
                 }}
               >
                 <Text
                   style={{
-                    flex: 1,
-                    marginLeft: 16,
-
+                    alignSelf: 'center',
+                    marginTop: 6,
                     fontWeight: '500',
-                    fontSize: 14,
-                    lineHeight: 20,
-                    letterSpacing: 0.1,
+                    fontSize: 13,
+                    lineHeight: 18,
+                    letterSpacing: -0.08,
                     color: '#4B5050',
                   }}
                 >
-                  SCAN BARCODE
+                  MID: 0987654321
                 </Text>
-                <MaterialCommunityIcons
-                  style={{ marginRight: 16 }}
-                  name="barcode-scan"
-                  size={24}
-                  color="black"
-                />
+              </View>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: '#4B505040',
 
-                {/* <Fontisto
+                  shadowColor: '#757E6E14',
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+
+                  borderRadius: 8,
+                  marginTop: 24,
+                  width: 296,
+                  height: 48,
+                  alignSelf: 'center',
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    // navigation.navigate("AddItem");
+                    router.push('/products/add-item');
+                  }}
+                  style={{
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Text
+                    style={{
+                      flex: 1,
+                      marginLeft: 16,
+                      marginTop: 14,
+                      fontWeight: '500',
+                      fontSize: 14,
+                      lineHeight: 20,
+                      letterSpacing: 0.1,
+                      color: '#4B5050',
+                    }}
+                  >
+                    ADD ITEMS
+                  </Text>
+                  <Image
+                    source={require('@/assets/icons/plusicon.png')}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginRight: 16,
+                      marginTop: 15,
+                      backgroundColor: '#4B5050E5',
+                      borderRadius: 10,
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: '#4B505040',
+
+                  shadowColor: '#757E6E14',
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+
+                  borderRadius: 8,
+                  marginTop: 16,
+                  width: 296,
+                  height: 48,
+                  alignSelf: 'center',
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      flex: 1,
+                      marginLeft: 16,
+
+                      fontWeight: '500',
+                      fontSize: 14,
+                      lineHeight: 20,
+                      letterSpacing: 0.1,
+                      color: '#4B5050',
+                    }}
+                  >
+                    SCAN BARCODE
+                  </Text>
+                  <MaterialCommunityIcons
+                    style={{ marginRight: 16 }}
+                    name="barcode-scan"
+                    size={24}
+                    color="black"
+                  />
+
+                  {/* <Fontisto
                   style={{ marginRight: 14, marginTop: 10 }}
                   name="toggle-off"
                   size={28}
                   color="#CCCCCC"
                 /> */}
+                </View>
               </View>
             </View>
           </View>
-        </View>
 
-        <View style={{ backgroundColor: 'white' }}>
-          <View style={{ alignSelf: 'center' }}>
-            <Text
-              style={{
-                marginBottom: 5,
-                fontSize: 12,
-                color: '#4B5050',
-                fontWeight: '400',
-                opacity: 0.800000011920929,
-              }}
-            >
-              Total Amount
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <TextInput
-                keyboardType="numeric"
-                style={{
-                  color: '#4B5050',
-                  fontWeight: '400',
-                  fontSize: 16,
-                  lineHeight: 18,
-                  opacity: 0.7,
-                  marginBottom: 8,
-                }}
-                placeholder="Total Amount"
-                editable={false}
-                value={`${totalAmount}`}
-              />
+          <View style={{ backgroundColor: 'white' }}>
+            <View style={{ alignSelf: 'center', marginTop: 20 }}>
               <Text
                 style={{
-                  color: '#4B505099',
-                  fontWeight: '400',
-                  letterSpacing: 0.25,
-                  fontSize: 14,
-                  marginLeft: 5,
-                  lineHeight: 20,
-                  opacity: 0.7,
-                  marginBottom: 4,
-                }}
-              >
-                AED
-              </Text>
-            </View>
-
-            <View
-              //horizontal line
-              style={{
-                backgroundColor: '#4B505099',
-
-                width: 296,
-                height: 1.5,
-                opacity: 0.7,
-                alignSelf: 'center',
-              }}
-            />
-          </View>
-          <View style={{ alignSelf: 'center', marginTop: 20 }}>
-            <Text
-              style={{
-                marginBottom: 5,
-                fontSize: 12,
-                color: '#4B5050',
-                fontWeight: '400',
-                opacity: 0.800000011920929,
-              }}
-            >
-              Cash Received
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <TextInput
-                keyboardType="numeric"
-                style={{
+                  marginBottom: 5,
+                  fontSize: 12,
                   color: '#4B5050',
                   fontWeight: '400',
-                  fontSize: 16,
-                  lineHeight: 18,
-                  opacity: 0.7,
-                  marginBottom: 8,
-                }}
-                placeholder="Cash Received"
-                value={cash}
-                onChangeText={onChangeCash}
-              />
-              <Text
-                style={{
-                  color: '#4B505099',
-                  fontWeight: '400',
-                  letterSpacing: 0.25,
-                  fontSize: 14,
-                  marginLeft: 5,
-                  lineHeight: 20,
-                  opacity: 0.7,
-                  marginBottom: 4,
+                  opacity: 0.800000011920929,
                 }}
               >
-                AED
+                Total Amount
               </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <TextInput
+                  keyboardType="numeric"
+                  style={{
+                    color: '#4B5050',
+                    fontWeight: '400',
+                    fontSize: 16,
+                    lineHeight: 18,
+                    opacity: 0.7,
+                    marginBottom: 8,
+                  }}
+                  placeholder="Total Amount"
+                  editable={false}
+                  value={`${totalAmount}`}
+                />
+                <Text
+                  style={{
+                    color: '#4B505099',
+                    fontWeight: '400',
+                    letterSpacing: 0.25,
+                    fontSize: 14,
+                    marginLeft: 5,
+                    lineHeight: 20,
+                    opacity: 0.7,
+                    marginBottom: 4,
+                  }}
+                >
+                  AED
+                </Text>
+              </View>
+
+              <View
+                //horizontal line
+                style={{
+                  backgroundColor: '#4B505099',
+
+                  width: 296,
+                  height: 1.5,
+                  opacity: 0.7,
+                  alignSelf: 'center',
+                }}
+              />
+            </View>
+            <View style={{ alignSelf: 'center', marginTop: 20 }}>
+              <Text
+                style={{
+                  marginBottom: 5,
+                  fontSize: 12,
+                  color: '#4B5050',
+                  fontWeight: '400',
+                  opacity: 0.800000011920929,
+                }}
+              >
+                Total Amount inc VAT
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <TextInput
+                  keyboardType="numeric"
+                  style={{
+                    color: '#4B5050',
+                    fontWeight: '400',
+                    fontSize: 16,
+                    lineHeight: 18,
+                    opacity: 0.7,
+                    marginBottom: 8,
+                  }}
+                  placeholder="Total Amount"
+                  // editable={false}
+                  value={`${finalAmount.toFixed(2)}`}
+                />
+                <Text
+                  style={{
+                    color: '#4B505099',
+                    fontWeight: '400',
+                    letterSpacing: 0.25,
+                    fontSize: 14,
+                    marginLeft: 5,
+                    lineHeight: 20,
+                    opacity: 0.7,
+                    marginBottom: 4,
+                  }}
+                >
+                  AED
+                </Text>
+              </View>
+
+              <View
+                //horizontal line
+                style={{
+                  backgroundColor: '#4B505099',
+
+                  width: 296,
+                  height: 1.5,
+                  opacity: 0.7,
+                  alignSelf: 'center',
+                }}
+              />
+            </View>
+            <View style={{ alignSelf: 'center', marginTop: 20 }}>
+              <Text
+                style={{
+                  marginBottom: 5,
+                  fontSize: 12,
+                  color: '#4B5050',
+                  fontWeight: '400',
+                  opacity: 0.800000011920929,
+                }}
+              >
+                Cash Received
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <TextInput
+                  keyboardType="numeric"
+                  style={{
+                    color: '#4B5050',
+                    fontWeight: '400',
+                    fontSize: 16,
+                    lineHeight: 18,
+                    opacity: 0.7,
+                    marginBottom: 8,
+                  }}
+                  placeholder="Cash Received"
+                  value={cash}
+                  onChangeText={onChangeCash}
+                />
+                <Text
+                  style={{
+                    color: '#4B505099',
+                    fontWeight: '400',
+                    letterSpacing: 0.25,
+                    fontSize: 14,
+                    marginLeft: 5,
+                    lineHeight: 20,
+                    opacity: 0.7,
+                    marginBottom: 4,
+                  }}
+                >
+                  AED
+                </Text>
+              </View>
+
+              <View
+                //horizontal line
+                style={{
+                  backgroundColor: '#4B505099',
+                  width: 296,
+                  height: 1.5,
+                  opacity: 0.7,
+                  alignSelf: 'center',
+                }}
+              />
             </View>
 
-            <View
-              //horizontal line
-              style={{
-                backgroundColor: '#4B505099',
-
-                width: 296,
-                height: 1.5,
-                opacity: 0.7,
-                alignSelf: 'center',
-              }}
-            />
-          </View>
-
-          {/* <View
+            {/* <View
             style={{
               borderWidth: 1,
               borderColor: "#4B505040",
@@ -484,97 +549,98 @@ function CashPayment() {
             </View>
           </View> */}
 
-          <View
-            style={{
-              width: '80%',
-              alignSelf: 'center',
-              height: 48,
-              borderRadius: 10,
+            <View
+              style={{
+                width: '80%',
+                alignSelf: 'center',
+                height: 48,
+                borderRadius: 10,
 
-              borderWidth: 1,
-              borderColor: 'rgba(75, 80, 80, 0.2)',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: 22,
-            }}
-          >
-            <Text style={styles.priceLabel}>Balance</Text>
-            <View style={styles.priceTextContainer}>
-              <Text style={styles.priceText}>
-                {`${Number(cash) - Number(totalAmount)}`}
-              </Text>
-              <Text style={styles.priceCurrency}>AED</Text>
+                borderWidth: 1,
+                borderColor: 'rgba(75, 80, 80, 0.2)',
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: 22,
+              }}
+            >
+              <Text style={styles.priceLabel}>Balance</Text>
+              <View style={styles.priceTextContainer}>
+                <Text style={styles.priceText}>
+                  {` ${cash ? Number(cash) - Number(totalAmount) : 0}`}
+                </Text>
+                <Text style={styles.priceCurrency}>AED</Text>
+              </View>
             </View>
+
+            <TouchableOpacity
+              style={styles.goToSummaryButton}
+              onPress={() => {
+                // router.push('/payment/cash-payment/cash-invoice');
+                // onPayByCash();
+                onPay();
+              }}
+            >
+              <View style={styles.buttonContent}>
+                <View style={{ justifyContent: 'center', marginLeft: 16 }}>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: '#8EBD6C',
+
+                      width: 14,
+                      height: 3.61,
+
+                      backgroundColor: '#8EBD6C',
+                      marginBottom: 2.58,
+                    }}
+                  />
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: '#8EBD6C',
+
+                      width: 14,
+                      height: 3.61,
+
+                      marginBottom: 2.58,
+                      backgroundColor: '#8EBD6C',
+                    }}
+                  />
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: '#8EBD6C',
+
+                      width: 14,
+                      height: 3.61,
+
+                      backgroundColor: '#8EBD6C',
+                    }}
+                  />
+                </View>
+                <Text style={styles.buttonText}>Pay</Text>
+                <View style={styles.arrowIcon}>
+                  <AntDesign name="arrowright" size={22} color="white" />
+                </View>
+              </View>
+            </TouchableOpacity>
+
+            <Text
+              style={{
+                fontSize: 12,
+                backgroundColor: 'white',
+                color: '#7f7f7f',
+                textAlign: 'center',
+                paddingBottom: 15,
+                marginTop: 10,
+              }}
+            >
+              ©2022 PayRow Company. All rights reserved
+            </Text>
           </View>
-
-          <TouchableOpacity
-            style={styles.goToSummaryButton}
-            onPress={() => {
-              // router.push('/payment/cash-payment/cash-invoice');
-              // onPayByCash();
-              onPay();
-            }}
-          >
-            <View style={styles.buttonContent}>
-              <View style={{ justifyContent: 'center', marginLeft: 16 }}>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: '#8EBD6C',
-
-                    width: 14,
-                    height: 3.61,
-
-                    backgroundColor: '#8EBD6C',
-                    marginBottom: 2.58,
-                  }}
-                />
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: '#8EBD6C',
-
-                    width: 14,
-                    height: 3.61,
-
-                    marginBottom: 2.58,
-                    backgroundColor: '#8EBD6C',
-                  }}
-                />
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: '#8EBD6C',
-
-                    width: 14,
-                    height: 3.61,
-
-                    backgroundColor: '#8EBD6C',
-                  }}
-                />
-              </View>
-              <Text style={styles.buttonText}>Pay</Text>
-              <View style={styles.arrowIcon}>
-                <AntDesign name="arrowright" size={22} color="white" />
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <Text
-            style={{
-              fontSize: 12,
-              backgroundColor: 'white',
-              color: '#7f7f7f',
-              textAlign: 'center',
-              paddingBottom: 15,
-              marginTop: 10,
-            }}
-          >
-            ©2022 PayRow Company. All rights reserved
-          </Text>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 }
 
@@ -774,3 +840,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const percentange = (value: number, total: number) => {
+  if (value === 0 || total === 0) {
+    return 0;
+  }
+  return (value * 100) / total;
+};

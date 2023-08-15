@@ -1,13 +1,13 @@
 import React from 'react';
 import { Alert } from 'react-native';
-import keyValidation from '@/lib/num-characters';
-import cryptoActions from '@/lib/crypto-actions';
+import keyValidation from '@/hooks/lib/num-characters';
+import cryptoActions from '@/hooks/lib/crypto-actions';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Params } from '@/typings/params';
 import createPin from '../mutations/auth/create-pin';
 import userLogin from '../mutations/auth/users-login';
 import useDeviceId from '@/hooks/use-device-id';
-import storage from '@/lib/storage';
+import storage from '@/hooks/lib/storage';
 
 const useCreatePin = () => {
   const { deviceId } = useDeviceId();

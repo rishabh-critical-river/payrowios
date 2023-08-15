@@ -14,14 +14,49 @@ import { AntDesign } from '@expo/vector-icons';
 // const countries = [{ country: 'TRANSACTION ID' }, { country: 'BY DATE' }];
 import { Entypo } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { SharingApps } from '@/apis/enums';
+import useShare from '@/hooks/use-share';
+
+const apps = [
+  {
+    name: 'WhatsApp',
+    image: require('@/assets/icons/whatsapp.png'),
+    value: SharingApps.WHATSAPP,
+  },
+  {
+    name: 'Gmail',
+    image: require('@/assets/icons/gmail.png'),
+    value: SharingApps.EMAIL,
+  },
+  {
+    name: 'SMS',
+    image: require('@/assets/icons/chat.png'),
+    value: SharingApps.SMS,
+  },
+];
 
 function CardInvoice() {
   const router = useRouter();
+  const [selectedApp, setSelectedApp] = useState<SharingApps | null>(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  const { opneWhatsapp } = useShare();
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const share = React.useCallback(() => {
+    switch (selectedApp) {
+      case SharingApps.WHATSAPP: {
+        const mobile = '+971561503987';
+        const message = `Hi, I have sent you an invoice of AED 250. Please click on the link to pay. https://payrow.com/1234567890`;
+        return opneWhatsapp(mobile, message);
+      }
+
+      default:
+        return null;
+    }
+  }, [selectedApp]);
 
   return (
     <>
@@ -448,7 +483,34 @@ function CardInvoice() {
                   marginTop: 16,
                 }}
               >
-                <Image
+                {apps.map((app) => (
+                  <TouchableOpacity
+                    key={app.value}
+                    onPress={() => setSelectedApp(app.value)}
+                  >
+                    <View
+                      style={{
+                        // width: 52,
+                        // height: 52,
+                        // borderRadius: 10,
+                        // backgroundColor: '#F2F2F2',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Image
+                        source={app.image}
+                        style={{
+                          width: 52,
+                          height: 52,
+                          // backgroundColor: 'red',
+                          // borderRadius: 10,
+                        }}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                ))}
+                {/* <Image
                   source={require('@/assets/icons/whatsapp.png')}
                   style={{
                     width: 52,
@@ -468,7 +530,7 @@ function CardInvoice() {
                     width: 52,
                     height: 52,
                   }}
-                />
+                /> */}
               </View>
               <View style={{ marginLeft: 32, marginTop: 22 }}>
                 <Text
@@ -563,10 +625,12 @@ function CardInvoice() {
                 marginTop: 42,
                 marginBottom: 32,
               }}
-              onPress={() => {
-                router.push('/payment/cash-payment/confirmation-invoice');
-                toggleModal();
-              }}
+              // onPress={() => {
+              //   // router.push('/payment/cash-payment/confirmation-invoice');
+              //   // toggleModal();
+              //   share
+              // }}
+              onPress={share}
             >
               <View style={styles.buttonContent}>
                 <Text style={styles.buttonText}>SHARE</Text>

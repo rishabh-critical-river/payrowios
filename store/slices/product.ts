@@ -1,4 +1,4 @@
-import empty from '@/lib/empty';
+import empty from '@/hooks/lib/empty';
 import { ProductTypes } from '@/typings/product';
 import { createSlice } from '@reduxjs/toolkit';
 

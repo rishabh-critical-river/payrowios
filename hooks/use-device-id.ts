@@ -1,5 +1,5 @@
 import React from 'react';
-import deviceIDMethods from '@/lib/device-id';
+import deviceIDMethods from '@/hooks/lib/device-id';
 
 type State = {
   deviceId: string | null;

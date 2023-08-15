@@ -1,7 +1,7 @@
 import React from 'react';
 import useProduct from '@/store/hooks/use-product';
 import useStorageData from './use-storage-data';
-import jwtActions from '@/lib/jwt-actions';
+import jwtActions from '@/hooks/lib/jwt-actions';
 import orders from '../mutations/products/orders';
 import { OrderMetaContext } from '@/providers/context/order-meta';
 

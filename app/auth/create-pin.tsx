@@ -1,8 +1,9 @@
+import React from 'react';
 import OTPInput from '@/components/otp-input';
+import useOTPInterval from '@/hooks/use-otp-interval';
 import { Params } from '@/typings/params';
 import { AntDesign } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,25 +14,11 @@ import {
 } from 'react-native';
 
 function CreatePin() {
-  const params = useLocalSearchParams<Params>();
-
-  const [pin, setPin] = React.useState('');
   const router = useRouter();
-  const [timer, setTimer] = useState(52); // Initial value of the timer in seconds
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (timer > 0) {
-        setTimer((prevTimer) => prevTimer - 1);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timer]);
-
-  const formattedTimer = `${Math.floor(timer / 60)
-    .toString()
-    .padStart(2, '0')}:${(timer % 60).toString().padStart(2, '0')}`;
+  const [pin, setPin] = React.useState('');
+  const params = useLocalSearchParams<Params>();
+  const { formattedTimer, timer } = useOTPInterval(52);
+  console.log({ timer });
 
   return (
     <ScrollView>
