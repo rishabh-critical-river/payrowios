@@ -30,8 +30,8 @@ const paymentMode = {
 };
 
 const usePaymentMode = () => {
-  const { user } = useStorageData('user');
   const { state } = useProduct();
+  const { user } = useStorageData('user');
   const adminData = jwtActions.decode<User>(user?.token);
 
   const orderNumber = React.useMemo(() => {
@@ -41,6 +41,20 @@ const usePaymentMode = () => {
   const onPayByCash = React.useCallback(async () => {
     if (adminData) {
       try {
+        const _purchaseBreakdown = state.purchaseBreakdown.service.map(
+          (item) => {
+            return {
+              serviceCode: item.serviceCode,
+              serviceCat: item.serviceCat,
+              englishName: item.englishName,
+              arabicName: item.arabicName,
+              quantity: item.quantity,
+              transactionAmount: item.transactionAmount,
+              totalAmount: item.totalAmount,
+            };
+          }
+        );
+
         const payload = {
           storeId: adminData?.storeId,
           orderNumber,
@@ -57,7 +71,7 @@ const usePaymentMode = () => {
           distributorId: 'MANZ101',
           userId: adminData?.userId,
           mainMerchantId: adminData?.merchantId,
-          purchaseBreakdown: state.purchaseBreakdown,
+          purchaseBreakdown: _purchaseBreakdown,
         };
         // console.log('Ready To Pay', { payload });
         const { data } = await orders(payload, user?.token);

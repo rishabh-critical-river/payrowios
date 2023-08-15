@@ -16,6 +16,7 @@ import { PaymentMode } from '@/apis/enums';
 import usePaymentMode from '@/apis/hooks/use-payment-mode';
 import { PaymentModeContext } from '@/providers/context/payment-mode';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import useProduct from '@/store/hooks/use-product';
 
 /**
  * Cash Payment Screen
@@ -23,9 +24,12 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 function CashPayment() {
   const router = useRouter();
-
   const [paymentMode] = React.useContext(PaymentModeContext);
   const { onPayByCash } = usePaymentMode();
+  const [cash, setCash] = React.useState('');
+  const onChangeCash = React.useCallback((value: string) => {
+    setCash(value);
+  }, []);
 
   const onPay = React.useCallback(() => {
     switch (paymentMode) {
@@ -46,6 +50,10 @@ function CashPayment() {
         return void 0;
     }
   }, [onPayByCash]);
+
+  const { state } = useProduct();
+
+  const totalAmount = state.total;
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -313,7 +321,7 @@ function CashPayment() {
                 }}
                 placeholder="Total Amount"
                 editable={false}
-                value="300"
+                value={`${totalAmount}`}
               />
               <Text
                 style={{
@@ -373,6 +381,8 @@ function CashPayment() {
                   marginBottom: 8,
                 }}
                 placeholder="Cash Received"
+                value={cash}
+                onChangeText={onChangeCash}
               />
               <Text
                 style={{
@@ -490,7 +500,9 @@ function CashPayment() {
           >
             <Text style={styles.priceLabel}>Balance</Text>
             <View style={styles.priceTextContainer}>
-              <Text style={styles.priceText}>300</Text>
+              <Text style={styles.priceText}>
+                {`${Number(cash) - Number(totalAmount)}`}
+              </Text>
               <Text style={styles.priceCurrency}>AED</Text>
             </View>
           </View>
