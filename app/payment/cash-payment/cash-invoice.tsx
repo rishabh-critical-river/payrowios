@@ -411,6 +411,7 @@ function CardInvoice() {
           </View>
         </TouchableOpacity>
         <Modal
+          onBackdropPress={() => setModalVisible(false)}
           isVisible={isModalVisible}
           style={{
             justifyContent: 'flex-end',

@@ -2,8 +2,8 @@ import React from 'react';
 import useProduct from '@/store/hooks/use-product';
 import useStorageData from './use-storage-data';
 import jwtActions from '@/lib/jwt-actions';
-import keyValidation from '@/lib/num-characters';
 import orders from '../mutations/products/orders';
+import { OrderMetaContext } from '@/providers/context/order-meta';
 
 type User = {
   role: string;
@@ -31,12 +31,10 @@ const paymentMode = {
 
 const usePaymentMode = () => {
   const { state } = useProduct();
-  const { user } = useStorageData('user');
-  const adminData = jwtActions.decode<User>(user?.token);
 
-  const orderNumber = React.useMemo(() => {
-    return keyValidation(10);
-  }, []);
+  const { user } = useStorageData('user');
+  const [orderMeta] = React.useContext(OrderMetaContext);
+  const adminData = jwtActions.decode<User>(user?.token);
 
   const onPayByCash = React.useCallback(async () => {
     if (adminData) {
@@ -57,7 +55,7 @@ const usePaymentMode = () => {
 
         const payload = {
           storeId: adminData?.storeId,
-          orderNumber,
+          orderNumber: orderMeta.orderNumber,
           channel: paymentMode.cash,
           merchantPhone: adminData?.mobileNumber,
           posType: 'pos',
@@ -80,13 +78,7 @@ const usePaymentMode = () => {
         console.log('Error from Orders', { error });
       }
     }
-  }, [
-    adminData,
-    state.purchaseBreakdown,
-    state.total,
-    paymentMode.cash,
-    orderNumber,
-  ]);
+  }, [adminData, state.purchaseBreakdown, state.total, paymentMode.cash]);
 
   return {
     onPayByCash,

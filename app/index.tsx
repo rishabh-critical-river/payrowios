@@ -1,11 +1,38 @@
 import React from 'react';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import PayRowLogo from '@/components/logo';
 import { AntDesign } from '@expo/vector-icons';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { Linking } from 'react-native';
 
 const GetStartedScreen = () => {
   const router = useRouter();
+
+  const [recipient, setRecipient] = React.useState('example@gmail.com');
+  const [subject, setSubject] = React.useState('This is a test email');
+  const [body, setBody] = React.useState('This is the body of the email.');
+
+  const opneWhatsapp = React.useCallback(async () => {
+    // Without mobile number
+
+    const text = `Hello PayRow, I want to register as a merchant%20https://payrow.id/
+    `;
+
+    // await Linking.canOpenURL(`https://wa.me/6281212121212?text=${text}`).then(
+    //   (supported) => {
+    //     if (supported) {
+    //       return Linking.openURL(`https://wa.me/6281212121212?text=${text}`);
+    //     } else {
+    //       return Linking.openURL(
+    //         `https://api.whatsapp.com/send?phone=6281212121212&text=${text}`
+    //       );
+    //     }
+    //   }
+    // );
+    // Send on Email
+    const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    Linking.openURL(mailtoUrl);
+  }, []);
   return (
     <>
       <View style={styles.container}>
@@ -89,8 +116,9 @@ const GetStartedScreen = () => {
           style={styles.button}
           onPress={() => {
             // router.push('/auth/login');
-            router.push('/products/add-item');
+            // router.push('/products/add-item');
             // router.push('/test');
+            opneWhatsapp();
           }}
           activeOpacity={0.8}
         >
