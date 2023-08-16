@@ -3,9 +3,19 @@ import { Link, useRouter } from 'expo-router';
 import PayRowLogo from '@/components/logo';
 import { AntDesign } from '@expo/vector-icons';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import useStorageData from '@/apis/hooks/use-storage-data';
 
 const GetStartedScreen = () => {
   const router = useRouter();
+  const { user } = useStorageData('user');
+
+  const onStarted = React.useCallback(() => {
+    if (user?.token) {
+      router.push('/auth/enter-pin');
+    } else {
+      router.push('/auth/login');
+    }
+  }, [user]);
 
   return (
     <>
@@ -88,12 +98,11 @@ const GetStartedScreen = () => {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-            // router.push('/auth/login');
-            router.push('/products/add-item');
-            // router.push('/test');
-            // opneWhatsapp();
-          }}
+          onPress={onStarted}
+          // router.push('/auth/login');
+          // router.push('/products/add-item');
+          // router.push('/test');
+          // opneWhatsapp();
           activeOpacity={0.8}
         >
           <View

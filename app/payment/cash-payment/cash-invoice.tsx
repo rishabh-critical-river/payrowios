@@ -16,6 +16,9 @@ import { Entypo } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { SharingApps } from '@/apis/enums';
 import useShare from '@/hooks/use-share';
+import PanelView from '@/components/view/PanelView';
+import sendUrl from '@/apis/mutations/order/send-url';
+import useStorageData from '@/apis/hooks/use-storage-data';
 
 const apps = [
   {
@@ -36,8 +39,26 @@ const apps = [
 ];
 
 function CardInvoice() {
+  const { user } = useStorageData('user');
+  const [inputs, setInputs] = React.useState({
+    phone: '',
+    email: '',
+  });
+
+  const onChangeInputs = React.useCallback(
+    (key: keyof typeof inputs, value: string) => {
+      setInputs({
+        ...inputs,
+        [key]: value,
+      });
+    },
+    [inputs]
+  );
+
   const router = useRouter();
-  const [selectedApp, setSelectedApp] = useState<SharingApps | null>(null);
+  const [selectedApp, setSelectedApp] = useState<SharingApps | null>(
+    SharingApps.WHATSAPP
+  );
   const [isModalVisible, setModalVisible] = useState(false);
   const { opneWhatsapp } = useShare();
 
@@ -45,18 +66,35 @@ function CardInvoice() {
     setModalVisible(!isModalVisible);
   };
 
-  const share = React.useCallback(() => {
+  const share = React.useCallback(async () => {
     switch (selectedApp) {
       case SharingApps.WHATSAPP: {
-        const mobile = '+971561503987';
+        const mobile = inputs.phone;
         const message = `Hi, I have sent you an invoice of AED 250. Please click on the link to pay. https://payrow.com/1234567890`;
         return opneWhatsapp(mobile, message);
+      }
+      case SharingApps.EMAIL: {
+        if (user?.token) {
+          const email = inputs.email;
+          const subject = `Invoice`;
+          const url = `Hi, I have sent you an invoice of AED 250. Please click on the link to pay. https://payrow.com/1234567890`;
+          const payload = {
+            email,
+            subject,
+            url,
+          };
+
+          const { data } = await sendUrl(payload, user?.token);
+          console.log(data);
+          return data;
+        }
+        return null;
       }
 
       default:
         return null;
     }
-  }, [selectedApp]);
+  }, [selectedApp, inputs.phone, inputs.email, user?.token]);
 
   return (
     <>
@@ -432,85 +470,84 @@ function CardInvoice() {
             -- Thank You --
           </Text>
         </View>
-      </ScrollView>
-      <View style={{ backgroundColor: 'white' }}>
-        <TouchableOpacity
-          style={styles.goToSummaryButton}
-          onPress={toggleModal}
-        >
-          <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>SHARE CUSTOMER COPY </Text>
-            <View style={styles.arrowIcon}>
-              <Entypo name="share" size={22} color="white" />
+        <View style={{ backgroundColor: 'white' }}>
+          <TouchableOpacity
+            style={styles.goToSummaryButton}
+            onPress={toggleModal}
+          >
+            <View style={styles.buttonContent}>
+              <Text style={styles.buttonText}>SHARE CUSTOMER COPY </Text>
+              <View style={styles.arrowIcon}>
+                <Entypo name="share" size={22} color="white" />
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-        <Modal
-          onBackdropPress={() => setModalVisible(false)}
-          isVisible={isModalVisible}
-          style={{
-            justifyContent: 'flex-end',
-            margin: 0,
-          }}
-        >
-          <View
+          </TouchableOpacity>
+          <Modal
+            onBackdropPress={() => setModalVisible(false)}
+            isVisible={isModalVisible}
             style={{
-              backgroundColor: 'white',
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              flex: 0.41,
+              justifyContent: 'flex-end',
+              margin: 0,
             }}
           >
-            <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: '500',
-                  lineHeight: 24,
-                  color: '#4B5050',
-                  marginLeft: 32,
-                  marginTop: 28,
-                }}
-              >
-                Share Customer Copy
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginLeft: 30,
-                  marginRight: 150,
-                  marginTop: 16,
-                }}
-              >
-                {apps.map((app) => (
-                  <TouchableOpacity
-                    key={app.value}
-                    onPress={() => setSelectedApp(app.value)}
-                  >
-                    <View
-                      style={{
-                        // width: 52,
-                        // height: 52,
-                        // borderRadius: 10,
-                        // backgroundColor: '#F2F2F2',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                flex: 0.41,
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '500',
+                    lineHeight: 24,
+                    color: '#4B5050',
+                    marginLeft: 32,
+                    marginTop: 28,
+                  }}
+                >
+                  Share Customer Copy
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginLeft: 30,
+                    marginRight: 150,
+                    marginTop: 16,
+                  }}
+                >
+                  {apps.map((app) => (
+                    <TouchableOpacity
+                      key={app.value}
+                      onPress={() => setSelectedApp(app.value)}
                     >
-                      <Image
-                        source={app.image}
+                      <View
                         style={{
-                          width: 52,
-                          height: 52,
-                          // backgroundColor: 'red',
+                          // width: 52,
+                          // height: 52,
                           // borderRadius: 10,
+                          // backgroundColor: '#F2F2F2',
+                          justifyContent: 'center',
+                          alignItems: 'center',
                         }}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                ))}
-                {/* <Image
+                      >
+                        <Image
+                          source={app.image}
+                          style={{
+                            width: 52,
+                            height: 52,
+                            // backgroundColor: 'red',
+                            // borderRadius: 10,
+                          }}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  ))}
+                  {/* <Image
                   source={require('@/assets/icons/whatsapp.png')}
                   style={{
                     width: 52,
@@ -531,185 +568,295 @@ function CardInvoice() {
                     height: 52,
                   }}
                 /> */}
-              </View>
-              <View style={{ marginLeft: 32, marginTop: 22 }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    lineHeight: 12,
-                    fontWeight: '400',
-                    color: '#333333',
-                    opacity: 0.800000011920929,
-                    marginBottom: 7,
-                  }}
-                >
-                  Contact Number
-                </Text>
-                <View style={{ flexDirection: 'row' }}>
-                  <Image
-                    source={require('@/assets/icons/UAE.png')}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      marginRight: 4,
-                    }}
-                  />
-                  <Image
-                    source={require('@/assets/icons/IconPlacholder.png')}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      marginRight: 4,
-                    }}
-                  />
-                  <TextInput
-                    style={{
-                      color: '#4B5050',
-                      fontWeight: '500',
-                      fontSize: 22,
-                      width: 50,
-                      height: 24,
-                      opacity: 0.7,
-                      marginRight: 4,
-                    }}
-                    placeholder="Amount"
-                  >
-                    +971
-                  </TextInput>
-
-                  <TextInput
-                    style={{
-                      color: '#4B5050',
-                      fontWeight: '500',
-                      fontSize: 22,
-                      width: 150,
-                      height: 24,
-                      opacity: 0.7,
-                      marginRight: 4,
-                      // borderColor: "#99999",
-                      // borderBottomWidth: 1,
-                    }}
-                    placeholder="  Amount"
-                  >
-                    561503987
-                  </TextInput>
                 </View>
-                <View
-                  //horizontal line
-                  style={{
-                    backgroundColor: '#99999',
+                <PanelView show={selectedApp === SharingApps.WHATSAPP}>
+                  <View style={{ marginLeft: 32, marginTop: 22 }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        lineHeight: 12,
+                        fontWeight: '400',
+                        color: '#333333',
+                        opacity: 0.800000011920929,
+                        marginBottom: 7,
+                      }}
+                    >
+                      Contact Number
+                    </Text>
+                    <View style={{ flexDirection: 'row' }}>
+                      <Image
+                        source={require('@/assets/icons/UAE.png')}
+                        style={{
+                          width: 24,
+                          height: 24,
+                          marginRight: 4,
+                        }}
+                      />
+                      <Image
+                        source={require('@/assets/icons/IconPlacholder.png')}
+                        style={{
+                          width: 20,
+                          height: 20,
+                          marginRight: 4,
+                        }}
+                      />
+                      <TextInput
+                        style={{
+                          color: '#4B5050',
+                          fontWeight: '500',
+                          fontSize: 22,
+                          width: 50,
+                          height: 24,
+                          opacity: 0.7,
+                          marginRight: 4,
+                        }}
+                        placeholder="Amount"
+                      >
+                        +971
+                      </TextInput>
 
-                    width: 296,
-                    height: 1,
-                    opacity: 0.7,
-                    alignSelf: 'center',
+                      <TextInput
+                        style={{
+                          color: '#4B5050',
+                          fontWeight: '500',
+                          fontSize: 22,
+                          width: 150,
+                          height: 24,
+                          opacity: 0.7,
+                          marginRight: 4,
+                          // borderColor: "#99999",
+                          // borderBottomWidth: 1,
+                        }}
+                        placeholder="Amount"
+                      >
+                        561503987
+                      </TextInput>
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: '#99999',
+                        width: 296,
+                        height: 1,
+                        opacity: 0.7,
+                        alignSelf: 'center',
+                      }}
+                    />
+                  </View>
+                </PanelView>
+                <PanelView show={selectedApp === SharingApps.EMAIL}>
+                  <View style={{ marginLeft: 32, marginTop: 22 }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        lineHeight: 12,
+                        fontWeight: '400',
+                        color: '#333333',
+                        opacity: 0.800000011920929,
+                        marginBottom: 7,
+                      }}
+                    >
+                      Email
+                    </Text>
+                    <View style={{ flexDirection: 'row' }}>
+                      <TextInput
+                        style={{
+                          color: '#4B5050',
+                          fontWeight: '500',
+                          fontSize: 22,
+                          width: 150,
+                          height: 24,
+                          opacity: 0.7,
+                          marginRight: 4,
+                        }}
+                        placeholder="Enter email"
+                        keyboardType="email-address"
+                        value={inputs.email}
+                        onChangeText={(text) => onChangeInputs('email', text)}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: '#99999',
+                        width: 296,
+                        height: 1,
+                        opacity: 0.7,
+                        alignSelf: 'center',
+                      }}
+                    />
+                  </View>
+                </PanelView>
+                <PanelView show={selectedApp === SharingApps.SMS}>
+                  <View style={{ marginLeft: 32, marginTop: 22 }}>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        lineHeight: 12,
+                        fontWeight: '400',
+                        color: '#333333',
+                        opacity: 0.800000011920929,
+                        marginBottom: 7,
+                      }}
+                    >
+                      SMS
+                    </Text>
+                    <View style={{ flexDirection: 'row' }}>
+                      <Image
+                        source={require('@/assets/icons/UAE.png')}
+                        style={{
+                          width: 24,
+                          height: 24,
+                          marginRight: 4,
+                        }}
+                      />
+                      <Image
+                        source={require('@/assets/icons/IconPlacholder.png')}
+                        style={{
+                          width: 20,
+                          height: 20,
+                          marginRight: 4,
+                        }}
+                      />
+                      <TextInput
+                        style={{
+                          color: '#4B5050',
+                          fontWeight: '500',
+                          fontSize: 22,
+                          width: 50,
+                          height: 24,
+                          opacity: 0.7,
+                          marginRight: 4,
+                        }}
+                        placeholder="Amount"
+                      >
+                        +971
+                      </TextInput>
+
+                      <TextInput
+                        style={{
+                          color: '#4B5050',
+                          fontWeight: '500',
+                          fontSize: 22,
+                          width: 150,
+                          height: 24,
+                          opacity: 0.7,
+                          marginRight: 4,
+                          // borderColor: "#99999",
+                          // borderBottomWidth: 1,
+                        }}
+                        placeholder="Amount"
+                      >
+                        561503987
+                      </TextInput>
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: '#99999',
+                        width: 296,
+                        height: 1,
+                        opacity: 0.7,
+                        alignSelf: 'center',
+                      }}
+                    />
+                  </View>
+                </PanelView>
+                <View
+                  style={{
+                    marginTop: 8,
+                    marginLeft: 32,
+                    marginRight: 32,
+                    borderBottomWidth: 1,
+                    borderBottomColor: '#4B5050',
                   }}
                 />
               </View>
-              <View
+              <TouchableOpacity
                 style={{
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#4B5050',
-                  width: 310,
                   marginLeft: 32,
-                  marginTop: 8,
+                  marginRight: 32,
+                  marginTop: 42,
+                  marginBottom: 32,
                 }}
-              />
-            </View>
-            <TouchableOpacity
-              style={{
-                marginLeft: 32,
-                marginRight: 32,
-
-                // width: "80%",
-                marginTop: 42,
-                marginBottom: 32,
-              }}
-              // onPress={() => {
-              //   // router.push('/payment/cash-payment/confirmation-invoice');
-              //   // toggleModal();
-              //   share
-              // }}
-              onPress={share}
-            >
-              <View style={styles.buttonContent}>
-                <Text style={styles.buttonText}>SHARE</Text>
-                <View style={styles.arrowIcon}>
-                  <AntDesign name="arrowright" size={22} color="white" />
+                onPress={share}
+              >
+                <View style={styles.buttonContent}>
+                  <Text style={styles.buttonText}>SHARE</Text>
+                  <View style={styles.arrowIcon}>
+                    <AntDesign name="arrowright" size={22} color="white" />
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-        <TouchableOpacity
-          style={styles.resendCode}
-          onPress={() => {
-            // navigation.navigate("HomeScreen");
-            router.push('/home/');
-          }}
-        >
-          <View
-            style={{
-              borderWidth: 0.5,
-              borderColor: '#B2B2B2',
-              borderRadius: 8,
-              backgroundColor: '#FFFFFF',
-
-              height: 48,
-              justifyContent: 'center',
+              </TouchableOpacity>
+            </View>
+          </Modal>
+          <TouchableOpacity
+            style={styles.resendCode}
+            onPress={() => {
+              // navigation.navigate("HomeScreen");
+              router.push('/home/');
             }}
           >
-            <View style={{ flexDirection: 'row' }}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  paddingLeft: 16,
-                  fontWeight: '500',
-                  lineHeight: 24,
-                  justifyContent: 'center',
-                  color: '#4C4C4C',
-                  letterSpacing: 0.1,
-                  flex: 1,
-                }}
-              >
-                HOME
-              </Text>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginRight: 16,
-                }}
-              >
-                <View
+            <View
+              style={{
+                borderWidth: 0.5,
+                borderColor: '#B2B2B2',
+                borderRadius: 8,
+                backgroundColor: '#FFFFFF',
+
+                height: 48,
+                justifyContent: 'center',
+              }}
+            >
+              <View style={{ flexDirection: 'row' }}>
+                <Text
                   style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
+                    fontSize: 16,
+                    paddingLeft: 16,
+                    fontWeight: '500',
+                    lineHeight: 24,
+                    justifyContent: 'center',
+                    color: '#4C4C4C',
+                    letterSpacing: 0.1,
+                    flex: 1,
                   }}
                 >
-                  <AntDesign name="arrowright" size={24} color="#4C4C4C" />
+                  HOME
+                </Text>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginRight: 16,
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <AntDesign name="arrowright" size={24} color="#4C4C4C" />
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 14,
-            backgroundColor: 'white',
-            color: '#7f7f7f',
-            textAlign: 'center',
-            // paddingBottom: 15,
-            fontWeight: '400',
-            lineHeight: 20,
-            letterSpacing: 0.25,
-            marginTop: 16,
-            paddingBottom: 16,
-          }}
-        >
-          ©2022 PayRow Company. All rights reserved
-        </Text>
-      </View>
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 14,
+              backgroundColor: 'white',
+              color: '#7f7f7f',
+              textAlign: 'center',
+              // paddingBottom: 15,
+              fontWeight: '400',
+              lineHeight: 20,
+              letterSpacing: 0.25,
+              marginTop: 16,
+              paddingBottom: 16,
+            }}
+          >
+            ©2022 PayRow Company. All rights reserved
+          </Text>
+        </View>
+      </ScrollView>
     </>
   );
 }
