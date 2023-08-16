@@ -1,6 +1,5 @@
 import React from 'react';
 import { Slot } from 'expo-router';
-// import SWRProvider from '@/providers/swr';
 import useDeviceId from '@/hooks/use-device-id';
 import AuthProvider from '@/providers/auth';
 import SafeAreaProvider from '@/providers/safe-area';
@@ -18,9 +17,7 @@ const RootLayout = () => {
       <Providers>
         <SafeAreaProvider>
           <AuthProvider>
-            {/* <SWRProvider> */}
             <Slot />
-            {/* </SWRProvider> */}
           </AuthProvider>
         </SafeAreaProvider>
       </Providers>

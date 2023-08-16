@@ -1,7 +1,7 @@
 export enum PaymentMode {
   TAPTOPAY = 'Pay',
   CASHPAYMENT = 'Cash',
-  PAYBYLINK = 'Link',
+  PAYBYLINK = 'ECOMMERCE',
   PAYBYQRCODE = 'Code',
 }
 

@@ -15,11 +15,15 @@ import {
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 import { useRouter } from 'expo-router';
-import { SharingApps } from '@/apis/enums';
+import { PaymentMode, SharingApps } from '@/apis/enums';
 import useStorageData from '@/apis/hooks/use-storage-data';
 import PanelView from '@/components/view/PanelView';
 import sendUrl from '@/apis/mutations/order/send-url';
 import useShare from '@/hooks/use-share';
+import useProduct from '@/store/hooks/use-product';
+import percentange from '@/lib/percentange';
+import { OrderMetaContext } from '@/providers/context/order-meta';
+import orderByLink from '@/apis/mutations/products/by-link';
 
 const apps = [
   {
@@ -41,7 +45,15 @@ const apps = [
 
 function CashPayment() {
   const router = useRouter();
-  const { user } = useStorageData('user');
+  const { state } = useProduct();
+  const totalAmount = state.total;
+  const taxAmount = percentange(5, Number(totalAmount));
+  const finalAmount = totalAmount + taxAmount;
+  const { user } = useStorageData('user', { decode: true });
+  const { user: withToken } = useStorageData('user');
+  // console.log({ withToken });
+  const [orderMeta] = React.useContext(OrderMetaContext);
+
   const [inputs, setInputs] = React.useState({
     phone: '',
     email: '',
@@ -97,9 +109,125 @@ function CashPayment() {
     Keyboard.dismiss();
   };
   const [isModalVisible, setModalVisible] = useState(false);
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+  // const toggleModal = () => {
+  //   setModalVisible(!isModalVisible);
+  // };
+
+  const onPayByCash = React.useCallback(async () => {
+    if (user) {
+      try {
+        const service = state.purchaseBreakdown.service.map((item) => {
+          return {
+            quantity: item.quantity,
+            numberOfUnits: item.quantity,
+            serviceCode: item.serviceCode,
+            transactionAmount: item.transactionAmount,
+          };
+        });
+
+        // const payload = {
+        //   storeId: user?.storeId,
+        //   orderNumber: orderMeta.orderNumber,
+        //   channel: PaymentMode.CASHPAYMENT,
+        //   merchantPhone: user?.mobileNumber,
+        //   posType: 'pos',
+        //   posId: user?.userId,
+        //   posEmail: user?.emailId,
+        //   posMobile: user?.mobileNumber,
+        //   paymentDate: new Date().toISOString(),
+        //   totalTaxAmount: taxAmount,
+        //   totalAmount: finalAmount,
+        //   toggleExpiration: true,
+        //   distributorId: 'MANZ101',
+        //   userId: user?.userId,
+        //   mainMerchantId: user?.merchantId,
+        //   purchaseBreakdown: _purchaseBreakdown,
+        // };
+        const payload = {
+          // username: 'DED',
+          // password: 'k9WXdMG9U0IINHN',
+          // orderNumber: orderMeta.orderNumber,
+          // customerAddressLine1: '3435646464',
+          // customerAddressLine2: 'MagnatiPay',
+          // language: 'EN',
+          // channel: 'ECOMMERCE',
+          // governmentServices: true,
+          // addTransactionFeesOnTop: true,
+          // merchantSiteUrl: 'http://172.16.4.44:6500/login',
+          // merchantBankTransferReturnUrl:
+          //   'https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/reponseCheck',
+          // paymentMethodList: ['EDIRHAM_CARD', 'NON_EDIRHAM_CARD'],
+          // sessionTimeoutSecs: '600',
+          // customerName: 'khaja',
+          // urn: '1234',
+          // paymentMethod: 'EDIRHAM_CARD',
+          // orderStatus: 'Pending',
+          // customerEmail: user?.emailId,
+          // customerPhone: user?.mobileNumber,
+          // customerCity: 'Test City',
+          // customerState: 'Test State',
+          // customerCountry: 'UAE',
+          // customerPostalCode: '225 Umm Al Quwain – UAE',
+          // purchaseDetails: {
+          //   service: service,
+          // },
+
+          username: 'DED',
+          password: 'k9WXdMG9U0IINHN',
+          orderNumber: 'DEDB686527222467224590',
+          // orderNumber: orderMeta.orderNumber,
+          customerAddressLine1: '3435646464',
+          customerAddressLine2: 'MagnatiPay',
+          language: 'EN',
+          channel: 'ECOMMERCE',
+          governmentServices: true,
+          addTransactionFeesOnTop: true,
+          merchantSiteUrl: 'http://172.16.4.44:6500/login',
+          merchantBankTransferReturnUrl:
+            'https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/reponseCheck',
+          paymentMethodList: ['EDIRHAM_CARD', 'NON_EDIRHAM_CARD'],
+          sessionTimeoutSecs: '600',
+          customerName: 'khaja',
+          urn: '1234',
+          paymentMethod: 'EDIRHAM_CARD',
+          orderStatus: 'Pending',
+          customerEmail: 'info@payrow.ae',
+          customerPhone: '97167641000',
+          customerCity: 'Test City',
+          customerState: 'Test State',
+          customerCountry: 'UAE',
+          customerPostalCode: '225 Umm Al Quwain – UAE',
+          purchaseDetails: {
+            // service: [
+            //   {
+            //     serviceCode: '10000',
+            //     quantity: 1,
+            //     transactionAmount: 3000,
+            //     numberOfUnits: 1,
+            //   },
+            // ],
+            service: state.purchaseBreakdown.service.map((item) => {
+              // console.log(item);
+              return {
+                serviceCode: item.serviceCode,
+                quantity: item.quantity,
+                transactionAmount: item.transactionAmount,
+                numberOfUnits: item.quantity,
+              };
+            }),
+          },
+        };
+        // console.log('Ready To Pay', { payload });
+        console.log(payload.purchaseDetails.service);
+        // const { data } = await orderByLink(payload, withToken?.token);
+        // router.push('/payment/cash-payment/cash-invoice');
+        // console.log('Data from Link', { data: data });
+      } catch (error) {
+        console.log('Error from Orders', { error });
+      }
+    }
+  }, [user, state.purchaseBreakdown, finalAmount, taxAmount, withToken?.token]);
+
   return (
     <ScrollView>
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
@@ -496,7 +624,7 @@ function CashPayment() {
               // onPress={() => {
               //   router.push("/payment/pay-by-link/cash-invoice");
               // }}
-              onPress={toggleModal}
+              onPress={onPayByCash}
             >
               <View style={styles.buttonContent}>
                 <View style={{ justifyContent: 'center', marginLeft: 16 }}>

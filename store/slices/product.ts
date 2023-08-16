@@ -88,12 +88,8 @@ const productSlilce = createSlice({
             }
           }
         });
-        state.total = items.reduce(
-          (acc, curr) =>
-            acc +
-            curr.serviceItems.reduce((acc, curr) => acc + curr.quantity, 0),
-          0
-        );
+        // For total
+        state.total = total(items);
       }
     },
     onItemDecrement: (state: State, action: Action) => {
@@ -126,15 +122,28 @@ const productSlilce = createSlice({
             }
           }
         });
-        state.total = items.reduce(
-          (acc, curr) =>
-            acc +
-            curr.serviceItems.reduce((acc, curr) => acc + curr.quantity, 0),
-          0
-        );
+        // For total
+        state.total = total(items);
       }
     },
   },
 });
 
 export default productSlilce;
+
+/**
+ * Total amount of all items
+ * @param items
+ * @returns
+ */
+const total = (items: ProductTypes[]) => {
+  return items.reduce(
+    (acc, curr) =>
+      acc +
+      curr.serviceItems.reduce(
+        (acc, curr) => acc + curr.price * curr.quantity,
+        0
+      ),
+    0
+  );
+};

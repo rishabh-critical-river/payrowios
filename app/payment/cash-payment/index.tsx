@@ -14,10 +14,13 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { PaymentMode } from '@/apis/enums';
-import usePaymentMode from '@/apis/hooks/use-payment-mode';
 import { PaymentModeContext } from '@/providers/context/payment-mode';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import useProduct from '@/store/hooks/use-product';
+import { OrderMetaContext } from '@/providers/context/order-meta';
+import useStorageData from '@/apis/hooks/use-storage-data';
+import orders from '@/apis/mutations/products/orders';
+import percentange from '@/lib/percentange';
 
 /**
  * Cash Payment Screen
@@ -25,39 +28,65 @@ import useProduct from '@/store/hooks/use-product';
 
 function CashPayment() {
   const router = useRouter();
-  const [paymentMode] = React.useContext(PaymentModeContext);
-  const { onPayByCash } = usePaymentMode();
+
   const [cash, setCash] = React.useState('');
   const onChangeCash = React.useCallback((value: string) => {
     setCash(value);
   }, []);
 
-  const onPay = React.useCallback(() => {
-    switch (paymentMode) {
-      case PaymentMode.TAPTOPAY: {
-        return console.log('TAPTOPAY');
-      }
-      case PaymentMode.CASHPAYMENT: {
-        return router.push('/payment/cash-payment/cash-invoice');
-        // return onPayByCash();
-      }
-      case PaymentMode.PAYBYLINK: {
-        return console.log('PAYBYLINK');
-      }
-      case PaymentMode.CASHPAYMENT: {
-        return console.log('PAYBYQRCODE');
-      }
-
-      default:
-        return void 0;
-    }
-  }, [onPayByCash]);
-
   const { state } = useProduct();
-
   const totalAmount = state.total;
+  const taxAmount = percentange(5, Number(totalAmount));
+  const finalAmount = totalAmount + taxAmount;
+  const { user } = useStorageData('user', { decode: true });
+  const { user: withToken } = useStorageData('user');
+  console.log({ withToken });
+  const [orderMeta] = React.useContext(OrderMetaContext);
 
-  const finalAmount = totalAmount + percentange(5, Number(totalAmount));
+  const onPayByCash = React.useCallback(async () => {
+    if (user) {
+      try {
+        const _purchaseBreakdown = state.purchaseBreakdown.service.map(
+          (item) => {
+            return {
+              serviceCode: item.serviceCode,
+              serviceCat: item.serviceCat,
+              englishName: item.englishName,
+              arabicName: item.arabicName,
+              quantity: item.quantity,
+              transactionAmount: item.transactionAmount,
+              totalAmount: item.totalAmount,
+            };
+          }
+        );
+
+        const payload = {
+          storeId: user?.storeId,
+          orderNumber: orderMeta.orderNumber,
+          channel: PaymentMode.CASHPAYMENT,
+          merchantPhone: user?.mobileNumber,
+          posType: 'pos',
+          posId: user?.userId,
+          posEmail: user?.emailId,
+          posMobile: user?.mobileNumber,
+          paymentDate: new Date().toISOString(),
+          totalTaxAmount: taxAmount,
+          totalAmount: finalAmount,
+          toggleExpiration: true,
+          distributorId: 'MANZ101',
+          userId: user?.userId,
+          mainMerchantId: user?.merchantId,
+          purchaseBreakdown: _purchaseBreakdown,
+        };
+        // console.log('Ready To Pay', { payload });
+        const { data } = await orders(payload, withToken?.token);
+        router.push('/payment/cash-payment/cash-invoice');
+        console.log('Data from Orders', { data: data });
+      } catch (error) {
+        console.log('Error from Orders', { error });
+      }
+    }
+  }, [user, state.purchaseBreakdown, finalAmount, taxAmount]);
 
   return (
     <ScrollView>
@@ -326,7 +355,7 @@ function CashPayment() {
                   }}
                   placeholder="Total Amount"
                   editable={false}
-                  value={`${totalAmount}`}
+                  value={`${totalAmount.toFixed(2)}`}
                 />
                 <Text
                   style={{
@@ -566,7 +595,9 @@ function CashPayment() {
               <Text style={styles.priceLabel}>Balance</Text>
               <View style={styles.priceTextContainer}>
                 <Text style={styles.priceText}>
-                  {` ${cash ? Number(cash) - Number(totalAmount) : 0}`}
+                  {` ${
+                    cash ? (Number(cash) - Number(finalAmount)).toFixed(2) : 0
+                  }`}
                 </Text>
                 <Text style={styles.priceCurrency}>AED</Text>
               </View>
@@ -577,7 +608,7 @@ function CashPayment() {
               onPress={() => {
                 // router.push('/payment/cash-payment/cash-invoice');
                 // onPayByCash();
-                onPay();
+                onPayByCash();
               }}
             >
               <View style={styles.buttonContent}>
@@ -841,9 +872,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const percentange = (value: number, total: number) => {
-  if (value === 0 || total === 0) {
-    return 0;
-  }
-  return (value * 100) / total;
-};
+// Data from Orders {"data": {"data": {"__v": 0, "_id": "64dcb1ac14beb61f56f1920e", "channel": "Cash", "createdAt": "2023-08-16T11:23:24.222Z", "distributorId": "MANZ101", "mainMerchantId": "PRMID63", "orderNumber": "387075686752", "paymentDate": "2023-08-16T11:23:23.236Z", "posId": "PRMID63", "posType": "pos", "purchaseBreakdown": [Object], "storeId": "Owner", "toggleExpiration": true, "totalAmount": 7.875, "totalTaxAmount": 0.375, "updatedAt": "2023-08-16T11:23:24.222Z", "userId": "PRMID63"}, "message": "Order Details added successfully", "success": true}}
