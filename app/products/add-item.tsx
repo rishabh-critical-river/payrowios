@@ -51,42 +51,40 @@ function AddItems() {
 
   const fetchProducts = React.useCallback(async () => {
     setLoading(true);
-    if (state.items.length <= 0) {
-      if (user?.token) {
-        try {
-          const { data } = await getProducts(user?.token);
-          setLoading(false);
-          if (data.data && data.data.length > 0) {
-            const itemData = data.data;
-            const categories = itemData.map((value) => {
-              const items = value?.serviceItems?.map((item) => {
-                return {
-                  _id: item._id,
-                  price: 100,
-                  quantity: 0,
-                  itemName: item.itemName,
-                  itemDescription: item.itemDescription,
-                  status: item.status,
-                };
-              });
+    if (user?.token) {
+      try {
+        const { data } = await getProducts(user?.token);
+        setLoading(false);
+        if (data.data && data.data.length > 0) {
+          const itemData = data.data;
+          const categories = itemData.map((value) => {
+            const items = value?.serviceItems?.map((item) => {
               return {
-                _id: value._id,
-                serviceCode: value.serviceCode,
-                serviceName: value.serviceName,
-                status: value.status,
-                serviceItems: items,
+                _id: item._id,
+                price: 1.5,
+                quantity: 0,
+                itemName: item.itemName,
+                itemDescription: item.itemDescription,
+                status: item.status,
               };
             });
-            // Store Data in Redux Store
-            updateProducts(categories as ProductTypes[]);
-          }
-        } catch (error) {
-          console.log(error);
-
-          // setInterval(() => {
-          //   setLoading(false);
-          // }, 5000);
+            return {
+              _id: value._id,
+              serviceCode: value.serviceCode,
+              serviceName: value.serviceName,
+              status: value.status,
+              serviceItems: items,
+            };
+          });
+          // Store Data in Redux Store
+          updateProducts(categories as ProductTypes[]);
         }
+      } catch (error) {
+        console.log(error);
+
+        // setInterval(() => {
+        //   setLoading(false);
+        // }, 5000);
       }
     }
   }, [user?.token]);
