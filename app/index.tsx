@@ -13,6 +13,7 @@ const GetStartedScreen = () => {
     if (user?.token) {
       router.push('/auth/enter-pin');
     } else {
+      // Hello
       router.push('/auth/login');
     }
   }, [user]);
