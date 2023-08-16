@@ -110,7 +110,7 @@ function ConfirmationInvoice({ navigation }: any) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("HomeScreen");
+            router.push("/product-selection/")
           }}
         >
           <View style={styles.buttonContent}>

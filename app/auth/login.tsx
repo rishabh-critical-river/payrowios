@@ -88,11 +88,96 @@ function Login({ navigation }: any) {
             </Text>
           </View>
           <View style={{ flexDirection: "column", gap: 16 }}>
-            <Button title="Continue" onPress={onCreateAccount} />
-            <Button
-              title="Cancle"
-              onPress={() => onChangeState("alert", false)}
-            />
+          <TouchableOpacity
+              style={styles.button}
+              // onPress={() => {
+              //   // navigation.navigate('Create Account');
+              //   router.push('/auth/create-account');
+              // }}
+              onPress={onCreateAccount} 
+              disabled={!isValid}
+            >
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: "#4B5050",
+                  backgroundColor: "#4B5050",
+                  borderRadius: 8,
+                  width: "100%",
+                  height: 48,
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{ flexDirection: "row", maxWidth: "100%" }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      paddingLeft: 16,
+                      fontWeight: "500",
+                      lineHeight: 24,
+                      justifyContent: "center",
+                      color: "white",
+                      letterSpacing: 0.1,
+                      flex: 1,
+                    }}
+                  >
+                    Continue
+                  </Text>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginRight: 16,
+                    }}
+                  >
+                    <AntDesign name="arrowright" size={24} color="white" />
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => onChangeState("alert", false)}
+              style={{
+                borderWidth: 1,
+                borderColor: "#4B505040",
+                borderRadius: 9,
+
+                width: "100%",
+                height: 44,
+                alignSelf: "center",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "500",
+                  flex: 1,
+
+                  color: "#4B5050",
+                  lineHeight: 20,
+
+                  marginLeft: 16,
+                }}
+              >
+                Cancel
+              </Text>
+              <AntDesign
+                name="right"
+                size={15}
+                style={{
+                  width: 20, // Set the desired width
+                  height: 20, // Set the desired height
+                  fontWeight: "bold", // Set the desired font weight (bold)
+                  marginRight: 8,
+                }}
+                color="#4B5050E5"
+              />
+            </TouchableOpacity>
+           
+            
           </View>
         </View>
       </Modal>
