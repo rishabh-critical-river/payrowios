@@ -1,10 +1,10 @@
 import React from 'react';
 import loginOTP from '../mutations/auth/login-otp';
-import base64 from '@/lib/base64';
+import base64 from '@/hooks/lib/base64';
 import verifyAuthCode from '../mutations/auth/verify';
 import { router, useLocalSearchParams } from 'expo-router';
-import cryptoActions from '@/lib/crypto-actions';
-import keyValidation from '@/lib/num-characters';
+import cryptoActions from '@/hooks/lib/crypto-actions';
+import keyValidation from '@/hooks/lib/num-characters';
 import useDeviceId from '@/hooks/use-device-id';
 
 type Params = {

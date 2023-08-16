@@ -1,6 +1,6 @@
 import React from 'react';
-import storage from '@/lib/storage';
-import jwtActions from '@/lib/jwt-actions';
+import storage from '@/hooks/lib/storage';
+import jwtActions from '@/hooks/lib/jwt-actions';
 
 type State<K extends string, S extends null> = {
   [key in K]: S;

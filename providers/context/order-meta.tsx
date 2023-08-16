@@ -1,5 +1,5 @@
 import useStorageData from '@/apis/hooks/use-storage-data';
-import keyValidation from '@/lib/num-characters';
+import keyValidation from '@/hooks/lib/num-characters';
 import moment from 'moment';
 import React from 'react';
 

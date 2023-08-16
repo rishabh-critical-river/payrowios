@@ -45,7 +45,7 @@ const useCheckDevice = () => {
         tid: state.tid,
         mobileNumber: Number(`971${state.mobileNumber}`),
       };
-      console.log({ payload });
+      // console.log({ payload });
       try {
         const { status, data } = await checkDevice(payload);
         if (status === 200) {
@@ -57,7 +57,7 @@ const useCheckDevice = () => {
             },
           });
         }
-        console.log({ status, data });
+        // console.log({ status, data });
       } catch (error: any) {
         //
         if (error.response.status === 500) {

@@ -15,13 +15,12 @@ import { AntDesign } from "@expo/vector-icons";
 import PayRowLogo from "@/components/logo";
 import { useRouter } from "expo-router";
 import useCheckDevice from "@/apis/hooks/use-check-device";
-import PanelView from "@/components/view/PanelView";
 import Modal from "react-native-modal";
 
 function Login({ navigation }: any) {
   const router = useRouter();
   const { state, isValid, onChangeState, onCheckDevice } = useCheckDevice();
-  console.log(state);
+  console.log(state.alert);
 
   const onCreateAccount = React.useCallback(() => {
     router.push({
@@ -46,18 +45,12 @@ function Login({ navigation }: any) {
       >
         <View
           style={{
+            padding: 16,
             borderRadius: 8,
             backgroundColor: "white",
-            padding: 16,
           }}
         >
-          <View
-            style={
-              {
-                // marginBottom: 20,
-              }
-            }
-          >
+          <View>
             <Text
               style={{
                 fontSize: 18,
@@ -88,14 +81,13 @@ function Login({ navigation }: any) {
             </Text>
           </View>
           <View style={{ flexDirection: "column", gap: 16 }}>
-          <TouchableOpacity
+            <TouchableOpacity
               style={styles.button}
               // onPress={() => {
               //   // navigation.navigate('Create Account');
               //   router.push('/auth/create-account');
               // }}
-              onPress={onCreateAccount} 
-              disabled={!isValid}
+              onPress={onCreateAccount}
             >
               <View
                 style={{
@@ -136,7 +128,7 @@ function Login({ navigation }: any) {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-            onPress={() => onChangeState("alert", false)}
+              onPress={() => onChangeState("alert", false)}
               style={{
                 borderWidth: 1,
                 borderColor: "#4B505040",
@@ -176,8 +168,6 @@ function Login({ navigation }: any) {
                 color="#4B5050E5"
               />
             </TouchableOpacity>
-           
-            
           </View>
         </View>
       </Modal>

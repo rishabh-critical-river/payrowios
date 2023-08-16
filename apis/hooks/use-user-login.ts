@@ -1,6 +1,6 @@
 import React from 'react';
 import loginOTP from '../mutations/auth/login-otp';
-import base64 from '@/lib/base64';
+import base64 from '@/hooks/lib/base64';
 import verifyAuthCode from '../mutations/auth/verify';
 import * as CryptoJS from 'crypto-js';
 import { useLocalSearchParams } from 'expo-router';
