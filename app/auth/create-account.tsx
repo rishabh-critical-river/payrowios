@@ -189,9 +189,6 @@ function CreateAccount() {
             </View>
           </TouchableOpacity>
         )}
-        {showAlert && (
-          <SnackbarModel content="OTP sent successfully" duration={500} />
-        )}
       </View>
       <View
         style={{
@@ -239,6 +236,11 @@ function CreateAccount() {
         >
           ©2022 PayRow Company. All rights reserved
         </Text>
+        {showAlert && (
+        
+            <SnackbarModel content="OTP sent successfully" duration={1000} />
+         
+        )}
       </View>
     </>
   );

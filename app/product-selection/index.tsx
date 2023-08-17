@@ -12,11 +12,13 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { useRouter } from "expo-router";
 function HomeScreen({ navigation }: any) {
+  const router = useRouter();
   return (
     <>
       <View style={styles.container}>
-      <View
+        <View
           style={{
             marginLeft: 19.98,
             marginTop: 17,
@@ -25,18 +27,19 @@ function HomeScreen({ navigation }: any) {
           }}
         >
           <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("AddItem");
-          }}
-          >
-          <Image
-            source={require("@/assets/icons/arrow_back.png")}
-            style={{
-              width: 16.03,
-              height: 16.03,
-              marginRight: 35.98,
+            onPress={() => {
+              // navigation.navigate("AddItem");
+              router.push("/products/add-item");
             }}
-          />
+          >
+            <Image
+              source={require("@/assets/icons/arrow_back.png")}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
           </TouchableOpacity>
           <Text
             style={{
@@ -51,7 +54,7 @@ function HomeScreen({ navigation }: any) {
           </Text>
         </View>
         <Image
-             source={require("@/assets/onboarding/payrowLogo.png")}
+          source={require("@/assets/onboarding/payrowLogo.png")}
           style={styles.logo}
         />
 
@@ -79,7 +82,8 @@ function HomeScreen({ navigation }: any) {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("paymentHistory");
+                // navigation.navigate("paymentHistory");
+                router.push("/product-selection/");
               }}
               style={styles.box}
             >
@@ -99,13 +103,14 @@ function HomeScreen({ navigation }: any) {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("contact");
+                // navigation.navigate("contact");
+                // router.push("")
               }}
               style={styles.box}
             >
               <Text style={styles.homeBlocks}> CONTACT PAYROW </Text>
               <Image
-               source={require("@/assets/icons/keyboard_arrow_right.png")}
+                source={require("@/assets/icons/keyboard_arrow_right.png")}
                 style={{
                   width: 7.41,
                   height: 12,
@@ -130,7 +135,7 @@ function HomeScreen({ navigation }: any) {
           }}
         >
           <Image
-            source={require('@/assets/logos/fab.png')}
+            source={require("@/assets/logos/fab.png")}
             style={{
               width: 72.15,
               height: 42,
@@ -138,7 +143,7 @@ function HomeScreen({ navigation }: any) {
             }}
           />
           <Image
-           source={require('@/assets/icons/visa.png')}
+            source={require("@/assets/icons/visa.png")}
             style={{
               width: 52.15,
               height: 33,
@@ -146,7 +151,7 @@ function HomeScreen({ navigation }: any) {
             }}
           />
           <Image
-             source={require('@/assets/icons/mastercard.png')}
+            source={require("@/assets/icons/mastercard.png")}
             style={{
               width: 51.62,
               height: 32,
@@ -234,7 +239,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 60,
     // width: 60,
-    
+
     cursor: "pointer",
     borderRadius: 70,
     justifyContent: "center",
