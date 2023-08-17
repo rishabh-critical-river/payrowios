@@ -11,6 +11,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 function CreatePin() {
@@ -21,7 +22,7 @@ function CreatePin() {
   console.log({ timer });
 
   return (
-    <ScrollView>
+    <KeyboardAvoidingView>
       <View style={styles.container}>
         <View
           style={{
@@ -177,7 +178,7 @@ function CreatePin() {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

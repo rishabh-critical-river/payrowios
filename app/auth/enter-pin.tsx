@@ -5,32 +5,28 @@ import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
+  StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 
-function EnterPins({ navigation }: any) {
+function EnterPins() {
   const router = useRouter();
 
-  const { onChangeState, onLoginByPin } =
-    useCreatePin();
-    // {
-    //   onSuccess:router.push('/products/add-item');
-    // }
+  const { onChangeState, onLoginByPin } = useCreatePin();
 
   return (
-    <ScrollView>
+    <KeyboardAvoidingView>
       <View style={styles.container}>
         <View
-          style={{
-            position: 'absolute',
-            right: 0,
-            top: 76,
-          }}
+        // style={{
+        //   position: 'absolute',
+        //   right: 0,
+        //   top: 76,
+        // }}
         >
           <Image
             source={require('@/assets/onboarding/Watermark.png')}
@@ -83,12 +79,7 @@ function EnterPins({ navigation }: any) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.resendCode}
-          onPress={() => {
-            navigation.navigate('HomeScreen');
-          }}
-        >
+        <TouchableOpacity style={styles.resendCode}>
           <View
             style={{
               borderWidth: 0.5,
@@ -183,12 +174,12 @@ function EnterPins({ navigation }: any) {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',

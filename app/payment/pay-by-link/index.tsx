@@ -21,7 +21,7 @@ import PanelView from '@/components/view/PanelView';
 import sendUrl from '@/apis/mutations/order/send-url';
 import useShare from '@/hooks/use-share';
 import useProduct from '@/store/hooks/use-product';
-import percentange from '@/lib/percentange';
+import percentange from '@/hooks/lib/percentange';
 import { OrderMetaContext } from '@/providers/context/order-meta';
 import orderByLink from '@/apis/mutations/products/by-link';
 
