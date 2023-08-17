@@ -6,7 +6,8 @@ import SafeAreaProvider from '@/providers/safe-area';
 import { Provider } from 'react-redux';
 import store from '@/store';
 import Providers from '@/providers';
-
+import { StatusBar } from 'react-native';
+import { Text, View } from 'react-native';
 const RootLayout = () => {
   const state = useDeviceId();
   // Generate a unique device id
@@ -17,7 +18,11 @@ const RootLayout = () => {
       <Providers>
         <SafeAreaProvider>
           <AuthProvider>
-            <Slot />
+            <Slot
+              screenOptions={{
+                headerShown: false,
+              }}
+            />
           </AuthProvider>
         </SafeAreaProvider>
       </Providers>

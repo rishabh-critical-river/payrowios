@@ -38,8 +38,30 @@ const apps = [
   },
 ];
 
+const xyz = {
+  __v: 0,
+  _id: '64ddb0d114beb61f56f19216',
+  channel: 'Cash',
+  createdAt: '2023-08-17T05:32:01.797Z',
+  distributorId: 'MANZ101',
+  mainMerchantId: 'PRMID63',
+  orderNumber: '834433602087',
+  paymentDate: '2023-08-17T05:32:01.239Z',
+  posId: 'PRMID63',
+  posType: 'pos',
+  storeId: 'Owner',
+  toggleExpiration: true,
+  totalAmount: 3.15,
+  totalTaxAmount: 0.15,
+  updatedAt: '2023-08-17T05:32:01.797Z',
+  userId: 'PRMID63',
+  message: 'Order Details added successfully',
+  success: true,
+};
+
 function CardInvoice() {
   const { user } = useStorageData('user');
+  const { auth } = useStorageData('auth');
   const [inputs, setInputs] = React.useState({
     phone: '',
     email: '',
@@ -95,6 +117,68 @@ function CardInvoice() {
         return null;
     }
   }, [selectedApp, inputs.phone, inputs.email, user?.token]);
+
+  const invoiceMeta = React.useMemo(() => {
+    return {
+      merchant: xyz.mainMerchantId,
+      terminal: '',
+      sequence: '',
+      invoiceNumber: '',
+      branch: '',
+      source: '',
+      vat: '',
+      vatAmount: '',
+      amount: '',
+      authCode: '',
+      /**
+       * Card details
+       */
+      card: {
+        name: '',
+        number: '',
+        expiry: '',
+        cvv: '',
+      },
+    };
+  }, []);
+
+  //
+
+  // 09:23 ! 12:15
+  // بنك أبوظبي الأول
+  // FAB
+  // First Abu Dhabi Bank
+  // Grocery Store
+  // Date: 15/08/2023
+  // 10
+  // Time: 09:23:00
+  // Transaction Successful
+  // Merchant #:
+  // Terminal ID:
+  // Sequence:
+  // InvoiceNumber:
+  // Total Amount:
+  // Cash Received:
+  // Customer Balance:
+  // 5% VAT:
+  // Total Amount inc VAT:
+  // -- THANK YOU --
+  // SHARE
+  // PRMID63
+  // 072857
+  // 1426
+  // 77459
+  // 100
+  // 200
+  // 95.0
+  // 5.0
+  // AED 105.0
+  // Pay
+  // Order added successfully!
+  // →
+  // HOME
+  // ©2023 PayRow Company. All Rights Reserved
+  // 28
 
   return (
     <>

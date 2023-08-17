@@ -1,6 +1,6 @@
-import React from "react";
-import { Snackbar } from "react-native-paper";
-import { View, Text } from "react-native";
+import React from 'react';
+import { Snackbar } from 'react-native-paper';
+import { View, Text } from 'react-native';
 
 interface SnackbarComponentProps {
   content: string;
@@ -22,15 +22,15 @@ const SnackbarModel: React.FC<SnackbarComponentProps> = ({
     <Snackbar
       style={{
         width: width,
-        alignSelf: "center",
-        backgroundColor: "white",
-        position: "absolute",
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        position: 'absolute',
         bottom: 90,
       }}
       visible={true}
       onDismiss={() => setSnackbarVisible(false)}
     >
-      <Text style={{ textAlign: "center" }}>{content}</Text>
+      <Text style={{ textAlign: 'center' }}>{content}</Text>
     </Snackbar>
   );
 };

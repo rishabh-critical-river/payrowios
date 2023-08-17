@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'expo-router';
 import checkDevice from '../mutations/auth/check-device';
 import { Alert } from 'react-native';
+import storage from '@/hooks/lib/storage';
 
 type mixed = string | number | boolean | null | undefined;
 
@@ -56,6 +57,11 @@ const useCheckDevice = () => {
               mobileNumber: state.mobileNumber,
             },
           });
+          const payload = {
+            tid: state.tid,
+            mobileNumber: state.mobileNumber,
+          };
+          await storage.setLocalData('auth', JSON.stringify(payload));
         }
         // console.log({ status, data });
       } catch (error: any) {

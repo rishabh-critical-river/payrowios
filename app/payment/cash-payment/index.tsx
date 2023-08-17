@@ -14,13 +14,12 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { PaymentMode } from '@/apis/enums';
-import { PaymentModeContext } from '@/providers/context/payment-mode';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import useProduct from '@/store/hooks/use-product';
 import { OrderMetaContext } from '@/providers/context/order-meta';
 import useStorageData from '@/apis/hooks/use-storage-data';
 import orders from '@/apis/mutations/products/orders';
-import percentange from '@/lib/percentange';
+import percentange from '@/hooks/lib/percentange';
 
 /**
  * Cash Payment Screen
@@ -38,8 +37,8 @@ function CashPayment() {
   const totalAmount = state.total;
   const taxAmount = percentange(5, Number(totalAmount));
   const finalAmount = totalAmount + taxAmount;
-  const { user } = useStorageData('user', { decode: true });
   const { user: withToken } = useStorageData('user');
+  const { user } = useStorageData('user', { decode: true });
   // console.log({ withToken });
   const [orderMeta] = React.useContext(OrderMetaContext);
   const [response, setResponse] = React.useState<any>(null);
@@ -79,26 +78,25 @@ function CashPayment() {
           mainMerchantId: user?.merchantId,
           purchaseBreakdown: _purchaseBreakdown,
         };
-        // console.log('Ready To Pay', { payload });
+        console.log('Ready To Pay', { payload });
         const { data } = await orders(payload, withToken?.token);
-        router.push({
-          pathname: '/payment/cash-payment/cash-invoice',
-          // params:{
-          //   data
-          // }
-        });
-        console.log('Data from Orders', { data: data });
+        // router.push({
+        //   pathname: '/payment/cash-payment/cash-invoice',
+        //   // params:{
+        //   //   data
+        //   // }
+        // });
+        console.log(data);
       } catch (error) {
         console.log('Error from Orders', { error });
       }
     }
-  }, [user, state.purchaseBreakdown, finalAmount, taxAmount]);
+  }, [user, state.purchaseBreakdown, finalAmount, taxAmount, withToken?.token]);
 
   return (
     <ScrollView>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
-          // style={{ flex: 1 }}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <View style={styles.container}>
