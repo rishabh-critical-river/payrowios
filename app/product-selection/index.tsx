@@ -83,7 +83,7 @@ function HomeScreen({ navigation }: any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("paymentHistory");
-                router.push("/product-selection/");
+                router.push("/product-selection/payment-history/");
               }}
               style={styles.box}
             >

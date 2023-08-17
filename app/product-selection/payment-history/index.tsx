@@ -56,6 +56,7 @@ function PaymentHistory({ navigation }: any) {
   const yMin = 0;
   return (
     <>
+   <ScrollView>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
@@ -68,7 +69,7 @@ function PaymentHistory({ navigation }: any) {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate("HomeScreen");
-              router.push("/home/");
+              router.back
             }}
           >
             <Image
@@ -349,6 +350,7 @@ function PaymentHistory({ navigation }: any) {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
+      </ScrollView>
     </>
   );
 }
