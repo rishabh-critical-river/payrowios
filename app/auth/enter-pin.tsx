@@ -10,23 +10,26 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 
 function EnterPins() {
   const router = useRouter();
 
   const { onChangeState, onLoginByPin } = useCreatePin();
+  // {
+  //   onSuccess:router.push('/products/add-item');
+  // }
 
   return (
-    <KeyboardAvoidingView>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.container}>
         <View
-        // style={{
-        //   position: 'absolute',
-        //   right: 0,
-        //   top: 76,
-        // }}
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 76,
+          }}
         >
           <Image
             source={require('@/assets/onboarding/Watermark.png')}
@@ -79,7 +82,12 @@ function EnterPins() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.resendCode}>
+        <TouchableOpacity
+          style={styles.resendCode}
+          // onPress={() => {
+          //   navigation.navigate("HomeScreen");
+          // }}
+        >
           <View
             style={{
               borderWidth: 0.5,
@@ -174,12 +182,12 @@ function EnterPins() {
           ©2022 PayRow Company. All rights reserved
         </Text>
       </View>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',

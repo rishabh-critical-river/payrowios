@@ -6,6 +6,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import cryptoActions from '@/hooks/lib/crypto-actions';
 import keyValidation from '@/hooks/lib/num-characters';
 import useDeviceId from '@/hooks/use-device-id';
+import SnackbarModel from '@/components/snack-bar/snack-bar';
 
 type Params = {
   tid: string;

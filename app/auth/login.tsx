@@ -16,7 +16,7 @@ import PayRowLogo from '@/components/logo';
 import { useRouter } from 'expo-router';
 import useCheckDevice from '@/apis/hooks/use-check-device';
 import Modal from 'react-native-modal';
-import storage from '@/hooks/lib/storage';
+import { Entypo } from '@expo/vector-icons';
 
 function Login({ navigation }: any) {
   const router = useRouter();
@@ -34,7 +34,7 @@ function Login({ navigation }: any) {
   }, [state.tid, state.mobileNumber]);
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Modal
         isVisible={state.alert}
         style={{
@@ -46,18 +46,20 @@ function Login({ navigation }: any) {
       >
         <View
           style={{
-            padding: 16,
+            padding: 32,
             borderRadius: 8,
             backgroundColor: 'white',
+            paddingBottom: 72,
           }}
         >
           <View>
             <Text
               style={{
-                fontSize: 18,
-                fontWeight: '500',
+                fontSize: 24,
+                fontWeight: '400',
                 lineHeight: 28,
                 color: '#333333',
+                marginBottom: 16,
               }}
             >
               Account Exist
@@ -70,7 +72,7 @@ function Login({ navigation }: any) {
           >
             <Text
               style={{
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: '400',
                 lineHeight: 20,
                 color: '#333333',
@@ -145,7 +147,7 @@ function Login({ navigation }: any) {
             >
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: '500',
                   flex: 1,
 
@@ -157,14 +159,12 @@ function Login({ navigation }: any) {
               >
                 Cancel
               </Text>
-              <AntDesign
-                name="right"
-                size={15}
+
+              <Entypo
+                name="cross"
+                size={24}
                 style={{
-                  width: 20, // Set the desired width
-                  height: 20, // Set the desired height
-                  fontWeight: 'bold', // Set the desired font weight (bold)
-                  marginRight: 8,
+                  marginRight: 16,
                 }}
                 color="#4B5050E5"
               />
@@ -349,12 +349,9 @@ function Login({ navigation }: any) {
                 style={{
                   fontWeight: '400',
                   fontSize: 16,
-                  width: 81,
+                  width: 95,
                   height: 24,
                   opacity: 0.7,
-
-                  // borderColor: "#99999",
-                  // borderBottomWidth: 1,
                 }}
                 placeholder="Amount"
                 keyboardType="numeric"

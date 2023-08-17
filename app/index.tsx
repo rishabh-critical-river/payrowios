@@ -11,12 +11,12 @@ const GetStartedScreen = () => {
 
   const onStarted = React.useCallback(() => {
     if (user?.token) {
-      //
-      // router.push('/auth/enter-pin');
+      //   router.push("/auth/enter-pin");
+      // router.push("/products/add-item");
+      // } else {
+      //   // Hello
+      // router.push('/auth/login');
       router.push('/products/add-item');
-    } else {
-      // Hello
-      router.push('/auth/login');
     }
   }, [user]);
 
@@ -79,8 +79,6 @@ const GetStartedScreen = () => {
       <View
         style={{
           backgroundColor: 'white',
-          display: 'flex',
-          justifyContent: 'flex-end',
         }}
       >
         <View

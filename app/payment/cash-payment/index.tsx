@@ -39,7 +39,7 @@ function CashPayment() {
   const finalAmount = totalAmount + taxAmount;
   const { user: withToken } = useStorageData('user');
   const { user } = useStorageData('user', { decode: true });
-  console.log({ withToken });
+  // console.log({ withToken });
   const [orderMeta] = React.useContext(OrderMetaContext);
   const [response, setResponse] = React.useState<any>(null);
 
@@ -78,15 +78,15 @@ function CashPayment() {
           mainMerchantId: user?.merchantId,
           purchaseBreakdown: _purchaseBreakdown,
         };
-        // console.log('Ready To Pay', { payload });
-        // const { data } = await orders(payload, withToken?.token);
-        router.push({
-          pathname: '/payment/cash-payment/cash-invoice',
-          // params:{
-          //   data
-          // }
-        });
-        // console.log(data);
+        console.log('Ready To Pay', { payload });
+        const { data } = await orders(payload, withToken?.token);
+        // router.push({
+        //   pathname: '/payment/cash-payment/cash-invoice',
+        //   // params:{
+        //   //   data
+        //   // }
+        // });
+        console.log(data);
       } catch (error) {
         console.log('Error from Orders', { error });
       }
