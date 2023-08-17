@@ -1,17 +1,14 @@
-<<<<<<< HEAD
-import React from "react";
-import { useRouter } from "expo-router";
-import PayRowLogo from "@/components/logo";
-import { AntDesign } from "@expo/vector-icons";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-=======
 import React from 'react';
 import { Link, useRouter } from 'expo-router';
 import PayRowLogo from '@/components/logo';
 import { AntDesign } from '@expo/vector-icons';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import useStorageData from '@/apis/hooks/use-storage-data';
->>>>>>> a6fd7801c3d6d35562e05596a28cbd339d7616cc
+
+
+
+
+
 
 const GetStartedScreen = () => {
   const router = useRouter();
