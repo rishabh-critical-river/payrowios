@@ -349,12 +349,9 @@ function Login({ navigation }: any) {
                 style={{
                   fontWeight: "400",
                   fontSize: 16,
-                  width: 81,
+                  width: 95,
                   height: 24,
                   opacity: 0.7,
-
-                  // borderColor: "#99999",
-                  // borderBottomWidth: 1,
                 }}
                 placeholder="Amount"
                 keyboardType="numeric"

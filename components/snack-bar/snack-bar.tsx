@@ -5,10 +5,12 @@ import { View, Text } from "react-native";
 interface SnackbarComponentProps {
   content: string;
   duration: number;
+  width: number;
 }
 const SnackbarModel: React.FC<SnackbarComponentProps> = ({
   content,
   duration,
+  width,
 }) => {
   const [snackbarVisible, setSnackbarVisible] = React.useState(true);
   React.useEffect(() => {
@@ -19,14 +21,16 @@ const SnackbarModel: React.FC<SnackbarComponentProps> = ({
   return (
     <Snackbar
       style={{
-        width: "60%",
+        width: width,
         alignSelf: "center",
         backgroundColor: "white",
+        position: "absolute",
+        bottom: 90,
       }}
       visible={snackbarVisible}
       onDismiss={() => setSnackbarVisible(false)}
     >
-      <Text>{content}</Text>
+      <Text style={{ textAlign: "center" }}>{content}</Text>
     </Snackbar>
   );
 };
