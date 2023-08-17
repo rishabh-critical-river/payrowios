@@ -34,7 +34,7 @@ function Login({ navigation }: any) {
   }, [state.tid, state.mobileNumber]);
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Modal
         isVisible={state.alert}
         style={{

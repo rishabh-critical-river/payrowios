@@ -21,6 +21,7 @@ function CreateAccount() {
   const { onSendAuthCode, onVerifyAuthCode, onChangeState } = useLoginOTP();
   const { timer, setTimer, formattedTimer } = useOTPInterval();
   const [showAlert, setShowAlert] = React.useState(false);
+  const [showAuthAlert, setShowAuthAlert] = React.useState(false);
 
   const onPressOTP = React.useCallback(() => {
     setTimer(52);
@@ -35,217 +36,219 @@ function CreateAccount() {
   // }, [timer]);
 
   return (
-    <>
-      <View style={styles.container}>
-        <View
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 76,
-          }}
-        >
-          <Image
-            source={require("@/assets/onboarding/Watermark.png")}
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <>
+        <View style={styles.container}>
+          <View
             style={{
-              width: 36,
-              height: 50,
+              position: "absolute",
+              right: 0,
+              top: 76,
             }}
+          >
+            <Image
+              source={require("@/assets/onboarding/Watermark.png")}
+              style={{
+                width: 36,
+                height: 50,
+              }}
+            />
+          </View>
+
+          <Image
+            source={require("@/assets/logos/payrow-logo.png")}
+            style={styles.logo}
           />
-        </View>
 
-        <Image
-          source={require("@/assets/logos/payrow-logo.png")}
-          style={styles.logo}
-        />
+          <Text
+            style={{
+              marginTop: 30.47,
+              fontSize: 18,
+              fontWeight: "400",
+              lineHeight: 28,
+              color: "#333333",
+              alignSelf: "center",
+            }}
+          >
+            Enter Authentication Code
+          </Text>
+          <OTPInput onChangeOTP={(otp) => onChangeState("code", otp)} />
 
-        <Text
-          style={{
-            marginTop: 30.47,
-            fontSize: 18,
-            fontWeight: "400",
-            lineHeight: 28,
-            color: "#333333",
-            alignSelf: "center",
-          }}
-        >
-          Enter Authentication Code
-        </Text>
-        <OTPInput onChangeOTP={(otp) => onChangeState("code", otp)} />
+          <TouchableOpacity
+            style={styles.goToSummaryButton}
+            // onPress={() => {
+            //   router.push('/products/add-item');
+            // }}
+            onPress={() => {
+              onVerifyAuthCode();
+              // navigation.navigate('CreatePin');
+              // router.push("/auth/create-pin");
+            }}
+          >
+            <View style={styles.buttonContent}>
+              <Text
+                style={styles.buttonText}
 
-        <TouchableOpacity
-          style={styles.goToSummaryButton}
-          // onPress={() => {
-          //   router.push('/products/add-item');
-          // }}
-          onPress={() => {
-            onVerifyAuthCode();
-            // navigation.navigate('CreatePin');
-            // router.push("/auth/create-pin");
-          }}
-        >
-          <View style={styles.buttonContent}>
-            <Text
-              style={styles.buttonText}
-
-              // onPress={() => onVerifyAuthCode()}
-            >
-              SUBMIT
-            </Text>
-            <View style={styles.arrowIcon}>
-              <AntDesign name="arrowright" size={22} color="white" />
-            </View>
-          </View>
-        </TouchableOpacity>
-
-        {timer > 0 ? (
-          <View style={styles.resendCode}>
-            <View
-              style={{
-                borderWidth: 0.5,
-                borderColor: "#B2B2B2",
-                borderRadius: 8,
-                backgroundColor: "#FFFFFF",
-                height: 48,
-                justifyContent: "center",
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    paddingLeft: 16,
-                    fontWeight: "500",
-                    lineHeight: 24,
-                    justifyContent: "center",
-                    color: "#4C4C4C",
-                    letterSpacing: 0.1,
-                    flex: 1,
-                  }}
-                >
-                  {formattedTimer}
-                </Text>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginRight: 16,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <AntDesign name="right" size={16} color="#4C4C4C" />
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        ) : (
-          <TouchableOpacity style={styles.resendCode} onPress={onPressOTP}>
-            <View
-              style={{
-                height: 48,
-                borderRadius: 8,
-                borderWidth: 0.5,
-                justifyContent: "center",
-                borderColor: "#B2B2B2",
-                backgroundColor: "#FFFFFF",
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    paddingLeft: 16,
-                    fontWeight: "500",
-                    lineHeight: 24,
-                    justifyContent: "center",
-                    color: "#4C4C4C",
-                    letterSpacing: 0.1,
-                    flex: 1,
-                  }}
-                >
-                  Send code
-                </Text>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginRight: 16,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <AntDesign name="right" size={16} color="#4C4C4C" />
-                  </View>
-                </View>
+                // onPress={() => onVerifyAuthCode()}
+              >
+                SUBMIT
+              </Text>
+              <View style={styles.arrowIcon}>
+                <AntDesign name="arrowright" size={22} color="white" />
               </View>
             </View>
           </TouchableOpacity>
-        )}
-      </View>
-      <View
-        style={{
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
+
+          {timer > 0 ? (
+            <View style={styles.resendCode}>
+              <View
+                style={{
+                  borderWidth: 0.5,
+                  borderColor: "#B2B2B2",
+                  borderRadius: 8,
+                  backgroundColor: "#FFFFFF",
+                  height: 48,
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      paddingLeft: 16,
+                      fontWeight: "500",
+                      lineHeight: 24,
+                      justifyContent: "center",
+                      color: "#4C4C4C",
+                      letterSpacing: 0.1,
+                      flex: 1,
+                    }}
+                  >
+                    {formattedTimer}
+                  </Text>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginRight: 16,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <AntDesign name="right" size={16} color="#4C4C4C" />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          ) : (
+            <TouchableOpacity style={styles.resendCode} onPress={onPressOTP}>
+              <View
+                style={{
+                  height: 48,
+                  borderRadius: 8,
+                  borderWidth: 0.5,
+                  justifyContent: "center",
+                  borderColor: "#B2B2B2",
+                  backgroundColor: "#FFFFFF",
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      paddingLeft: 16,
+                      fontWeight: "500",
+                      lineHeight: 24,
+                      justifyContent: "center",
+                      color: "#4C4C4C",
+                      letterSpacing: 0.1,
+                      flex: 1,
+                    }}
+                  >
+                    Send code
+                  </Text>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginRight: 16,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <AntDesign name="right" size={16} color="#4C4C4C" />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+        </View>
         <View
           style={{
-            position: "absolute",
-            left: 0,
-            bottom: 20,
-            zIndex: 999,
+            backgroundColor: "white",
+            display: "flex",
+            justifyContent: "flex-end",
           }}
         >
-          <Image
-            source={require("@/assets/onboarding/Watermark.png")}
+          <View
             style={{
-              width: 36,
-              height: 50,
+              position: "absolute",
+              left: 0,
+              bottom: 20,
+              zIndex: 999,
+            }}
+          >
+            <Image
+              source={require("@/assets/onboarding/Watermark.png")}
+              style={{
+                width: 36,
+                height: 50,
+              }}
+            />
+          </View>
+
+          <Image
+            source={require("@/assets/onboarding/getStarted.png")}
+            style={{
+              width: 312,
+              height: 230,
+              alignSelf: "center",
+              marginTop: 36,
+              marginBottom: 16,
             }}
           />
+
+          <Text
+            style={{
+              fontSize: 12,
+              backgroundColor: "white",
+              color: "#4B5050",
+              textAlign: "center",
+              paddingBottom: 16,
+            }}
+          >
+            ©2022 PayRow Company. All rights reserved
+          </Text>
+          {showAlert && (
+            <SnackbarModel
+              content="OTP sent successfully"
+              duration={800}
+              width={220}
+            />
+          )}
         </View>
-
-        <Image
-          source={require("@/assets/onboarding/getStarted.png")}
-          style={{
-            width: 312,
-            height: 230,
-            alignSelf: "center",
-            marginTop: 36,
-            marginBottom: 16,
-          }}
-        />
-
-        <Text
-          style={{
-            fontSize: 12,
-            backgroundColor: "white",
-            color: "#4B5050",
-            textAlign: "center",
-            paddingBottom: 16,
-          }}
-        >
-          ©2022 PayRow Company. All rights reserved
-        </Text>
-        {showAlert && (
-          <SnackbarModel
-            content="OTP sent successfully"
-            duration={800}
-            width={220}
-          />
-        )}
-      </View>
-    </>
+      </>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
