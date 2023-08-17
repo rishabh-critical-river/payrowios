@@ -77,15 +77,16 @@ function CreateAccount() {
           // onPress={() => {
           //   router.push('/products/add-item');
           // }}
+          onPress={() => {
+            onVerifyAuthCode();
+            // navigation.navigate('CreatePin');
+            // router.push("/auth/create-pin");
+          }}
         >
           <View style={styles.buttonContent}>
             <Text
               style={styles.buttonText}
-              onPress={() => {
-                onVerifyAuthCode();
-                // navigation.navigate('CreatePin');
-                // router.push("/auth/create-pin");
-              }}
+
               // onPress={() => onVerifyAuthCode()}
             >
               SUBMIT
