@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 import OTPInput from "@/components/otp-input";
 import { AntDesign } from "@expo/vector-icons";
 import useLoginOTP from "@/apis/hooks/use-login-otp";
@@ -19,9 +19,7 @@ import { useDispatch } from "react-redux";
 import useModal from "@/hooks/use-modal";
 
 function CreateAccount() {
-  const router = useRouter();
   const { setSnackbarModal } = useModal();
-
   const { onSendAuthCode, onVerifyAuthCode, onChangeState } = useLoginOTP();
   const { timer, setTimer, formattedTimer } = useOTPInterval();
   const [showAlert, setShowAlert] = React.useState(false);
@@ -39,6 +37,23 @@ function CreateAccount() {
   //     router.push('/auth/login');
   //   }
   // }, [timer]);
+
+  const handleSubmit = React.useCallback(() => {
+    onVerifyAuthCode()
+      .then((route) => {
+        if (route !== undefined && route.success) {
+          setSnackbarModal({ content: "OTP verified", width: 180 });
+          router.push({
+            pathname: "/auth/create-pin",
+            params: route.params,
+          });
+        }
+      })
+      .catch((err) => {
+        setSnackbarModal({ content: err.message, width: 180 });
+        setShowAuthAlert(true);
+      });
+  }, [onVerifyAuthCode]);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -84,11 +99,12 @@ function CreateAccount() {
             // onPress={() => {
             //   router.push('/products/add-item');
             // }}
-            onPress={() => {
-              onVerifyAuthCode();
+            onPress={
+              handleSubmit
+
               // navigation.navigate('CreatePin');
               // router.push("/auth/create-pin");
-            }}
+            }
           >
             <View style={styles.buttonContent}>
               <Text
