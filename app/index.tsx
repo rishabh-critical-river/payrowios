@@ -16,7 +16,8 @@ const GetStartedScreen = () => {
       // } else {
       //   // Hello
       // router.push("/auth/login");
-      router.push('/products/add-item');
+      // router.push('/products/add-item');
+      router.push('/product-selection/payment-history/');
     }
   }, [user]);
 

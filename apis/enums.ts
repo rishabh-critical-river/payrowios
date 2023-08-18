@@ -14,3 +14,8 @@ export enum SharingApps {
   INSTAGRAM = 'Instagram',
   LINKEDIN = 'Linkedin',
 }
+
+export enum RecallMethodTypes {
+  BYTRANSACTIONID = 'BYTRANSACTIONID',
+  BYDATE = 'BYDATE',
+}
