@@ -13,6 +13,8 @@ import { RecallMethodTypes } from '@/apis/enums';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { InvoiceRecallContext } from '@/providers/context/invoice-recall';
 import PanelView from '@/components/view/PanelView';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 const recallMethodTypes = [
   {
@@ -35,23 +37,23 @@ function InvoiceRecall() {
 
   const onRoute = React.useCallback(() => {
     if (recallMethod === RecallMethodTypes.BYTRANSACTIONID) {
-      const path = recallMethodTypes.find(
-        (data) => data.value === recallMethod
-      );
-      if (path) {
-        router.push({
-          pathname:
-            '/product-selection/payment-history/invoice-recall/by-transaction',
-          params: {
-            transactionId,
-          },
-        });
-      }
+      router.push({
+        pathname:
+          '/product-selection/payment-history/invoice-recall/by-transaction',
+        params: {
+          transactionId,
+        },
+      });
     }
-    if (recallMethod === RecallMethodTypes.BYTRANSACTIONID) {
-      console.log('Hello World');
+    if (recallMethod === RecallMethodTypes.BYDATE) {
+      router.push({
+        pathname: '/product-selection/payment-history/invoice-recall/by-date',
+        params: {
+          transactionId,
+        },
+      });
     }
-  }, [transactionId]);
+  }, [transactionId, recallMethod]);
 
   console.log(transactionId);
   return (
@@ -214,85 +216,15 @@ function InvoiceRecall() {
                 flexDirection: 'row',
                 borderWidth: 1,
                 borderColor: '#4B5050',
-                opacity: 0.5,
+                // opacity: 0.5,
                 padding: 16,
-                width: 296,
-                gap: 54,
+                gap: 32,
                 alignItems: 'center',
                 borderRadius: 8,
+                width: '100%',
               }}
             >
-              <View>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 11,
-                    lineHeight: 16,
-                    color: '#4B5050',
-                    marginBottom: 2,
-                  }}
-                >
-                  From date
-                </Text>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 22,
-                    lineHeight: 28,
-                    color: '#4B5050',
-                    marginBottom: 4,
-                  }}
-                >
-                  03 Apr
-                </Text>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 14,
-                    lineHeight: 20,
-                    color: '#4B5050',
-                  }}
-                >
-                  Tuesday
-                </Text>
-              </View>
-              <View>
-                <AntDesign name="arrowright" size={20} color="#72AC47" />
-              </View>
-              <View>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 11,
-                    lineHeight: 16,
-                    color: '#4B5050',
-                    marginBottom: 2,
-                  }}
-                >
-                  To date
-                </Text>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 22,
-                    lineHeight: 28,
-                    color: '#4B5050',
-                    marginBottom: 4,
-                  }}
-                >
-                  13 Apr
-                </Text>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 14,
-                    lineHeight: 20,
-                    color: '#4B5050',
-                  }}
-                >
-                  Friday
-                </Text>
-              </View>
+              <DatePicker />
             </View>
           </View>
         </PanelView>
@@ -424,3 +356,144 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const DatePicker = () => {
+  const [state, setState] = React.useState({
+    from: new Date(),
+    end: new Date(),
+  });
+
+  const onChangeState = React.useCallback(
+    (key: keyof typeof state, value: Date) => {
+      setState({
+        ...state,
+        [key]: value,
+      });
+    },
+    [state]
+  );
+
+  const actions = React.useMemo(() => {
+    return {
+      first: () => {
+        DateTimePickerAndroid.open({
+          value: state.from,
+          onChange: (_, selectedDate) => {
+            if (selectedDate) {
+              onChangeState('from', selectedDate);
+            }
+          },
+          mode: 'date',
+          is24Hour: true,
+          minimumDate: new Date(),
+        });
+      },
+      end: () => {
+        DateTimePickerAndroid.open({
+          value: state.end,
+          onChange: (_, selectedDate) => {
+            if (selectedDate) {
+              onChangeState('end', selectedDate);
+            }
+          },
+          mode: 'date',
+          is24Hour: true,
+          minimumDate: state.from,
+        });
+      },
+    };
+  }, [state]);
+
+  React.useEffect(() => {
+    const output = {
+      from: moment(state.from).format('YYYY-MM-DD'),
+      end: moment(state.end).format('YYYY-MM-DD'),
+    };
+    console.log({ output });
+  }, [state.from, state.end]);
+  return (
+    <React.Fragment>
+      {/* From Date */}
+      <TouchableOpacity onPress={actions.first} activeOpacity={0.9}>
+        <View>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 11,
+              lineHeight: 16,
+              color: '#4B5050',
+              marginBottom: 2,
+            }}
+          >
+            From date
+          </Text>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 22,
+              lineHeight: 28,
+              color: '#4B5050',
+              marginBottom: 4,
+            }}
+          >
+            {/* 03 Apr */}
+            {moment(state.from).format('DD MMM')}
+          </Text>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 14,
+              lineHeight: 20,
+              color: '#4B5050',
+            }}
+          >
+            {moment(state.from).format('dddd')}
+            {/* Tuesday */}
+          </Text>
+        </View>
+      </TouchableOpacity>
+      <View>
+        <AntDesign name="arrowright" size={20} color="#72AC47" />
+      </View>
+      {/* End Date */}
+      <TouchableOpacity onPress={actions.end} activeOpacity={0.9}>
+        <View>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 11,
+              lineHeight: 16,
+              color: '#4B5050',
+              marginBottom: 2,
+            }}
+          >
+            To date
+          </Text>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 22,
+              lineHeight: 28,
+              color: '#4B5050',
+              marginBottom: 4,
+            }}
+          >
+            {/* 13 Apr */}
+            {moment(state.end).format('DD MMM')}
+          </Text>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 14,
+              lineHeight: 20,
+              color: '#4B5050',
+            }}
+          >
+            {/* Friday */}
+            {moment(state.end).format('dddd')}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </React.Fragment>
+  );
+};

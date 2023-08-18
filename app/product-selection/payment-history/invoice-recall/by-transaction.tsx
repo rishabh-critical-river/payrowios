@@ -4,43 +4,17 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   ScrollView,
   Image,
   TouchableOpacity,
 } from 'react-native';
-import Modal from 'react-native-modal';
-import { AntDesign } from '@expo/vector-icons';
-// const countries = [{ country: 'TRANSACTION ID' }, { country: 'BY DATE' }];
 import { Entypo } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { SharingApps } from '@/apis/enums';
-import useShare from '@/hooks/use-share';
-import PanelView from '@/components/view/PanelView';
-import sendUrl from '@/apis/mutations/order/send-url';
-import useStorageData from '@/apis/hooks/use-storage-data';
 import moment from 'moment';
 import ShareModel from '@/components/share-model';
 
-const apps = [
-  {
-    name: 'WhatsApp',
-    image: require('@/assets/icons/whatsapp.png'),
-    value: SharingApps.WHATSAPP,
-  },
-  {
-    name: 'Gmail',
-    image: require('@/assets/icons/gmail.png'),
-    value: SharingApps.EMAIL,
-  },
-  {
-    name: 'SMS',
-    image: require('@/assets/icons/chat.png'),
-    value: SharingApps.SMS,
-  },
-];
-
-function CardInvoice() {
+function ByTransactionPage() {
   const router = useRouter();
 
   const [model, setModal] = useState(false);
@@ -307,7 +281,7 @@ function CardInvoice() {
   );
 }
 
-export default CardInvoice;
+export default ByTransactionPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
