@@ -278,7 +278,7 @@ function PaymentHistory({ navigation }: any) {
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate("invoiceRecall");
-            // router.push()
+            router.push("/product-selection/payment-history/invoice-recall/")
           }}
           style={styles.box}
         >
