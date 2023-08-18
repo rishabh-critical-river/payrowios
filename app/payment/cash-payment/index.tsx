@@ -41,8 +41,8 @@ function CashPayment() {
   const { user } = useStorageData('user', { decode: true });
   // console.log({ withToken });
   const [orderMeta] = React.useContext(OrderMetaContext);
-  const [response, setResponse] = React.useState<any>(null);
 
+  console.log({ orderMeta });
   const onPayByCash = React.useCallback(async () => {
     if (user) {
       try {
@@ -78,17 +78,23 @@ function CashPayment() {
           mainMerchantId: user?.merchantId,
           purchaseBreakdown: _purchaseBreakdown,
         };
-        console.log('Ready To Pay', { payload });
+        // console.log('Ready To Pay', { payload });
         const { data } = await orders(payload, withToken?.token);
-        // router.push({
-        //   pathname: '/payment/cash-payment/cash-invoice',
-        //   // params:{
-        //   //   data
-        //   // }
-        // });
-        console.log(data);
+        router.push({
+          pathname: '/payment/cash-payment/cash-invoice',
+          params: {
+            mainMerchantId: data?.mainMerchantId,
+            orderNumber: data?.orderNumber,
+            totalAmount: data?.totalAmount,
+            cashReceived: cash,
+            balance: `${Number(cash) - Number(finalAmount)}`,
+            totalTaxAmount: data?.totalTaxAmount,
+            createdAt: data?.createdAt,
+          },
+        });
+        // console.log(data);
       } catch (error) {
-        console.log('Error from Orders', { error });
+        console.log(error);
       }
     }
   }, [user, state.purchaseBreakdown, finalAmount, taxAmount, withToken?.token]);
@@ -876,4 +882,26 @@ const styles = StyleSheet.create({
   },
 });
 
-// Data from Orders {"data": {"data": {"__v": 0, "_id": "64dcb1ac14beb61f56f1920e", "channel": "Cash", "createdAt": "2023-08-16T11:23:24.222Z", "distributorId": "MANZ101", "mainMerchantId": "PRMID63", "orderNumber": "387075686752", "paymentDate": "2023-08-16T11:23:23.236Z", "posId": "PRMID63", "posType": "pos", "purchaseBreakdown": [Object], "storeId": "Owner", "toggleExpiration": true, "totalAmount": 7.875, "totalTaxAmount": 0.375, "updatedAt": "2023-08-16T11:23:24.222Z", "userId": "PRMID63"}, "message": "Order Details added successfully", "success": true}}
+const x = {
+  data: {
+    __v: 0,
+    _id: '64de648814beb61f56f19264',
+    channel: 'Cash',
+    createdAt: '2023-08-17T18:18:48.614Z',
+    distributorId: 'MANZ101',
+    mainMerchantId: 'PRMID63',
+    orderNumber: '769125097354',
+    paymentDate: '2023-08-17T18:18:48.080Z',
+    posId: 'PRMID63',
+    posType: 'pos',
+    purchaseBreakdown: { fee: [Array], service: [Array] },
+    storeId: 'Owner',
+    toggleExpiration: true,
+    totalAmount: 4.725,
+    totalTaxAmount: 0.225,
+    updatedAt: '2023-08-17T18:18:48.614Z',
+    userId: 'PRMID63',
+  },
+  message: 'Order Details added successfully',
+  success: true,
+};

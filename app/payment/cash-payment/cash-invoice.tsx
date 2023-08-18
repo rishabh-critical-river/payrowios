@@ -13,12 +13,13 @@ import Modal from 'react-native-modal';
 import { AntDesign } from '@expo/vector-icons';
 // const countries = [{ country: 'TRANSACTION ID' }, { country: 'BY DATE' }];
 import { Entypo } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SharingApps } from '@/apis/enums';
 import useShare from '@/hooks/use-share';
 import PanelView from '@/components/view/PanelView';
 import sendUrl from '@/apis/mutations/order/send-url';
 import useStorageData from '@/apis/hooks/use-storage-data';
+import moment from 'moment';
 
 const apps = [
   {
@@ -60,6 +61,8 @@ const xyz = {
 };
 
 function CardInvoice() {
+  const params = useLocalSearchParams();
+  console.log({ params });
   const { user } = useStorageData('user');
   const { auth } = useStorageData('auth');
   const [inputs, setInputs] = React.useState({
@@ -120,28 +123,18 @@ function CardInvoice() {
 
   const invoiceMeta = React.useMemo(() => {
     return {
-      merchant: xyz.mainMerchantId,
-      terminal: '',
-      sequence: '',
-      invoiceNumber: '',
-      branch: '',
-      source: '',
-      vat: '',
-      vatAmount: '',
-      amount: '',
-      authCode: '',
-      /**
-       * Card details
-       */
-      card: {
-        name: '',
-        number: '',
-        expiry: '',
-        cvv: '',
-      },
+      'Merchant #': params?.mainMerchantId,
+      'Terminal ID': auth?.tid,
+      Sequence: '2322',
+      InvoiceNumber: params?.orderNumber,
+      'Total Amount': params?.totalAmount,
+      'Cash Received': params?.cashReceived,
+      'Customer Balance': params?.balance,
+      '5% VAT': params?.totalTaxAmount,
     };
   }, []);
 
+  // console.log(Object.entries(invoiceMeta));
   //
 
   // 09:23 ! 12:15
@@ -274,7 +267,10 @@ function CardInvoice() {
               >
                 Date:
               </Text>
-              <Text style={{ color: '#4B5050B2' }}>24/08/2023</Text>
+              <Text style={{ color: '#4B5050B2' }}>
+                {/* 24/08/2023 */}
+                {moment().format(`D/M/YYYY`)}
+              </Text>
             </View>
             <View
               style={{
@@ -284,7 +280,9 @@ function CardInvoice() {
               }}
             >
               <Text style={{ color: '#4B5050B2' }}>Time:</Text>
-              <Text style={{ color: '#4B5050B2' }}>24-08-23</Text>
+              <Text style={{ color: '#4B5050B2' }}>
+                {moment().format(`HH:MM`)}
+              </Text>
             </View>
           </View>
           <Text
@@ -299,214 +297,44 @@ function CardInvoice() {
           >
             Transaction Successful
           </Text>
-          <View style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
+          {Object.entries(invoiceMeta).map(([key, value], index) => {
+            return (
+              <View
+                key={index}
+                style={{ display: 'flex', flexDirection: 'column', gap: 0 }}
               >
-                Merchant#
-              </Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginLeft: 32,
+                    marginRight: 32,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: '#4B5050B2',
+                      fontWeight: '400',
+                      fontSize: 12,
+                    }}
+                  >
+                    {key}
+                  </Text>
 
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                003125403
-              </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Terminal 3
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                11016524
-              </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Sequence
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                1426
-              </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                InvoiceNumber
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                54321
-              </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Branch:
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                1234
-              </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Visa
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              ></Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                **** **** **** 1257
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              ></Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Source: (Q)
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Expiry XXXX
-              </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Vat #:
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                2849715
-              </Text>
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginLeft: 32,
-                marginRight: 32,
-              }}
-            >
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                Vat Ammount %5:
-              </Text>
-
-              <Text
-                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
-              >
-                5.5AED
-              </Text>
-            </View>
-          </View>
+                  <Text
+                    style={{
+                      color: '#4B5050B2',
+                      fontWeight: '400',
+                      fontSize: 12,
+                    }}
+                  >
+                    {value}
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
           <View
             style={{
               display: 'flex',

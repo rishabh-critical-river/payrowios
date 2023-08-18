@@ -1,9 +1,9 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import useProduct from "@/store/hooks/use-product";
-import { OrderMetaContext } from "@/providers/context/order-meta";
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import useProduct from '@/store/hooks/use-product';
+import { OrderMetaContext } from '@/providers/context/order-meta';
 
 const PaymentSummary = () => {
   const router = useRouter();
@@ -18,19 +18,19 @@ const PaymentSummary = () => {
         style={{
           paddingLeft: 19.98,
           paddingTop: 17,
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "#fff",
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: '#fff',
         }}
       >
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate("AddItem");
-            router.push("/products/add-item");
+            router.push('/products/add-item');
           }}
         >
           <Image
-            source={require("@/assets/icons/arrow_back.png")}
+            source={require('@/assets/icons/arrow_back.png')}
             style={{
               width: 16.03,
               height: 16.03,
@@ -41,25 +41,25 @@ const PaymentSummary = () => {
         <Text
           style={{
             fontSize: 20,
-            fontWeight: "500",
+            fontWeight: '500',
             lineHeight: 32,
             letterSpacing: 0.5,
-            color: "#333333",
+            color: '#333333',
           }}
         >
           Payment Summary
         </Text>
       </View>
-      <View style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             right: 0,
             top: 46,
           }}
         >
           <Image
-            source={require("@/assets/icons/Watermark.png")}
+            source={require('@/assets/icons/Watermark.png')}
             style={{
               width: 36,
               height: 50,
@@ -71,16 +71,16 @@ const PaymentSummary = () => {
             style={{
               width: 150,
               height: 48.3,
-              alignSelf: "center",
+              alignSelf: 'center',
               marginTop: 33,
             }}
-            source={require("@/assets/logos/payrow-logo.png")}
+            source={require('@/assets/logos/payrow-logo.png')}
           />
 
           <Text
             style={{
-              textAlign: "center",
-              fontWeight: "400",
+              textAlign: 'center',
+              fontWeight: '400',
               fontSize: 22,
               marginTop: 20,
             }}
@@ -88,7 +88,7 @@ const PaymentSummary = () => {
             Payment Summary
           </Text>
           <Text
-            style={{ textAlign: "center", marginTop: 8, color: "#4B5050B2" }}
+            style={{ textAlign: 'center', marginTop: 8, color: '#4B5050B2' }}
           >
             Select the Payment Mode
           </Text>
@@ -97,18 +97,18 @@ const PaymentSummary = () => {
         <View>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               marginTop: 20,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
             }}
           >
             <Text
               style={{
                 marginLeft: 40,
-                fontWeight: "400",
+                fontWeight: '400',
                 fontSize: 12,
                 lineHeight: 16,
-                color: "#020202",
+                color: '#020202',
               }}
             >
               Date:
@@ -116,10 +116,10 @@ const PaymentSummary = () => {
             <Text
               style={{
                 marginRight: 36,
-                fontWeight: "400",
+                fontWeight: '400',
                 fontSize: 12,
                 lineHeight: 16,
-                color: "#020202",
+                color: '#020202',
               }}
             >
               {/* 16-Mar-23 */}
@@ -129,18 +129,18 @@ const PaymentSummary = () => {
           </View>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               marginTop: 7,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
             }}
           >
             <Text
               style={{
                 marginLeft: 40,
-                fontWeight: "400",
+                fontWeight: '400',
                 fontSize: 12,
                 lineHeight: 16,
-                color: "#020202",
+                color: '#020202',
               }}
             >
               Merchant:
@@ -148,10 +148,10 @@ const PaymentSummary = () => {
             <Text
               style={{
                 marginRight: 36,
-                fontWeight: "400",
+                fontWeight: '400',
                 fontSize: 12,
                 lineHeight: 16,
-                color: "#020202",
+                color: '#020202',
               }}
             >
               {orderMeta?.user?.merchantId}
@@ -160,18 +160,18 @@ const PaymentSummary = () => {
           </View>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               marginTop: 7,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
             }}
           >
             <Text
               style={{
                 marginLeft: 40,
-                fontWeight: "400",
+                fontWeight: '400',
                 fontSize: 12,
                 lineHeight: 16,
-                color: "#020202",
+                color: '#020202',
               }}
             >
               Order Number :
@@ -179,10 +179,10 @@ const PaymentSummary = () => {
             <Text
               style={{
                 marginRight: 36,
-                fontWeight: "400",
+                fontWeight: '400',
                 fontSize: 12,
                 lineHeight: 16,
-                color: "#020202",
+                color: '#020202',
               }}
             >
               {orderMeta?.orderNumber}
@@ -193,22 +193,22 @@ const PaymentSummary = () => {
             style={{
               width: 309,
               borderBottomWidth: 1,
-              borderBottomColor: "#999999",
-              alignSelf: "center",
+              borderBottomColor: '#999999',
+              alignSelf: 'center',
               marginTop: 13,
             }}
           />
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               marginTop: 8,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
             }}
           >
             <Text
               style={{
                 marginLeft: 40,
-                fontWeight: "500",
+                fontWeight: '500',
                 fontSize: 16,
                 lineHeight: 24,
               }}
@@ -218,7 +218,7 @@ const PaymentSummary = () => {
             <Text
               style={{
                 marginRight: 36,
-                fontWeight: "500",
+                fontWeight: '500',
                 fontSize: 16,
                 lineHeight: 24,
               }}
@@ -229,14 +229,14 @@ const PaymentSummary = () => {
           {services.length > 0 && (
             <View style={{ marginTop: 4 }}>
               {services?.map((item, index) => (
-                <View key={index} style={{ flexDirection: "row" }}>
+                <View key={index} style={{ flexDirection: 'row' }}>
                   <Text
                     style={{
                       marginLeft: 40,
                       flex: 1,
                       marginRight: 36,
-                      fontWeight: "400",
-                      color: "#4B5050",
+                      fontWeight: '400',
+                      color: '#4B5050',
                       fontSize: 12,
                       lineHeight: 16,
                     }}
@@ -246,15 +246,15 @@ const PaymentSummary = () => {
                   <Text
                     style={{
                       marginRight: 36,
-                      fontWeight: "500",
-                      color: "#4B5050",
+                      fontWeight: '500',
+                      color: '#4B5050',
                       fontSize: 12,
                       lineHeight: 20,
                     }}
                   >
                     {(Number(item.quantity) * Number(item.totalAmount)).toFixed(
                       2
-                    )}{" "}
+                    )}{' '}
                     AED
                   </Text>
                 </View>
@@ -266,21 +266,21 @@ const PaymentSummary = () => {
 
       <View
         style={{
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "flex-end",
+          backgroundColor: 'white',
+          display: 'flex',
+          justifyContent: 'flex-end',
         }}
       >
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             bottom: 20,
             zIndex: 999,
           }}
         >
           <Image
-            source={require("@/assets/icons/Watermark.png")}
+            source={require('@/assets/icons/Watermark.png')}
             style={{
               width: 36,
               height: 50,
@@ -290,15 +290,15 @@ const PaymentSummary = () => {
 
         <View
           style={{
-            width: "80%",
-            alignSelf: "center",
+            width: '80%',
+            alignSelf: 'center',
             height: 48,
             borderRadius: 10,
             marginBottom: 10,
             borderWidth: 1,
-            borderColor: "rgba(75, 80, 80, 0.2)",
-            flexDirection: "row",
-            alignItems: "center",
+            borderColor: 'rgba(75, 80, 80, 0.2)',
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <Text style={styles.priceLabel}>Total Price</Text>
@@ -311,21 +311,21 @@ const PaymentSummary = () => {
         <TouchableOpacity onPress={router.back} activeOpacity={0.5}>
           <View
             style={{
-              width: "80%",
-              alignSelf: "center",
+              width: '80%',
+              alignSelf: 'center',
               height: 48,
               borderRadius: 10,
               borderWidth: 1,
-              borderColor: "rgba(75, 80, 80, 0.2)",
-              flexDirection: "row",
-              alignItems: "center",
+              borderColor: 'rgba(75, 80, 80, 0.2)',
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
             <Text style={styles.priceLabel}>CANCEL</Text>
             <View style={styles.priceTextContainer}>
               <Image
                 style={{ width: 24, height: 24, marginRight: 16 }}
-                source={require("@/assets/icons/clearblack.png")}
+                source={require('@/assets/icons/clearblack.png')}
               />
             </View>
           </View>
@@ -336,7 +336,7 @@ const PaymentSummary = () => {
           onPress={() => {
             // navigation.navigate('paymentMode');
             // Payment Mode screen
-            router.push("/payment/payment-mode");
+            router.push('/payment/payment-mode');
           }}
         >
           <View style={styles.buttonContent}>
@@ -358,30 +358,30 @@ const PaymentSummary = () => {
 export default PaymentSummary;
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: "80%",
+    width: '80%',
     height: 48,
-    backgroundColor: "#4B5050",
-    alignSelf: "center",
+    backgroundColor: '#4B5050',
+    alignSelf: 'center',
     borderRadius: 8,
     marginTop: 20,
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   containers: {
-    width: "80%",
+    width: '80%',
     height: 50,
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.25)",
-    alignSelf: "center",
+    borderColor: 'rgba(75, 80, 80, 0.25)',
+    alignSelf: 'center',
     marginTop: 31,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: 15,
     paddingRight: 15,
-    shadowColor: "#757e6e",
+    shadowColor: '#757e6e',
     shadowOffset: {
       width: 0,
       height: 1,
@@ -394,92 +394,92 @@ const styles = StyleSheet.create({
     width: 71,
     height: 26,
     borderRadius: 8,
-    backgroundColor: "#4B50500D",
-    textAlign: "center",
+    backgroundColor: '#4B50500D',
+    textAlign: 'center',
     paddingTop: 4,
     marginRight: 22,
   },
   itemContainer: {
-    width: "100%",
-    alignSelf: "center",
+    width: '100%',
+    alignSelf: 'center',
     height: 77,
     borderRadius: 10,
     marginBottom: 10,
-    justifyContent: "center",
+    justifyContent: 'center',
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.2)",
-    flexDirection: "row",
-    alignItems: "center",
+    borderColor: 'rgba(75, 80, 80, 0.2)',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceContainer: {
-    width: "80%",
-    alignSelf: "center",
+    width: '80%',
+    alignSelf: 'center',
     height: 48,
     borderRadius: 10,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.2)",
-    flexDirection: "row",
-    alignItems: "center",
+    borderColor: 'rgba(75, 80, 80, 0.2)',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceLabel: {
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
     fontSize: 14,
     lineHeight: 20,
     marginLeft: 16,
   },
   priceTextContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceText: {
     fontSize: 22,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 28,
   },
   priceCurrency: {
-    color: "#4B505099",
+    color: '#4B505099',
     marginRight: 14,
     marginLeft: 9,
   },
   goToSummaryButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 16,
-    width: "80%",
+    width: '80%',
   },
   buttonContent: {
     borderWidth: 0.6,
-    borderColor: "#4B5050",
-    backgroundColor: "#4B5050",
+    borderColor: '#4B5050',
+    backgroundColor: '#4B5050',
     borderRadius: 8,
     marginBottom: 16,
     height: 48,
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
+    width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   buttonText: {
     fontSize: 16,
     paddingLeft: 16,
     paddingTop: 12,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 24,
-    justifyContent: "center",
-    color: "white",
+    justifyContent: 'center',
+    color: 'white',
     letterSpacing: 0.1,
     flex: 1,
   },
   arrowIcon: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 16,
   },
   footerText: {
     fontSize: 12,
-    backgroundColor: "white",
-    color: "#7f7f7f",
-    textAlign: "center",
+    backgroundColor: 'white',
+    color: '#7f7f7f',
+    textAlign: 'center',
     paddingBottom: 15,
   },
 });
