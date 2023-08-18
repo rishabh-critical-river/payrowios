@@ -31,6 +31,10 @@ const recallMethodTypes = [
 
 function InvoiceRecall() {
   const [transactionId, setTransactionId] = React.useState('');
+  const [selectedDate, setSelectedDate] = React.useState({
+    from: '',
+    end: '',
+  });
   const router = useRouter();
   const [recallMethod, setRecallMethod] =
     React.useContext(InvoiceRecallContext);
@@ -49,13 +53,14 @@ function InvoiceRecall() {
       router.push({
         pathname: '/product-selection/payment-history/invoice-recall/by-date',
         params: {
-          transactionId,
+          fromDate: selectedDate.from,
+          endDate: selectedDate.end,
         },
       });
     }
-  }, [transactionId, recallMethod]);
+  }, [transactionId, recallMethod, selectedDate]);
 
-  console.log(transactionId);
+  console.log({ selectedDate });
   return (
     <>
       <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
@@ -224,7 +229,7 @@ function InvoiceRecall() {
                 width: '100%',
               }}
             >
-              <DatePicker />
+              <DatePicker onSelectDate={(date) => setSelectedDate(date)} />
             </View>
           </View>
         </PanelView>
@@ -357,7 +362,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const DatePicker = () => {
+type IDate = {
+  from: string;
+  end: string;
+};
+type DatePickerProps = {
+  onSelectDate: (date: IDate) => void;
+};
+
+const DatePicker = ({ onSelectDate }: DatePickerProps) => {
   const [state, setState] = React.useState({
     from: new Date(),
     end: new Date(),
@@ -409,7 +422,9 @@ const DatePicker = () => {
       from: moment(state.from).format('YYYY-MM-DD'),
       end: moment(state.end).format('YYYY-MM-DD'),
     };
-    console.log({ output });
+    if (onSelectDate) {
+      onSelectDate(output);
+    }
   }, [state.from, state.end]);
   return (
     <React.Fragment>

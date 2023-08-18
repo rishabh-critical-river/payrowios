@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams } from 'expo-router';
+import paymentDetails from '@/apis/mutations/payment/detail';
+import useStorageData from '@/apis/hooks/use-storage-data';
+import base64 from '@/hooks/lib/base64';
 const data = [
   { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
   { time: '11:00 AM', transNo: '456', value: '200', status: 'Pending' },
@@ -15,80 +19,38 @@ const data = [
   // Add more dummy data as needed
 ];
 
-const ByDatePage = ({ item, index }) => {
-  const rowStyle = index % 2 === 0 ? styles.whiteRow : styles.blackRow;
+const ByDatePageScreen = () => {
+  const { user } = useStorageData('user');
+  const params = useLocalSearchParams();
+  console.log({ params });
 
-  return (
-    <View style={[styles.rowContainer, rowStyle]}>
-      <Text
-        style={{
-          color: '#4B5050',
-          fontWeight: '400',
-          lineHeight: 16,
-          fontSize: 11,
-          marginRight: 45,
-        }}
-      >
-        {item.time}
-      </Text>
-      <View style={styles.infoContainer}>
-        <Text
-          style={{
-            color: '#4B5050',
-            fontWeight: '400',
-            lineHeight: 16,
-            fontSize: 11,
+  const safeRef = React.useRef<boolean>(false);
+  const [transactionList, setTransactionList] = React.useState<null>(null);
 
-            marginRight: 60,
-          }}
-        >
-          {item.transNo}
-        </Text>
-        <Text
-          style={{
-            color: '#4B5050',
-            fontWeight: '400',
-            lineHeight: 16,
-            fontSize: 11,
+  React.useEffect(() => {
+    safeRef.current = true;
+    if (safeRef.current && user?.token) {
+      safeRef.current = true;
+      const payload = {
+        dates: {
+          from: params?.fromDate,
+          to: params?.endDate,
+        },
+        tid: '072837',
+        key: base64.encode('{"num":79893190,"validation":"Key Validation"}'),
+      };
+      paymentDetails(payload, user?.token).then((data) => {
+        setTransactionList(data);
+      });
+      setTransactionList(data);
+    }
+    return () => {
+      safeRef.current = false;
+    };
+  }, [user?.token]);
 
-            marginRight: 80,
-          }}
-        >
-          {item.value}
-        </Text>
-      </View>
+  console.log({ transactionList });
 
-      <Text
-        style={{
-          color: '#4B5050',
-          fontWeight: '400',
-          lineHeight: 16,
-          fontSize: 11,
-          marginRight: 19,
-        }}
-      >
-        {/* <AntDesign
-          name="USB"
-          size={20}
-          color="#4B505080"
-          style={{ marginLeft: 9, marginTop: 9 }}
-        /> */}
-        {/* <Ionicons
-          name="ios-chevron-forward-sharp"
-          size={20}
-          color="#4B505080"
-        /> */}
-        <Ionicons
-          name="ios-chevron-forward-circle-outline"
-          size={16}
-          color="#4B505080"
-        />
-      </Text>
-    </View>
-  );
-};
-
-const List = () => {
   return (
     <>
       <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
@@ -273,9 +235,7 @@ const List = () => {
         <View style={styles.container}>
           <FlatList
             data={data}
-            renderItem={({ item, index }) => (
-              <ByDatePage item={item} index={index} />
-            )}
+            renderItem={({ item, index }) => <List item={item} index={index} />}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
@@ -294,6 +254,89 @@ const List = () => {
         </Text>
       </View>
     </>
+  );
+};
+
+type ListProps = {
+  item: {
+    time: string;
+    transNo: string;
+    value: string;
+    status: string;
+  };
+  index: number;
+};
+
+const List = ({ item, index }: ListProps) => {
+  const rowStyle = index % 2 === 0 ? styles.whiteRow : styles.blackRow;
+
+  return (
+    <View style={[styles.rowContainer, rowStyle]}>
+      <Text
+        style={{
+          color: '#4B5050',
+          fontWeight: '400',
+          lineHeight: 16,
+          fontSize: 11,
+          marginRight: 45,
+        }}
+      >
+        {item.time}
+      </Text>
+      <View style={styles.infoContainer}>
+        <Text
+          style={{
+            color: '#4B5050',
+            fontWeight: '400',
+            lineHeight: 16,
+            fontSize: 11,
+
+            marginRight: 60,
+          }}
+        >
+          {item.transNo}
+        </Text>
+        <Text
+          style={{
+            color: '#4B5050',
+            fontWeight: '400',
+            lineHeight: 16,
+            fontSize: 11,
+
+            marginRight: 80,
+          }}
+        >
+          {item.value}
+        </Text>
+      </View>
+
+      <Text
+        style={{
+          color: '#4B5050',
+          fontWeight: '400',
+          lineHeight: 16,
+          fontSize: 11,
+          marginRight: 19,
+        }}
+      >
+        {/* <AntDesign
+          name="USB"
+          size={20}
+          color="#4B505080"
+          style={{ marginLeft: 9, marginTop: 9 }}
+        /> */}
+        {/* <Ionicons
+          name="ios-chevron-forward-sharp"
+          size={20}
+          color="#4B505080"
+        /> */}
+        <Ionicons
+          name="ios-chevron-forward-circle-outline"
+          size={16}
+          color="#4B505080"
+        />
+      </Text>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -329,4 +372,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default List;
+export default ByDatePageScreen;

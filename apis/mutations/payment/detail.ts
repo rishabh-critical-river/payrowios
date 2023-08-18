@@ -1,9 +1,12 @@
 import api from '@/apis/config';
 
 type Payload = {
-  subject: string;
-  email: string;
-  url: string;
+  dates: {
+    from: string | string[];
+    to: string | string[];
+  };
+  tid: string;
+  key: string;
 };
 
 type Response = {
