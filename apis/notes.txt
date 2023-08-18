@@ -66,3 +66,30 @@ SendURLRequest(
     it.message
 )
 for by link- @POST("gateway/payrow/purchaseorderlink")
+
+
+
+
+gateway/payrow/paymentdetails
+
+{
+
+    "dates": {
+
+        "from": "2022-01-01",
+
+        "to": "2023-03-01"
+
+    },
+
+    "tid": "072837",
+
+    "key": "eyJudW0iOjc5ODkzMTkwLCJ2YWxpZGF0aW9uIjoiS2V5IFZhbGlkYXRpb24ifQ=="
+
+
+}
+
+Key should be in this form 
+{ num: 79893190, validation: 'Key Validation' } change to base64
+
+https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/paymentdetails
