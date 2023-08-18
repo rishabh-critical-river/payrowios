@@ -1,9 +1,7 @@
 import api from '@/apis/config';
 
 type Payload = {
-  subject: string;
-  email: string;
-  url: string;
+  invoiceNum: string;
 };
 
 type Response = {
