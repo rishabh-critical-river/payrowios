@@ -20,6 +20,7 @@ import { OrderMetaContext } from '@/providers/context/order-meta';
 import useStorageData from '@/apis/hooks/use-storage-data';
 import orders from '@/apis/mutations/products/orders';
 import percentange from '@/hooks/lib/percentange';
+import { useDispatch } from 'react-redux';
 
 /**
  * Cash Payment Screen
@@ -881,27 +882,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-const x = {
-  data: {
-    __v: 0,
-    _id: '64de648814beb61f56f19264',
-    channel: 'Cash',
-    createdAt: '2023-08-17T18:18:48.614Z',
-    distributorId: 'MANZ101',
-    mainMerchantId: 'PRMID63',
-    orderNumber: '769125097354',
-    paymentDate: '2023-08-17T18:18:48.080Z',
-    posId: 'PRMID63',
-    posType: 'pos',
-    purchaseBreakdown: { fee: [Array], service: [Array] },
-    storeId: 'Owner',
-    toggleExpiration: true,
-    totalAmount: 4.725,
-    totalTaxAmount: 0.225,
-    updatedAt: '2023-08-17T18:18:48.614Z',
-    userId: 'PRMID63',
-  },
-  message: 'Order Details added successfully',
-  success: true,
-};

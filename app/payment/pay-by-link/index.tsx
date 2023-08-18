@@ -189,7 +189,7 @@ function CashPayment() {
     <ScrollView>
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={{ flex: 1 ,}}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <View style={styles.container}>
@@ -421,7 +421,9 @@ function CashPayment() {
             </View>
           </View>
 
-          <View style={{ backgroundColor: 'white' }}>
+          <View style={{ backgroundColor: 'white',display:"flex",
+        flexDirection:"column",
+        justifyContent:"flex-end" }}>
             <View style={{ alignSelf: 'center', marginTop: 20 }}>
               <Text
                 style={{
