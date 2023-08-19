@@ -12,9 +12,10 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-function HomeScreen({ navigation }: any) {
-  const router = useRouter();
+function Contact({ navigation }:any) {
+    const router = useRouter();
   return (
     <>
       <View style={styles.container}>
@@ -27,19 +28,18 @@ function HomeScreen({ navigation }: any) {
           }}
         >
           <TouchableOpacity
-            onPress={() => {
-              // navigation.navigate("AddItem");
-              router.push("/products/add-item");
-            }}
+          onPress={() => {
+            router.back
+          }}
           >
-            <Image
-              source={require("@/assets/icons/arrow_back.png")}
-              style={{
-                width: 16.03,
-                height: 16.03,
-                marginRight: 35.98,
-              }}
-            />
+          <Image
+           source={require('@/assets/icons/arrow_back.png')}
+            style={{
+              width: 16.03,
+              height: 16.03,
+              marginRight: 35.98,
+            }}
+          />
           </TouchableOpacity>
           <Text
             style={{
@@ -50,75 +50,91 @@ function HomeScreen({ navigation }: any) {
               color: "#4B5050",
             }}
           >
-            Product Selection
+            Contact PayRow
           </Text>
         </View>
         <Image
-          source={require("@/assets/onboarding/payrowLogo.png")}
-          style={styles.logo}
+          style={{
+            width: 150,
+            height: 48.3,
+            alignSelf: "center",
+            marginTop: 24,
+            marginBottom: 35,
+          }}
+          source={require('@/assets/onboarding/payrowLogo.png')}
         />
 
         <View style={styles.homeElements}>
           <ScrollView>
-            {/* <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("TapToPay");
-              }}
-              style={styles.box}
-            >
-              <Text style={styles.homeBlocks}> TAP TO PAY </Text>
-              <Image
-                source={require("./keyboard_arrow_right.png")}
-                style={{
-                  width: 7.41,
-                  height: 12,
-
-                  marginTop: 14,
-
-                  marginRight: 10.02,
-                }}
-              />
-            </TouchableOpacity> */}
-
             <TouchableOpacity
               onPress={() => {
-                // navigation.navigate("paymentHistory");
-                router.push("/product-selection/payment-history/");
+                // navigation.navigate("aboutPayrow");
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> PAYMENT HISTORY </Text>
-              <Image
-                source={require("@/assets/icons/keyboard_arrow_right.png")}
-                style={{
-                  width: 7.41,
-                  height: 12,
-
-                  marginTop: 14,
-
-                  marginRight: 10.02,
-                }}
+              <Text style={styles.homeBlocks}> ABOUT PAYROW </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
               />
             </TouchableOpacity>
-
             <TouchableOpacity
               onPress={() => {
-                // navigation.navigate("contact");
-                router.push("/product-selection/contact/")
+                // navigation.navigate("contactus");
+                router.push("/product-selection/contact/contact-us/")
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> CONTACT PAYROW </Text>
-              <Image
-                source={require("@/assets/icons/keyboard_arrow_right.png")}
-                style={{
-                  width: 7.41,
-                  height: 12,
-
-                  marginTop: 14,
-
-                  marginRight: 10.02,
-                }}
+              <Text style={styles.homeBlocks}> CONTACT US </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                // navigation.navigate("support");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> SUPPORT </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                // navigation.navigate("TapToPay");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> VOID </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                // navigation.navigate("refund");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> REFUND </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
               />
             </TouchableOpacity>
           </ScrollView>
@@ -135,7 +151,7 @@ function HomeScreen({ navigation }: any) {
           }}
         >
           <Image
-            source={require("@/assets/logos/fab.png")}
+             source={require("@/assets/logos/fab.png")}
             style={{
               width: 72.15,
               height: 42,
@@ -174,7 +190,7 @@ function HomeScreen({ navigation }: any) {
   );
 }
 
-export default HomeScreen;
+export default Contact;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -198,11 +214,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     flex: 1,
-    marginTop: 14,
 
     color: "#4B5050",
     lineHeight: 20,
-
+    letterSpacing: 0.1,
     marginLeft: 16,
   },
   homeElements: {
@@ -228,7 +243,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: 296,
     height: 48,
-    textAlign: "center",
+    alignItems: "center",
     flexDirection: "row",
   },
   button: {
@@ -238,8 +253,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     height: 60,
-    // width: 60,
-
+    width: 60,
     cursor: "pointer",
     borderRadius: 70,
     justifyContent: "center",
