@@ -4,63 +4,83 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   ScrollView,
   Image,
   TouchableOpacity,
 } from 'react-native';
-import Modal from 'react-native-modal';
-import { AntDesign } from '@expo/vector-icons';
-// const countries = [{ country: 'TRANSACTION ID' }, { country: 'BY DATE' }];
 import { Entypo } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { SharingApps } from '@/apis/enums';
-import useShare from '@/hooks/use-share';
-import PanelView from '@/components/view/PanelView';
-import sendUrl from '@/apis/mutations/order/send-url';
-import useStorageData from '@/apis/hooks/use-storage-data';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import moment from 'moment';
 import ShareModel from '@/components/share-model';
+import payInvoice from '@/apis/mutations/order/pay-invoice';
+import useStorageData from '@/apis/hooks/use-storage-data';
 
-const apps = [
-  {
-    name: 'WhatsApp',
-    image: require('@/assets/icons/whatsapp.png'),
-    value: SharingApps.WHATSAPP,
-  },
-  {
-    name: 'Gmail',
-    image: require('@/assets/icons/gmail.png'),
-    value: SharingApps.EMAIL,
-  },
-  {
-    name: 'SMS',
-    image: require('@/assets/icons/chat.png'),
-    value: SharingApps.SMS,
-  },
-];
-
-function CardInvoice() {
+function ByTransactionPage() {
   const router = useRouter();
 
   const [model, setModal] = useState(false);
+  const { auth } = useStorageData('auth');
 
   const toggleModal = React.useCallback(() => {
     setModal(!model);
   }, [model]);
 
+  // For Token and User
+
+  const { user } = useStorageData('user');
+  const params = useLocalSearchParams();
+
+  const safeRef = React.useRef<boolean>(false);
+  const [transactionData, setTransactionData] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    safeRef.current = true;
+    if (safeRef.current && user?.token) {
+      safeRef.current = true;
+      const payload = {
+        invoiceNum: '023521559598' as string,
+      };
+      payInvoice(payload, user?.token).then(({ data }) => {
+        setTransactionData(data);
+      });
+    }
+    return () => {
+      safeRef.current = false;
+    };
+  }, [user?.token]);
+
+  console.log('HELLO', transactionData);
+
+  // {"data": [{"__v": 0,
+  // "_id": "64dfb7f6f5ed563332b1fc3c",
+  // "channel": "Cash",
+  // "createdAt": "2023-08-18T18:27:02.409Z",
+  // "distributorId": "MANZ101",
+  // "mainMerchantId": "PRMID63",
+  // "orderNumber": "023521559598",
+  // "paymentDate": "2023-08-18T18:27:01.682Z",
+  // "posId": "PRMID63", "posType":
+  // "pos", "purchaseBreakdown": [Object],
+  // "storeId": "Owner",
+  // "toggleExpiration": true,
+  // "totalAmount": 6.3,
+  // "totalTaxAmount": 0.3,
+  // "updatedAt": "2023-08-18T18:28:35.748Z", "userId": "PRMID63"}], "success": true}
+
   const invoiceMeta = React.useMemo(() => {
     return {
-      'Merchant #': '---',
-      'Terminal ID': '---',
+      'Merchant #': transactionData?.mainMerchantId,
+      'Terminal ID': auth?.tid,
       Sequence: '---',
-      InvoiceNumber: '---',
-      'Total Amount': '---',
+      InvoiceNumber: transactionData?.orderNumber,
+      'Total Amount': transactionData?.totalAmount,
       'Cash Received': '---',
       'Customer Balance': '---',
-      '5% VAT': '---',
+      '5% VAT': transactionData?.totalTaxAmount,
     };
-  }, []);
+  }, [transactionData]);
+
+  console.log(transactionData?.mainMerchantId);
 
   return (
     <>
@@ -307,7 +327,7 @@ function CardInvoice() {
   );
 }
 
-export default CardInvoice;
+export default ByTransactionPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
