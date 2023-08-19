@@ -42,7 +42,10 @@ function CreateAccount() {
     onVerifyAuthCode()
       .then((route) => {
         if (route !== undefined && route.success) {
-          setSnackbarModal({ content: "OTP verified", width: 180 });
+          setSnackbarModal({
+            content: "Authentication code verified Successfully",
+            width: 300,
+          });
           router.push({
             pathname: "/auth/create-pin",
             params: route.params,
