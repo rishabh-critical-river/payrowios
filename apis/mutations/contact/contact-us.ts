@@ -17,7 +17,7 @@ type Response = {
  */
 const createContact = async (payload: Payload, token: string) => {
   const response = await api.post<Response>(
-    `api/contact/contactCreation`,
+    `/api/contact/contactCreation`,
     payload,
     {
       headers: {

@@ -28,8 +28,14 @@ function ContactUs() {
   const onSubmit = React.useCallback(async () => {
     if (user?.token) {
       try {
-        const { data, status } = await createContact(state, user?.token);
-        console.log(data);
+        const { data, status } = await createContact(
+          {
+            ...state,
+            mobileNumber: `971${state.mobileNumber}`,
+          },
+          user?.token
+        );
+        console.log('Response from contact ', data);
         if (status === 200) {
           router.push(
             '/product-selection/contact/contact-us/register-complain'
@@ -68,12 +74,7 @@ function ContactUs() {
             width: 360,
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              //   navigation.navigate("contact");
-              router.back;
-            }}
-          >
+          <TouchableOpacity onPress={router.back}>
             <Image
               source={require('@/assets/icons/arrow_back.png')}
               style={{

@@ -13,7 +13,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 function RegisterComplain() {
+    const router = useRouter();
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>

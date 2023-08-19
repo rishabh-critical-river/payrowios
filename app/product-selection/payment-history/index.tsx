@@ -60,10 +60,7 @@ function PaymentHistory({ navigation }: any) {
             }}
           >
             <TouchableOpacity
-              onPress={() => {
-                // navigation.navigate("HomeScreen");
-                router.back;
-              }}
+             onPress={router.back}
             >
               <Image
                 source={require("@/assets/icons/arrow_back.png")}
