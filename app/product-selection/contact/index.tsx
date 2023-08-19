@@ -90,6 +90,7 @@ function Contact() {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("support");
+                router.push("/product-selection/contact/support/")
               }}
               style={styles.box}
             >
@@ -101,7 +102,7 @@ function Contact() {
                 style={{ marginRight: 18 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity 
               onPress={() => {
                 // navigation.navigate("TapToPay");
                 router.push('/product-selection/contact/void/');
