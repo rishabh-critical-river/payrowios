@@ -1,111 +1,69 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  Image,
-  Button,
-  TouchableOpacity,
-  TextInput,
-  KeyboardAvoidingView,
-  FlatList,
-} from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import React from 'react';
+import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams } from 'expo-router';
+import paymentDetails from '@/apis/mutations/payment/detail';
+import useStorageData from '@/apis/hooks/use-storage-data';
+import base64 from '@/hooks/lib/base64';
 const data = [
-  { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
-  { time: "11:00 AM", transNo: "456", value: "200", status: "Pending" },
-  { time: "12:00 PM", transNo: "789", value: "150", status: "Failed" },
-  { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
-  { time: "11:00 AM", transNo: "456", value: "200", status: "Pending" },
-  { time: "12:00 PM", transNo: "789", value: "150", status: "Failed" },
-  { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
-  { time: "11:00 AM", transNo: "456", value: "200", status: "Pending" },
-  { time: "12:00 PM", transNo: "789", value: "150", status: "Failed" },
+  { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
+  { time: '11:00 AM', transNo: '456', value: '200', status: 'Pending' },
+  { time: '12:00 PM', transNo: '789', value: '150', status: 'Failed' },
+  { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
+  { time: '11:00 AM', transNo: '456', value: '200', status: 'Pending' },
+  { time: '12:00 PM', transNo: '789', value: '150', status: 'Failed' },
+  { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
+  { time: '11:00 AM', transNo: '456', value: '200', status: 'Pending' },
+  { time: '12:00 PM', transNo: '789', value: '150', status: 'Failed' },
   // Add more dummy data as needed
 ];
 
-const ListItem = ({ item, index }) => {
-  const rowStyle = index % 2 === 0 ? styles.whiteRow : styles.blackRow;
+const ByDatePageScreen = () => {
+  const { user } = useStorageData('user');
+  const params = useLocalSearchParams();
+  console.log({ params });
 
-  return (
-    <View style={[styles.rowContainer, rowStyle]}>
-      <Text
-        style={{
-          color: "#4B5050",
-          fontWeight: "400",
-          lineHeight: 16,
-          fontSize: 11,
-          marginRight: 45,
-        }}
-      >
-        {item.time}
-      </Text>
-      <View style={styles.infoContainer}>
-        <Text
-          style={{
-            color: "#4B5050",
-            fontWeight: "400",
-            lineHeight: 16,
-            fontSize: 11,
+  const safeRef = React.useRef<boolean>(false);
+  const [transactionList, setTransactionList] = React.useState<null>(null);
 
-            marginRight: 60,
-          }}
-        >
-          {item.transNo}
-        </Text>
-        <Text
-          style={{
-            color: "#4B5050",
-            fontWeight: "400",
-            lineHeight: 16,
-            fontSize: 11,
+  React.useEffect(() => {
+    safeRef.current = true;
+    if (safeRef.current && user?.token) {
+      safeRef.current = true;
+      const payload = {
+        dates: {
+          from: params?.fromDate,
+          to: params?.endDate,
+        },
+        tid: '072837',
+        key: base64.encode('{"num":79893190,"validation":"Key Validation"}'),
+      };
+      paymentDetails(payload, user?.token).then((data) => {
+        setTransactionList(data);
+      });
+      setTransactionList(data);
+    }
+    return () => {
+      safeRef.current = false;
+    };
+  }, [user?.token]);
 
-            marginRight: 80,
-          }}
-        >
-          {item.value}
-        </Text>
-      </View>
+  console.log({ transactionList });
 
-      <Text
-        style={{
-          color: "#4B5050",
-          fontWeight: "400",
-          lineHeight: 16,
-          fontSize: 11,
-          marginRight: 19,
-        }}
-      >
-        <AntDesign
-          name="download"
-          size={20}
-          color="#4B505080"
-          style={{ marginLeft: 9, marginTop: 9 }}
-        />
-      </Text>
-    </View>
-  );
-};
-
-function ByDateList() {
   return (
     <>
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
         <View
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <Image
-             source={require('@/assets/icons/arrow_back.png')}
+            source={require('@/assets/icons/arrow_back.png')}
             style={{
               width: 16.03,
               height: 16.03,
@@ -115,10 +73,10 @@ function ByDateList() {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: "#4B5050",
+              color: '#4B5050',
             }}
           >
             Tap to Pay
@@ -126,8 +84,8 @@ function ByDateList() {
         </View>
         <Text
           style={{
-            color: "#4B5050",
-            fontWeight: "500",
+            color: '#4B5050',
+            fontWeight: '500',
             fontSize: 16,
             lineHeight: 24,
             marginLeft: 30,
@@ -138,16 +96,16 @@ function ByDateList() {
         </Text>
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginLeft: 30,
             marginTop: 4,
           }}
         >
           <Text
             style={{
-              color: "#4B5050B2",
+              color: '#4B5050B2',
               fontSize: 14,
-              fontWeight: "400",
+              fontWeight: '400',
               lineHeight: 20,
               marginRight: 13,
             }}
@@ -156,9 +114,9 @@ function ByDateList() {
           </Text>
           <Text
             style={{
-              color: "#4B5050B2",
+              color: '#4B5050B2',
               fontSize: 14,
-              fontWeight: "400",
+              fontWeight: '400',
               lineHeight: 20,
             }}
           >
@@ -167,8 +125,8 @@ function ByDateList() {
         </View>
         <Text
           style={{
-            color: "#4B5050",
-            fontWeight: "500",
+            color: '#4B5050',
+            fontWeight: '500',
             fontSize: 13,
             lineHeight: 18,
             marginLeft: 30,
@@ -179,8 +137,8 @@ function ByDateList() {
         </Text>
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
             marginLeft: 32,
             marginRight: 32,
             marginTop: 24,
@@ -190,7 +148,7 @@ function ByDateList() {
             style={{
               width: 38,
               height: 38,
-              backgroundColor: "#4B50500F",
+              backgroundColor: '#4B50500F',
               marginRight: 8,
             }}
           >
@@ -206,7 +164,7 @@ function ByDateList() {
 
         <View
           style={{
-            borderBottomColor: "#4B505026",
+            borderBottomColor: '#4B505026',
             borderBottomWidth: 1,
             marginTop: 25,
             marginLeft: 32,
@@ -217,16 +175,16 @@ function ByDateList() {
           style={{
             marginLeft: 50,
             marginRight: 50,
-            flexDirection: "row",
+            flexDirection: 'row',
             marginTop: 9,
           }}
         >
           <Text
             style={{
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
+              color: '#4C4C4C',
             }}
           >
             Day
@@ -236,9 +194,9 @@ function ByDateList() {
               marginLeft: 40,
               marginRight: 36,
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
+              color: '#4C4C4C',
             }}
           >
             Value
@@ -247,9 +205,9 @@ function ByDateList() {
             style={{
               marginRight: 40,
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
+              color: '#4C4C4C',
             }}
           >
             Total Income
@@ -257,9 +215,9 @@ function ByDateList() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
+              color: '#4C4C4C',
             }}
           >
             Download
@@ -267,7 +225,7 @@ function ByDateList() {
         </View>
         <View
           style={{
-            borderBottomColor: "#4B505026",
+            borderBottomColor: '#4B505026',
             borderBottomWidth: 1,
             marginTop: 9,
             marginLeft: 32,
@@ -277,20 +235,18 @@ function ByDateList() {
         <View style={styles.container}>
           <FlatList
             data={data}
-            renderItem={({ item, index }) => (
-              <ListItem item={item} index={index} />
-            )}
+            renderItem={({ item, index }) => <List item={item} index={index} />}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: 'white' }}>
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             paddingBottom: 15,
           }}
         >
@@ -299,38 +255,121 @@ function ByDateList() {
       </View>
     </>
   );
-}
+};
+
+type ListProps = {
+  item: {
+    time: string;
+    transNo: string;
+    value: string;
+    status: string;
+  };
+  index: number;
+};
+
+const List = ({ item, index }: ListProps) => {
+  const rowStyle = index % 2 === 0 ? styles.whiteRow : styles.blackRow;
+
+  return (
+    <View style={[styles.rowContainer, rowStyle]}>
+      <Text
+        style={{
+          color: '#4B5050',
+          fontWeight: '400',
+          lineHeight: 16,
+          fontSize: 11,
+          marginRight: 45,
+        }}
+      >
+        {item.time}
+      </Text>
+      <View style={styles.infoContainer}>
+        <Text
+          style={{
+            color: '#4B5050',
+            fontWeight: '400',
+            lineHeight: 16,
+            fontSize: 11,
+
+            marginRight: 60,
+          }}
+        >
+          {item.transNo}
+        </Text>
+        <Text
+          style={{
+            color: '#4B5050',
+            fontWeight: '400',
+            lineHeight: 16,
+            fontSize: 11,
+
+            marginRight: 80,
+          }}
+        >
+          {item.value}
+        </Text>
+      </View>
+
+      <Text
+        style={{
+          color: '#4B5050',
+          fontWeight: '400',
+          lineHeight: 16,
+          fontSize: 11,
+          marginRight: 19,
+        }}
+      >
+        {/* <AntDesign
+          name="USB"
+          size={20}
+          color="#4B505080"
+          style={{ marginLeft: 9, marginTop: 9 }}
+        /> */}
+        {/* <Ionicons
+          name="ios-chevron-forward-sharp"
+          size={20}
+          color="#4B505080"
+        /> */}
+        <Ionicons
+          name="ios-chevron-forward-circle-outline"
+          size={16}
+          color="#4B505080"
+        />
+      </Text>
+    </View>
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   rowContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
 
     padding: 10,
     marginLeft: 32,
     marginRight: 32,
   },
   whiteRow: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   blackRow: {
-    backgroundColor: "#4B50500A",
+    backgroundColor: '#4B50500A',
   },
   rowText: {
-    color: "#000000",
+    color: '#000000',
     fontSize: 16,
   },
   infoContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   infoText: {
-    color: "#000000",
+    color: '#000000',
     fontSize: 16,
     marginRight: 10,
   },
 });
 
-export default ByDateList;
+export default ByDatePageScreen;

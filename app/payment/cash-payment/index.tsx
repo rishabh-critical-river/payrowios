@@ -81,18 +81,19 @@ function CashPayment() {
         };
         // console.log('Ready To Pay', { payload });
         const { data } = await orders(payload, withToken?.token);
-        router.push({
-          pathname: '/payment/cash-payment/cash-invoice',
-          params: {
-            mainMerchantId: data?.mainMerchantId,
-            orderNumber: data?.orderNumber,
-            totalAmount: data?.totalAmount,
-            cashReceived: cash,
-            balance: `${Number(cash) - Number(finalAmount)}`,
-            totalTaxAmount: data?.totalTaxAmount,
-            createdAt: data?.createdAt,
-          },
-        });
+        console.log({ data });
+        // router.push({
+        //   pathname: '/payment/cash-payment/cash-invoice',
+        //   params: {
+        //     mainMerchantId: data?.mainMerchantId,
+        //     orderNumber: data?.orderNumber,
+        //     totalAmount: data?.totalAmount,
+        //     cashReceived: cash,
+        //     balance: `${Number(cash) - Number(finalAmount)}`,
+        //     totalTaxAmount: data?.totalTaxAmount,
+        //     createdAt: data?.createdAt,
+        //   },
+        // });
         // console.log(data);
       } catch (error) {
         console.log(error);

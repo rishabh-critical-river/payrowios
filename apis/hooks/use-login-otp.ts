@@ -1,13 +1,12 @@
-import React from 'react';
-import loginOTP from '../mutations/auth/login-otp';
-import base64 from '@/hooks/lib/base64';
-import verifyAuthCode from '../mutations/auth/verify';
-import { router, useLocalSearchParams } from 'expo-router';
-import cryptoActions from '@/hooks/lib/crypto-actions';
-import keyValidation from '@/hooks/lib/num-characters';
-import useDeviceId from '@/hooks/use-device-id';
-import SnackbarModel from '@/components/snack-bar/snack-bar';
-
+import React from "react";
+import loginOTP from "../mutations/auth/login-otp";
+import base64 from "@/hooks/lib/base64";
+import verifyAuthCode from "../mutations/auth/verify";
+import { router, useLocalSearchParams } from "expo-router";
+import cryptoActions from "@/hooks/lib/crypto-actions";
+import keyValidation from "@/hooks/lib/num-characters";
+import useDeviceId from "@/hooks/use-device-id";
+import useModal from "@/hooks/use-modal";
 type Params = {
   tid: string;
   mobileNumber: string;
@@ -18,12 +17,12 @@ const useLoginOTP = () => {
   const params = useLocalSearchParams<Params>();
 
   const [state, setState] = React.useState({
-    code: '',
+    code: "",
     decode: {
-      key: '',
-      iv: '',
-      AES: '',
-      ALG: '',
+      key: "",
+      iv: "",
+      AES: "",
+      ALG: "",
     },
   });
 
@@ -46,7 +45,7 @@ const useLoginOTP = () => {
    */
   const onSendAuthCode = React.useCallback(async () => {
     if (!params.tid) {
-      throw new Error('TID is required');
+      throw new Error("TID is required");
     }
     if (params.tid) {
       try {
@@ -55,10 +54,10 @@ const useLoginOTP = () => {
         });
         if (data.data) {
           const decode = base64.decode(data.data);
-          const parseDecode = JSON.parse(decode.replace(/\\/g, ''));
-          console.log(parseDecode, 'check');
-          onChangeState('decode', parseDecode);
-          onChangeState('code', '');
+          const parseDecode = JSON.parse(decode.replace(/\\/g, ""));
+          console.log(parseDecode, "check");
+          onChangeState("decode", parseDecode);
+          onChangeState("code", "");
         }
       } catch (error: any) {
         console.log(error);
@@ -70,66 +69,63 @@ const useLoginOTP = () => {
    * Verify Auth Code
    */
   const onVerifyAuthCode = React.useCallback(async () => {
-    try {
-      if (!deviceId) {
-        throw new Error('Device Id is required');
-      }
-      if (!params.tid) {
-        throw new Error('TID is required');
-      }
-      if (!state.code) {
-        throw new Error('Auth Code is required');
-      }
+    if (!deviceId) {
+      throw new Error("Device Id is required");
+    }
+    if (!params.tid) {
+      throw new Error("TID is required");
+    }
+    if (!state.code) {
+      throw new Error("Auth Code is required");
+    }
 
-      if (state.decode) {
-        const plaintext = JSON.stringify({
-          code: state.code,
-          tid: params.tid,
-          imeiNumber: deviceId,
-          keyValidation: keyValidation(5),
-        });
+    if (state.decode) {
+      const plaintext = JSON.stringify({
+        code: state.code,
+        tid: params.tid,
+        imeiNumber: deviceId,
+        keyValidation: keyValidation(5),
+      });
 
-        // console.log({ plaintext });
+      // console.log({ plaintext });
 
-        // Encrypt Plaintext
-        const encryptedBase64 = cryptoActions.encrypt({
-          iv: state.decode.iv,
-          key: state.decode.key,
-          AES: state.decode.AES,
-          ALG: state.decode.ALG,
-          plaintext,
-        });
+      // Encrypt Plaintext
+      const encryptedBase64 = cryptoActions.encrypt({
+        iv: state.decode.iv,
+        key: state.decode.key,
+        AES: state.decode.AES,
+        ALG: state.decode.ALG,
+        plaintext,
+      });
 
-        console.log({ encryptedBase64 });
-        // Verify Auth Code
-        const res = await verifyAuthCode({ data: encryptedBase64 });
-        console.log('Verify Auth Code', res.data);
-        // Decrypt Response Data
-        const decryptedBase64 = cryptoActions.decrypt({
-          iv: state.decode.iv,
-          key: state.decode.key,
-          AES: state.decode.AES,
-          ALG: state.decode.ALG,
-          plaintext: res.data.encrypt,
-        });
-        const decryptedData = decryptedBase64.replace(/\\/g, '');
-        const decryptedJson = JSON.parse(decryptedData);
-        console.log(decryptedJson, 'decryptedJson');
-        if (decryptedJson.success === true) {
-          router.push({
-            pathname: '/auth/create-pin',
-            params: {
-              tid: params.tid,
-              iv: state.decode.iv,
-              key: state.decode.key,
-              AES: state.decode.AES,
-              ALG: state.decode.ALG,
-            },
-          });
-        }
+      console.log({ encryptedBase64 });
+      // Verify Auth Code
+      const res = await verifyAuthCode({ data: encryptedBase64 });
+
+      console.log("Verify Auth Code", res.data);
+      // Decrypt Response Data
+      const decryptedBase64 = cryptoActions.decrypt({
+        iv: state.decode.iv,
+        key: state.decode.key,
+        AES: state.decode.AES,
+        ALG: state.decode.ALG,
+        plaintext: res.data.encrypt,
+      });
+      const decryptedData = decryptedBase64.replace(/\\/g, "");
+      const decryptedJson = JSON.parse(decryptedData);
+      console.log(decryptedJson, "decryptedJson");
+      if (decryptedJson.success === true) {
+        return {
+          success: true,
+          params: {
+            tid: params.tid,
+            iv: state.decode.iv,
+            key: state.decode.key,
+            AES: state.decode.AES,
+            ALG: state.decode.ALG,
+          },
+        };
       }
-    } catch (error) {
-      console.log(error);
     }
   }, [
     deviceId,
