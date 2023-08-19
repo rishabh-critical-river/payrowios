@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Basic hook to use OTP interval
@@ -9,10 +9,9 @@ const useOTPInterval = (interval: number = 0) => {
   const [timer, setTimer] = React.useState(interval); // Initial value of the timer in seconds
 
   React.useEffect(() => {
+    if (timer <= 0) return;
     const interval = setInterval(() => {
-      if (timer > 0) {
-        setTimer((prevTimer) => prevTimer - 1);
-      }
+      setTimer((prevTimer) => prevTimer - 1);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -21,7 +20,7 @@ const useOTPInterval = (interval: number = 0) => {
   const formattedTimer = React.useMemo(() => {
     return `${Math.floor(timer / 60)
       .toString()
-      .padStart(2, '0')}:${(timer % 60).toString().padStart(2, '0')}`;
+      .padStart(2, "0")}:${(timer % 60).toString().padStart(2, "0")}`;
   }, [timer]);
 
   return { timer, setTimer, formattedTimer };
