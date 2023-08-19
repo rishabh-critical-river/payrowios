@@ -28,6 +28,7 @@ function ByTransactionPage() {
   // For Token and User
 
   const { user } = useStorageData('user');
+  // console.log(user);
   const params = useLocalSearchParams();
 
   const safeRef = React.useRef<boolean>(false);
@@ -41,7 +42,7 @@ function ByTransactionPage() {
         invoiceNum: '023521559598' as string,
       };
       payInvoice(payload, user?.token).then(({ data }) => {
-        setTransactionData(data);
+        setTransactionData(data?.data?.[0]);
       });
     }
     return () => {

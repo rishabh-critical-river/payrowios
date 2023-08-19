@@ -398,7 +398,6 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
           },
           mode: 'date',
           is24Hour: true,
-          minimumDate: new Date(),
         });
       },
       end: () => {
