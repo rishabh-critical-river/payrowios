@@ -247,7 +247,7 @@ function Refund({ navigation }:any) {
               backgroundColor: "#4B5050",
               borderRadius: 8,
               marginBottom: 16,
-              width: 296,
+              // width:"100%",
               height: 48,
               justifyContent: "center",
             }}
@@ -263,6 +263,7 @@ function Refund({ navigation }:any) {
                   color: "white",
                   letterSpacing: 0.1,
                   flex: 1,
+                  width:"100%"
                 }}
               >
                 SUBMIT

@@ -31,10 +31,7 @@ function ContactUs({ navigation }:any) {
           }}
         >
           <TouchableOpacity
-            onPress={() => {
-            //   navigation.navigate("contact");
-            router.back
-            }}
+           onPress={router.back}
           >
             <Image
               source={require("@/assets/icons/arrow_back.png")}

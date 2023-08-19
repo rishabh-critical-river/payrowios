@@ -28,9 +28,7 @@ function Contact({ navigation }:any) {
           }}
         >
           <TouchableOpacity
-          onPress={() => {
-            router.back
-          }}
+          onPress={router.back}
           >
           <Image
            source={require('@/assets/icons/arrow_back.png')}
@@ -112,6 +110,7 @@ function Contact({ navigation }:any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("TapToPay");
+                router.push("/product-selection/contact/void/")
               }}
               style={styles.box}
             >
@@ -126,6 +125,7 @@ function Contact({ navigation }:any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("refund");
+                router.push("/product-selection/contact/refund/")
               }}
               style={styles.box}
             >
