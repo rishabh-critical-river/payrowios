@@ -81,19 +81,20 @@ function CashPayment() {
         };
         // console.log('Ready To Pay', { payload });
         const { data } = await orders(payload, withToken?.token);
-        console.log({ data });
-        // router.push({
-        //   pathname: '/payment/cash-payment/cash-invoice',
-        //   params: {
-        //     mainMerchantId: data?.mainMerchantId,
-        //     orderNumber: data?.orderNumber,
-        //     totalAmount: data?.totalAmount,
-        //     cashReceived: cash,
-        //     balance: `${Number(cash) - Number(finalAmount)}`,
-        //     totalTaxAmount: data?.totalTaxAmount,
-        //     createdAt: data?.createdAt,
-        //   },
-        // });
+        console.log(data);
+        const params = {
+          mainMerchantId: data?.data?.mainMerchantId,
+          orderNumber: data?.data?.orderNumber,
+          totalAmount: data?.data?.totalAmount,
+          cashReceived: cash,
+          balance: `${Number(cash) - Number(finalAmount)}`,
+          totalTaxAmount: data?.data?.totalTaxAmount,
+          createdAt: data?.data?.createdAt,
+        };
+        router.push({
+          pathname: '/payment/cash-payment/cash-invoice',
+          params,
+        });
         // console.log(data);
       } catch (error) {
         console.log(error);
@@ -102,11 +103,16 @@ function CashPayment() {
   }, [user, state.purchaseBreakdown, finalAmount, taxAmount, withToken?.token]);
 
   return (
-    <ScrollView>
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+      }}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView
+        {/* <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
+        > */}
+        <React.Fragment>
           <View style={styles.container}>
             <View
               style={{
@@ -681,7 +687,9 @@ function CashPayment() {
               ©2022 PayRow Company. All rights reserved
             </Text>
           </View>
-        </KeyboardAvoidingView>
+        </React.Fragment>
+
+        {/* </KeyboardAvoidingView> */}
       </TouchableWithoutFeedback>
     </ScrollView>
   );

@@ -1,12 +1,10 @@
 import api from '@/apis/config';
 
 type Payload = {
-  dates: {
-    from: string | string[];
-    to: string | string[];
-  };
-  tid: string;
-  key: string;
+  name: string;
+  email: string;
+  message: string;
+  mobileNumber: string;
 };
 
 type Response = {
@@ -15,11 +13,11 @@ type Response = {
 };
 
 /**
- * Fetch Payment Details
+ * For Contact
  */
-const paymentDetails = async (payload: Payload, token: string) => {
+const createContact = async (payload: Payload, token: string) => {
   const response = await api.post<Response>(
-    `/gateway/payrow/paymentdetails`,
+    `/api/contact/contactCreation`,
     payload,
     {
       headers: {
@@ -29,9 +27,9 @@ const paymentDetails = async (payload: Payload, token: string) => {
   );
   return response;
 };
-export default paymentDetails;
+export default createContact;
 
 /**
  * @endpoint https://payrowdev.uaenorth.cloudapp.azure.com
- * @api {post} /gateway/payrow/paymentdetails Fetch Payment Details
+ * @api {post} api/contact/contactCreation For Contact
  */
