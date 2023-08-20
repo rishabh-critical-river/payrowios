@@ -10,6 +10,7 @@ const GetStartedScreen = () => {
   const { user } = useStorageData("user");
 
   const onStarted = React.useCallback(() => {
+<<<<<<< HEAD
     if (user?.token) {
       // router.push("/auth/enter-pin");
       // router.push("/products/add-item");
@@ -20,6 +21,16 @@ const GetStartedScreen = () => {
       // router.push('/product-selection/payment-history/');
       router.push("/product-selection/");
     }
+=======
+    // router.push("/auth/enter-pin");
+    // router.push("/products/add-item");
+    // } else {
+    //   // Hello
+    router.push("/auth/login");
+    // router.push("/products/add-item");
+    // router.push('/product-selection/payment-history/');
+    // router.push("/product-selection/");
+>>>>>>> d4c920ade2e445e16d373059047546786445272a
   }, [user]);
 
   return (
