@@ -6,6 +6,7 @@ import useStorageData from '@/apis/hooks/use-storage-data';
 import useInputs from '@/hooks/use-inputs';
 import createComplaints from '@/apis/mutations/contact/complaints';
 import { ScrollView } from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-paper';
 
 const complains = [
   {
@@ -23,26 +24,23 @@ const complains = [
 ];
 
 function NewComplain() {
-  const [selectedComplain, setSelectedComplain] = React.useState(
-    complains[0].name
-  );
-
   const router = useRouter();
   const { user } = useStorageData('user');
 
   const [state, setState] = useInputs({
-    name: '',
-    email: '',
-    message: '',
-    mobileNumber: '',
+    typeOfComplaint: '',
+    briefCompliant: '',
   });
 
   const onSubmit = React.useCallback(async () => {
     if (user?.token) {
       try {
-        const payload = {};
+        const payload = {
+          ...state,
+        };
         const { data, status } = await createComplaints(payload, user?.token);
-        console.log('Response from Coplaint ', data);
+        console.log('Response from  ', data);
+        router.push('/product-selection/contact/support/register-complain');
       } catch (error) {
         console.log(error);
       }
@@ -111,7 +109,7 @@ function NewComplain() {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => setSelectedComplain(item.name)}
+                onPress={() => setState('typeOfComplaint', item.name)}
               >
                 <View
                   style={{
@@ -146,7 +144,7 @@ function NewComplain() {
                   >
                     {item.name}
                   </Text>
-                  {item.name === selectedComplain && (
+                  {item.name === state.typeOfComplaint && (
                     <View>
                       <MaterialCommunityIcons
                         name="checkbox-marked-circle"
@@ -195,7 +193,8 @@ function NewComplain() {
           >
             Brief your complaint
           </Text>
-          <Text
+          <TextInput
+            multiline
             style={{
               marginLeft: 32,
               marginRight: 32,
@@ -207,10 +206,11 @@ function NewComplain() {
               color: 'rgba(75, 80, 80, 0.70)',
               marginBottom: 8,
             }}
-          >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry.
-          </Text>
+            onChangeText={(text) => setState('briefCompliant', text)}
+            value={state.briefCompliant}
+            placeholder="Type here..."
+          ></TextInput>
+
           <Image
             source={require('@/assets/icons/sixline.png')}
             style={{
@@ -222,14 +222,7 @@ function NewComplain() {
               opacity: 0.42,
             }}
           />
-          <TouchableOpacity
-            onPress={() => {
-              //   navigation.navigate("registercomplain");
-              router.push(
-                '/product-selection/contact/support/register-complain'
-              );
-            }}
-          >
+          <TouchableOpacity onPress={onSubmit}>
             <View
               style={{
                 flexDirection: 'row',

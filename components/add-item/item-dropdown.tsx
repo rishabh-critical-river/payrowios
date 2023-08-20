@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from '@/styles/add-item';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-
+import React from "react";
+import styles from "@/styles/add-item";
+import { Text, View, Image, TouchableOpacity } from "react-native";
+import truncateText from "@/utils/truncateText";
 type DropdownTypes = {
   name: string;
   active: boolean;
@@ -19,24 +19,24 @@ const ItemDropdownButton = ({
     <TouchableOpacity style={styles.containers} onPress={onPress}>
       <View
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'row',
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "row",
         }}
       >
-        <Text style={{ fontWeight: '600', flex: 1 }} numberOfLines={1}>
-          {name}
+        <Text style={{ fontWeight: "600", flex: 1 }} numberOfLines={1}>
+          {truncateText(name, 23)}
         </Text>
         {quantity > 0 && (
           <View style={styles.badge}>
-            <Text style={{ textAlign: 'center' }}>{`+${quantity} items`}</Text>
+            <Text style={{ textAlign: "center" }}>{`+${quantity} items`}</Text>
           </View>
         )}
         <Image
           source={
             active
-              ? require('@/assets/icons/upload.png')
-              : require('@/assets/icons/dropdown.png')
+              ? require("@/assets/icons/upload.png")
+              : require("@/assets/icons/dropdown.png")
           }
           style={{ width: 16, height: 16 }}
         />

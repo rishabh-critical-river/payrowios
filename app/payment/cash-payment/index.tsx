@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { PaymentMode } from '@/apis/enums';
@@ -21,12 +22,16 @@ import useStorageData from '@/apis/hooks/use-storage-data';
 import orders from '@/apis/mutations/products/orders';
 import percentange from '@/hooks/lib/percentange';
 import { useDispatch } from 'react-redux';
+import useModal from '@/hooks/use-modal';
+import keyValidation from '@/hooks/lib/num-characters';
 
 /**
  * Cash Payment Screen
  */
 
 function CashPayment() {
+  const { setSnackbarModal } = useModal();
+
   const router = useRouter();
 
   const [cash, setCash] = React.useState('');
@@ -43,23 +48,20 @@ function CashPayment() {
   // console.log({ withToken });
   const [orderMeta] = React.useContext(OrderMetaContext);
 
-  console.log({ orderMeta });
   const onPayByCash = React.useCallback(async () => {
     if (user) {
       try {
-        const _purchaseBreakdown = state.purchaseBreakdown.service.map(
-          (item) => {
-            return {
-              serviceCode: item.serviceCode,
-              serviceCat: item.serviceCat,
-              englishName: item.englishName,
-              arabicName: item.arabicName,
-              quantity: item.quantity,
-              transactionAmount: item.transactionAmount,
-              totalAmount: item.totalAmount,
-            };
-          }
-        );
+        const services = state.purchaseBreakdown.service.map((item) => {
+          return {
+            serviceCode: '10000',
+            serviceCat: item.serviceCat,
+            englishName: item.englishName,
+            arabicName: item.arabicName || '',
+            quantity: item.quantity,
+            transactionAmount: item.transactionAmount,
+            totalAmount: item.totalAmount,
+          };
+        });
 
         const payload = {
           storeId: user?.storeId,
@@ -77,9 +79,32 @@ function CashPayment() {
           distributorId: 'MANZ101',
           userId: user?.userId,
           mainMerchantId: user?.merchantId,
-          purchaseBreakdown: _purchaseBreakdown,
+          purchaseBreakdown: { service: services },
         };
-        // console.log('Ready To Pay', { payload });
+
+        // const payload = {
+        //   storeId: user?.storeId,
+        //   orderNumber: orderMeta.orderNumber,
+        //   channel: PaymentMode.CASHPAYMENT,
+        //   merchantPhone: user?.mobileNumber,
+        //   posType: 'pos',
+        //   posId: user?.userId,
+        //   posEmail: user?.emailId,
+        //   posMobile: user?.mobileNumber,
+        //   paymentDate: new Date().toISOString(),
+        //   purchaseBreakdown: {
+        //     service: services,
+        //   },
+        //   totalTaxAmount: taxAmount,
+        //   totalAmount: finalAmount,
+        //   toggleExpiration: true,
+        //   distributorId: 'MANZ101',
+        //   userId: user?.userId,
+        //   mainMerchantId: user?.merchantId,
+        // };
+
+        console.log('Ready To Pay', payload);
+        // console.log('Ready To Pay', payload.purchaseBreakdown);
         const { data } = await orders(payload, withToken?.token);
         console.log(data);
         const params = {
@@ -145,10 +170,11 @@ function CashPayment() {
             </View>
             <View
               style={{
-                borderBottomWidth: 1,
-                borderColor: '#4b50504d',
+                // borderBottomWidth: 1,
+                // borderColor: "#4b5050",
+                // borderStyle: "dotted",
 
-                paddingBottom: 30,
+                // paddingBottom: 30,
                 marginLeft: 32,
                 marginRight: 32,
               }}
@@ -282,6 +308,7 @@ function CashPayment() {
                   />
                 </TouchableOpacity>
               </View>
+
               <View
                 style={{
                   borderWidth: 1,
@@ -340,7 +367,28 @@ function CashPayment() {
               </View>
             </View>
           </View>
+          <View
+            style={{
+              width: 296,
 
+              marginTop: 32,
+
+              alignSelf: 'center',
+              flexDirection: 'row',
+              gap: 3,
+            }}
+          >
+            {Array.from({ length: 60 }).map((_, index) => (
+              <View
+                key={index}
+                style={{
+                  backgroundColor: '#4B5050E5',
+                  width: 2,
+                  height: 1.2,
+                }}
+              ></View>
+            ))}
+          </View>
           <View style={{ backgroundColor: 'white' }}>
             <View style={{ alignSelf: 'center', marginTop: 20 }}>
               <Text
@@ -369,7 +417,7 @@ function CashPayment() {
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
-                    marginBottom: 8,
+                    // marginBottom: 8,
                   }}
                   placeholder="Total Amount"
                   editable={false}
@@ -384,7 +432,7 @@ function CashPayment() {
                     marginLeft: 5,
                     lineHeight: 20,
                     opacity: 0.7,
-                    marginBottom: 4,
+                    // marginBottom: 4,
                   }}
                 >
                   AED
@@ -397,7 +445,7 @@ function CashPayment() {
                   backgroundColor: '#4B505099',
 
                   width: 296,
-                  height: 1.5,
+                  height: 1,
                   opacity: 0.7,
                   alignSelf: 'center',
                 }}
@@ -430,7 +478,7 @@ function CashPayment() {
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
-                    marginBottom: 8,
+                    // marginBottom: 8,
                   }}
                   placeholder="Total Amount"
                   // editable={false}
@@ -445,7 +493,7 @@ function CashPayment() {
                     marginLeft: 5,
                     lineHeight: 20,
                     opacity: 0.7,
-                    marginBottom: 4,
+                    // marginBottom: 4,
                   }}
                 >
                   AED
@@ -458,7 +506,7 @@ function CashPayment() {
                   backgroundColor: '#4B505099',
 
                   width: 296,
-                  height: 1.5,
+                  height: 1,
                   opacity: 0.7,
                   alignSelf: 'center',
                 }}
@@ -491,7 +539,7 @@ function CashPayment() {
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
-                    marginBottom: 8,
+                    // marginBottom: 8,
                   }}
                   placeholder="Cash Received"
                   value={cash}
@@ -506,7 +554,7 @@ function CashPayment() {
                     marginLeft: 5,
                     lineHeight: 20,
                     opacity: 0.7,
-                    marginBottom: 4,
+                    // marginBottom: 4,
                   }}
                 >
                   AED
@@ -518,7 +566,7 @@ function CashPayment() {
                 style={{
                   backgroundColor: '#4B505099',
                   width: 296,
-                  height: 1.5,
+                  height: 1,
                   opacity: 0.7,
                   alignSelf: 'center',
                 }}
@@ -626,8 +674,19 @@ function CashPayment() {
               onPress={() => {
                 // router.push('/payment/cash-payment/cash-invoice');
                 // onPayByCash();
-                onPayByCash();
+                if (!(cash && Number(cash) >= Number(finalAmount))) {
+                  setSnackbarModal({
+                    content:
+                      'Received amount should not be lower than Total amount inc VAT',
+                    width: 'auto',
+                  });
+                } else {
+                  onPayByCash();
+                }
               }}
+              // disabled={
+              //   !cash || Number(cash) < Number(finalAmount) ? true : false
+              // }
             >
               <View style={styles.buttonContent}>
                 <View style={{ justifyContent: 'center', marginLeft: 16 }}>

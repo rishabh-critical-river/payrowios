@@ -27,33 +27,30 @@ export const OrderMetaContext = React.createContext<OrderMetaContextType>([
  * Payment mode provider
  */
 const OrderMetaProvider = ({ children }: React.PropsWithChildren<{}>) => {
-  const { user } = useStorageData('user', { decode: true });
   const _ref = React.useRef(false);
+  const { user } = useStorageData('user', { decode: true });
+  const state = React.useMemo(() => {
+    return {
+      date: moment().format('DD-MMM-YY'),
+      orderNumber: keyValidation(16),
+      user: {
+        merchantId: user?.merchantId,
+      },
+    };
+  }, [user?.merchantId]); // eslint-disable-line
 
-  const [orderMeta, updateOrderMeta] = React.useState({
-    date: moment().format('DD-MMM-YY'),
-    orderNumber: keyValidation(12),
-    user: {
-      merchantId: user?.merchantId,
-    },
-  });
+  const [orderMeta, updateOrderMeta] = React.useState(state);
 
   React.useEffect(() => {
     _ref.current = true;
     if (_ref.current) {
-      updateOrderMeta({
-        date: moment().format('DD-MMM-YY'),
-        orderNumber: keyValidation(12),
-        user: {
-          merchantId: user?.merchantId,
-        },
-      });
+      updateOrderMeta(state);
     }
 
     return () => {
       _ref.current = false;
     };
-  }, [user]);
+  }, [user, state]);
 
   return (
     <OrderMetaContext.Provider value={[orderMeta, updateOrderMeta]}>

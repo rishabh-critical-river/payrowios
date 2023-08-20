@@ -39,7 +39,6 @@ const apps = [
     value: SharingApps.SMS,
   },
 ];
-
 function CardInvoice() {
   const params = useLocalSearchParams();
   // console.log({ params });
@@ -74,9 +73,9 @@ function CardInvoice() {
   const share = React.useCallback(async () => {
     console.log(user?.token);
     console.log(params?.orderNumber);
-    const { data } = await generateInvoice(params?.orderNumber, user?.token);
-    console.log({ data });
-    const url = data?.mesaage;
+    const { data } = await generateInvoice('27372632122299', user?.token);
+    console.log(data);
+    const url = data?.message;
     switch (selectedApp) {
       case SharingApps.WHATSAPP: {
         const mobile = inputs.phone;
@@ -396,7 +395,7 @@ function CardInvoice() {
                 backgroundColor: 'white',
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
-                flex: 0.41,
+                flex: 0.5,
               }}
             >
               <View style={{ flex: 1 }}>
@@ -674,8 +673,8 @@ function CardInvoice() {
                 style={{
                   marginLeft: 32,
                   marginRight: 32,
-                  marginTop: 42,
-                  marginBottom: 32,
+                  // marginTop: 42,
+                  // marginBottom: 32,
                 }}
                 onPress={share}
               >
@@ -683,6 +682,62 @@ function CardInvoice() {
                   <Text style={styles.buttonText}>SHARE</Text>
                   <View style={styles.arrowIcon}>
                     <AntDesign name="arrowright" size={22} color="white" />
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.homebtn}
+                onPress={() => {
+                  // navigation.navigate("HomeScreen");
+                  router.push('/home/');
+                }}
+              >
+                <View
+                  style={{
+                    borderWidth: 0.5,
+                    borderColor: '#B2B2B2',
+                    borderRadius: 8,
+                    backgroundColor: '#FFFFFF',
+
+                    height: 48,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        paddingLeft: 16,
+                        fontWeight: '500',
+                        lineHeight: 24,
+                        justifyContent: 'center',
+                        color: '#4C4C4C',
+                        letterSpacing: 0.1,
+                        flex: 1,
+                      }}
+                    >
+                      HOME
+                    </Text>
+                    <View
+                      style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginRight: 16,
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <AntDesign
+                          name="arrowright"
+                          size={24}
+                          color="#4C4C4C"
+                        />
+                      </View>
+                    </View>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -769,7 +824,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   modalContainer: {
-    flex: 0.8,
+    flex: 1,
     justifyContent: 'center',
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
@@ -807,6 +862,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 16,
     width: '80%',
+  },
+  homebtn: {
+    alignSelf: 'center',
+    marginTop: 16,
+    width: '80%',
+
+    marginBottom: 32,
   },
   buttonContent: {
     borderWidth: 0.6,
