@@ -2,7 +2,7 @@ import api from '@/apis/config';
 
 type Response = {
   success: boolean;
-  mesaage: string;
+  message: string;
 };
 
 /**

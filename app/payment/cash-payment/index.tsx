@@ -23,6 +23,7 @@ import orders from '@/apis/mutations/products/orders';
 import percentange from '@/hooks/lib/percentange';
 import { useDispatch } from 'react-redux';
 import useModal from '@/hooks/use-modal';
+import keyValidation from '@/hooks/lib/num-characters';
 
 /**
  * Cash Payment Screen
@@ -50,19 +51,17 @@ function CashPayment() {
   const onPayByCash = React.useCallback(async () => {
     if (user) {
       try {
-        const _purchaseBreakdown = state.purchaseBreakdown.service.map(
-          (item) => {
-            return {
-              serviceCode: item.serviceCode,
-              serviceCat: item.serviceCat,
-              englishName: item.englishName,
-              arabicName: item.arabicName,
-              quantity: item.quantity,
-              transactionAmount: item.transactionAmount,
-              totalAmount: item.totalAmount,
-            };
-          }
-        );
+        const services = state.purchaseBreakdown.service.map((item) => {
+          return {
+            serviceCode: '10000',
+            serviceCat: item.serviceCat,
+            englishName: item.englishName,
+            arabicName: item.arabicName || '',
+            quantity: item.quantity,
+            transactionAmount: item.transactionAmount,
+            totalAmount: item.totalAmount,
+          };
+        });
 
         const payload = {
           storeId: user?.storeId,
@@ -80,9 +79,32 @@ function CashPayment() {
           distributorId: 'MANZ101',
           userId: user?.userId,
           mainMerchantId: user?.merchantId,
-          purchaseBreakdown: _purchaseBreakdown,
+          purchaseBreakdown: { service: services },
         };
-        // console.log('Ready To Pay', { payload });
+
+        // const payload = {
+        //   storeId: user?.storeId,
+        //   orderNumber: orderMeta.orderNumber,
+        //   channel: PaymentMode.CASHPAYMENT,
+        //   merchantPhone: user?.mobileNumber,
+        //   posType: 'pos',
+        //   posId: user?.userId,
+        //   posEmail: user?.emailId,
+        //   posMobile: user?.mobileNumber,
+        //   paymentDate: new Date().toISOString(),
+        //   purchaseBreakdown: {
+        //     service: services,
+        //   },
+        //   totalTaxAmount: taxAmount,
+        //   totalAmount: finalAmount,
+        //   toggleExpiration: true,
+        //   distributorId: 'MANZ101',
+        //   userId: user?.userId,
+        //   mainMerchantId: user?.merchantId,
+        // };
+
+        console.log('Ready To Pay', payload);
+        // console.log('Ready To Pay', payload.purchaseBreakdown);
         const { data } = await orders(payload, withToken?.token);
         console.log(data);
         const params = {
