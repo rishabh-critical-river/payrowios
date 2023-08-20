@@ -13,13 +13,14 @@ const countries = [{ country: "TRANSACTION ID" }, { country: "BY DATE" }];
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
-function QRCode({ navigation }:any) {
+function QRCode({ navigation }: any) {
   const router = useRouter();
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -152,14 +153,14 @@ function QRCode({ navigation }:any) {
                   }}
                 />
                 <Image
-                    source={require("@/assets/icons/gmail.png")}
+                  source={require("@/assets/icons/gmail.png")}
                   style={{
                     width: 52,
                     height: 52,
                   }}
                 />
                 <Image
-                    source={require("@/assets/icons/chat.png")}
+                  source={require("@/assets/icons/chat.png")}
                   style={{
                     width: 52,
                     height: 52,
@@ -260,7 +261,7 @@ function QRCode({ navigation }:any) {
               }}
               onPress={() => {
                 // navigation.navigate("ConfirmationInvoice");
-                router.push("/payment/pay-by-qr-code/confirmation-invoice")
+                router.push("/payment/pay-by-qr-code/confirmation-invoice");
                 toggleModal();
               }}
             >
@@ -277,7 +278,7 @@ function QRCode({ navigation }:any) {
           style={styles.resendCode}
           onPress={() => {
             // navigation.navigate("HomeScreen");
-            router.push("/home/")
+            router.push("/home/");
           }}
         >
           <View

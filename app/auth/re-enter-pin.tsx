@@ -1,6 +1,8 @@
 import useCreatePin from "@/apis/hooks/use-create-pin";
 import OTPInput from "@/components/otp-input";
+import useModal from "@/hooks/use-modal";
 import { Params } from "@/typings/params";
+import getErrorString from "@/utils/getErrorString";
 import { AntDesign } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useRef } from "react";
@@ -16,9 +18,7 @@ import {
 function ReEnterPin() {
   const router = useRouter();
   const params = useLocalSearchParams<Params>();
-
-  console.log({ params });
-
+  const { setSnackbarModal } = useModal();
   const { onChangeState, onConfirmPin, state } = useCreatePin();
 
   return (
@@ -72,7 +72,16 @@ function ReEnterPin() {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            onConfirmPin();
+            onConfirmPin().catch((err) => {
+              setSnackbarModal({
+                content: getErrorString(err),
+                width: 300,
+              });
+              router.push({
+                pathname: "/auth/create-pin",
+                params: params,
+              });
+            });
             // navigation.navigate('EnterPins');
             // router.push('/auth/enter-pin');
           }}
