@@ -1,21 +1,17 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   ScrollView,
   Image,
-  Button,
   TouchableOpacity,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-function Contact({ navigation }:any) {
-    const router = useRouter();
+} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+
+function Contact() {
+  const router = useRouter();
   return (
     <>
       <View style={styles.container}>
@@ -23,29 +19,27 @@ function Contact({ navigation }:any) {
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
-          <TouchableOpacity
-          onPress={router.back}
-          >
-          <Image
-           source={require('@/assets/icons/arrow_back.png')}
-            style={{
-              width: 16.03,
-              height: 16.03,
-              marginRight: 35.98,
-            }}
-          />
+          <TouchableOpacity onPress={router.back}>
+            <Image
+              source={require('@/assets/icons/arrow_back.png')}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
           </TouchableOpacity>
           <Text
             style={{
               fontSize: 20,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: "#4B5050",
+              color: '#4B5050',
             }}
           >
             Contact PayRow
@@ -55,7 +49,7 @@ function Contact({ navigation }:any) {
           style={{
             width: 150,
             height: 48.3,
-            alignSelf: "center",
+            alignSelf: 'center',
             marginTop: 24,
             marginBottom: 35,
           }}
@@ -81,7 +75,7 @@ function Contact({ navigation }:any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("contactus");
-                router.push("/product-selection/contact/contact-us/")
+                router.push('/product-selection/contact/contact-us/');
               }}
               style={styles.box}
             >
@@ -111,7 +105,7 @@ function Contact({ navigation }:any) {
             <TouchableOpacity 
               onPress={() => {
                 // navigation.navigate("TapToPay");
-                router.push("/product-selection/contact/void/")
+                router.push('/product-selection/contact/void/');
               }}
               style={styles.box}
             >
@@ -126,7 +120,7 @@ function Contact({ navigation }:any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("refund");
-                router.push("/product-selection/contact/refund/")
+                router.push('/product-selection/contact/refund/');
               }}
               style={styles.box}
             >
@@ -141,18 +135,18 @@ function Contact({ navigation }:any) {
           </ScrollView>
         </View>
       </View>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: 'white' }}>
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginLeft: 75,
-            alignItems: "center",
+            alignItems: 'center',
             marginTop: 30,
             marginBottom: 17,
           }}
         >
           <Image
-             source={require("@/assets/logos/fab.png")}
+            source={require('@/assets/logos/fab.png')}
             style={{
               width: 72.15,
               height: 42,
@@ -160,7 +154,7 @@ function Contact({ navigation }:any) {
             }}
           />
           <Image
-            source={require("@/assets/icons/visa.png")}
+            source={require('@/assets/icons/visa.png')}
             style={{
               width: 52.15,
               height: 33,
@@ -168,7 +162,7 @@ function Contact({ navigation }:any) {
             }}
           />
           <Image
-            source={require("@/assets/icons/mastercard.png")}
+            source={require('@/assets/icons/mastercard.png')}
             style={{
               width: 51.62,
               height: 32,
@@ -178,9 +172,9 @@ function Contact({ navigation }:any) {
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             paddingBottom: 15,
           }}
         >
@@ -195,13 +189,13 @@ export default Contact;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 33,
     marginBottom: 35,
   },
@@ -213,10 +207,10 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
 
-    color: "#4B5050",
+    color: '#4B5050',
     lineHeight: 20,
     letterSpacing: 0.1,
     marginLeft: 16,
@@ -224,76 +218,76 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#838c95",
-    textAlign: "center",
+    fontWeight: '500',
+    color: '#838c95',
+    textAlign: 'center',
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: "#4B505040",
+    borderColor: '#4B505040',
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 48,
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   button: {
     marginLeft: 165,
-    backgroundColor: "#72ac47",
-    color: "black",
+    backgroundColor: '#72ac47',
+    color: 'black',
     padding: 10,
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: "pointer",
+    cursor: 'pointer',
     borderRadius: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   arrow: {
-    display: "flex",
-    position: "relative",
+    display: 'flex',
+    position: 'relative',
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: 'white',
     width: 40,
     height: 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   arrowTriangle: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderRightWidth: 1,
-    transform: [{ rotate: "45deg" }],
+    transform: [{ rotate: '45deg' }],
     right: 9,
     top: 19,
   },
   arrowTriangleRight: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderLeftWidth: 1,
-    transform: [{ rotate: "-45deg" }],
+    transform: [{ rotate: '-45deg' }],
     right: 9,
     top: 36,
   },

@@ -1,5 +1,5 @@
-import { useRouter } from "expo-router";
-import React, { useState, useEffect } from "react";
+import { useRouter } from 'expo-router';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
   StyleSheet,
-} from "react-native";
+} from 'react-native';
 
 interface Props {
   navigation: any;
@@ -30,7 +30,7 @@ const TaptoPay: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     if (secondsLeft === 24) {
       // navigation.navigate("EnterPin");
-      router.push("/payment/tap-to-pay/EnterPin")
+      // router.push("/payment/tap-to-pay/EnterPin")
     }
   }, [secondsLeft, navigation]);
 
@@ -39,39 +39,39 @@ const TaptoPay: React.FC<Props> = ({ navigation }) => {
       <View style={styles.container}>
         <Image
           style={styles.logo}
-          source={require("@/assets/onboarding/payrowLogo.png")}
+          source={require('@/assets/onboarding/payrowLogo.png')}
         />
 
         <Text style={styles.text}>Tap Your Card To Pay</Text>
         <Image
-          source={require("@/assets/images/animation2.png")}
+          source={require('@/assets/images/animation2.png')}
           style={{
             width: 240,
             height: 240,
-            alignSelf: "center",
+            alignSelf: 'center',
             marginTop: 24,
           }}
         />
         <View
           style={{
-            flexDirection: "row",
-            alignSelf: "center",
+            flexDirection: 'row',
+            alignSelf: 'center',
             marginTop: 20,
-            alignItems: "center",
+            alignItems: 'center',
           }}
         >
           <Text style={styles.secondsText}>Seconds Left</Text>
           <Text style={styles.secondsCounter}>{secondsLeft}</Text>
         </View>
       </View>
-      <View style={{ backgroundColor: "white" }}>
-        <View style={{ alignSelf: "center", marginTop: 44 }}>
+      <View style={{ backgroundColor: 'white' }}>
+        <View style={{ alignSelf: 'center', marginTop: 44 }}>
           <Text style={styles.amountText}>Amount</Text>
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <TextInput
@@ -87,13 +87,13 @@ const TaptoPay: React.FC<Props> = ({ navigation }) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("EnterPin");
+            navigation.navigate('EnterPin');
           }}
           style={styles.button}
         >
           <Text style={styles.buttonText}>CANCEL</Text>
           <Image
-            source={require("@/assets/icons/clear.png")}
+            source={require('@/assets/icons/clear.png')}
             style={styles.clearIcon}
           />
         </TouchableOpacity>
@@ -109,56 +109,56 @@ export default TaptoPay;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 33,
   },
   text: {
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 24,
     letterSpacing: 0.1,
-    textAlign: "center",
-    color: "#4B505099",
+    textAlign: 'center',
+    color: '#4B505099',
     marginTop: 20,
   },
   secondsText: {
     fontSize: 12,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 16,
     letterSpacing: 0.4,
-    color: "#4B5050D9",
+    color: '#4B5050D9',
     marginRight: 6,
   },
   secondsCounter: {
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 24,
     letterSpacing: 0.1,
-    color: "#4B5050",
+    color: '#4B5050',
     marginRight: 6,
   },
   amountText: {
     marginBottom: 5,
     fontSize: 12,
-    color: "#4B5050",
-    fontWeight: "400",
+    color: '#4B5050',
+    fontWeight: '400',
   },
   amountInput: {
-    color: "#4B5050",
-    fontWeight: "600",
+    color: '#4B5050',
+    fontWeight: '600',
     fontSize: 20,
     marginLeft: 5,
     opacity: 0.7,
     marginBottom: 4,
   },
   currencyText: {
-    color: "#4B505099",
-    fontWeight: "400",
+    color: '#4B505099',
+    fontWeight: '400',
     letterSpacing: 0.25,
     fontSize: 14,
     marginLeft: 5,
@@ -167,43 +167,43 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   divider: {
-    backgroundColor: "#4B505099",
+    backgroundColor: '#4B505099',
     width: 296,
     height: 1.5,
     opacity: 0.7,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   button: {
     borderWidth: 1,
-    borderColor: "#4B505040",
+    borderColor: '#4B505040',
     borderRadius: 8,
     marginTop: 30.4,
     marginBottom: 20.4,
     width: 296,
     height: 48,
-    alignSelf: "center",
-    backgroundColor: "#4B5050",
+    alignSelf: 'center',
+    backgroundColor: '#4B5050',
   },
   buttonText: {
-    fontWeight: "500",
+    fontWeight: '500',
     fontSize: 16,
     lineHeight: 24,
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     marginLeft: 16,
     marginTop: 12,
   },
   clearIcon: {
     width: 13.97,
     height: 13.97,
-    position: "absolute",
+    position: 'absolute',
     right: 16,
     top: 16,
   },
   footerText: {
     fontSize: 12,
-    backgroundColor: "white",
-    color: "#7f7f7f",
-    textAlign: "center",
+    backgroundColor: 'white',
+    color: '#7f7f7f',
+    textAlign: 'center',
     paddingBottom: 15,
   },
 });

@@ -12,6 +12,7 @@ const PaymentSummary = () => {
 
   const services = state?.purchaseBreakdown?.service;
 
+  console.log(services);
   return (
     <>
       <View
@@ -252,9 +253,9 @@ const PaymentSummary = () => {
                       lineHeight: 20,
                     }}
                   >
-                    {(Number(item.quantity) * Number(item.totalAmount)).toFixed(
-                      2
-                    )}{' '}
+                    {(
+                      Number(item.quantity) * Number(item.transactionAmount)
+                    ).toFixed(2)}{' '}
                     AED
                   </Text>
                 </View>

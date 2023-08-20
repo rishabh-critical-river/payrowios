@@ -2,15 +2,23 @@ import api from '@/apis/config';
 
 type Response = {
   success: boolean;
-  data: string;
+  mesaage: string;
 };
 
 /**
  * Generate Invoice by invoice number
  */
-const generateInvoice = async (invoiceNumber: string | number) => {
+const generateInvoice = async (
+  invoiceNumber: string | number,
+  token: string
+) => {
   const response = await api.get<Response>(
-    `/api/report/generate/invoice/${invoiceNumber}`
+    `/api/report/generate/invoice/${invoiceNumber}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
   return response;
 };
