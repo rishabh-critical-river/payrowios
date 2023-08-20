@@ -1,8 +1,8 @@
-import React from 'react';
-import styles from '@/styles/add-item';
-import { FontAwesome } from '@expo/vector-icons';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-
+import React from "react";
+import styles from "@/styles/add-item";
+import { FontAwesome } from "@expo/vector-icons";
+import { Text, View, Image, TouchableOpacity } from "react-native";
+import truncateText from "@/utils/truncateText";
 type Item = {
   name: string;
   price: number;
@@ -16,48 +16,49 @@ const ListItem = ({ name, price, quantity, onAdd, onRemove }: Item) => {
     <View style={styles.itemContainer}>
       <View
         style={{
-          flexDirection: 'row',
+          flexDirection: "row",
         }}
       >
-        <View style={{ flex: 1, flexDirection: 'row', marginTop: 6 }}>
+        <View style={{ flex: 1, flexDirection: "row", marginTop: 6 }}>
           <Image
             style={{ width: 58, height: 55, marginLeft: 14 }}
-            source={require('@/assets/icons/ellipse.png')}
+            source={require("@/assets/icons/ellipse.png")}
           />
           <View
             style={{
-              flexDirection: 'column',
+              flexDirection: "column",
               marginLeft: 11,
+              marginTop: 4,
             }}
           >
             <Text
               style={{
                 marginBottom: 17,
-                color: '#4B5050',
+                color: "#4B5050",
                 fontSize: 14,
-                fontWeight: '500',
+                fontWeight: "500",
               }}
             >
               {price.toFixed(2)} AED
             </Text>
             <Text
               style={{
-                color: '#4B5050',
+                color: "#4B5050",
                 fontSize: 12,
-                fontWeight: '400',
+                fontWeight: "400",
               }}
             >
-              {name}
+              {truncateText(name, 16)}
             </Text>
           </View>
         </View>
         <View>
           <View
             style={{
-              flexDirection: 'row',
+              flexDirection: "row",
               marginBottom: 14,
               marginTop: 6,
-              justifyContent: 'space-between',
+              justifyContent: "space-between",
               marginRight: 15,
               marginLeft: 10,
             }}
@@ -66,17 +67,17 @@ const ListItem = ({ name, price, quantity, onAdd, onRemove }: Item) => {
               <FontAwesome name="minus-circle" size={24} color="#4B5050" />
             </TouchableOpacity>
 
-            <Text>{quantity}</Text>
+            <Text style={{ marginTop: 3 }}>{quantity}</Text>
 
             <TouchableOpacity onPress={onAdd}>
               <FontAwesome name="plus-circle" size={24} color="#4B5050" />
             </TouchableOpacity>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             <Text
               style={{
-                color: '#4B5050',
-                fontWeight: '500',
+                color: "#4B5050",
+                fontWeight: "500",
                 fontSize: 10,
                 letterSpacing: 0.1,
                 marginTop: 2,
@@ -86,8 +87,8 @@ const ListItem = ({ name, price, quantity, onAdd, onRemove }: Item) => {
             </Text>
             <Text
               style={{
-                color: '#4B5050',
-                fontWeight: '500',
+                color: "#4B5050",
+                fontWeight: "500",
                 fontSize: 12,
                 letterSpacing: 0.1,
                 marginRight: 15,
