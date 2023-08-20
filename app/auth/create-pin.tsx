@@ -63,7 +63,7 @@ function CreatePin() {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            if (pin && pin.length !== 4) {
+            if (pin.length < 4) {
               setSnackbarModal({
                 content: "Please enter 4 digit pin to proceed",
                 width: 300,
