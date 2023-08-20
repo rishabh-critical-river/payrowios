@@ -253,6 +253,11 @@ const ByDatePageScreen = () => {
           }}
         />
         <View style={styles.container}>
+          {/* {
+            transactionList.length>0
+            ?// Loading Show
+            :// List Show
+          } */}
           <FlatList
             data={transactionList}
             renderItem={({ item, index }) => {
