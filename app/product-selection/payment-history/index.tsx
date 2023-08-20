@@ -232,7 +232,7 @@ function PaymentHistory({ navigation }: any) {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate("historyMethods");
-              // router.push("")
+              router.push("/product-selection/payment-history/daily-report/")
             }}
             style={styles.box}
           >
@@ -252,7 +252,7 @@ function PaymentHistory({ navigation }: any) {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate("historyMethods");
-              // router.push("")
+              router.push("/product-selection/payment-history/monthly-report/")
             }}
             style={styles.box}
           >
