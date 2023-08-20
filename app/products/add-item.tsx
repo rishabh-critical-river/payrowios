@@ -24,12 +24,16 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import axios from "axios";
 import useProduct from "@/store/hooks/use-product";
 import getProducts from "@/apis/queries/product/get-product";
-
+import useModal from "@/hooks/use-modal";
+import storage from "@/hooks/lib/storage";
 function AddItems() {
   const router = useRouter();
   const { height } = Dimensions.get("window");
   const { user } = useStorageData("user", { decode: false });
 
+  const auth = storage.getLocalData("auth");
+  console.log(auth);
+  const { setSnackbarModal } = useModal();
   const safeRef = React.useRef<boolean>(false);
   const [loading, setLoading] = React.useState(false);
   const {
@@ -45,7 +49,7 @@ function AddItems() {
   /**
    * Fetch Products from API
    */
-
+  //   const auth = await storage.getLocalData('auth');
   const fetchProducts = React.useCallback(async () => {
     setLoading(true);
     if (user?.token) {
@@ -404,6 +408,14 @@ function AddItems() {
             //   orderDetails,
             //   itemsWithQuantity,
             // });
+
+            if (Number(state?.total?.toFixed(2)) <= 0) {
+              setSnackbarModal({
+                content: "Please select atleast one item",
+                width: 300,
+              });
+              return;
+            }
             router.push("/products/payment-summary");
             // router.push({
             //   pathname: '/products/payment-summary',
