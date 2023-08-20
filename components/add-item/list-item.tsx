@@ -33,7 +33,7 @@ const ListItem = ({ name, price, quantity, onAdd, onRemove }: Item) => {
           >
             <Text
               style={{
-                marginBottom: 17,
+                marginBottom: 14.5,
                 color: "#4B5050",
                 fontSize: 14,
                 fontWeight: "500",
