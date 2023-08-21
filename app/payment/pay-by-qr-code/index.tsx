@@ -32,14 +32,16 @@ function QRCode({ navigation }: any) {
             alignItems: "center",
           }}
         >
-          <Image
-            source={require("@/assets/icons/arrow_back.png")}
-            style={{
-              width: 16.03,
-              height: 16.03,
-              marginRight: 35.98,
-            }}
-          />
+          <TouchableOpacity onPress={router.back}>
+            <Image
+              source={require("@/assets/icons/arrow_back.png")}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 20,
@@ -49,7 +51,7 @@ function QRCode({ navigation }: any) {
               color: "#4B5050",
             }}
           >
-            Daily Report
+            Pay by QR Code
           </Text>
         </View>
         <Image
@@ -256,7 +258,7 @@ function QRCode({ navigation }: any) {
                 marginLeft: 32,
 
                 width: "80%",
-                marginBottom: 40,
+                marginBottom: 16,
                 marginTop: 25,
               }}
               onPress={() => {

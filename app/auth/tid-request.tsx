@@ -1,4 +1,5 @@
 import React from "react";
+import useModal from "@/hooks/use-modal";
 import {
   StyleSheet,
   Text,
@@ -7,7 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import useInputs from "@/hooks/use-inputs";
 import createContact from "@/apis/mutations/contact/contact-us";
@@ -17,42 +18,43 @@ import { ScrollView } from "react-native-gesture-handler";
 function ContactUs() {
   const { user } = useStorageData("user");
   const router = useRouter();
+  const { setSnackbarModal } = useModal();
 
   const [state, setState] = useInputs({
-    name: "",
+    // name: "",
     email: "",
-    message: "",
+    // message: "",
     mobileNumber: "",
   });
 
-  const onSubmit = React.useCallback(async () => {
-    if (user?.token) {
-      try {
-        const { data, status } = await createContact(
-          {
-            ...state,
-            mobileNumber: `971${state.mobileNumber}`,
-          },
-          user?.token
-        );
-        console.log("Response from contact ", data);
-        if (status === 200) {
-          router.push(
-            "/product-selection/contact/contact-us/register-complain"
-          );
-        }
-        console.log(state);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [state, user?.token]);
+  //   const onSubmit = React.useCallback(async () => {
+  //     if (user?.token) {
+  //       try {
+  //         const { data, status } = await createContact(
+  //           {
+  //             ...state,
+  //             mobileNumber: `971${state.mobileNumber}`,
+  //           },
+  //           user?.token
+  //         );
+  //         console.log("Response from contact ", data);
+  //         if (status === 200) {
+  //           router.push(
+  //             "/product-selection/contact/contact-us/register-complain"
+  //           );
+  //         }
+  //         console.log(state);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //   }, [state, user?.token]);
 
   const valid = React.useMemo(() => {
     if (
-      state.name.length > 0 &&
+      //   state.name.length > 0 &&
       state.email.length > 0 &&
-      state.message.length > 0 &&
+      //   state.message.length > 0 &&
       state.mobileNumber.length > 0
     ) {
       return true;
@@ -93,7 +95,7 @@ function ContactUs() {
               color: "#4B5050",
             }}
           >
-            Contact Us
+            Request TID
           </Text>
         </View>
 
@@ -107,7 +109,7 @@ function ContactUs() {
             flexShrink: 0,
           }}
         />
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -133,7 +135,7 @@ function ContactUs() {
             Leave us a message, we will get in touch with you as soon as
             possible
           </Text>
-        </View>
+        </View> */}
 
         <View style={{ alignSelf: "center", marginTop: 24 }}>
           <Text
@@ -146,7 +148,7 @@ function ContactUs() {
               height: 13,
             }}
           >
-            Name
+            Email
           </Text>
 
           <TextInput
@@ -158,9 +160,9 @@ function ContactUs() {
               borderColor: "#999999",
               borderBottomWidth: 1,
             }}
-            placeholder="Enter your name"
-            onChangeText={(text) => setState("name", text)}
-            value={state.name}
+            placeholder="Enter your email"
+            onChangeText={(text) => setState("email", text)}
+            value={state.email}
           />
         </View>
 
@@ -246,117 +248,22 @@ function ContactUs() {
             }}
           />
         </View>
-        <View style={{ alignSelf: "center", marginTop: 23, marginBottom: 31 }}>
-          <Text
-            style={{
-              fontSize: 12,
-              lineHeight: 12,
-              fontWeight: "400",
-              color: "#4B5050",
-              width: 296,
-              height: 13,
-            }}
-          >
-            Email
-          </Text>
-
-          <TextInput
-            style={{
-              color: "#333333",
-              fontWeight: "400",
-              fontSize: 16,
-              opacity: 0.7,
-              borderColor: "#999999",
-              borderBottomWidth: 1,
-            }}
-            placeholder="Enter your email"
-            onChangeText={(text) => setState("email", text)}
-            value={state.email}
-          />
-        </View>
-
-        <View
-          style={{
-            // flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              // flexDirection: "column",
-              // width: 296,
-              // height: 128.955,
-              borderRadius: 8,
-              borderWidth: 1,
-              borderStyle: "solid",
-              borderColor: "#B2B2B2",
-              // alignItems: 'center',
-            }}
-          >
-            <Text
-              style={{
-                marginLeft: 16,
-                marginRight: 16,
-                fontSize: 12,
-                fontWeight: "400",
-                lineHeight: 12,
-                marginTop: 8,
-                width: 264,
-                height: 13,
-                color: "#4B5050",
-                opacity: 0.8,
-              }}
-            >
-              Message
-            </Text>
-            <TextInput
-              multiline
-              style={{
-                marginLeft: 16,
-                marginRight: 16,
-                fontSize: 16,
-                fontWeight: "400",
-                lineHeight: 24,
-                width: 264,
-                height: 94,
-                color: "#333333",
-                // marginTop: 6,
-                letterSpacing: 0.25,
-              }}
-              onChangeText={(text) => setState("message", text)}
-              placeholder="Type your message here..."
-              maxLength={150}
-            >
-              {state.message}
-            </TextInput>
-          </View>
-          <Text
-            style={{
-              marginLeft: 32,
-              marginRight: 32,
-              fontSize: 12,
-              fontWeight: "400",
-              lineHeight: 12,
-              width: 296,
-              height: 13,
-              marginTop: 10.02,
-              color: "rgba(75, 80, 80, 0.70)",
-            }}
-          >
-            Maximum 150 words
-          </Text>
-        </View>
       </View>
       <View style={styles.footerText}>
         <TouchableOpacity
-          disabled={!valid}
+          //   disabled={!valid}
           // onPress={() => {
           //   // navigation.navigate("registercomplain");
           //   // router.push(
           //   //   '/product-selection/contact/contact-us/register-complain'
           //   // );
           // }}
-          onPress={onSubmit}
+          onPress={() => {
+            setSnackbarModal({
+              content: "request send successfully",
+              width: 200,
+            });
+          }}
         >
           <View
             style={{
@@ -398,6 +305,22 @@ function ContactUs() {
             </View>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/auth/login");
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>CANCEL</Text>
+          <Entypo
+            name="cross"
+            size={24}
+            style={{
+              marginRight: 16,
+            }}
+            color="#4B5050E5"
+          />
+        </TouchableOpacity>
         <Text
           style={{
             fontSize: 14,
@@ -427,5 +350,34 @@ const styles = StyleSheet.create({
     color: "#7f7f7f",
     textAlign: "center",
     paddingBottom: 15,
+  },
+  buttonText: {
+    fontWeight: "500",
+    fontSize: 16,
+    lineHeight: 24,
+    color: "#4B5050",
+    marginLeft: 16,
+    // marginTop: 12,
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: "#4B505040",
+    borderRadius: 8,
+    marginBottom: 16,
+    width: 296,
+    height: 48,
+    alignSelf: "center",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    // backgroundColor: "#4B5050",
+  },
+  clearIcon: {
+    width: 13.97,
+    height: 13.97,
+    position: "absolute",
+    right: 16,
+    top: 16,
   },
 });

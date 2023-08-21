@@ -17,12 +17,12 @@ import { useRouter } from "expo-router";
 import useCheckDevice from "@/apis/hooks/use-check-device";
 import Modal from "react-native-modal";
 import { Entypo } from "@expo/vector-icons";
-
+import useModal from "@/hooks/use-modal";
 function Login({ navigation }: any) {
   const router = useRouter();
   const { state, isValid, onChangeState, onCheckDevice } = useCheckDevice();
   console.log(state.alert);
-
+  const { setSnackbarModal } = useModal();
   const onCreateAccount = React.useCallback(async () => {
     router.push({
       pathname: "/auth/create-account",
@@ -30,6 +30,29 @@ function Login({ navigation }: any) {
         tid: state.tid,
         mobileNumber: state.mobileNumber,
       },
+    });
+  }, [state.tid, state.mobileNumber]);
+
+  const onCheckDeviceHandler = React.useCallback(async () => {
+    if (state.tid === "") {
+      setSnackbarModal({
+        content: "Please enter TID to proceed",
+        width: 250,
+      });
+      return;
+    }
+    if (state.mobileNumber === "") {
+      setSnackbarModal({
+        content: " Please enter mobile number to proceed",
+        width: 300,
+      });
+      return;
+    }
+    onCheckDevice().catch((err) => {
+      setSnackbarModal({
+        content: err,
+        width: 300,
+      });
     });
   }, [state.tid, state.mobileNumber]);
 
@@ -278,14 +301,15 @@ function Login({ navigation }: any) {
               Merchant TID
             </Text>
             <TextInput
+              keyboardType="numeric"
+              placeholder="TID Number"
+              placeholderTextColor="#4B5050"
               style={{
                 opacity: 0.7,
                 fontSize: 16,
                 fontWeight: "400",
                 borderBottomWidth: 1,
               }}
-              placeholder="TID Number"
-              keyboardType="numeric"
               maxLength={6}
               onChangeText={(value) => onChangeState("tid", value)}
               value={state.tid}
@@ -341,7 +365,7 @@ function Login({ navigation }: any) {
 
                   height: 24,
                   opacity: 0.7,
-                  marginRight: 4,
+                  marginRight: 8,
                   // width: '100%',
                 }}
                 // placeholder="Amount"
@@ -350,19 +374,20 @@ function Login({ navigation }: any) {
               </TextInput>
 
               <TextInput
+                placeholderTextColor="#4B5050"
                 style={{
                   fontWeight: "400",
                   fontSize: 16,
-                  width: 95,
+                  width: 100,
                   height: 24,
                   opacity: 0.7,
                 }}
-                placeholder="Amount"
+                placeholder="0561563669"
                 keyboardType="numeric"
                 maxLength={10}
                 value={state.mobileNumber}
                 onChangeText={(value) => onChangeState("mobileNumber", value)}
-              ></TextInput>
+              />
             </View>
             <View
               //horizontal line
@@ -383,8 +408,7 @@ function Login({ navigation }: any) {
               //   // navigation.navigate('Create Account');
               //   router.push('/auth/create-account');
               // }}
-              onPress={onCheckDevice}
-              disabled={!isValid}
+              onPress={onCheckDeviceHandler}
             >
               <View
                 style={{
@@ -444,7 +468,7 @@ function Login({ navigation }: any) {
           <View style={{ marginBottom: 16 }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                router.push("/auth/tid-request");
               }}
               style={{
                 borderWidth: 1,
@@ -471,7 +495,7 @@ function Login({ navigation }: any) {
                   marginLeft: 16,
                 }}
               >
-                Forgot TID?
+                REQUEST FOR TID
               </Text>
               <AntDesign
                 name="right"
@@ -489,7 +513,7 @@ function Login({ navigation }: any) {
           <View>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                router.push("/product-selection/contact/contact-us/");
               }}
               style={{
                 borderWidth: 1,
@@ -516,7 +540,7 @@ function Login({ navigation }: any) {
                   marginLeft: 16,
                 }}
               >
-                Contact us
+                CONTACT US
               </Text>
               <AntDesign
                 name="right"

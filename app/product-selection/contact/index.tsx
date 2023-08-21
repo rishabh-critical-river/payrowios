@@ -61,6 +61,7 @@ function Contact() {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("aboutPayrow");
+                router.push("/product-selection/contact/about-payrow/")
               }}
               style={styles.box}
             >
