@@ -10,18 +10,6 @@ const GetStartedScreen = () => {
   const { user } = useStorageData("user");
 
   const onStarted = React.useCallback(() => {
-<<<<<<< HEAD
-    if (user?.token) {
-      // router.push("/auth/enter-pin");
-      // router.push("/products/add-item");
-      // } else {
-      //   // Hello
-      // router.push("/auth/login");
-      // router.push("/products/add-item");
-      // router.push('/product-selection/payment-history/');
-      router.push("/product-selection/");
-    }
-=======
     // router.push("/auth/enter-pin");
     // router.push("/products/add-item");
     // } else {
@@ -30,13 +18,29 @@ const GetStartedScreen = () => {
     // router.push("/products/add-item");
     // router.push('/product-selection/payment-history/');
     // router.push("/product-selection/");
->>>>>>> d4c920ade2e445e16d373059047546786445272a
   }, [user]);
 
   return (
     <>
       <View style={styles.container}>
         <PayRowLogo />
+        <View
+          style={{
+            position: "absolute",
+            right: 16,
+            top: 20,
+          }}
+        >
+          <TouchableOpacity onPress={() => router.push("/product-selection/")}>
+            <Image
+              source={require("@/assets/icons/menu.png")}
+              style={{
+                width: 42,
+                height: 40,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
         <View
           style={{
             position: "absolute",
