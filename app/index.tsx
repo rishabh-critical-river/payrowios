@@ -29,6 +29,23 @@ const GetStartedScreen = () => {
         <View
           style={{
             position: "absolute",
+            right: 16,
+            top: 20,
+          }}
+        >
+          <TouchableOpacity onPress={() => router.push("/product-selection/")}>
+            <Image
+              source={require("@/assets/icons/menu.png")}
+              style={{
+                width: 42,
+                height: 40,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            position: "absolute",
             right: 0,
             top: 76,
           }}

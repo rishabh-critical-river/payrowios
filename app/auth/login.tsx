@@ -468,7 +468,7 @@ function Login({ navigation }: any) {
           <View style={{ marginBottom: 16 }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                router.push("/auth/tid-request");
               }}
               style={{
                 borderWidth: 1,
@@ -513,7 +513,7 @@ function Login({ navigation }: any) {
           <View>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                router.push("/product-selection/contact/contact-us/");
               }}
               style={{
                 borderWidth: 1,

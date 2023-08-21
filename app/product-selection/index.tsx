@@ -26,12 +26,7 @@ function HomeScreen({ navigation }: any) {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              // navigation.navigate("AddItem");
-              router.push("/products/add-item");
-            }}
-          >
+          <TouchableOpacity onPress={router.back}>
             <Image
               source={require("@/assets/icons/arrow_back.png")}
               style={{
@@ -104,11 +99,31 @@ function HomeScreen({ navigation }: any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("contact");
-                router.push("/product-selection/contact/")
+                router.push("/product-selection/contact/");
               }}
               style={styles.box}
             >
               <Text style={styles.homeBlocks}> CONTACT PAYROW </Text>
+              <Image
+                source={require("@/assets/icons/keyboard_arrow_right.png")}
+                style={{
+                  width: 7.41,
+                  height: 12,
+
+                  marginTop: 14,
+
+                  marginRight: 10.02,
+                }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                // navigation.navigate("contact");
+                // router.push("/product-selection/contact/");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> Edit PAYROW </Text>
               <Image
                 source={require("@/assets/icons/keyboard_arrow_right.png")}
                 style={{
