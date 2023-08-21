@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,19 +11,20 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
-} from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import Modal from "react-native-modal";
-import { useRouter } from "expo-router";
-import { PaymentMode, SharingApps } from "@/apis/enums";
-import useStorageData from "@/apis/hooks/use-storage-data";
-import PanelView from "@/components/view/PanelView";
-import sendUrl from "@/apis/mutations/order/send-url";
-import useShare from "@/hooks/use-share";
-import useProduct from "@/store/hooks/use-product";
-import percentange from "@/hooks/lib/percentange";
-import { OrderMetaContext } from "@/providers/context/order-meta";
-import orderByLink from "@/apis/mutations/products/by-link";
+} from 'react-native';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import Modal from 'react-native-modal';
+import { useRouter } from 'expo-router';
+import { PaymentMode, SharingApps } from '@/apis/enums';
+import useStorageData from '@/apis/hooks/use-storage-data';
+import PanelView from '@/components/view/PanelView';
+import sendUrl from '@/apis/mutations/order/send-url';
+import useShare from '@/hooks/use-share';
+import useProduct from '@/store/hooks/use-product';
+import percentange from '@/hooks/lib/percentange';
+import { OrderMetaContext } from '@/providers/context/order-meta';
+import orderByLink from '@/apis/mutations/products/by-link';
+import ShareModel from '@/components/share-model';
 
 type Response = {
   checkoutUrl: string;
@@ -31,18 +32,18 @@ type Response = {
 
 const apps = [
   {
-    name: "WhatsApp",
-    image: require("@/assets/icons/whatsapp.png"),
+    name: 'WhatsApp',
+    image: require('@/assets/icons/whatsapp.png'),
     value: SharingApps.WHATSAPP,
   },
   {
-    name: "Gmail",
-    image: require("@/assets/icons/gmail.png"),
+    name: 'Gmail',
+    image: require('@/assets/icons/gmail.png'),
     value: SharingApps.EMAIL,
   },
   {
-    name: "SMS",
-    image: require("@/assets/icons/chat.png"),
+    name: 'SMS',
+    image: require('@/assets/icons/chat.png'),
     value: SharingApps.SMS,
   },
 ];
@@ -53,15 +54,15 @@ function CashPayment() {
   const totalAmount = state.total;
   const taxAmount = percentange(5, Number(totalAmount));
   const finalAmount = totalAmount + taxAmount;
-  const { user } = useStorageData("user", { decode: true });
-  const { user: withToken } = useStorageData("user");
+  const { user } = useStorageData('user', { decode: true });
+  const { user: withToken } = useStorageData('user');
   // console.log({ withToken });
   const [response, setResponse] = useState<Response | null>(null);
   const [orderMeta] = React.useContext(OrderMetaContext);
 
   const [inputs, setInputs] = React.useState({
-    phone: "",
-    email: "",
+    phone: '',
+    email: '',
   });
 
   const { opneWhatsapp } = useShare();
@@ -103,7 +104,7 @@ function CashPayment() {
             console.log({ payload });
             const { data } = await sendUrl(payload, withToken?.token);
             setModalVisible(false);
-            router.push("/payment/pay-by-link/confirmation-invoice");
+            router.push('/payment/pay-by-link/confirmation-invoice');
             return data;
           } catch (error) {
             return null;
@@ -136,35 +137,35 @@ function CashPayment() {
     if (user) {
       try {
         const payload = {
-          username: "DED",
-          password: "k9WXdMG9U0IINHN",
+          username: 'DED',
+          password: 'k9WXdMG9U0IINHN',
           // orderNumber: 'DEDB686527222467224590',
           orderNumber: orderMeta.orderNumber,
-          customerAddressLine1: "3435646464",
-          customerAddressLine2: "MagnatiPay",
-          language: "EN",
-          channel: "ECOMMERCE",
+          customerAddressLine1: '3435646464',
+          customerAddressLine2: 'MagnatiPay',
+          language: 'EN',
+          channel: 'ECOMMERCE',
           governmentServices: true,
           addTransactionFeesOnTop: true,
-          merchantSiteUrl: "http://172.16.4.44:6500/login",
+          merchantSiteUrl: 'http://172.16.4.44:6500/login',
           merchantBankTransferReturnUrl:
-            "https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/reponseCheck",
-          paymentMethodList: ["EDIRHAM_CARD", "NON_EDIRHAM_CARD"],
-          sessionTimeoutSecs: "600",
-          customerName: "khaja",
-          urn: "1234",
-          paymentMethod: "EDIRHAM_CARD",
-          orderStatus: "Pending",
+            'https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/reponseCheck',
+          paymentMethodList: ['EDIRHAM_CARD', 'NON_EDIRHAM_CARD'],
+          sessionTimeoutSecs: '600',
+          customerName: 'khaja',
+          urn: '1234',
+          paymentMethod: 'EDIRHAM_CARD',
+          orderStatus: 'Pending',
           customerEmail: user?.emailId,
           customerPhone: user?.mobileNumber,
-          customerCity: "Test City",
-          customerState: "Test State",
-          customerCountry: "UAE",
-          customerPostalCode: "225 Umm Al Quwain – UAE",
+          customerCity: 'Test City',
+          customerState: 'Test State',
+          customerCountry: 'UAE',
+          customerPostalCode: '225 Umm Al Quwain – UAE',
           purchaseDetails: {
             service: state.purchaseBreakdown.service.map((item) => {
               return {
-                serviceCode: "10000",
+                serviceCode: '10000',
                 quantity: item.quantity,
                 transactionAmount: item.transactionAmount,
                 numberOfUnits: item.quantity,
@@ -180,7 +181,7 @@ function CashPayment() {
         setResponse(data);
         setModalVisible(true);
       } catch (error) {
-        console.log("Error from Orders", { error });
+        console.log('Error from Orders', { error });
       }
     }
   }, [user, state.purchaseBreakdown, finalAmount, taxAmount, withToken?.token]);
@@ -191,20 +192,20 @@ function CashPayment() {
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <View style={styles.container}>
             <View
               style={{
                 marginLeft: 16,
                 marginTop: 17,
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
               <TouchableOpacity onPress={router.back}>
                 <Image
-                  source={require("@/assets/icons/arrow_back.png")}
+                  source={require('@/assets/icons/arrow_back.png')}
                   style={{
                     width: 16.03,
                     height: 16.03,
@@ -215,7 +216,7 @@ function CashPayment() {
               <Text
                 style={{
                   fontSize: 20,
-                  fontWeight: "500",
+                  fontWeight: '500',
                   lineHeight: 32,
                   letterSpacing: 0.5,
                 }}
@@ -238,17 +239,17 @@ function CashPayment() {
                 style={{
                   width: 150,
                   height: 48.3,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                   marginTop: 22,
                 }}
-                source={require("@/assets/onboarding/payrowLogo.png")}
+                source={require('@/assets/onboarding/payrowLogo.png')}
               />
               <Text
                 style={{
                   fontSize: 22,
-                  fontWeight: "400",
+                  fontWeight: '400',
                   lineHeight: 28,
-                  textAlign: "center",
+                  textAlign: 'center',
                   marginTop: 22,
                 }}
               >
@@ -283,25 +284,25 @@ function CashPayment() {
               <View
                 style={{
                   borderWidth: 1,
-                  borderColor: "#4B50500D",
+                  borderColor: '#4B50500D',
                   borderRadius: 8,
                   marginTop: 16,
                   width: 133,
                   height: 30,
-                  alignSelf: "center",
+                  alignSelf: 'center',
 
-                  backgroundColor: "#4B50500D",
+                  backgroundColor: '#4B50500D',
                 }}
               >
                 <Text
                   style={{
-                    alignSelf: "center",
+                    alignSelf: 'center',
                     marginTop: 6,
-                    fontWeight: "500",
+                    fontWeight: '500',
                     fontSize: 13,
                     lineHeight: 18,
                     letterSpacing: -0.08,
-                    color: "#4B5050",
+                    color: '#4B5050',
                   }}
                 >
                   MID: {orderMeta?.user?.merchantId}
@@ -310,9 +311,9 @@ function CashPayment() {
               <View
                 style={{
                   borderWidth: 1,
-                  borderColor: "#4B505040",
+                  borderColor: '#4B505040',
 
-                  shadowColor: "#757E6E14",
+                  shadowColor: '#757E6E14',
                   shadowOffset: {
                     width: 0,
                     height: 2,
@@ -324,16 +325,16 @@ function CashPayment() {
                   marginTop: 24,
                   width: 296,
                   height: 48,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                 }}
               >
                 <TouchableOpacity
                   onPress={() => {
                     // navigation.navigate("AddItem");
-                    router.push("/products/add-item");
+                    router.push('/products/add-item');
                   }}
                   style={{
-                    flexDirection: "row",
+                    flexDirection: 'row',
                   }}
                 >
                   <Text
@@ -341,23 +342,23 @@ function CashPayment() {
                       flex: 1,
                       marginLeft: 16,
                       marginTop: 14,
-                      fontWeight: "500",
+                      fontWeight: '500',
                       fontSize: 14,
                       lineHeight: 20,
                       letterSpacing: 0.1,
-                      color: "#4B5050",
+                      color: '#4B5050',
                     }}
                   >
                     ADD ITEMS
                   </Text>
                   <Image
-                    source={require("@/assets/icons/plusicon.png")}
+                    source={require('@/assets/icons/plusicon.png')}
                     style={{
                       width: 20,
                       height: 20,
                       marginRight: 16,
                       marginTop: 15,
-                      backgroundColor: "#4B5050E5",
+                      backgroundColor: '#4B5050E5',
                       borderRadius: 10,
                     }}
                   />
@@ -366,9 +367,9 @@ function CashPayment() {
               <View
                 style={{
                   borderWidth: 1,
-                  borderColor: "#4B505040",
+                  borderColor: '#4B505040',
 
-                  shadowColor: "#757E6E14",
+                  shadowColor: '#757E6E14',
                   shadowOffset: {
                     width: 0,
                     height: 2,
@@ -380,13 +381,13 @@ function CashPayment() {
                   marginTop: 16,
                   width: 296,
                   height: 48,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                 }}
               >
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: 'row',
+                    alignItems: 'center',
                     marginTop: 10,
                   }}
                 >
@@ -395,11 +396,11 @@ function CashPayment() {
                       flex: 1,
                       marginLeft: 16,
 
-                      fontWeight: "500",
+                      fontWeight: '500',
                       fontSize: 14,
                       lineHeight: 20,
                       letterSpacing: 0.1,
-                      color: "#4B5050",
+                      color: '#4B5050',
                     }}
                   >
                     SCAN BARCODE
@@ -426,8 +427,8 @@ function CashPayment() {
 
                 marginTop: 32,
 
-                alignSelf: "center",
-                flexDirection: "row",
+                alignSelf: 'center',
+                flexDirection: 'row',
                 gap: 3,
               }}
             >
@@ -435,7 +436,7 @@ function CashPayment() {
                 <View
                   key={index}
                   style={{
-                    backgroundColor: "#4B5050E5",
+                    backgroundColor: '#4B5050E5',
                     width: 2,
                     height: 1.2,
                   }}
@@ -446,22 +447,22 @@ function CashPayment() {
 
           <View
             style={{
-              backgroundColor: "white",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
+              backgroundColor: 'white',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
             }}
           >
-            <View style={{ alignSelf: "center", marginTop: 20 }}>
+            <View style={{ alignSelf: 'center', marginTop: 20 }}>
               <Text
                 style={{
                   marginBottom: 36,
                   fontSize: 14,
                   lineHeight: 20,
-                  color: "#4B5050",
-                  fontWeight: "400",
+                  color: '#4B5050',
+                  fontWeight: '400',
                   opacity: 0.800000011920929,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                 }}
               >
                 Add amount to pay
@@ -470,8 +471,8 @@ function CashPayment() {
                 style={{
                   // marginBottom: 5,
                   fontSize: 12,
-                  color: "#4B5050",
-                  fontWeight: "400",
+                  color: '#4B5050',
+                  fontWeight: '400',
                   opacity: 0.800000011920929,
                 }}
               >
@@ -479,16 +480,16 @@ function CashPayment() {
               </Text>
               <View
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: '#4B5050',
+                    fontWeight: '400',
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
@@ -498,8 +499,8 @@ function CashPayment() {
                 />
                 <Text
                   style={{
-                    color: "#4B505099",
-                    fontWeight: "400",
+                    color: '#4B505099',
+                    fontWeight: '400',
                     letterSpacing: 0.25,
                     fontSize: 14,
                     marginLeft: 5,
@@ -515,12 +516,12 @@ function CashPayment() {
               <View
                 //horizontal line
                 style={{
-                  backgroundColor: "#4B505099",
+                  backgroundColor: '#4B505099',
 
                   width: 296,
                   height: 1.5,
                   opacity: 0.7,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                 }}
               />
             </View>
@@ -625,40 +626,40 @@ function CashPayment() {
               onPress={onPayByCash}
             >
               <View style={styles.buttonContent}>
-                <View style={{ justifyContent: "center", marginLeft: 16 }}>
+                <View style={{ justifyContent: 'center', marginLeft: 16 }}>
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: "#8EBD6C",
+                      borderColor: '#8EBD6C',
 
                       width: 14,
                       height: 3.61,
 
-                      backgroundColor: "#8EBD6C",
+                      backgroundColor: '#8EBD6C',
                       marginBottom: 2.58,
                     }}
                   />
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: "#8EBD6C",
+                      borderColor: '#8EBD6C',
 
                       width: 14,
                       height: 3.61,
 
                       marginBottom: 2.58,
-                      backgroundColor: "#8EBD6C",
+                      backgroundColor: '#8EBD6C',
                     }}
                   />
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: "#8EBD6C",
+                      borderColor: '#8EBD6C',
 
                       width: 14,
                       height: 3.61,
 
-                      backgroundColor: "#8EBD6C",
+                      backgroundColor: '#8EBD6C',
                     }}
                   />
                 </View>
@@ -672,9 +673,9 @@ function CashPayment() {
             <Text
               style={{
                 fontSize: 12,
-                backgroundColor: "white",
-                color: "#7f7f7f",
-                textAlign: "center",
+                backgroundColor: 'white',
+                color: '#7f7f7f',
+                textAlign: 'center',
                 paddingBottom: 15,
                 marginTop: 10,
               }}
@@ -684,311 +685,11 @@ function CashPayment() {
           </View>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
-      <Modal
-        onBackdropPress={() => setModalVisible(false)}
-        isVisible={isModalVisible}
-        style={{
-          justifyContent: "flex-end",
-          margin: 0,
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: "white",
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            flex: 0.41,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "500",
-                lineHeight: 24,
-                color: "#4B5050",
-                marginLeft: 32,
-                marginTop: 28,
-              }}
-            >
-              Share Customer Copy
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginLeft: 30,
-                marginRight: 150,
-                marginTop: 16,
-              }}
-            >
-              {apps.map((app) => (
-                <TouchableOpacity
-                  key={app.value}
-                  onPress={() => setSelectedApp(app.value)}
-                >
-                  <View
-                    style={{
-                      // width: 52,
-                      // height: 52,
-                      // borderRadius: 10,
-                      // backgroundColor: '#F2F2F2',
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      source={app.image}
-                      style={{
-                        width: 52,
-                        height: 52,
-                        // backgroundColor: 'red',
-                        // borderRadius: 10,
-                      }}
-                    />
-                  </View>
-                </TouchableOpacity>
-              ))}
-              {/* <Image
-                  source={require('@/assets/icons/whatsapp.png')}
-                  style={{
-                    width: 52,
-                    height: 52,
-                  }}
-                />
-                <Image
-                  source={require('@/assets/icons/gmail.png')}
-                  style={{
-                    width: 52,
-                    height: 52,
-                  }}
-                />
-                <Image
-                  source={require('@/assets/icons/chat.png')}
-                  style={{
-                    width: 52,
-                    height: 52,
-                  }}
-                /> */}
-            </View>
-            <PanelView show={selectedApp === SharingApps.WHATSAPP}>
-              <View style={{ marginLeft: 32, marginTop: 22 }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    lineHeight: 12,
-                    fontWeight: "400",
-                    color: "#333333",
-                    opacity: 0.800000011920929,
-                    marginBottom: 7,
-                  }}
-                >
-                  Contact Number
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Image
-                    source={require("@/assets/icons/UAE.png")}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      marginRight: 4,
-                    }}
-                  />
-                  <Image
-                    source={require("@/assets/icons/IconPlacholder.png")}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      marginRight: 4,
-                    }}
-                  />
-                  <TextInput
-                    style={{
-                      color: "#4B5050",
-                      fontWeight: "500",
-                      fontSize: 22,
-                      width: 50,
-                      height: 24,
-                      opacity: 0.7,
-                      marginRight: 4,
-                    }}
-                    placeholder="Amount"
-                  >
-                    +971
-                  </TextInput>
-
-                  <TextInput
-                    style={{
-                      color: "#4B5050",
-                      fontWeight: "500",
-                      fontSize: 22,
-                      width: 150,
-                      height: 24,
-                      opacity: 0.7,
-                      marginRight: 4,
-                      // borderColor: "#99999",
-                      // borderBottomWidth: 1,
-                    }}
-                    placeholder="Amount"
-                  >
-                    561503987
-                  </TextInput>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: "#99999",
-                    width: 296,
-                    height: 1,
-                    opacity: 0.7,
-                    alignSelf: "center",
-                  }}
-                />
-              </View>
-            </PanelView>
-            <PanelView show={selectedApp === SharingApps.EMAIL}>
-              <View style={{ marginLeft: 32, marginTop: 22 }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    lineHeight: 12,
-                    fontWeight: "400",
-                    color: "#333333",
-                    opacity: 0.800000011920929,
-                    marginBottom: 7,
-                  }}
-                >
-                  Email
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <TextInput
-                    style={{
-                      color: "#4B5050",
-                      fontWeight: "500",
-                      fontSize: 22,
-                      // width: 150,
-                      height: 24,
-                      opacity: 0.7,
-                      marginRight: 4,
-                    }}
-                    placeholder="Enter email"
-                    keyboardType="email-address"
-                    value={inputs.email}
-                    onChangeText={(text) => onChangeInputs("email", text)}
-                  />
-                </View>
-                <View
-                  style={{
-                    backgroundColor: "#99999",
-                    width: 296,
-                    height: 1,
-                    opacity: 0.7,
-                    alignSelf: "center",
-                  }}
-                />
-              </View>
-            </PanelView>
-            <PanelView show={selectedApp === SharingApps.SMS}>
-              <View style={{ marginLeft: 32, marginTop: 22 }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    lineHeight: 12,
-                    fontWeight: "400",
-                    color: "#333333",
-                    opacity: 0.800000011920929,
-                    marginBottom: 7,
-                  }}
-                >
-                  SMS
-                </Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Image
-                    source={require("@/assets/icons/UAE.png")}
-                    style={{
-                      width: 24,
-                      height: 24,
-                      marginRight: 4,
-                    }}
-                  />
-                  <Image
-                    source={require("@/assets/icons/IconPlacholder.png")}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      marginRight: 4,
-                    }}
-                  />
-                  <TextInput
-                    style={{
-                      color: "#4B5050",
-                      fontWeight: "500",
-                      fontSize: 22,
-                      width: 50,
-                      height: 24,
-                      opacity: 0.7,
-                      marginRight: 4,
-                    }}
-                    placeholder="Amount"
-                  >
-                    +971
-                  </TextInput>
-
-                  <TextInput
-                    style={{
-                      color: "#4B5050",
-                      fontWeight: "500",
-                      fontSize: 22,
-                      // width: 296,
-                      height: 24,
-                      opacity: 0.7,
-                      marginRight: 4,
-                      // borderColor: "#99999",
-                      // borderBottomWidth: 1,
-                    }}
-                    placeholder="Amount"
-                  >
-                    561503987
-                  </TextInput>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: "#99999",
-                    width: 296,
-                    height: 1,
-                    opacity: 0.7,
-                    alignSelf: "center",
-                  }}
-                />
-              </View>
-            </PanelView>
-            <View
-              style={{
-                marginTop: 8,
-                marginLeft: 32,
-                marginRight: 32,
-                borderBottomWidth: 1,
-                borderBottomColor: "#4B5050",
-              }}
-            />
-          </View>
-          <TouchableOpacity
-            style={{
-              marginLeft: 32,
-              marginRight: 32,
-              marginTop: 42,
-              marginBottom: 16,
-            }}
-            onPress={share}
-          >
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>SHARE</Text>
-              <View style={styles.arrowIcon}>
-                <AntDesign name="arrowright" size={22} color="white" />
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+      <ShareModel
+        show={isModalVisible}
+        onClose={() => setModalVisible(false)}
+        onPressHome={() => router.push('/home/')}
+      />
     </>
   );
 }
@@ -997,34 +698,34 @@ export default CashPayment;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   buttonContainer: {
-    width: "80%",
+    width: '80%',
     height: 48,
-    backgroundColor: "#4B5050",
-    alignSelf: "center",
+    backgroundColor: '#4B5050',
+    alignSelf: 'center',
     borderRadius: 8,
     marginTop: 20,
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   containers: {
-    width: "80%",
+    width: '80%',
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.25)",
-    alignSelf: "center",
+    borderColor: 'rgba(75, 80, 80, 0.25)',
+    alignSelf: 'center',
     marginTop: 31,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: 15,
     paddingRight: 15,
-    shadowColor: "#757e6e",
+    shadowColor: '#757e6e',
     shadowOffset: {
       width: 0,
       height: 1,
@@ -1036,100 +737,100 @@ const styles = StyleSheet.create({
     width: 71,
     height: 26,
     borderRadius: 8,
-    backgroundColor: "#4B50500D",
-    textAlign: "center",
+    backgroundColor: '#4B50500D',
+    textAlign: 'center',
     paddingTop: 4,
     marginRight: 22,
   },
   itemContainer: {
-    width: "100%",
-    alignSelf: "center",
+    width: '100%',
+    alignSelf: 'center',
     height: 77,
     borderRadius: 10,
     marginBottom: 10,
-    justifyContent: "center",
+    justifyContent: 'center',
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.2)",
-    flexDirection: "row",
-    alignItems: "center",
+    borderColor: 'rgba(75, 80, 80, 0.2)',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceContainer: {
-    width: "80%",
-    alignSelf: "center",
+    width: '80%',
+    alignSelf: 'center',
     height: 48,
     borderRadius: 10,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.2)",
-    flexDirection: "row",
-    alignItems: "center",
+    borderColor: 'rgba(75, 80, 80, 0.2)',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceLabel: {
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
     fontSize: 14,
     lineHeight: 20,
-    color: "#4B5050",
+    color: '#4B5050',
     marginLeft: 16,
   },
   priceTextContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    color: "#333333",
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: '#333333',
   },
   priceText: {
     fontSize: 22,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 28,
   },
   priceCurrency: {
-    color: "#4B505099",
+    color: '#4B505099',
     marginRight: 14,
     marginLeft: 9,
   },
   goToSummaryButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 32,
-    width: "80%",
+    width: '80%',
   },
   buttonContent: {
     borderWidth: 0.6,
-    borderColor: "#4B5050",
-    backgroundColor: "#4B5050",
+    borderColor: '#4B5050',
+    backgroundColor: '#4B5050',
     borderRadius: 8,
     marginBottom: 16,
     height: 48,
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
+    width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   buttonText: {
     fontSize: 22,
     paddingLeft: 4,
     paddingTop: 12,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 24,
-    justifyContent: "center",
-    color: "white",
+    justifyContent: 'center',
+    color: 'white',
     letterSpacing: 0.1,
     flex: 1,
   },
   arrowIcon: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 16,
   },
   footerText: {
     fontSize: 12,
-    backgroundColor: "white",
-    color: "#7f7f7f",
-    textAlign: "center",
+    backgroundColor: 'white',
+    color: '#7f7f7f',
+    textAlign: 'center',
     paddingBottom: 15,
   },
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 33,
   },
   languageLogo: {
@@ -1140,11 +841,11 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
     marginTop: 14,
 
-    color: "#4B5050",
+    color: '#4B5050',
     lineHeight: 20,
 
     marginLeft: 16,
@@ -1152,75 +853,75 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#838c95",
-    textAlign: "center",
+    fontWeight: '500',
+    color: '#838c95',
+    textAlign: 'center',
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: "#4B505040",
+    borderColor: '#4B505040',
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 48,
-    textAlign: "center",
-    flexDirection: "row",
+    textAlign: 'center',
+    flexDirection: 'row',
   },
   button: {
     marginLeft: 165,
-    backgroundColor: "#72ac47",
-    color: "black",
+    backgroundColor: '#72ac47',
+    color: 'black',
     padding: 10,
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: "pointer",
+    cursor: 'pointer',
     borderRadius: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalContainer: {
     flex: 0.8,
-    justifyContent: "center",
-    backgroundColor: "white",
+    justifyContent: 'center',
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
   },
   modalContent: {
     flexGrow: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   modalTitle: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 16,
   },
   phoneNumberInput: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     padding: 10,
     marginBottom: 16,
     borderRadius: 8,
   },
   submitButton: {
-    backgroundColor: "blue",
+    backgroundColor: 'blue',
     padding: 12,
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: 'center',
   },
   submitButtonText: {
-    color: "white",
+    color: 'white',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

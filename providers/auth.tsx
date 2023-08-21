@@ -1,3 +1,4 @@
+import storage from '@/hooks/lib/storage';
 import React from 'react';
 import { AppState } from 'react-native';
 
@@ -30,7 +31,7 @@ const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
     const unsubscribe = AppState.addEventListener('change', () => {
       if (isInactive() && AppState.currentState === 'background') {
         // logout();
-        // storage.deleteLocalData('user');
+        storage.deleteLocalData('user');
         console.log('logout by inactivity');
       }
     });
