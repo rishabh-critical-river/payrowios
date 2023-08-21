@@ -30,9 +30,8 @@ function AddItems() {
   const router = useRouter();
   const { height } = Dimensions.get("window");
   const { user } = useStorageData("user", { decode: false });
+  const { auth } = useStorageData("auth");
 
-  const auth = storage.getLocalData("auth");
-  console.log(auth);
   const { setSnackbarModal } = useModal();
   const safeRef = React.useRef<boolean>(false);
   const [loading, setLoading] = React.useState(false);
@@ -229,7 +228,7 @@ function AddItems() {
                 lineHeight: 20,
               }}
             >
-              TID : 8327162
+              TID : {auth?.tid}
             </Text>
           </View>
         </View>

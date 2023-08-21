@@ -249,7 +249,7 @@ function CashPayment() {
                     color: "#4B5050",
                   }}
                 >
-                  MID: 0987654321
+                  MID: {orderMeta?.user?.merchantId}
                 </Text>
               </View>
               <View
