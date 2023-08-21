@@ -123,7 +123,7 @@ function HomeScreen({ navigation }: any) {
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> Edit PAYROW </Text>
+              <Text style={styles.homeBlocks}> EDIT PAYROW </Text>
               <Image
                 source={require("@/assets/icons/keyboard_arrow_right.png")}
                 style={{
