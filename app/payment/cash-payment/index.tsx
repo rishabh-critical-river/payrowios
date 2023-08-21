@@ -197,7 +197,7 @@ function CashPayment() {
                   marginTop: 22,
                 }}
               >
-                Textiles INC.
+                PayNetUser
               </Text>
               {/* <Text
             style={{
@@ -390,7 +390,7 @@ function CashPayment() {
             ))}
           </View>
           <View style={{ backgroundColor: "white" }}>
-            <View style={{ alignSelf: "center", marginTop: 20 }}>
+            <View style={{ alignSelf: "center", marginTop: 30 }}>
               <Text
                 style={{
                   marginBottom: 5,

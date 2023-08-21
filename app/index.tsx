@@ -10,14 +10,16 @@ const GetStartedScreen = () => {
   const { user } = useStorageData("user");
 
   const onStarted = React.useCallback(() => {
-    // router.push("/auth/enter-pin");
-    // router.push("/products/add-item");
-    // } else {
-    //   // Hello
-    router.push("/auth/login");
-    // router.push("/products/add-item");
-    // router.push('/product-selection/payment-history/');
-    // router.push("/product-selection/");
+    if (user?.token) {
+      router.push("/auth/enter-pin");
+      // router.push("/products/add-item");
+    } else {
+      //   // Hello
+      router.push("/auth/login");
+      // router.push("/products/add-item");
+      // router.push('/product-selection/payment-history/');
+      // router.push("/product-selection/");
+    }
   }, [user]);
 
   return (
