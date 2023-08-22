@@ -45,7 +45,7 @@ function HomeScreen({ navigation }: any) {
               color: "#4B5050",
             }}
           >
-            Product Selection
+            Get Started
           </Text>
         </View>
         <Image
@@ -119,11 +119,11 @@ function HomeScreen({ navigation }: any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("contact");
-                // router.push("/product-selection/contact/");
+                router.push("/product-selection/edit-payrow/");
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> Edit PAYROW </Text>
+              <Text style={styles.homeBlocks}> EDIT PAYROW </Text>
               <Image
                 source={require("@/assets/icons/keyboard_arrow_right.png")}
                 style={{
