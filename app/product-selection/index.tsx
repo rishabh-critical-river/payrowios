@@ -45,7 +45,7 @@ function HomeScreen({ navigation }: any) {
               color: "#4B5050",
             }}
           >
-            Product Selection
+            Get Started
           </Text>
         </View>
         <Image

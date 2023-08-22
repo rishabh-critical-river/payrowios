@@ -26,11 +26,32 @@ const GetStartedScreen = () => {
     <>
       <View style={styles.container}>
         <PayRowLogo />
+        {user?.token && (
+          <View
+            style={{
+              position: "absolute",
+              right: 16,
+              top: 30,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => router.push("/product-selection/")}
+            >
+              <Image
+                source={require("@/assets/icons/menu.png")}
+                style={{
+                  width: 42,
+                  height: 40,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
         <View
           style={{
             position: "absolute",
             right: 16,
-            top: 20,
+            top: 30,
           }}
         >
           <TouchableOpacity onPress={() => router.push("/product-selection/")}>
