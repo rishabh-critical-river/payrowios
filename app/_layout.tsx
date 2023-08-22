@@ -11,7 +11,7 @@ import "react-native-gesture-handler";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import storage from "@/hooks/lib/storage";
 
-const min = 1000 * 20;
+const min = 5 * 60 * 1000;
 const RootLayout = () => {
   const state = useDeviceId();
   // Generate a unique device id
