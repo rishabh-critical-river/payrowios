@@ -1,44 +1,58 @@
-import storage from '@/hooks/lib/storage';
 import React from 'react';
 import { AppState } from 'react-native';
+import * as TaskManager from 'expo-task-manager';
+import * as BackgroundFetch from 'expo-background-fetch';
 
 type AuthContextData = {};
+type Status = BackgroundFetch.BackgroundFetchStatus | null;
 const AuthContext = React.createContext({} as AuthContextData);
 
-const min = 1;
+const LOG_OUT = 'LOG_OUT';
+
+TaskManager.defineTask(LOG_OUT, async () => {
+  const now = Date.now();
+  console.log(
+    `Got background fetch call at date: ${new Date(now).toISOString()}`
+  );
+  // Be sure to return the successful result type!
+  return BackgroundFetch.BackgroundFetchResult.NewData;
+});
+
+async function registerBackgroundFetchAsync() {
+  return BackgroundFetch.registerTaskAsync(LOG_OUT, {
+    minimumInterval: 60 * 10, // 10 minutes
+  });
+}
 
 const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
-  const [lastInteraction, setLastInteraction] = React.useState(null);
+  const [status, setStatus] = React.useState<Status>(null);
+  const [isRegistered, setIsRegistered] = React.useState(false);
 
-  const isInactive = () => {
-    if (lastInteraction) {
-      const now = new Date();
-      const difference = Number(now) - Number(lastInteraction);
-      return difference > min * 60 * 1000; // 5 minutes in milliseconds
-    }
+  const onRefresh = async () => {
+    await registerBackgroundFetchAsync();
+    console.log('App is in foreground, start background task.');
   };
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setLastInteraction(new Date());
-    }, 1000); // 1 second
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   React.useEffect(() => {
     const unsubscribe = AppState.addEventListener('change', () => {
-      if (isInactive() && AppState.currentState === 'background') {
-        // logout();
-        storage.deleteLocalData('user');
-        console.log('logout by inactivity');
+      if (AppState.currentState === 'background') {
+        onRefresh();
       }
     });
 
     return () => {
       unsubscribe.remove();
     };
+  }, []);
+
+  const checkStatusAsync = async () => {
+    const status = await BackgroundFetch.getStatusAsync();
+    const isRegistered = await TaskManager.isTaskRegisteredAsync(LOG_OUT);
+    setStatus(status);
+    setIsRegistered(isRegistered);
+  };
+  React.useEffect(() => {
+    checkStatusAsync();
   }, []);
 
   return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
