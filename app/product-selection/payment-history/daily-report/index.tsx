@@ -17,8 +17,8 @@ import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { useRouter } from "expo-router";
 
-function DailyReport({ navigation }:any) {
-    const router = useRouter();
+function DailyReport({ navigation }: any) {
+  const router = useRouter();
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -30,21 +30,16 @@ function DailyReport({ navigation }:any) {
             alignItems: "center",
           }}
         >
-         <TouchableOpacity
-              onPress= {
-             
-                router.back
-              }
-            >
-              <Image
-                source={require("@/assets/icons/arrow_back.png")}
-                style={{
-                  width: 16.03,
-                  height: 16.03,
-                  marginRight: 35.98,
-                }}
-              />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={router.back}>
+            <Image
+              source={require("@/assets/icons/arrow_back.png")}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 20,
@@ -139,7 +134,10 @@ function DailyReport({ navigation }:any) {
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate("dailyReport");
-            router.push("/product-selection/payment-history/daily-report/daily-card-report")
+            // router.push("/product-selection/payment-history/daily-report/daily-card-report")
+            router.push(
+              "/product-selection/payment-history/daily-report/otp-daily-report"
+            );
           }}
           style={{
             borderWidth: 1,
@@ -183,7 +181,9 @@ function DailyReport({ navigation }:any) {
         <TouchableOpacity
           onPress={() => {
             // navigation.navigate("monthlyReport");
-            router.push("/product-selection/payment-history/daily-report/daily-cash-report")
+            router.push(
+              "/product-selection/payment-history/daily-report/daily-cash-report"
+            );
           }}
           style={{
             borderWidth: 1,

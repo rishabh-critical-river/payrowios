@@ -11,14 +11,16 @@ const GetStartedScreen = () => {
 
   const onStarted = React.useCallback(() => {
     if (user?.token) {
-      router.push("/auth/enter-pin");
+      // router.push("/auth/enter-pin");
       // router.push("/products/add-item");
+      // router.push("/auth/login");
+      router.push("/product-selection/");
     } else {
       //   // Hello
-      router.push("/auth/login");
+      // router.push("/auth/login");
       // router.push("/products/add-item");
       // router.push('/product-selection/payment-history/');
-      // router.push("/product-selection/");
+      router.push("/product-selection/");
     }
   }, [user]);
 

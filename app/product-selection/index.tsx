@@ -119,7 +119,7 @@ function HomeScreen({ navigation }: any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("contact");
-                // router.push("/product-selection/contact/");
+                router.push("/product-selection/edit-payrow/");
               }}
               style={styles.box}
             >

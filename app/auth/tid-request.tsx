@@ -260,7 +260,7 @@ function ContactUs() {
           // }}
           onPress={() => {
             setSnackbarModal({
-              content: "request send successfully",
+              content: "Request send successfully",
               width: 200,
             });
           }}
@@ -269,7 +269,7 @@ function ContactUs() {
             style={{
               flexDirection: "row",
               backgroundColor: "#4B5050",
-              width: 296,
+              //   width: 296,
               height: 48,
               gap: 181,
               marginRight: 32,
