@@ -73,6 +73,144 @@ function EditPayrow() {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.container}>
+        <View
+          style={{
+            position: "absolute",
+            right: 16,
+            top: 30,
+          }}
+        >
+          <TouchableOpacity
+          //   onPress={() => router.push("/product-selection/")}
+          >
+            <Image
+              source={require("@/assets/icons/menu.png")}
+              style={{
+                width: 42,
+                height: 40,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            marginLeft: 32,
+            marginTop: 17,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity onPress={router.back}>
+            <Image
+              source={require("@/assets/onboarding/Watermark.png")}
+              style={{
+                width: 36,
+                height: 50,
+                marginRight: 9,
+              }}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "400",
+                lineHeight: 16,
+                letterSpacing: 0.5,
+                color: "#4B5050",
+              }}
+            >
+              Welcome
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "500",
+                lineHeight: 20,
+                letterSpacing: 0.5,
+                color: "#4B5050",
+              }}
+            >
+              TID : 3245167
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            marginTop: 41,
+            display: "flex",
+            flexDirection: "row",
+            gap: 11,
+            marginLeft: 32,
+            alignItems: "center",
+            marginBottom: 25,
+          }}
+        >
+          <Image
+            source={require("@/assets/icons/plusicon.png")}
+            style={{
+              width: 20,
+              height: 20,
+
+              backgroundColor: "#4B5050E5",
+              borderRadius: 10,
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "500",
+              lineHeight: 24,
+
+              color: "#191919",
+            }}
+          >
+            Add New Item
+          </Text>
+        </View>
+        <View
+          style={{
+            position: "relative",
+            marginLeft: 32,
+            marginRight: 32,
+          }}
+        >
+          <TextInput
+            style={{
+              fontSize: 24,
+              // margin: 10,
+              // width: "90%",
+              height: 40,
+              padding: 3,
+              borderRadius: 5,
+              borderWidth: 1,
+              borderColor: "rgba(75, 80, 80, 0.25)",
+            }}
+          ></TextInput>
+          <View
+            style={{
+              position: "absolute",
+              right: 3,
+              backgroundColor: "#F5F5F5",
+              padding: 9,
+              top: 3,
+            }}
+          >
+            <Image
+              style={{
+                width: 16,
+                height: 16,
+              }}
+              source={require("@/assets/icons/Search.png")}
+            />
+          </View>
+        </View>
+
         <View>
           {categories.map((category) => (
             <View key={category.id}>
@@ -195,7 +333,7 @@ function EditPayrow() {
             top: 20,
           }}
         >
-          <TouchableOpacity onPress={() => router.push("/product-selection/")}>
+          {/* <TouchableOpacity onPress={() => router.push("/product-selection/")}>
             <Image
               source={require("@/assets/icons/menu.png")}
               style={{
@@ -203,14 +341,14 @@ function EditPayrow() {
                 height: 40,
               }}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View
           style={{
             position: "absolute",
             left: 0,
             bottom: 20,
-            zIndex: 999,
+            // zIndex: 999,
           }}
         >
           <Image
@@ -221,6 +359,46 @@ function EditPayrow() {
             }}
           />
         </View>
+        <TouchableOpacity>
+          <View
+            style={{
+              flexDirection: "row",
+              backgroundColor: "#4B5050",
+              width: 296,
+              height: 48,
+              marginBottom: 16,
+              marginTop: 16,
+              marginRight: 32,
+              marginLeft: 32,
+              borderRadius: 8,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                paddingLeft: 16,
+                fontWeight: "500",
+                lineHeight: 24,
+                justifyContent: "center",
+                color: "white",
+                letterSpacing: 0.1,
+              }}
+            >
+              SUBMIT
+            </Text>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: 16,
+              }}
+            >
+              <AntDesign name="arrowright" size={20} color="white" />
+            </View>
+          </View>
+        </TouchableOpacity>
 
         <Text
           style={{
