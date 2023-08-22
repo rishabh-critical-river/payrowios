@@ -258,6 +258,7 @@ function ContactUs() {
           //   //   '/product-selection/contact/contact-us/register-complain'
           //   // );
           // }}
+          style={{ alignSelf: "center", width: 296 }}
           onPress={() => {
             setSnackbarModal({
               content: "Request send successfully",
@@ -272,8 +273,7 @@ function ContactUs() {
               //   width: 296,
               height: 48,
               gap: 181,
-              marginRight: 32,
-              marginLeft: 32,
+
               borderRadius: 8,
               alignItems: "center",
               justifyContent: "center",

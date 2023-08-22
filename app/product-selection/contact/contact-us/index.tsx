@@ -356,6 +356,7 @@ function ContactUs() {
           //   //   '/product-selection/contact/contact-us/register-complain'
           //   // );
           // }}
+          style={{ alignSelf: "center" }}
           onPress={onSubmit}
         >
           <View
@@ -365,8 +366,7 @@ function ContactUs() {
               width: 296,
               height: 48,
               gap: 181,
-              marginRight: 32,
-              marginLeft: 32,
+
               borderRadius: 8,
               alignItems: "center",
               justifyContent: "center",

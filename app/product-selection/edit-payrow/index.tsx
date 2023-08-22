@@ -175,9 +175,8 @@ function EditPayrow() {
         </View>
         <View
           style={{
-            position: "relative",
-            marginLeft: 32,
-            marginRight: 32,
+            alignSelf: "center",
+            width: "80%",
           }}
         >
           <TextInput
@@ -229,20 +228,18 @@ function EditPayrow() {
                           flexDirection: "row",
                           alignItems: "center",
                           marginTop: 12,
-                          justifyContent: "space-between",
+                          gap: 30,
                         }}
                       >
-                        <Text> Add Picture</Text>
+                        <Text style={{ marginRight: 4 }}> Add Picture</Text>
                         <Image
                           style={{
                             width: 58,
                             height: 55,
-                            marginLeft: 26,
-                            marginRight: 20,
                           }}
                           source={require("@/assets/icons/ellipse.png")}
                         />
-                        <Text>Edit</Text>
+                        <Text style={{ marginRight: 26 }}>Edit</Text>
                       </View>
 
                       <View
@@ -250,7 +247,7 @@ function EditPayrow() {
                           flexDirection: "row",
                           alignItems: "center",
                           marginTop: 14,
-                          gap: 22,
+                          gap: 20,
                         }}
                       >
                         <Text>Product Name</Text>
@@ -266,7 +263,7 @@ function EditPayrow() {
                         >
                           {item.name}
                         </TextInput>
-                        <Text>Edit</Text>
+                        <Text style={{ marginRight: 25 }}>Edit</Text>
                       </View>
 
                       <View
@@ -274,10 +271,10 @@ function EditPayrow() {
                           flexDirection: "row",
                           alignItems: "center",
                           marginTop: 14,
-                          gap: 22,
+                          gap: 20,
                         }}
                       >
-                        <Text>Product Price</Text>
+                        <Text style={{ marginRight: 9 }}>Product Price</Text>
                         <TextInput
                           keyboardType="numeric"
                           style={{
@@ -291,8 +288,9 @@ function EditPayrow() {
                         >
                           {item.price}
                         </TextInput>
-                        <Text>Edit</Text>
+                        <Text style={{ marginRight: 25 }}>Edit</Text>
                       </View>
+
                       <TouchableOpacity
                         style={{
                           width: 64,
@@ -359,7 +357,10 @@ function EditPayrow() {
             }}
           />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={{ alignSelf: "center" }}
+        >
           <View
             style={{
               flexDirection: "row",
@@ -368,8 +369,7 @@ function EditPayrow() {
               height: 48,
               marginBottom: 16,
               marginTop: 16,
-              marginRight: 32,
-              marginLeft: 32,
+
               borderRadius: 8,
               alignItems: "center",
               justifyContent: "space-between",
@@ -440,9 +440,9 @@ const styles = StyleSheet.create({
   itemContainer: {
     width: "70%",
     alignSelf: "center",
-
+    marginTop: 20,
     borderRadius: 10,
-    marginBottom: 16,
+
     justifyContent: "center",
     borderWidth: 1,
     borderColor: "rgba(75, 80, 80, 0.2)",
