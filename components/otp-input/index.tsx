@@ -31,6 +31,7 @@ interface IProps {
   keyboardType: KeyboardType;
   testIDPrefix: string;
   autoFocus: boolean;
+  secureTextEntry?: boolean;
 }
 
 const DEFAULT_ACTIVE_COLOR: string = '#3CB371';
@@ -51,6 +52,7 @@ class OTPInput extends Component<IProps, IState> {
     keyboardType: DEFAULT_KEYBOARD_TYPE,
     testIDPrefix: DEFAULT_TEST_ID_PREFIX,
     autoFocus: false,
+    secureTextEntry: false,
   };
 
   inputs: TextInput[];
@@ -274,6 +276,7 @@ class OTPInput extends Component<IProps, IState> {
           multiline={false}
           onKeyPress={(e) => this.onKeyPress(e, i)}
           selectionColor={_tintColor}
+          secureTextEntry={this.props.secureTextEntry}
           {...textInputProps}
           testID={`${testIDPrefix}${i}`}
         />

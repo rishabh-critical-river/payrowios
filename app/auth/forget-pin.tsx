@@ -95,7 +95,10 @@ function CreateAccount() {
           >
             Enter OTP
           </Text>
-          <OTPInput onChangeOTP={(otp) => onChangeState('code', otp)} />
+          <OTPInput
+            secureTextEntry={true}
+            onChangeOTP={(otp) => onChangeState('code', otp)}
+          />
 
           <TouchableOpacity
             style={styles.goToSummaryButton}

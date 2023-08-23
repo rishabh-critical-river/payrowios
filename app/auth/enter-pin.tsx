@@ -81,7 +81,10 @@ function EnterPins() {
             SMS code sent to verify phone number
           </Text>
         </View> */}
-        <OTPInput onChangeOTP={(pin) => onChangeState('pin', pin)} />
+        <OTPInput
+          onChangeOTP={(pin) => onChangeState('pin', pin)}
+          secureTextEntry={true}
+        />
 
         <TouchableOpacity
           style={styles.goToSummaryButton}
@@ -97,7 +100,7 @@ function EnterPins() {
 
         <TouchableOpacity
           style={styles.resendCode}
-          onPress={() => router.push('/auth/forget-pin')}
+          onPress={() => router.replace('/auth/forget-pin')}
         >
           <View
             style={{
