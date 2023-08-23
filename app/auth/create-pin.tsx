@@ -90,7 +90,6 @@ function CreatePin() {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            // navigation.navigate('HomeScreen');
             router.push("/auth/re-enter-pin");
           }}
         >

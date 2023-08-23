@@ -97,7 +97,6 @@ function ReEnterPin() {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            // navigation.navigate('HomeScreen');
             router.push("/home/");
           }}
         >

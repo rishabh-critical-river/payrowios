@@ -122,9 +122,9 @@ function Confirmation() {
 
         <TouchableOpacity
           style={styles.resendCode}
-          // onPress={() => {
-          //   navigation.navigate("HomeScreen");
-          // }}
+          onPress={() => {
+            router.push("/products/add-item");
+          }}
         >
           <View
             style={{

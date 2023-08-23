@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import {
   Text,
@@ -7,35 +7,35 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import useShare from '@/hooks/use-share';
-import { AntDesign } from '@expo/vector-icons';
-import { SharingApps } from '@/apis/enums';
-import PanelView from '@/components/view/PanelView';
-import sendUrl from '@/apis/mutations/order/send-url';
-import useStorageData from '@/apis/hooks/use-storage-data';
-import MailIcon from '@/components/icons/MailIcon';
-import { SVGIconProps } from '@/typings/svg';
-import MessageIcon from '@/components/icons/MessageIcon';
-import { FontAwesome } from '@expo/vector-icons';
-import generateInvoice from '@/apis/mutations/products/invoice';
+} from "react-native";
+import Modal from "react-native-modal";
+import useShare from "@/hooks/use-share";
+import { AntDesign } from "@expo/vector-icons";
+import { SharingApps } from "@/apis/enums";
+import PanelView from "@/components/view/PanelView";
+import sendUrl from "@/apis/mutations/order/send-url";
+import useStorageData from "@/apis/hooks/use-storage-data";
+import MailIcon from "@/components/icons/MailIcon";
+import { SVGIconProps } from "@/typings/svg";
+import MessageIcon from "@/components/icons/MessageIcon";
+import { FontAwesome } from "@expo/vector-icons";
+import generateInvoice from "@/apis/mutations/products/invoice";
 
 const apps = [
   {
-    name: 'WhatsApp',
+    name: "WhatsApp",
     image: (props: SVGIconProps) => (
       <FontAwesome name="whatsapp" size={28} {...props} />
     ),
     value: SharingApps.WHATSAPP,
   },
   {
-    name: 'Gmail',
+    name: "Gmail",
     image: (props: SVGIconProps) => <MailIcon {...props} />,
     value: SharingApps.EMAIL,
   },
   {
-    name: 'SMS',
+    name: "SMS",
     image: (props: SVGIconProps) => <MessageIcon {...props} />,
     value: SharingApps.SMS,
   },
@@ -48,11 +48,11 @@ type ShareModelProps = {
 };
 
 function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
-  const { user } = useStorageData('user');
-  const { auth } = useStorageData('auth');
+  const { user } = useStorageData("user");
+  const { auth } = useStorageData("auth");
   const [inputs, setInputs] = React.useState({
-    phone: '',
-    email: '',
+    phone: "",
+    email: "",
   });
 
   const onChangeInputs = React.useCallback(
@@ -72,7 +72,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
   const { opneWhatsapp } = useShare();
 
   const share = React.useCallback(async () => {
-    const { data } = await generateInvoice('27372632122299', user?.token);
+    const { data } = await generateInvoice("27372632122299", user?.token);
 
     const url = data?.message;
     switch (selectedApp) {
@@ -106,11 +106,11 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
       onBackdropPress={onClose}
       isVisible={show}
       avoidKeyboard={true}
-      style={{ margin: 0, justifyContent: 'flex-end' }}
+      style={{ margin: 0, justifyContent: "flex-end" }}
     >
       <View
         style={{
-          backgroundColor: 'white',
+          backgroundColor: "white",
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           gap: 22,
@@ -120,9 +120,9 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
           <Text
             style={{
               fontSize: 16,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 24,
-              color: '#4B5050',
+              color: "#4B5050",
               marginLeft: 32,
               marginTop: 28,
             }}
@@ -131,8 +131,8 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
           </Text>
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flexDirection: "row",
+              justifyContent: "space-between",
               marginLeft: 30,
               marginRight: 150,
               marginTop: 16,
@@ -150,15 +150,15 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
 
                     borderRadius: 100,
                     backgroundColor:
-                      app.value === selectedApp ? '#72AC47' : '#F2F2F2',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderColor: '#F2F2F2',
+                      app.value === selectedApp ? "#72AC47" : "#F2F2F2",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderColor: "#F2F2F2",
                     borderWidth: 1,
                   }}
                 >
                   <app.image
-                    color={app.value === selectedApp ? 'white' : '#4B5050'}
+                    color={app.value === selectedApp ? "white" : "#4B5050"}
                   />
                   {/* <Image
                       source={app.image}
@@ -200,17 +200,17 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                 style={{
                   fontSize: 12,
                   lineHeight: 12,
-                  fontWeight: '400',
-                  color: '#333333',
+                  fontWeight: "400",
+                  color: "#333333",
                   opacity: 0.800000011920929,
                   marginBottom: 7,
                 }}
               >
                 Contact Number
               </Text>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Image
-                  source={require('@/assets/icons/UAE.png')}
+                  source={require("@/assets/icons/UAE.png")}
                   style={{
                     width: 24,
                     height: 24,
@@ -218,7 +218,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                   }}
                 />
                 <Image
-                  source={require('@/assets/icons/IconPlacholder.png')}
+                  source={require("@/assets/icons/IconPlacholder.png")}
                   style={{
                     width: 20,
                     height: 20,
@@ -227,8 +227,8 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                 />
                 <TextInput
                   style={{
-                    color: '#4B5050',
-                    fontWeight: '500',
+                    color: "#4B5050",
+                    fontWeight: "500",
                     fontSize: 22,
                     width: 50,
                     height: 24,
@@ -242,8 +242,8 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
 
                 <TextInput
                   style={{
-                    color: '#4B5050',
-                    fontWeight: '500',
+                    color: "#4B5050",
+                    fontWeight: "500",
                     fontSize: 22,
                     width: 150,
                     height: 24,
@@ -259,11 +259,11 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
               </View>
               <View
                 style={{
-                  backgroundColor: '#99999',
+                  backgroundColor: "#99999",
                   width: 296,
                   height: 1,
                   opacity: 0.7,
-                  alignSelf: 'center',
+                  alignSelf: "center",
                 }}
               />
             </View>
@@ -274,19 +274,19 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                 style={{
                   fontSize: 12,
                   lineHeight: 12,
-                  fontWeight: '400',
-                  color: '#333333',
+                  fontWeight: "400",
+                  color: "#333333",
                   opacity: 0.800000011920929,
                   marginBottom: 7,
                 }}
               >
                 Email
               </Text>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <TextInput
                   style={{
-                    color: '#4B5050',
-                    fontWeight: '500',
+                    color: "#4B5050",
+                    fontWeight: "500",
                     fontSize: 22,
                     width: 150,
                     height: 24,
@@ -296,16 +296,16 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                   placeholder="Enter email"
                   keyboardType="email-address"
                   value={inputs.email}
-                  onChangeText={(text) => onChangeInputs('email', text)}
+                  onChangeText={(text) => onChangeInputs("email", text)}
                 />
               </View>
               <View
                 style={{
-                  backgroundColor: '#99999',
+                  backgroundColor: "#99999",
                   width: 296,
                   height: 1,
                   opacity: 0.7,
-                  alignSelf: 'center',
+                  alignSelf: "center",
                 }}
               />
             </View>
@@ -316,17 +316,17 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                 style={{
                   fontSize: 12,
                   lineHeight: 12,
-                  fontWeight: '400',
-                  color: '#333333',
+                  fontWeight: "400",
+                  color: "#333333",
                   opacity: 0.800000011920929,
                   marginBottom: 7,
                 }}
               >
                 SMS
               </Text>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Image
-                  source={require('@/assets/icons/UAE.png')}
+                  source={require("@/assets/icons/UAE.png")}
                   style={{
                     width: 24,
                     height: 24,
@@ -334,7 +334,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                   }}
                 />
                 <Image
-                  source={require('@/assets/icons/IconPlacholder.png')}
+                  source={require("@/assets/icons/IconPlacholder.png")}
                   style={{
                     width: 20,
                     height: 20,
@@ -343,8 +343,8 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                 />
                 <TextInput
                   style={{
-                    color: '#4B5050',
-                    fontWeight: '500',
+                    color: "#4B5050",
+                    fontWeight: "500",
                     fontSize: 22,
                     width: 50,
                     height: 24,
@@ -358,8 +358,8 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
 
                 <TextInput
                   style={{
-                    color: '#4B5050',
-                    fontWeight: '500',
+                    color: "#4B5050",
+                    fontWeight: "500",
                     fontSize: 22,
                     width: 150,
                     height: 24,
@@ -375,11 +375,11 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
               </View>
               <View
                 style={{
-                  backgroundColor: '#99999',
+                  backgroundColor: "#99999",
                   width: 296,
                   height: 1,
                   opacity: 0.7,
-                  alignSelf: 'center',
+                  alignSelf: "center",
                 }}
               />
             </View>
@@ -390,7 +390,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
               marginLeft: 32,
               marginRight: 32,
               borderBottomWidth: 1,
-              borderBottomColor: '#4B5050',
+              borderBottomColor: "#4B5050",
             }}
           />
         </View>
@@ -413,23 +413,23 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
               <View
                 style={{
                   borderWidth: 0.5,
-                  borderColor: '#B2B2B2',
+                  borderColor: "#B2B2B2",
                   borderRadius: 8,
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: "#FFFFFF",
 
                   height: 48,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                 }}
               >
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: "row" }}>
                   <Text
                     style={{
                       fontSize: 16,
                       paddingLeft: 16,
-                      fontWeight: '500',
+                      fontWeight: "500",
                       lineHeight: 24,
-                      justifyContent: 'center',
-                      color: '#4C4C4C',
+                      justifyContent: "center",
+                      color: "#4C4C4C",
                       letterSpacing: 0.1,
                       flex: 1,
                     }}
@@ -438,15 +438,15 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                   </Text>
                   <View
                     style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      justifyContent: "center",
+                      alignItems: "center",
                       marginRight: 16,
                     }}
                   >
                     <View
                       style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
                       <AntDesign name="arrowright" size={24} color="#4C4C4C" />
@@ -466,92 +466,92 @@ export default ShareModel;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'white',
+    justifyContent: "center",
+    backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
   },
   modalContent: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   modalTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
   },
   phoneNumberInput: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: 10,
     marginBottom: 16,
     borderRadius: 8,
   },
   submitButton: {
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     padding: 12,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   submitButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   resendCode: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 16,
-    width: '80%',
+    width: "80%",
   },
   homebtn: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 16,
 
     marginBottom: 32,
-    width: '100%',
+    width: "100%",
   },
   buttonContent: {
     borderWidth: 0.6,
-    borderColor: '#4B5050',
-    backgroundColor: '#4B5050',
+    borderColor: "#4B5050",
+    backgroundColor: "#4B5050",
     borderRadius: 8,
 
     height: 48,
-    width: '100%',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   buttonText: {
     fontSize: 16,
     paddingLeft: 16,
     paddingTop: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     lineHeight: 24,
-    justifyContent: 'center',
-    color: 'white',
+    justifyContent: "center",
+    color: "white",
     letterSpacing: 0.1,
     flex: 1,
   },
   goToSummaryButton: {
-    alignSelf: 'center',
+    alignSelf: "center",
 
-    width: '80%',
+    width: "80%",
   },
 
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 32,
   },
   arrowIcon: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 16,
   },
   languageLogo: {
@@ -562,11 +562,11 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     flex: 1,
     marginTop: 14,
 
-    color: '#4B5050',
+    color: "#4B5050",
     lineHeight: 20,
 
     marginLeft: 16,
@@ -574,40 +574,40 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: '500',
-    color: '#838c95',
-    textAlign: 'center',
+    fontWeight: "500",
+    color: "#838c95",
+    textAlign: "center",
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: '#4B505040',
+    borderColor: "#4B505040",
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 48,
-    textAlign: 'center',
-    flexDirection: 'row',
+    textAlign: "center",
+    flexDirection: "row",
   },
   button: {
-    alignSelf: 'center',
+    alignSelf: "center",
 
-    color: 'black',
+    color: "black",
     padding: 10,
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: 'pointer',
+    cursor: "pointer",
     borderRadius: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
