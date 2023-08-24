@@ -44,7 +44,7 @@ function useStorageData<k extends string>(
     return () => {
       safeRef.current = false;
     };
-  }, []);
+  }, [key]);
 
   return state;
 }
