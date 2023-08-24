@@ -12,7 +12,7 @@ const GetStartedScreen = () => {
   const onStarted = React.useCallback(() => {
     if (user?.token) {
       router.push("/auth/enter-pin");
-      //   router.push("/products/add-item");
+      // router.push("/products/add-item");
     } else {
       router.push("/auth/login");
       // router.push("/products/add-item");
