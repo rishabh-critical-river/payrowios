@@ -148,7 +148,7 @@ function ContactUs() {
               height: 13,
             }}
           >
-            Email
+            Registered Email id
           </Text>
 
           <TextInput
@@ -177,7 +177,7 @@ function ContactUs() {
               height: 16,
             }}
           >
-            Contact Number
+            Phone Number
           </Text>
           <View
             style={{
@@ -230,7 +230,7 @@ function ContactUs() {
                 opacity: 0.7,
                 marginBottom: 4,
               }}
-              placeholder="Enter your mobile number"
+              placeholder="561563669"
               onChangeText={(text) => setState("mobileNumber", text)}
               value={state.mobileNumber}
               maxLength={10}

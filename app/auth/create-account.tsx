@@ -23,7 +23,6 @@ function CreateAccount() {
     setTimer(52);
     onSendAuthCode();
     setSnackbarModal({ content: 'OTP sent', width: 180 });
-    // setShowAlert(true);
   }, [router, onSendAuthCode, setTimer]);
 
   // React.useEffect(() => {
@@ -154,8 +153,11 @@ function CreateAccount() {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
+                      display: 'flex',
+                      gap: 8,
                     }}
                   >
+                    <Text>Resend Code </Text>
                     <AntDesign name="right" size={16} color="#4C4C4C" />
                   </View>
                 </View>
