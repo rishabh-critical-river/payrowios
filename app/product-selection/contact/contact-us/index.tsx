@@ -107,7 +107,7 @@ function ContactUs() {
             flexShrink: 0,
           }}
         />
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -133,7 +133,7 @@ function ContactUs() {
             Leave us a message, we will get in touch with you as soon as
             possible
           </Text>
-        </View>
+        </View> */}
 
         <View style={{ alignSelf: "center", marginTop: 24 }}>
           <Text
@@ -228,7 +228,7 @@ function ContactUs() {
                 opacity: 0.7,
                 marginBottom: 4,
               }}
-              placeholder="Enter your mobile number"
+              placeholder="0561563669"
               onChangeText={(text) => setState("mobileNumber", text)}
               value={state.mobileNumber}
               maxLength={10}
@@ -311,6 +311,7 @@ function ContactUs() {
             </Text>
             <TextInput
               multiline
+              textAlignVertical="top"
               style={{
                 marginLeft: 16,
                 marginRight: 16,
@@ -324,7 +325,7 @@ function ContactUs() {
                 letterSpacing: 0.25,
               }}
               onChangeText={(text) => setState("message", text)}
-              placeholder="Type your message here..."
+              placeholder="Enter message"
               maxLength={150}
             >
               {state.message}

@@ -39,7 +39,7 @@ function useStorageData<k extends string>(
   React.useEffect(() => {
     safeRef.current = true;
     if (safeRef.current) {
-      void fetch();
+      fetch();
     }
     return () => {
       safeRef.current = false;

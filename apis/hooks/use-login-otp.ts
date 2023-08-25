@@ -2,11 +2,10 @@ import React from 'react';
 import loginOTP from '../mutations/auth/login-otp';
 import base64 from '@/hooks/lib/base64';
 import verifyAuthCode from '../mutations/auth/verify';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import cryptoActions from '@/hooks/lib/crypto-actions';
 import keyValidation from '@/hooks/lib/num-characters';
 import useDeviceId from '@/hooks/use-device-id';
-import useModal from '@/hooks/use-modal';
 import useStorageData from './use-storage-data';
 type Params = {
   tid: string;
@@ -60,9 +59,7 @@ const useLoginOTP = () => {
     }
     if (tid) {
       try {
-        const { data } = await loginOTP({
-          tid: tid,
-        });
+        const { data } = await loginOTP({ tid });
         if (data.data) {
           const decode = base64.decode(data.data);
           const parseDecode = JSON.parse(decode.replace(/\\/g, ''));
@@ -92,8 +89,8 @@ const useLoginOTP = () => {
 
     if (state.decode) {
       const plaintext = JSON.stringify({
+        tid,
         code: state.code,
-        tid: tid,
         imeiNumber: deviceId,
         keyValidation: keyValidation(5),
       });
@@ -109,7 +106,7 @@ const useLoginOTP = () => {
         plaintext,
       });
 
-      console.log({ encryptedBase64 });
+      // console.log({ encryptedBase64 });
       // Verify Auth Code
       const res = await verifyAuthCode({ data: encryptedBase64 });
 
@@ -129,7 +126,7 @@ const useLoginOTP = () => {
         return {
           success: true,
           params: {
-            tid: tid,
+            tid,
             iv: state.decode.iv,
             key: state.decode.key,
             AES: state.decode.AES,
@@ -139,8 +136,8 @@ const useLoginOTP = () => {
       }
     }
   }, [
-    deviceId,
     tid,
+    deviceId,
     state.code,
     state.decode.key,
     state.decode.iv,

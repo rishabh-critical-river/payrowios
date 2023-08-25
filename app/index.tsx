@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import PayRowLogo from '@/components/logo';
 import { AntDesign } from '@expo/vector-icons';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
@@ -12,12 +12,8 @@ const GetStartedScreen = () => {
   const onStarted = React.useCallback(() => {
     if (user?.token) {
       router.push('/auth/enter-pin');
-      //   router.push("/products/add-item");
     } else {
       router.push('/auth/login');
-      // router.push("/products/add-item");
-      // router.push('/product-selection/payment-history/');
-      // router.push("/product-selection/");
     }
   }, [user]);
 

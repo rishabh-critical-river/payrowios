@@ -13,22 +13,17 @@ import {
 } from 'react-native';
 import useOTPInterval from '@/hooks/use-otp-interval';
 import useModal from '@/hooks/use-modal';
-import useStorageData from '@/apis/hooks/use-storage-data';
 
 function CreateAccount() {
-  const { auth } = useStorageData('auth');
-  console.log({ auth });
   const { setSnackbarModal } = useModal();
-  const { onSendAuthCode, onVerifyAuthCode, onChangeState } = useLoginOTP();
   const { timer, setTimer, formattedTimer } = useOTPInterval();
-  const [showAlert, setShowAlert] = React.useState(false);
-  const [showAuthAlert, setShowAuthAlert] = React.useState(false);
+  const { onSendAuthCode, onVerifyAuthCode, onChangeState } = useLoginOTP();
 
   const onPressOTP = React.useCallback(() => {
     setTimer(52);
     onSendAuthCode();
     setSnackbarModal({ content: 'OTP sent', width: 180 });
-    setShowAlert(true);
+    // setShowAlert(true);
   }, [router, onSendAuthCode, setTimer]);
 
   // React.useEffect(() => {
@@ -53,7 +48,7 @@ function CreateAccount() {
       })
       .catch((err) => {
         setSnackbarModal({ content: err.message, width: 180 });
-        setShowAuthAlert(true);
+        // setShowAuthAlert(true);
       });
   }, [onVerifyAuthCode]);
 

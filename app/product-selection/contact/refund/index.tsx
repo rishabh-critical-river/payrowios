@@ -457,7 +457,7 @@ function Void() {
           source={require("@/assets/onboarding/payrowLogo.png")}
           style={styles.logo}
         />
-        <Text
+        {/* <Text
           style={{
             fontSize: 16,
             fontWeight: "500",
@@ -468,7 +468,7 @@ function Void() {
           }}
         >
           Please enter the transaction number
-        </Text>
+        </Text> */}
         <View style={{ alignSelf: "center", marginTop: 28 }}>
           <Text
             style={{
@@ -484,14 +484,14 @@ function Void() {
             style={{
               color: "black",
               fontWeight: "400",
-              fontSize: 20,
+              fontSize: 16,
 
               opacity: 0.7,
               marginBottom: 4,
             }}
-            placeholder="  Amount"
+            placeholder="Enter transaction Number"
           >
-            SE192231485
+            {/* SE192231485 */}
           </TextInput>
           <View
             //horizontal line
@@ -584,6 +584,7 @@ function Void() {
               justifyContent: "center",
               marginBottom: 11,
               marginTop: 16,
+              alignSelf: "center",
             }}
           >
             <Text

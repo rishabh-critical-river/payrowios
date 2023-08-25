@@ -30,24 +30,6 @@ type Response = {
   checkoutUrl: string;
 };
 
-const apps = [
-  {
-    name: 'WhatsApp',
-    image: require('@/assets/icons/whatsapp.png'),
-    value: SharingApps.WHATSAPP,
-  },
-  {
-    name: 'Gmail',
-    image: require('@/assets/icons/gmail.png'),
-    value: SharingApps.EMAIL,
-  },
-  {
-    name: 'SMS',
-    image: require('@/assets/icons/chat.png'),
-    value: SharingApps.SMS,
-  },
-];
-
 function CashPayment() {
   const router = useRouter();
   const { state } = useProduct();
@@ -60,78 +42,10 @@ function CashPayment() {
   const [response, setResponse] = useState<Response | null>(null);
   const [orderMeta] = React.useContext(OrderMetaContext);
 
-  const [inputs, setInputs] = React.useState({
-    phone: '',
-    email: '',
-  });
-
-  const { opneWhatsapp } = useShare();
-
-  const [selectedApp, setSelectedApp] = useState<SharingApps | null>(
-    SharingApps.EMAIL
-  );
-
-  const onChangeInputs = React.useCallback(
-    (key: keyof typeof inputs, value: string) => {
-      setInputs({
-        ...inputs,
-        [key]: value,
-      });
-    },
-    [inputs]
-  );
-
-  const share = React.useCallback(async () => {
-    switch (selectedApp) {
-      case SharingApps.WHATSAPP: {
-        const mobile = inputs.phone;
-        const message = `Dear Customer,
-        Click on below link to download.
-        ${response?.checkoutUrl}`;
-        return opneWhatsapp(mobile, message);
-      }
-      case SharingApps.EMAIL: {
-        if (withToken?.token) {
-          const email = inputs.email;
-          const subject = `Invoice`;
-          const url = response?.checkoutUrl;
-          const payload = {
-            email,
-            subject,
-            url,
-          };
-          try {
-            console.log({ payload });
-            const { data } = await sendUrl(payload, withToken?.token);
-            setModalVisible(false);
-            router.push('/payment/pay-by-link/confirmation-invoice');
-            return data;
-          } catch (error) {
-            return null;
-          }
-        }
-        return null;
-      }
-
-      default:
-        return null;
-    }
-  }, [
-    selectedApp,
-    inputs.phone,
-    inputs.email,
-    user?.token,
-    response?.checkoutUrl,
-  ]);
-
   const handleDismissKeyboard = () => {
     Keyboard.dismiss();
   };
   const [isModalVisible, setModalVisible] = useState(false);
-
-  // const toggleModal = () => {
-  //   setModalVisible(!isModalVisible);
-  // };
 
   const onPayByCash = React.useCallback(async () => {
     if (user) {
@@ -139,7 +53,6 @@ function CashPayment() {
         const payload = {
           username: 'DED',
           password: 'k9WXdMG9U0IINHN',
-          // orderNumber: 'DEDB686527222467224590',
           orderNumber: orderMeta.orderNumber,
           customerAddressLine1: '3435646464',
           customerAddressLine2: 'MagnatiPay',
@@ -176,8 +89,6 @@ function CashPayment() {
         // console.log('Ready To Pay', { payload });
         console.log(payload);
         const { data } = await orderByLink(payload, withToken?.token);
-        // router.push('/payment/pay-by-link/confirmation-invoice');
-        // console.log('Data ', { data });
         setResponse(data);
         setModalVisible(true);
       } catch (error) {
@@ -186,7 +97,6 @@ function CashPayment() {
     }
   }, [user, state.purchaseBreakdown, finalAmount, taxAmount, withToken?.token]);
 
-  console.log({ response });
   return (
     <>
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
@@ -226,11 +136,6 @@ function CashPayment() {
             </View>
             <View
               style={{
-                // borderBottomWidth: 1,
-                // borderColor: "#4b50504d",
-                // borderStyle: "dotted",
-
-                // paddingBottom: 30,
                 marginLeft: 32,
                 marginRight: 32,
               }}
@@ -255,32 +160,7 @@ function CashPayment() {
               >
                 Textiles INC.
               </Text>
-              {/* <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "400",
-              lineHeight: 20,
-              textAlign: "center",
-              letterSpacing: 0.25,
-              marginTop: 6,
-              color: "#4B5050B2",
-            }}
-          >
-            You are about to make a payment to this 
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "400",
-              lineHeight: 20,
-              textAlign: "center",
-              letterSpacing: 0.25,
 
-              color: "#4B5050B2",
-            }}
-          >
-            company
-          </Text> */}
               <View
                 style={{
                   borderWidth: 1,
@@ -305,7 +185,7 @@ function CashPayment() {
                     color: '#4B5050',
                   }}
                 >
-                  MID: {orderMeta?.user?.merchantId}
+                  MID: {user?.merchantId}
                 </Text>
               </View>
               <View
@@ -330,7 +210,6 @@ function CashPayment() {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    // navigation.navigate("AddItem");
                     router.push('/products/add-item');
                   }}
                   style={{
@@ -411,13 +290,6 @@ function CashPayment() {
                     size={24}
                     color="black"
                   />
-
-                  {/* <Fontisto
-                  style={{ marginRight: 14, marginTop: 10 }}
-                  name="toggle-off"
-                  size={28}
-                  color="#CCCCCC"
-                /> */}
                 </View>
               </View>
             </View>
@@ -440,7 +312,7 @@ function CashPayment() {
                     width: 2,
                     height: 1.2,
                   }}
-                ></View>
+                />
               ))}
             </View>
           </View>
@@ -496,6 +368,8 @@ function CashPayment() {
                     // marginBottom: 8,
                   }}
                   placeholder="0.0"
+                  value={totalAmount.toFixed(2)}
+                  editable={false}
                 />
                 <Text
                   style={{
