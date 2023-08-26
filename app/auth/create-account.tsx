@@ -12,33 +12,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import useOTPInterval from '@/hooks/use-otp-interval';
-import useModal from '@/hooks/use-modal';
+import toast from '@/hooks/lib/toast';
 
 function CreateAccount() {
-  const { setSnackbarModal } = useModal();
   const { timer, setTimer, formattedTimer } = useOTPInterval();
   const { onSendAuthCode, onVerifyAuthCode, onChangeState } = useLoginOTP();
 
   const onPressOTP = React.useCallback(() => {
     setTimer(52);
     onSendAuthCode();
-    setSnackbarModal({ content: 'OTP sent', width: 180 });
+    toast.show('OTP sent');
   }, [router, onSendAuthCode, setTimer]);
-
-  // React.useEffect(() => {
-  //   if (timer === 0) {
-  //     router.push('/auth/login');
-  //   }
-  // }, [timer]);
 
   const handleSubmit = React.useCallback(() => {
     onVerifyAuthCode()
       .then((route) => {
         if (route !== undefined && route.success) {
-          setSnackbarModal({
-            content: 'Authentication code verified Successfully',
-            width: 300,
-          });
+          toast.show('Authentication code verified Successfully');
           router.replace({
             pathname: '/auth/create-pin',
             params: route.params,
@@ -46,8 +36,7 @@ function CreateAccount() {
         }
       })
       .catch((err) => {
-        setSnackbarModal({ content: err.message, width: 180 });
-        // setShowAuthAlert(true);
+        toast.show(err.message);
       });
   }, [onVerifyAuthCode]);
 

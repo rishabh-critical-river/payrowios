@@ -1,8 +1,7 @@
 import useCreatePin from '@/apis/hooks/use-create-pin';
 import PayRowLogo from '@/components/logo';
 import OTPInput from '@/components/otp-input';
-import useModal from '@/hooks/use-modal';
-import useOTPInterval from '@/hooks/use-otp-interval';
+import toast from '@/hooks/lib/toast';
 import getErrorString from '@/utils/getErrorString';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -18,23 +17,14 @@ import {
 
 function EnterPins() {
   const router = useRouter();
-  const { setSnackbarModal } = useModal();
   const { onChangeState, onLoginByPin, state } = useCreatePin();
-  const { formattedTimer } = useOTPInterval(52);
-
   const handleSubmit = useCallback(() => {
     if (state.pin.length !== 4) {
-      setSnackbarModal({
-        content: 'Please enter 4 digit pin to proceed',
-        width: 300,
-      });
+      toast.show('Please enter 4 digit pin to proceed');
       return;
     }
     onLoginByPin().catch((err) => {
-      setSnackbarModal({
-        content: getErrorString(err),
-        width: 300,
-      });
+      toast.show(getErrorString(err));
     });
   }, [state.pin]);
 
@@ -83,7 +73,7 @@ function EnterPins() {
         </View> */}
         <OTPInput
           onChangeOTP={(pin) => onChangeState('pin', pin)}
-          secureTextEntry={true}
+          secureTextEntry
         />
 
         <TouchableOpacity

@@ -3,49 +3,32 @@ import { router } from 'expo-router';
 import OTPInput from '@/components/otp-input';
 import { AntDesign } from '@expo/vector-icons';
 import useLoginOTP from '@/apis/hooks/use-login-otp';
-import SnackbarModel from '@/components/snack-bar/snack-bar';
 import {
-  ScrollView,
-  StyleSheet,
   Text,
   View,
   Image,
+  ScrollView,
+  StyleSheet,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import useOTPInterval from '@/hooks/use-otp-interval';
-import { useDispatch } from 'react-redux';
-import useModal from '@/hooks/use-modal';
+import toast from '@/hooks/lib/toast';
 
 function CreateAccount() {
-  const { setSnackbarModal } = useModal();
   const { onSendAuthCode, onVerifyAuthCode, onChangeState } = useLoginOTP();
   const { timer, setTimer, formattedTimer } = useOTPInterval();
-  const [showAlert, setShowAlert] = React.useState(false);
-  const [showAuthAlert, setShowAuthAlert] = React.useState(false);
 
   const onPressOTP = React.useCallback(() => {
     setTimer(52);
     onSendAuthCode();
-    setSnackbarModal({ content: 'OTP sent', width: 180 });
-    setShowAlert(true);
+    toast.show('OTP sent');
   }, [router, onSendAuthCode, setTimer]);
-
-  // React.useEffect(() => {
-  //   if (timer === 0) {
-  //     router.push('/auth/login');
-  //   }
-  // }, [timer]);
 
   const handleSubmit = React.useCallback(() => {
     onVerifyAuthCode()
       .then((route) => {
         if (route !== undefined && route.success) {
-          setSnackbarModal({
-            content: 'Authentication code verified Successfully',
-            width: 300,
-          });
+          toast.show('Authentication code verified Successfully');
           router.push({
             pathname: '/auth/create-pin',
             params: route.params,
@@ -53,8 +36,7 @@ function CreateAccount() {
         }
       })
       .catch((err) => {
-        setSnackbarModal({ content: err.message, width: 180 });
-        setShowAuthAlert(true);
+        toast.show(err.message);
       });
   }, [onVerifyAuthCode]);
 
@@ -96,7 +78,7 @@ function CreateAccount() {
             Enter OTP
           </Text>
           <OTPInput
-            secureTextEntry={true}
+            secureTextEntry
             onChangeOTP={(otp) => onChangeState('code', otp)}
           />
 

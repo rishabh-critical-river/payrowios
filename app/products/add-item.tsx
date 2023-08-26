@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -8,31 +8,30 @@ import {
   Dimensions,
   Modal,
   Button,
-} from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+} from 'react-native';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 // import PaymentSummary from './PaymentSummary';
-import styles from "@/styles/add-item";
-import ItemDropdownButton from "@/components/add-item/item-dropdown";
-import ListItem from "@/components/add-item/list-item";
-import FooterText from "@/components/footer";
-import PanelView from "@/components/view/PanelView";
-import { ScrollView } from "react-native-gesture-handler";
-import useStorageData from "@/apis/hooks/use-storage-data";
-import { ProductTypes } from "@/typings/product";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import axios from "axios";
-import useProduct from "@/store/hooks/use-product";
-import getProducts from "@/apis/queries/product/get-product";
-import useModal from "@/hooks/use-modal";
-import storage from "@/hooks/lib/storage";
+import styles from '@/styles/add-item';
+import ItemDropdownButton from '@/components/add-item/item-dropdown';
+import ListItem from '@/components/add-item/list-item';
+import FooterText from '@/components/footer';
+import PanelView from '@/components/view/PanelView';
+import { ScrollView } from 'react-native-gesture-handler';
+import useStorageData from '@/apis/hooks/use-storage-data';
+import { ProductTypes } from '@/typings/product';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import axios from 'axios';
+import useProduct from '@/store/hooks/use-product';
+import getProducts from '@/apis/queries/product/get-product';
+import toast from '@/hooks/lib/toast';
+
 function AddItems() {
   const router = useRouter();
-  const { height } = Dimensions.get("window");
-  const { user } = useStorageData("user", { decode: false });
-  const { auth } = useStorageData("auth");
+  const { height } = Dimensions.get('window');
+  const { user } = useStorageData('user', { decode: false });
+  const { auth } = useStorageData('auth');
 
-  const { setSnackbarModal } = useModal();
   const safeRef = React.useRef<boolean>(false);
   const [loading, setLoading] = React.useState(false);
   const {
@@ -41,7 +40,6 @@ function AddItems() {
     updateItemIncrement,
     updateItemDecrement,
     updateCurrentID,
-    // onSelectItems,
   } = useProduct();
 
   const stateItems = state?.items;
@@ -113,7 +111,7 @@ function AddItems() {
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === "granted");
+      setHasPermission(status === 'granted');
     })();
   }, []);
 
@@ -131,12 +129,12 @@ function AddItems() {
       const response = await axios.get(apiUrl, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o",
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o',
         },
       });
       setOrderDetails(response.data);
       router.push({
-        pathname: "/products/payment-summary",
+        pathname: '/products/payment-summary',
         params: {
           orderDetails: response.data,
         },
@@ -161,16 +159,16 @@ function AddItems() {
   }
   return (
     <>
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             right: 0,
             top: 76,
           }}
         >
           <Image
-            source={require("@/assets/icons/Watermark.png")}
+            source={require('@/assets/icons/Watermark.png')}
             style={{
               width: 36,
               height: 50,
@@ -183,8 +181,8 @@ function AddItems() {
               <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
                 style={{
-                  width: "50%",
-                  height: "50%",
+                  width: '50%',
+                  height: '50%',
                 }}
               />
               <Button title="Close Scanner" onPress={handleCloseScanner} />
@@ -195,13 +193,13 @@ function AddItems() {
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <TouchableOpacity onPress={router.back}>
             <Image
-              source={require("@/assets/icons/arrow_back.png")}
+              source={require('@/assets/icons/arrow_back.png')}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -212,8 +210,8 @@ function AddItems() {
           <View>
             <Text
               style={{
-                color: "#4B5050",
-                fontWeight: "400",
+                color: '#4B5050',
+                fontWeight: '400',
                 fontSize: 12,
                 lineHeight: 16,
               }}
@@ -223,8 +221,8 @@ function AddItems() {
             <Text
               style={{
                 fontSize: 14,
-                fontWeight: "500",
-                color: "#333333",
+                fontWeight: '500',
+                color: '#333333',
                 lineHeight: 20,
               }}
             >
@@ -234,11 +232,11 @@ function AddItems() {
         </View>
         <Text
           style={{
-            textAlign: "center",
-            fontWeight: "400",
+            textAlign: 'center',
+            fontWeight: '400',
             fontSize: 22,
             marginTop: 26,
-            color: "#333333",
+            color: '#333333',
             lineHeight: 28,
           }}
         >
@@ -246,11 +244,11 @@ function AddItems() {
         </Text>
         <Text
           style={{
-            textAlign: "center",
+            textAlign: 'center',
             marginTop: 9,
-            color: "#4B5050",
+            color: '#4B5050',
             fontSize: 14,
-            fontWeight: "400",
+            fontWeight: '400',
           }}
         >
           You can Select multiple items
@@ -260,9 +258,9 @@ function AddItems() {
             <Text
               style={{
                 marginLeft: 16,
-                color: "white",
+                color: 'white',
                 fontSize: 16,
-                fontWeight: "500",
+                fontWeight: '500',
               }}
             >
               SCAN TO ADD
@@ -286,10 +284,10 @@ function AddItems() {
         >
           <View
             style={{
-              width: "80%",
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
+              width: '80%',
+              alignItems: 'center',
+              alignSelf: 'center',
+              justifyContent: 'center',
               height: height / 1.7,
             }}
           >
@@ -298,13 +296,13 @@ function AddItems() {
         </PanelView>
         <PanelView show={loading}>
           <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
           >
-            <ActivityIndicator size={"large"} color={"#4B5050"} />
+            <ActivityIndicator size="large" color="#4B5050" />
           </View>
         </PanelView>
         <PanelView show={!loading}>
-          <ScrollView scrollEnabled={true}>
+          <ScrollView scrollEnabled>
             {state.items &&
               state.items.map((parentItem, parentIndex) => {
                 const totalQuantity = parentItem?.serviceItems?.reduce(
@@ -323,10 +321,10 @@ function AddItems() {
                       {parentItem?.serviceItems?.length > 0 && (
                         <ScrollView
                           style={{
-                            width: "80%",
+                            width: '80%',
                             height: 200,
                             marginTop: 20,
-                            alignSelf: "center",
+                            alignSelf: 'center',
                           }}
                         >
                           {parentItem?.serviceItems?.map((item, index) => {
@@ -369,21 +367,21 @@ function AddItems() {
       </View>
       <View
         style={{
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "flex-end",
+          backgroundColor: 'white',
+          display: 'flex',
+          justifyContent: 'flex-end',
         }}
       >
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             bottom: 20,
             zIndex: 999,
           }}
         >
           <Image
-            source={require("@/assets/icons/Watermark.png")}
+            source={require('@/assets/icons/Watermark.png')}
             style={{
               width: 36,
               height: 50,
@@ -409,13 +407,10 @@ function AddItems() {
             // });
 
             if (Number(state?.total?.toFixed(2)) <= 0) {
-              setSnackbarModal({
-                content: "Please select atleast one item",
-                width: 300,
-              });
+              toast.show('Please select atleast one item');
               return;
             }
-            router.push("/products/payment-summary");
+            router.push('/products/payment-summary');
             // router.push({
             //   pathname: '/products/payment-summary',
             //   params: {

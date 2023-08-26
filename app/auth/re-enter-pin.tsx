@@ -1,25 +1,25 @@
 import useCreatePin from '@/apis/hooks/use-create-pin';
 import OTPInput from '@/components/otp-input';
-import useModal from '@/hooks/use-modal';
+import toast from '@/hooks/lib/toast';
 import { Params } from '@/typings/params';
 import getErrorString from '@/utils/getErrorString';
 import { AntDesign } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useRef } from 'react';
+import React from 'react';
 import {
-  ScrollView,
-  StyleSheet,
   Text,
   View,
   Image,
+  ScrollView,
+  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 
 function ReEnterPin() {
   const router = useRouter();
   const params = useLocalSearchParams<Params>();
-  const { setSnackbarModal } = useModal();
-  const { onChangeState, onConfirmPin, state } = useCreatePin();
+
+  const { onChangeState, onConfirmPin } = useCreatePin();
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -54,21 +54,9 @@ function ReEnterPin() {
         >
           Re-enter Pin
         </Text>
-        {/* <View
-          style={{
-            width: "100%",
-            height: 20,
-            marginTop: 6,
 
-            alignSelf: "center",
-          }}
-        >
-          <Text style={{ alignSelf: "center", color: "#666666" }}>
-            SMS code sent to verify phone number
-          </Text>
-        </View> */}
         <OTPInput
-          secureTextEntry={true}
+          secureTextEntry
           onChangeOTP={(pin) => onChangeState('pin', pin)}
         />
 
@@ -76,17 +64,12 @@ function ReEnterPin() {
           style={styles.goToSummaryButton}
           onPress={() => {
             onConfirmPin().catch((err) => {
-              setSnackbarModal({
-                content: getErrorString(err),
-                width: 300,
-              });
+              toast.show(getErrorString(err));
               router.push({
                 pathname: '/auth/create-pin',
-                params: params,
+                params,
               });
             });
-            // navigation.navigate('EnterPins');
-            // router.push('/auth/enter-pin');
           }}
         >
           <View style={styles.buttonContent}>
