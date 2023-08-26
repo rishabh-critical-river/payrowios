@@ -1,15 +1,15 @@
 import React from 'react';
 import cryptoActions from '@/hooks/lib/crypto-actions';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Params } from '@/typings/params';
 import createPin from '../mutations/auth/create-pin';
 import userLogin from '../mutations/auth/users-login';
 import useDeviceId from '@/hooks/use-device-id';
 import storage from '@/hooks/lib/storage';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 const useCreatePin = () => {
-  const { deviceId } = useDeviceId();
   const router = useRouter();
+  const { deviceId } = useDeviceId();
   const [state, setState] = React.useState({
     pin: '',
   });
@@ -26,8 +26,6 @@ const useCreatePin = () => {
     },
     [state]
   );
-  console.log({ params });
-  console.log({ state });
 
   const onConfirmPin = React.useCallback(async () => {
     if (params.pin !== state.pin) {
@@ -52,38 +50,21 @@ const useCreatePin = () => {
       if (response.data.success === true) {
         console.log('Worked Inside response.data.success');
         router.replace('/auth/enter-pin');
-        //   // if (deviceId) {
-        //   // const user = await userLogin({
-        //   //   pin: Number(state.pin),
-        //   //   imeiNumber: deviceId,
-        //   // });
-        //   // console.log(user.data);
-        //   // }
       }
-      // const decrypted = cryptoActions.decrypt({
-      //   iv: params.iv,
-      //   key: params.key,
-      //   AES: params.AES,
-      //   ALG: params.ALG,
-      //   plaintext: ecrypted,
-      // });
-      // const decryptedData = decrypted.replace(/\\/g, '');
-      // const decryptedJson = JSON.parse(decryptedData);
-      // console.log('Decrypted Data from Create Pin', { decryptedJson });
     }
   }, [state, params?.iv, params?.key, params?.AES, params?.ALG]);
 
   const onLoginByPin = React.useCallback(async () => {
     if (deviceId) {
-      const user = await userLogin({
+      const data = await userLogin({
         pin: Number(state.pin),
         imeiNumber: deviceId,
       });
-      if (user.data) {
-        await storage.setLocalData('user', JSON.stringify(user.data));
+      if (data.data) {
+        await storage.setLocalData('user', JSON.stringify(data.data));
         router.replace('/products/add-item');
       }
-      console.log('User', user.data);
+      console.log('User', data.data);
     }
   }, [state.pin]);
 

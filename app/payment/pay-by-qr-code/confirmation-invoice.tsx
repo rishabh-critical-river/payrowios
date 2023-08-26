@@ -14,13 +14,12 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-function ConfirmationInvoice({ navigation }:any) {
-
+function ConfirmationInvoice({ navigation }: any) {
   const router = useRouter();
   return (
     <>
       <View style={styles.container}>
-      <View
+        <View
           style={{
             paddingLeft: 19.98,
             paddingTop: 17,
@@ -29,9 +28,7 @@ function ConfirmationInvoice({ navigation }:any) {
             backgroundColor: "#fff",
           }}
         >
-          <TouchableOpacity
-            onPress={router.back}
-          >
+          <TouchableOpacity onPress={router.back}>
             <Image
               source={require("@/assets/icons/arrow_back.png")}
               style={{
@@ -100,7 +97,7 @@ function ConfirmationInvoice({ navigation }:any) {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            navigation.navigate("HomeScreen");
+            router.push("/products/add-item");
           }}
         >
           <View style={styles.buttonContent}>

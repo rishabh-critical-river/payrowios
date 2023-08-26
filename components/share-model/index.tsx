@@ -20,6 +20,7 @@ import { SVGIconProps } from "@/typings/svg";
 import MessageIcon from "@/components/icons/MessageIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import generateInvoice from "@/apis/mutations/products/invoice";
+import { router } from "expo-router";
 
 const apps = [
   {
@@ -127,7 +128,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
               marginTop: 28,
             }}
           >
-            Share Customer Copy
+            Share
           </Text>
           <View
             style={{
@@ -206,7 +207,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                   marginBottom: 7,
                 }}
               >
-                Contact Number
+                WhatsApp <Number></Number>
               </Text>
               <View style={{ flexDirection: "row" }}>
                 <Image
@@ -245,7 +246,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     color: "#4B5050",
                     fontWeight: "500",
                     fontSize: 22,
-                    width: 150,
+                    // width: 150,
                     height: 24,
                     opacity: 0.7,
                     marginRight: 4,
@@ -288,7 +289,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     color: "#4B5050",
                     fontWeight: "500",
                     fontSize: 22,
-                    width: 150,
+                    // width: 150,
                     height: 24,
                     opacity: 0.7,
                     marginRight: 4,
@@ -409,7 +410,12 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
             </View>
           </TouchableOpacity>
           {onPressHome && (
-            <TouchableOpacity style={styles.homebtn} onPress={onPressHome}>
+            <TouchableOpacity
+              style={styles.homebtn}
+              onPress={() => {
+                router.push("/products/add-item");
+              }}
+            >
               <View
                 style={{
                   borderWidth: 0.5,

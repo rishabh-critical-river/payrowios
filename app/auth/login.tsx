@@ -9,7 +9,6 @@ import {
   TextInput,
   ImageBackground,
   ScrollView,
-  Button,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import PayRowLogo from '@/components/logo';
@@ -18,10 +17,10 @@ import useCheckDevice from '@/apis/hooks/use-check-device';
 import Modal from 'react-native-modal';
 import { Entypo } from '@expo/vector-icons';
 import useModal from '@/hooks/use-modal';
-function Login({ navigation }: any) {
+function Login() {
   const router = useRouter();
-  const { state, isValid, onChangeState, onCheckDevice } = useCheckDevice();
-  console.log(state.alert);
+  const { state, onChangeState, onCheckDevice } = useCheckDevice();
+
   const { setSnackbarModal } = useModal();
   const onCreateAccount = React.useCallback(async () => {
     router.replace({

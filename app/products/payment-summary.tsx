@@ -4,15 +4,15 @@ import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import useProduct from '@/store/hooks/use-product';
 import { OrderMetaContext } from '@/providers/context/order-meta';
+import useStorageData from '@/apis/hooks/use-storage-data';
 
 const PaymentSummary = () => {
   const router = useRouter();
+  const { user } = useStorageData('user', { decode: true });
   const [orderMeta] = React.useContext(OrderMetaContext);
   const { state } = useProduct();
-
   const services = state?.purchaseBreakdown?.service;
 
-  console.log(services);
   return (
     <>
       <View
@@ -155,7 +155,7 @@ const PaymentSummary = () => {
                 color: '#020202',
               }}
             >
-              {orderMeta?.user?.merchantId}
+              {user?.merchantId}
               {/* Replace with the actual merchant property */}
             </Text>
           </View>
