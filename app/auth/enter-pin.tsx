@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import useCreatePin from "@/apis/hooks/use-create-pin";
 import PayRowLogo from "@/components/logo";
 import OTPInput from "@/components/otp-input";
@@ -7,6 +8,16 @@ import getErrorString from "@/utils/getErrorString";
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useCallback } from "react";
+=======
+import useCreatePin from '@/apis/hooks/use-create-pin';
+import PayRowLogo from '@/components/logo';
+import OTPInput from '@/components/otp-input';
+import toast from '@/hooks/lib/toast';
+import getErrorString from '@/utils/getErrorString';
+import { AntDesign } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React, { useCallback } from 'react';
+>>>>>>> 0a6c9ef88ee766da8f8b4887bde23498ded32db3
 import {
   Text,
   View,
@@ -18,23 +29,21 @@ import {
 
 function EnterPins() {
   const router = useRouter();
-  const { setSnackbarModal } = useModal();
   const { onChangeState, onLoginByPin, state } = useCreatePin();
-  const { formattedTimer } = useOTPInterval(52);
-
   const handleSubmit = useCallback(() => {
     if (state.pin.length !== 4) {
+<<<<<<< HEAD
       setSnackbarModal({
         content: "Please enter 4 digit pin to proceed",
         width: 300,
       });
+=======
+      toast.show('Please enter 4 digit pin to proceed');
+>>>>>>> 0a6c9ef88ee766da8f8b4887bde23498ded32db3
       return;
     }
     onLoginByPin().catch((err) => {
-      setSnackbarModal({
-        content: getErrorString(err),
-        width: 300,
-      });
+      toast.show(getErrorString(err));
     });
   }, [state.pin]);
 
@@ -82,8 +91,13 @@ function EnterPins() {
           </Text>
         </View> */}
         <OTPInput
+<<<<<<< HEAD
           onChangeOTP={(pin) => onChangeState("pin", pin)}
           secureTextEntry={true}
+=======
+          onChangeOTP={(pin) => onChangeState('pin', pin)}
+          secureTextEntry
+>>>>>>> 0a6c9ef88ee766da8f8b4887bde23498ded32db3
         />
 
         <TouchableOpacity

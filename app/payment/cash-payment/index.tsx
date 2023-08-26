@@ -18,7 +18,7 @@ import { OrderMetaContext } from '@/providers/context/order-meta';
 import useStorageData from '@/apis/hooks/use-storage-data';
 import orders from '@/apis/mutations/products/orders';
 import percentange from '@/hooks/lib/percentange';
-import useModal from '@/hooks/use-modal';
+import toast from '@/hooks/lib/toast';
 
 /**
  * Cash Payment Screen
@@ -26,7 +26,6 @@ import useModal from '@/hooks/use-modal';
 
 function CashPayment() {
   const router = useRouter();
-  const { setSnackbarModal } = useModal();
   const [cash, setCash] = React.useState('');
   const onChangeCash = React.useCallback((value: string) => {
     setCash(value);
@@ -358,7 +357,7 @@ function CashPayment() {
                   width: 2,
                   height: 1.2,
                 }}
-              ></View>
+              />
             ))}
           </View>
           <View style={{ backgroundColor: 'white' }}>
@@ -545,77 +544,6 @@ function CashPayment() {
               />
             </View>
 
-            {/* <View
-            style={{
-              borderWidth: 1,
-              borderColor: "#4B505040",
-              borderRadius: 8,
-              marginTop: 26.5,
-              width: 296,
-              height: 52,
-              alignSelf: "center",
-              backgroundColor: "#4B505080",
-            }}
-          >
-            <View
-              style={{
-                marginTop: 18,
-                marginLeft: 16,
-                flexDirection: "row",
-              }}
-            >
-              <View>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "#FFFFFF",
-
-                    width: 14,
-                    height: 3.61,
-
-                    backgroundColor: "#FFFFFF",
-                    marginBottom: 2.58,
-                  }}
-                />
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "#FFFFFF",
-
-                    width: 14,
-                    height: 3.61,
-
-                    marginBottom: 2.58,
-                    backgroundColor: "#FFFFFF",
-                  }}
-                />
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "#FFFFFF",
-
-                    width: 14,
-                    height: 3.61,
-
-                    backgroundColor: "#FFFFFF",
-                  }}
-                />
-              </View>
-              <Text
-                style={{
-                  fontWeight: "400",
-                  fontSize: 22,
-                  lineHeight: 28,
-                  color: "#FFFFFF",
-                  marginLeft: 4,
-                  bottom: 6,
-                }}
-              >
-                Pay
-              </Text>
-            </View>
-          </View> */}
-
             <View
               style={{
                 width: '80%',
@@ -649,10 +577,7 @@ function CashPayment() {
                 // router.push('/payment/cash-payment/cash-invoice');
                 // onPayByCash();
                 if (!(cash && Number(cash) >= Number(finalAmount))) {
-                  setSnackbarModal({
-                    content: 'Please enter received amount to proceed',
-                    width: 300,
-                  });
+                  toast.show('Please enter received amount to proceed');
                 } else {
                   onPayByCash();
                 }

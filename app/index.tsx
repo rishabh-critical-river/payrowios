@@ -24,9 +24,9 @@ const GetStartedScreen = () => {
         {user?.token && (
           <View
             style={{
-              position: 'absolute',
-              right: 16,
               top: 30,
+              right: 16,
+              position: 'absolute',
             }}
           >
             <TouchableOpacity

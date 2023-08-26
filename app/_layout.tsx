@@ -10,6 +10,7 @@ import GlobalSnackBar from '@/components/snack-bar/global-snack-bar';
 import 'react-native-gesture-handler';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import storage from '@/hooks/lib/storage';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const min = 5 * 60 * 1000;
 const RootLayout = () => {
@@ -40,18 +41,20 @@ const RootLayout = () => {
   );
 
   return (
-    <GestureDetector gesture={tap}>
-      <Provider store={store}>
-        <Providers>
-          <SafeAreaProvider>
-            <AuthProvider>
-              <Slot />
-            </AuthProvider>
-            <GlobalSnackBar />
-          </SafeAreaProvider>
-        </Providers>
-      </Provider>
-    </GestureDetector>
+    <RootSiblingParent>
+      <GestureDetector gesture={tap}>
+        <Provider store={store}>
+          <Providers>
+            <SafeAreaProvider>
+              <AuthProvider>
+                <Slot />
+              </AuthProvider>
+              <GlobalSnackBar />
+            </SafeAreaProvider>
+          </Providers>
+        </Provider>
+      </GestureDetector>
+    </RootSiblingParent>
   );
 };
 export default RootLayout;

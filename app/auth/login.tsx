@@ -16,12 +16,12 @@ import { useRouter } from 'expo-router';
 import useCheckDevice from '@/apis/hooks/use-check-device';
 import Modal from 'react-native-modal';
 import { Entypo } from '@expo/vector-icons';
-import useModal from '@/hooks/use-modal';
+import toast from '@/hooks/lib/toast';
+
 function Login() {
   const router = useRouter();
   const { state, onChangeState, onCheckDevice } = useCheckDevice();
 
-  const { setSnackbarModal } = useModal();
   const onCreateAccount = React.useCallback(async () => {
     router.replace({
       pathname: '/auth/create-account',
@@ -34,24 +34,15 @@ function Login() {
 
   const onCheckDeviceHandler = React.useCallback(async () => {
     if (state.tid === '') {
-      setSnackbarModal({
-        content: 'Please enter TID to proceed',
-        width: 250,
-      });
+      toast.show('Please enter TID to proceed');
       return;
     }
     if (state.mobileNumber === '') {
-      setSnackbarModal({
-        content: ' Please enter mobile number to proceed',
-        width: 300,
-      });
+      toast.show(' Please enter mobile number to proceed');
       return;
     }
     onCheckDevice().catch((err) => {
-      setSnackbarModal({
-        content: err,
-        width: 300,
-      });
+      toast.show(err);
     });
   }, [state.tid, state.mobileNumber]);
 

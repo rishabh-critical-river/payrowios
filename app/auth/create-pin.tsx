@@ -12,17 +12,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import useModal from '@/hooks/use-modal';
+import toast from '@/hooks/lib/toast';
 
 function CreatePin() {
   const router = useRouter();
   const [pin, setPin] = React.useState('');
   const params = useLocalSearchParams<Params>();
-  const { formattedTimer, timer } = useOTPInterval(52);
-  const { setSnackbarModal } = useModal();
-  console.log({ timer });
-
-  console.log({ createPin: params });
+  const { formattedTimer } = useOTPInterval(52);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -58,16 +54,13 @@ function CreatePin() {
         >
           Create Pin
         </Text>
-        <OTPInput onChangeOTP={(code) => setPin(code)} secureTextEntry={true} />
+        <OTPInput onChangeOTP={(code) => setPin(code)} secureTextEntry />
 
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
             if (pin.length < 4) {
-              setSnackbarModal({
-                content: 'Please enter 4 digit pin to proceed',
-                width: 300,
-              });
+              toast.show('Please enter 4 digit pin to proceed');
               return;
             }
             router.replace({
