@@ -30,7 +30,7 @@ type Payload = {
 };
 type Response = {
   success: boolean;
-  data: string;
+  data: any;
 };
 // https://payrowdev.uaenorth.cloudapp.azure.com/api/orders/
 

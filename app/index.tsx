@@ -2,8 +2,8 @@ import React from 'react';
 import { useRouter } from 'expo-router';
 import PayRowLogo from '@/components/logo';
 import { AntDesign } from '@expo/vector-icons';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import useStorageData from '@/apis/hooks/use-storage-data';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 const GetStartedScreen = () => {
   const router = useRouter();
@@ -17,11 +17,13 @@ const GetStartedScreen = () => {
     }
   }, [user]);
 
+  console.log(user);
   return (
     <>
       <View style={styles.container}>
         <PayRowLogo />
-        {user?.token && (
+
+        {user !== null && (
           <View
             style={{
               top: 30,
@@ -42,23 +44,7 @@ const GetStartedScreen = () => {
             </TouchableOpacity>
           </View>
         )}
-        <View
-          style={{
-            position: 'absolute',
-            right: 16,
-            top: 30,
-          }}
-        >
-          <TouchableOpacity onPress={() => router.push('/product-selection/')}>
-            <Image
-              source={require('@/assets/icons/menu.png')}
-              style={{
-                width: 42,
-                height: 40,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
+
         <View
           style={{
             position: 'absolute',

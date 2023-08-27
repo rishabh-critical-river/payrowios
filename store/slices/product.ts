@@ -126,6 +126,14 @@ const productSlilce = createSlice({
         state.total = total(items);
       }
     },
+    onReset: (state) => {
+      state.total = 0;
+      state.items = [];
+      state.currentID = empty;
+      state.purchaseBreakdown = {
+        service: [],
+      };
+    },
   },
 });
 
