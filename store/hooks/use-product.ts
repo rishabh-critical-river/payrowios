@@ -54,14 +54,18 @@ const useProduct = () => {
     },
     []
   );
+  const onReset = React.useCallback(() => {
+    const act = actions.onReset();
+    dispatch(act);
+  }, []);
 
   return {
     state,
-
     updateProducts,
     updateCurrentID,
     updateItemIncrement,
     updateItemDecrement,
+    onReset,
   };
 };
 

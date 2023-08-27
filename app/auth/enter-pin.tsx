@@ -116,7 +116,7 @@ function EnterPins() {
                   flex: 1,
                 }}
               >
-                Forget Pin?
+                Forgot Pin?
               </Text>
               <View
                 style={{

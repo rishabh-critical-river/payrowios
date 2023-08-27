@@ -20,6 +20,9 @@ import { SVGIconProps } from '@/typings/svg';
 import MessageIcon from '@/components/icons/MessageIcon';
 import { FontAwesome } from '@expo/vector-icons';
 import generateInvoice from '@/apis/mutations/products/invoice';
+import { router } from 'expo-router';
+import useProduct from '@/store/hooks/use-product';
+import { PaymentModeContext } from '@/providers/context/payment-mode';
 
 const apps = [
   {
@@ -40,11 +43,11 @@ const apps = [
     value: SharingApps.SMS,
   },
   {
-    name: 'QR Code',
+    name: 'QR',
     image: (props: SVGIconProps) => (
       <FontAwesome name="qrcode" size={28} {...props} />
     ),
-    value: SharingApps.SMS,
+    value: SharingApps.QR,
   },
 ];
 
@@ -55,6 +58,8 @@ type ShareModelProps = {
 };
 
 function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
+  const { onReset } = useProduct();
+  const [setPaymentMode] = React.useContext(PaymentModeContext);
   const { user } = useStorageData('user');
   const [inputs, setInputs] = React.useState({
     phone: '',
@@ -133,7 +138,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
               marginTop: 28,
             }}
           >
-            Share Customer Copy
+            Share
           </Text>
           <View
             style={{
@@ -148,7 +153,13 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
             {apps.map((app) => (
               <TouchableOpacity
                 key={app.value}
-                onPress={() => setSelectedApp(app.value)}
+                onPress={() => {
+                  if (app.value === SharingApps.QR) {
+                    router.push(`/payment/pay-by-qr-code/qr-generate`);
+                  } else {
+                    setSelectedApp(app.value);
+                  }
+                }}
               >
                 <View
                   style={{
@@ -213,7 +224,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                   marginBottom: 7,
                 }}
               >
-                Contact Number
+                WhatsApp
               </Text>
               <View style={{ flexDirection: 'row' }}>
                 <Image
@@ -252,7 +263,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     color: '#4B5050',
                     fontWeight: '500',
                     fontSize: 22,
-                    width: 150,
+                    // width: 150,
                     height: 24,
                     opacity: 0.7,
                     marginRight: 4,
@@ -295,7 +306,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     color: '#4B5050',
                     fontWeight: '500',
                     fontSize: 22,
-                    width: 150,
+                    // width: 150,
                     height: 24,
                     opacity: 0.7,
                     marginRight: 4,
@@ -416,7 +427,14 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
             </View>
           </TouchableOpacity>
           {onPressHome && (
-            <TouchableOpacity style={styles.homebtn} onPress={onPressHome}>
+            <TouchableOpacity
+              style={styles.homebtn}
+              onPress={() => {
+                onReset();
+                setPaymentMode(null);
+                router.push('/products/add-item');
+              }}
+            >
               <View
                 style={{
                   borderWidth: 0.5,

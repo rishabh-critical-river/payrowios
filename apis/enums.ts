@@ -13,6 +13,7 @@ export enum SharingApps {
   TWITTER = 'Twitter',
   INSTAGRAM = 'Instagram',
   LINKEDIN = 'Linkedin',
+  QR = 'QR',
 }
 
 export enum RecallMethodTypes {

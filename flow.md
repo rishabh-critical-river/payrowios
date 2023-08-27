@@ -1,17 +1,30 @@
 INVOICE RECALL {
+
 Payment Invoice - Recall Order iD( order Number ) - Transaction ID ( Enter )
 Download button in Invoice recall in from date to to date when opened, header should be changed from tap to pay
 Search magnifying glass
+
+}
+
+Contact US {
+
+Leave us a message topic shouldn't be there. done
+Contact Number -Not Enter your mobile Number done
+Message placeholder & placement -- -done
+
+}
+
+Refund {
+Transaction Number - placeholder of Transaction Number --done
+Submit button alignment ------ done
 }
 
 Login flow {
 session management optimizations in background task
 }
-
 payment mode {
 some body already selected pay by link
 }
-
 cash pay {
 cash recived width size
 time format,
@@ -29,12 +42,15 @@ Home button Click issue --done
 }
 
 pay by link{
+
 dynamic amount not coming
+
 }
 
 paybyQR{
 amount page missing, --DONE
 QR multiple use needs to be implemented
+
 }
 
 enter auth code{

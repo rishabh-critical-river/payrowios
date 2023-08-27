@@ -10,16 +10,10 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  ScrollView,
 } from 'react-native';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import Modal from 'react-native-modal';
 import { useRouter } from 'expo-router';
-import { PaymentMode, SharingApps } from '@/apis/enums';
 import useStorageData from '@/apis/hooks/use-storage-data';
-import PanelView from '@/components/view/PanelView';
-import sendUrl from '@/apis/mutations/order/send-url';
-import useShare from '@/hooks/use-share';
 import useProduct from '@/store/hooks/use-product';
 import percentange from '@/hooks/lib/percentange';
 import { OrderMetaContext } from '@/providers/context/order-meta';
@@ -38,7 +32,7 @@ function CashPayment() {
   const finalAmount = totalAmount + taxAmount;
   const { user } = useStorageData('user', { decode: true });
   const { user: withToken } = useStorageData('user');
-  // console.log({ withToken });
+
   const [response, setResponse] = useState<Response | null>(null);
   const [orderMeta] = React.useContext(OrderMetaContext);
 
@@ -365,7 +359,6 @@ function CashPayment() {
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
-                    // marginBottom: 8,
                   }}
                   placeholder="0.0"
                   value={totalAmount.toFixed(2)}

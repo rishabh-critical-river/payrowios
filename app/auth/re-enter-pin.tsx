@@ -1,6 +1,7 @@
 import useCreatePin from '@/apis/hooks/use-create-pin';
 import OTPInput from '@/components/otp-input';
 import toast from '@/hooks/lib/toast';
+import useOTPInterval from '@/hooks/use-otp-interval';
 import { Params } from '@/typings/params';
 import getErrorString from '@/utils/getErrorString';
 import { AntDesign } from '@expo/vector-icons';
@@ -20,6 +21,16 @@ function ReEnterPin() {
   const params = useLocalSearchParams<Params>();
 
   const { onChangeState, onConfirmPin } = useCreatePin();
+  const { timer, formattedTimer } = useOTPInterval();
+
+  // React.useEffect(() => {
+  //   if (timer === 0) {
+  //     router.push({
+  //       pathname: '/auth/create-pin',
+  //       params,
+  //     });
+  //   }
+  // }, [timer]);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -80,12 +91,7 @@ function ReEnterPin() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.resendCode}
-          onPress={() => {
-            router.push('/home/');
-          }}
-        >
+        <View style={styles.resendCode}>
           <View
             style={{
               borderWidth: 0.5,
@@ -109,7 +115,7 @@ function ReEnterPin() {
                   flex: 1,
                 }}
               >
-                Forget Pin
+                {formattedTimer}
               </Text>
               <View
                 style={{
@@ -122,15 +128,17 @@ function ReEnterPin() {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
+                    display: 'flex',
+                    gap: 8,
                   }}
                 >
+                  <Text>Resend Code </Text>
                   <AntDesign name="right" size={16} color="#4C4C4C" />
                 </View>
               </View>
             </View>
           </View>
-        </TouchableOpacity>
-
+        </View>
         {/* <Image
           source={require("../../src/Images/getStarted.png")}
           style={{
