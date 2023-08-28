@@ -30,7 +30,12 @@ function DailyReport({ navigation }: any) {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity onPress={router.back}>
+          <TouchableOpacity
+            // onPress={router.back}
+            onPress={() => {
+              router.push("/product-selection/payment-history/");
+            }}
+          >
             <Image
               source={require("@/assets/icons/arrow_back.png")}
               style={{
@@ -136,7 +141,7 @@ function DailyReport({ navigation }: any) {
             // navigation.navigate("dailyReport");
             // router.push("/product-selection/payment-history/daily-report/daily-card-report")
             router.push(
-              "/product-selection/payment-history/daily-report/otp-daily-report"
+              "/product-selection/payment-history/daily-report/daily-card-report"
             );
           }}
           style={{

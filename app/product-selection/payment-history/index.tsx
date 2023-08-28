@@ -59,9 +59,7 @@ function PaymentHistory({ navigation }: any) {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity
-             onPress={router.back}
-            >
+            <TouchableOpacity onPress={router.back}>
               <Image
                 source={require("@/assets/icons/arrow_back.png")}
                 style={{
@@ -232,7 +230,10 @@ function PaymentHistory({ navigation }: any) {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate("historyMethods");
-              router.push("/product-selection/payment-history/daily-report/")
+              // router.push("/product-selection/payment-history/daily-report/")
+              router.push(
+                "/product-selection/payment-history/daily-report/otp-daily-report"
+              );
             }}
             style={styles.box}
           >
@@ -252,7 +253,9 @@ function PaymentHistory({ navigation }: any) {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate("historyMethods");
-              router.push("/product-selection/payment-history/monthly-report/")
+              router.push(
+                "/product-selection/payment-history/monthly-report/otp-monthly-report"
+              );
             }}
             style={styles.box}
           >

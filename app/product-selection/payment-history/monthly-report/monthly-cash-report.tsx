@@ -15,7 +15,11 @@ import {
   KeyboardAvoidingView,
   FlatList,
 } from "react-native";
-import { AntDesign, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 const data = [
   { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
@@ -86,19 +90,19 @@ const ListItem = ({ item, index }) => {
           width: 110,
         }}
       >
-      <AntDesign
-              name="download"
-              size={20}
-              color="black"
-              style={{ marginLeft: 9, marginTop: 9 }}
-            />
+        <AntDesign
+          name="download"
+          size={20}
+          color="black"
+          style={{ marginLeft: 9, marginTop: 9 }}
+        />
       </Text>
     </View>
   );
 };
 
-function DailyCashReport({navigation}:any) {
-    const router = useRouter();
+function DailyCashReport({ navigation }: any) {
+  const router = useRouter();
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -110,15 +114,9 @@ function DailyCashReport({navigation}:any) {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity
-           onPress= {
-             
-            router.back
-          }
-          >
+          <TouchableOpacity onPress={router.back}>
             <Image
-                             source={require("@/assets/icons/arrow_back.png")}
-
+              source={require("@/assets/icons/arrow_back.png")}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -250,16 +248,17 @@ function DailyCashReport({navigation}:any) {
           style={{
             borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
-            borderTopColor: "#4B505026",
-            borderTopWidth: 1,
-            // marginTop: 25,
+            marginTop: 25,
             marginLeft: 32,
             marginRight: 32,
+          }}
+        />
+        <View
+          style={{
+            marginLeft: 50,
+            marginRight: 50,
             flexDirection: "row",
-
             marginTop: 9,
-            paddingTop: 9,
-            paddingBottom: 9,
           }}
         >
           <Text
@@ -268,9 +267,6 @@ function DailyCashReport({navigation}:any) {
               fontWeight: "500",
               lineHeight: 16,
               color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
-              width: 63,
             }}
           >
             Time
@@ -286,7 +282,7 @@ function DailyCashReport({navigation}:any) {
               width: 90,
             }}
           >
-           value
+            value
           </Text>
           <Text
             style={{
@@ -299,7 +295,7 @@ function DailyCashReport({navigation}:any) {
               width: 67,
             }}
           >
-          Total Income
+            Total Income
           </Text>
           <Text
             style={{
@@ -313,7 +309,7 @@ function DailyCashReport({navigation}:any) {
               width: 110,
             }}
           >
-         download
+            download
           </Text>
         </View>
         {/* <View
