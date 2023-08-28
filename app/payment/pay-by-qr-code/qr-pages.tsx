@@ -4,6 +4,8 @@ import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ShareModel from '@/components/share-model';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import useProduct from '@/store/hooks/use-product';
+import { PaymentModeContext } from '@/providers/context/payment-mode';
 
 function QRCode() {
   const router = useRouter();
@@ -12,6 +14,9 @@ function QRCode() {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const { onReset } = useProduct();
+  const [setPaymentMode] = React.useContext(PaymentModeContext);
 
   return (
     <>
@@ -106,6 +111,8 @@ function QRCode() {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
+            onReset();
+            setPaymentMode(null);
             router.push('/products/add-item');
           }}
         >

@@ -2,8 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import useProduct from '@/store/hooks/use-product';
+import { PaymentModeContext } from '@/providers/context/payment-mode';
+
 function ConfirmationInvoice() {
   const router = useRouter();
+
+  const { onReset } = useProduct();
+  const [setPaymentMode] = React.useContext(PaymentModeContext);
   return (
     <>
       <View style={styles.container}>
@@ -98,6 +104,8 @@ function ConfirmationInvoice() {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
+            onReset();
+            setPaymentMode(null);
             router.push('/products/add-item');
           }}
         >

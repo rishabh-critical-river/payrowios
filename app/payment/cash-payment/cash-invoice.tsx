@@ -6,6 +6,8 @@ import ShareModel from '@/components/share-model';
 import useStorageData from '@/apis/hooks/use-storage-data';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import useProduct from '@/store/hooks/use-product';
+import { PaymentModeContext } from '@/providers/context/payment-mode';
 
 function CardInvoice() {
   const router = useRouter();
@@ -37,6 +39,9 @@ function CardInvoice() {
     params?.cashReceived,
     params?.totalTaxAmount,
   ]);
+
+  const { onReset } = useProduct();
+  const [setPaymentMode] = React.useContext(PaymentModeContext);
 
   return (
     <>
@@ -262,6 +267,8 @@ function CardInvoice() {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
+            onReset();
+            setPaymentMode(null);
             router.push('/products/add-item');
           }}
         >

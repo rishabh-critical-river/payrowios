@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
-import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ShareModel from '@/components/share-model';
+import useProduct from '@/store/hooks/use-product';
+import { PaymentModeContext } from '@/providers/context/payment-mode';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 function QRCode() {
   const router = useRouter();
+  const { onReset } = useProduct();
   const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+  const [setPaymentMode] = React.useContext(PaymentModeContext);
 
   return (
     <>
@@ -94,6 +93,8 @@ function QRCode() {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
+            onReset();
+            setPaymentMode(null);
             router.push('/products/add-item');
           }}
         >

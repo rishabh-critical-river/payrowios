@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 import {
   StyleSheet,
@@ -8,12 +8,14 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-} from "react-native";
-import Modal from "react-native-modal";
-import { AntDesign } from "@expo/vector-icons";
-const countries = [{ country: "TRANSACTION ID" }, { country: "BY DATE" }];
-import { Entypo } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+} from 'react-native';
+import Modal from 'react-native-modal';
+import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import useProduct from '@/store/hooks/use-product';
+import { PaymentModeContext } from '@/providers/context/payment-mode';
+
 function CardInvoice({ navigation }: any) {
   const router = useRouter();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -22,21 +24,24 @@ function CardInvoice({ navigation }: any) {
     setModalVisible(!isModalVisible);
   };
 
+  const { onReset } = useProduct();
+  const [setPaymentMode] = React.useContext(PaymentModeContext);
+
   return (
     <>
-      <ScrollView style={{ backgroundColor: "white" }}>
-        <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+      <ScrollView style={{ backgroundColor: 'white' }}>
+        <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
           <View
             style={{
               marginLeft: 19.98,
               marginTop: 17,
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
             <TouchableOpacity onPress={router.back}>
               <Image
-                source={require("@/assets/icons/arrow_back.png")}
+                source={require('@/assets/icons/arrow_back.png')}
                 style={{
                   width: 16.03,
                   height: 16.03,
@@ -47,10 +52,10 @@ function CardInvoice({ navigation }: any) {
             <Text
               style={{
                 fontSize: 20,
-                fontWeight: "500",
+                fontWeight: '500',
                 lineHeight: 32,
                 letterSpacing: 0.5,
-                color: "#4B5050",
+                color: '#4B5050',
               }}
             >
               Invoice
@@ -60,18 +65,18 @@ function CardInvoice({ navigation }: any) {
             style={{
               width: 150,
               height: 48.3,
-              alignSelf: "center",
+              alignSelf: 'center',
               marginTop: 24,
             }}
-            source={require("@/assets/onboarding/payrowLogo.png")}
+            source={require('@/assets/onboarding/payrowLogo.png')}
           />
           <Text
             style={{
-              textAlign: "center",
-              fontWeight: "400",
+              textAlign: 'center',
+              fontWeight: '400',
               fontSize: 22,
               marginTop: 10,
-              color: "#333333",
+              color: '#333333',
               marginBottom: 6,
               lineHeight: 28,
             }}
@@ -80,270 +85,270 @@ function CardInvoice({ navigation }: any) {
           </Text>
           <Text
             style={{
-              textAlign: "center",
-              fontWeight: "400",
+              textAlign: 'center',
+              fontWeight: '400',
               fontSize: 14,
               marginBottom: 12,
               lineHeight: 20,
 
-              color: "#4B5050B2",
+              color: '#4B5050B2',
             }}
           >
             Location details & PO Box
           </Text>
           <View
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
               marginLeft: 32,
               marginRight: 32,
             }}
           >
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
+                display: 'flex',
+                flexDirection: 'row',
                 gap: 12,
               }}
             >
               <Text
                 style={{
-                  color: "#4B5050B2",
-                  fontWeight: "400",
+                  color: '#4B5050B2',
+                  fontWeight: '400',
                   fontSize: 12,
                 }}
               >
                 Date:
               </Text>
-              <Text style={{ color: "#4B5050B2" }}>24/08/2023</Text>
+              <Text style={{ color: '#4B5050B2' }}>24/08/2023</Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
+                display: 'flex',
+                flexDirection: 'row',
                 gap: 12,
               }}
             >
-              <Text style={{ color: "#4B5050B2" }}>Time:</Text>
-              <Text style={{ color: "#4B5050B2" }}>24-08-23</Text>
+              <Text style={{ color: '#4B5050B2' }}>Time:</Text>
+              <Text style={{ color: '#4B5050B2' }}>24-08-23</Text>
             </View>
           </View>
           <Text
             style={{
-              textAlign: "center",
-              fontWeight: "500",
+              textAlign: 'center',
+              fontWeight: '500',
               fontSize: 16,
               marginTop: 16,
-              color: "#4B5050",
+              color: '#4B5050',
               marginBottom: 16,
             }}
           >
             Transaction Successful
           </Text>
-          <View style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          <View style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Merchant#
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 003125403
               </Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Terminal 3
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 11016524
               </Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Sequence
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 1426
               </Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 InvoiceNumber
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 54321
               </Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Branch:
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 1234
               </Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Visa
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               ></Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 **** **** **** 1257
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               ></Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Source: (Q)
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Expiry XXXX
               </Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Vat #:
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 2849715
               </Text>
             </View>
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
                 marginLeft: 32,
                 marginRight: 32,
               }}
             >
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 Vat Ammount %5:
               </Text>
 
               <Text
-                style={{ color: "#4B5050B2", fontWeight: "400", fontSize: 12 }}
+                style={{ color: '#4B5050B2', fontWeight: '400', fontSize: 12 }}
               >
                 5.5AED
               </Text>
@@ -351,9 +356,9 @@ function CardInvoice({ navigation }: any) {
           </View>
           <View
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
               marginLeft: 32,
               marginRight: 32,
 
@@ -362,8 +367,8 @@ function CardInvoice({ navigation }: any) {
           >
             <Text
               style={{
-                color: "#333333",
-                fontWeight: "500",
+                color: '#333333',
+                fontWeight: '500',
                 fontSize: 14,
                 lineHeight: 20,
               }}
@@ -373,8 +378,8 @@ function CardInvoice({ navigation }: any) {
 
             <Text
               style={{
-                color: "#333333",
-                fontWeight: "500",
+                color: '#333333',
+                fontWeight: '500',
                 fontSize: 14,
                 lineHeight: 20,
               }}
@@ -384,11 +389,11 @@ function CardInvoice({ navigation }: any) {
           </View>
           <Text
             style={{
-              textAlign: "center",
-              fontWeight: "500",
+              textAlign: 'center',
+              fontWeight: '500',
               fontSize: 16,
               marginTop: 20,
-              color: "#4B5050",
+              color: '#4B5050',
               marginBottom: 32,
               opacity: 0.800000011920929,
             }}
@@ -397,7 +402,7 @@ function CardInvoice({ navigation }: any) {
           </Text>
         </View>
       </ScrollView>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: 'white' }}>
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={toggleModal}
@@ -412,13 +417,13 @@ function CardInvoice({ navigation }: any) {
         <Modal
           isVisible={isModalVisible}
           style={{
-            justifyContent: "flex-end",
+            justifyContent: 'flex-end',
             margin: 0,
           }}
         >
           <View
             style={{
-              backgroundColor: "white",
+              backgroundColor: 'white',
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
               flex: 0.41,
@@ -428,9 +433,9 @@ function CardInvoice({ navigation }: any) {
               <Text
                 style={{
                   fontSize: 16,
-                  fontWeight: "500",
+                  fontWeight: '500',
                   lineHeight: 24,
-                  color: "#4B5050",
+                  color: '#4B5050',
                   marginLeft: 32,
                   marginTop: 28,
                 }}
@@ -439,29 +444,29 @@ function CardInvoice({ navigation }: any) {
               </Text>
               <View
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                   marginLeft: 30,
                   marginRight: 150,
                   marginTop: 16,
                 }}
               >
                 <Image
-                  source={require("@/assets/icons/whatsapp.png")}
+                  source={require('@/assets/icons/whatsapp.png')}
                   style={{
                     width: 52,
                     height: 52,
                   }}
                 />
                 <Image
-                  source={require("@/assets/icons/gmail.png")}
+                  source={require('@/assets/icons/gmail.png')}
                   style={{
                     width: 52,
                     height: 52,
                   }}
                 />
                 <Image
-                  source={require("@/assets/icons/chat.png")}
+                  source={require('@/assets/icons/chat.png')}
                   style={{
                     width: 52,
                     height: 52,
@@ -473,17 +478,17 @@ function CardInvoice({ navigation }: any) {
                   style={{
                     fontSize: 12,
                     lineHeight: 12,
-                    fontWeight: "400",
-                    color: "#333333",
+                    fontWeight: '400',
+                    color: '#333333',
                     opacity: 0.800000011920929,
                     marginBottom: 7,
                   }}
                 >
                   Contact Number
                 </Text>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: 'row' }}>
                   <Image
-                    source={require("@/assets/icons/UAE.png")}
+                    source={require('@/assets/icons/UAE.png')}
                     style={{
                       width: 24,
                       height: 24,
@@ -491,7 +496,7 @@ function CardInvoice({ navigation }: any) {
                     }}
                   />
                   <Image
-                    source={require("@/assets/icons/IconPlacholder.png")}
+                    source={require('@/assets/icons/IconPlacholder.png')}
                     style={{
                       width: 20,
                       height: 20,
@@ -500,8 +505,8 @@ function CardInvoice({ navigation }: any) {
                   />
                   <TextInput
                     style={{
-                      color: "#4B5050",
-                      fontWeight: "500",
+                      color: '#4B5050',
+                      fontWeight: '500',
                       fontSize: 22,
                       width: 50,
                       height: 24,
@@ -515,8 +520,8 @@ function CardInvoice({ navigation }: any) {
 
                   <TextInput
                     style={{
-                      color: "#4B5050",
-                      fontWeight: "500",
+                      color: '#4B5050',
+                      fontWeight: '500',
                       fontSize: 22,
                       width: 150,
                       height: 24,
@@ -533,19 +538,19 @@ function CardInvoice({ navigation }: any) {
                 <View
                   //horizontal line
                   style={{
-                    backgroundColor: "#99999",
+                    backgroundColor: '#99999',
 
                     width: 296,
                     height: 1,
                     opacity: 0.7,
-                    alignSelf: "center",
+                    alignSelf: 'center',
                   }}
                 />
               </View>
               <View
                 style={{
                   borderBottomWidth: 1,
-                  borderBottomColor: "#4B5050",
+                  borderBottomColor: '#4B5050',
                   width: 310,
                   marginLeft: 32,
                   marginTop: 8,
@@ -563,7 +568,7 @@ function CardInvoice({ navigation }: any) {
               }}
               onPress={() => {
                 // navigation.navigate("ConfirmationInvoice");
-                router.push("/payment/Tap-to-pay/confirmation-invoice");
+                router.push('/payment/Tap-to-pay/confirmation-invoice');
                 toggleModal();
               }}
             >
@@ -579,30 +584,31 @@ function CardInvoice({ navigation }: any) {
         <TouchableOpacity
           style={styles.resendCode}
           onPress={() => {
-            // navigation.navigate("HomeScreen");
-            router.push("/products/add-item");
+            onReset();
+            setPaymentMode(null);
+            router.push('/products/add-item');
           }}
         >
           <View
             style={{
               borderWidth: 0.5,
-              borderColor: "#B2B2B2",
+              borderColor: '#B2B2B2',
               borderRadius: 8,
-              backgroundColor: "#FFFFFF",
+              backgroundColor: '#FFFFFF',
 
               height: 48,
-              justifyContent: "center",
+              justifyContent: 'center',
             }}
           >
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
               <Text
                 style={{
                   fontSize: 16,
                   paddingLeft: 16,
-                  fontWeight: "500",
+                  fontWeight: '500',
                   lineHeight: 24,
-                  justifyContent: "center",
-                  color: "#4C4C4C",
+                  justifyContent: 'center',
+                  color: '#4C4C4C',
                   letterSpacing: 0.1,
                   flex: 1,
                 }}
@@ -611,15 +617,15 @@ function CardInvoice({ navigation }: any) {
               </Text>
               <View
                 style={{
-                  justifyContent: "center",
-                  alignItems: "center",
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   marginRight: 16,
                 }}
               >
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}
                 >
                   <AntDesign name="arrowright" size={24} color="#4C4C4C" />
@@ -631,11 +637,11 @@ function CardInvoice({ navigation }: any) {
         <Text
           style={{
             fontSize: 14,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             // paddingBottom: 15,
-            fontWeight: "400",
+            fontWeight: '400',
             lineHeight: 20,
             letterSpacing: 0.25,
             marginTop: 16,
@@ -653,85 +659,85 @@ export default CardInvoice;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   modalContainer: {
     flex: 0.8,
-    justifyContent: "center",
-    backgroundColor: "white",
+    justifyContent: 'center',
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
   },
   modalContent: {
     flexGrow: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   modalTitle: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 16,
   },
   phoneNumberInput: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     padding: 10,
     marginBottom: 16,
     borderRadius: 8,
   },
   submitButton: {
-    backgroundColor: "blue",
+    backgroundColor: 'blue',
     padding: 12,
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: 'center',
   },
   submitButtonText: {
-    color: "white",
+    color: 'white',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   resendCode: {
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 16,
-    width: "80%",
+    width: '80%',
   },
   buttonContent: {
     borderWidth: 0.6,
-    borderColor: "#4B5050",
-    backgroundColor: "#4B5050",
+    borderColor: '#4B5050',
+    backgroundColor: '#4B5050',
     borderRadius: 8,
 
     height: 48,
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
+    width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   buttonText: {
     fontSize: 16,
     paddingLeft: 16,
     paddingTop: 12,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 24,
-    justifyContent: "center",
-    color: "white",
+    justifyContent: 'center',
+    color: 'white',
     letterSpacing: 0.1,
     flex: 1,
   },
   goToSummaryButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
 
-    width: "80%",
+    width: '80%',
   },
 
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 32,
   },
   arrowIcon: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 16,
   },
   languageLogo: {
@@ -742,11 +748,11 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
     marginTop: 14,
 
-    color: "#4B5050",
+    color: '#4B5050',
     lineHeight: 20,
 
     marginLeft: 16,
@@ -754,40 +760,40 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#838c95",
-    textAlign: "center",
+    fontWeight: '500',
+    color: '#838c95',
+    textAlign: 'center',
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: "#4B505040",
+    borderColor: '#4B505040',
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 48,
-    textAlign: "center",
-    flexDirection: "row",
+    textAlign: 'center',
+    flexDirection: 'row',
   },
   button: {
-    alignSelf: "center",
+    alignSelf: 'center',
 
-    color: "black",
+    color: 'black',
     padding: 10,
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: "pointer",
+    cursor: 'pointer',
     borderRadius: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
