@@ -8,7 +8,7 @@ import { PaymentModeContext } from '@/providers/context/payment-mode';
 function Confirmation() {
   const router = useRouter();
   const { onReset } = useProduct();
-  const [setPaymentMode] = React.useContext(PaymentModeContext);
+  const [, setPaymentMode] = React.useContext(PaymentModeContext);
   return (
     <>
       <View style={styles.container}>
@@ -104,7 +104,7 @@ function Confirmation() {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            router.push('/payment/Tap-to-pay/card-invoice');
+            router.push('/payment/Tap-to-pay/confirmation-invoice');
           }}
         >
           <View style={styles.buttonContent}>

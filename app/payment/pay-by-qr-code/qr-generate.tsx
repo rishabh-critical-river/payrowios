@@ -10,7 +10,7 @@ function QRCode() {
   const router = useRouter();
   const { onReset } = useProduct();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [setPaymentMode] = React.useContext(PaymentModeContext);
+  const [, setPaymentMode] = React.useContext(PaymentModeContext);
 
   return (
     <>
