@@ -16,7 +16,7 @@ function QRCode() {
   };
 
   const { onReset } = useProduct();
-  const [setPaymentMode] = React.useContext(PaymentModeContext);
+  const [, setPaymentMode] = React.useContext(PaymentModeContext);
 
   return (
     <>

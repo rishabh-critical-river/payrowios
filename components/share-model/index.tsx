@@ -59,7 +59,7 @@ type ShareModelProps = {
 
 function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
   const { onReset } = useProduct();
-  const [setPaymentMode] = React.useContext(PaymentModeContext);
+  const [, setPaymentMode] = React.useContext(PaymentModeContext);
   const { user } = useStorageData('user');
   const [inputs, setInputs] = React.useState({
     phone: '',

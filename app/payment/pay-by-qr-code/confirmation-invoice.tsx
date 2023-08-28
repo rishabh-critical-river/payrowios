@@ -20,7 +20,7 @@ import { PaymentModeContext } from '@/providers/context/payment-mode';
 function ConfirmationInvoice() {
   const router = useRouter();
   const { onReset } = useProduct();
-  const [setPaymentMode] = React.useContext(PaymentModeContext);
+  const [, setPaymentMode] = React.useContext(PaymentModeContext);
   return (
     <>
       <View style={styles.container}>
