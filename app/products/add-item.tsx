@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
-  Modal,
-  Button,
 } from 'react-native';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -20,11 +18,11 @@ import PanelView from '@/components/view/PanelView';
 import { ScrollView } from 'react-native-gesture-handler';
 import useStorageData from '@/apis/hooks/use-storage-data';
 import { ProductTypes } from '@/typings/product';
-import { BarCodeScanner } from 'expo-barcode-scanner';
 import useProduct from '@/store/hooks/use-product';
 import getProducts from '@/apis/queries/product/get-product';
 import toast from '@/hooks/lib/toast';
 import getProductByQR from '@/apis/queries/product/get-product-by-qr';
+import BarCodeScannerScreen from '@/components/scanner';
 
 function AddItems() {
   const router = useRouter();
@@ -44,13 +42,9 @@ function AddItems() {
   } = useProduct();
 
   const stateItems = state?.items;
-
-  console.log('State Items', state.purchaseBreakdown);
-  // console.log('Helo', state.purchaseBreakdown.service[0][0].serviceItems);
   /**
-   * Fetch Products from API
+   * Fetch Products
    */
-  //   const auth = await storage.getLocalData('auth');
   const fetchProducts = React.useCallback(async () => {
     setLoading(true);
     if (user?.token) {
@@ -106,94 +100,59 @@ function AddItems() {
    * Fetch Products By QR Code
    */
 
-  const [hasPermission, setHasPermission] = useState<null | boolean>(null);
+  const [showScanner, setShowScanner] = useState(false);
+  const fetchOrderByQR = React.useCallback(
+    async (data: string) => {
+      console.log('QR Code Data', data);
+      try {
+        const response = await getProductByQR(data, user?.token);
+        if (response.data?.data?.length > 0) {
+          const itemData = response.data.data as any;
+          const categories = itemData.flatMap((value: any) => {
+            return value?.purchaseBreakdown.service?.map((item: any) => {
+              return {
+                _id: item._id,
+                englishName: item.englishName,
+                quantity: item.quantity || 1,
+                serviceCat: 'QR Code Category',
+                serviceCode: item.serviceCode,
+                totalAmount: item.totalAmount || 1,
+                transactionAmount: item.transactionAmount || 1.5,
+              };
+            });
+          });
 
-  const [scannedData, setScannedData] = useState(null);
-  const [showScanner, setIsScannerVisible] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
+          // Store Data in Redux Store
+          onUpdatePurchaseBreakdown(categories as ProductTypes[]);
+          router.push('/products/payment-summary');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [router]
+  );
+  /**
+   * Open Scanner
+   */
+  const onOpenScanner = React.useCallback(() => {
+    setShowScanner(true);
   }, []);
 
-  const handleBarCodeScanned = async ({ data }: any) => {
-    setScannedData(data);
-    setIsScannerVisible(false);
-    if (data) {
-      await fetchOrderDetails(data);
-    }
-  };
+  /**
+   * Close Scanner
+   */
+  const onCloseScanner = React.useCallback(() => {
+    setShowScanner(false);
+  }, []);
 
-  const fetchOrderDetails = async (data: any) => {
-    try {
-      const response = await getProductByQR(data, user?.token);
-      if (response.data?.data?.length > 0) {
-        const itemData = response.data.data as any;
-        const categories = itemData.flatMap((value: any) => {
-          return value?.purchaseBreakdown.service?.map((item: any) => {
-            // const x = {
-            //   service: [
-            //     {
-            //       _id: '634d14011c7eda7dfa7b13a7',
-            //       englishName: 'Apprentice Electrician',
-            //       quantity: 1,
-            //       serviceCat: 'ELECTRICAL CONTRACTORS',
-            //       serviceCode: '1731',
-            //       totalAmount: 1,
-            //       transactionAmount: 1.5,
-            //     },
-            //   ],
-            // };
-            return {
-              // _id: item._id,
-              // itemName: item.englishName,
-              // itemDescription: 'This is a test description',
-              // status: 'Active',
-              // serviceCat: 'QR Code Category',
-              // serviceCode: item.serviceCode,
-              // englishName: item.englishName,
-              // totalAmount: item.totalAmount,
-              // quantity: item.quantity || 1,
-              // transactionAmount: item.transactionAmount || 1.5,
-              // price: item.totalAmount || 1.5,
-              _id: item._id,
-              englishName: item.englishName,
-              quantity: item.quantity || 1,
-              serviceCat: 'QR Code Category',
-              serviceCode: item.serviceCode,
-              totalAmount: item.totalAmount || 1,
-              transactionAmount: item.transactionAmount || 1.5,
-            };
-          });
-        });
-        console.log('Category by simple', categories);
-
-        // Store Data in Redux Store
-        onUpdatePurchaseBreakdown(categories as ProductTypes[]);
-        router.push('/products/payment-summary');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const handleOpenScanner = () => {
-    setIsScannerVisible(true);
-  };
-
-  const handleCloseScanner = () => {
-    setIsScannerVisible(false);
-    setScannedData(null);
-  };
-  if (hasPermission === null) {
-    return <Text>Requesting camera permission...</Text>;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera.</Text>;
-  }
   return (
     <>
+      <BarCodeScannerScreen
+        visible={showScanner}
+        onClose={onCloseScanner}
+        scannedData={fetchOrderByQR}
+      />
       <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
         <View
           style={{
@@ -210,20 +169,7 @@ function AddItems() {
             }}
           />
         </View>
-        <View>
-          <Modal visible={showScanner} animationType="slide">
-            <View style={{ flex: 1 }}>
-              <BarCodeScanner
-                onBarCodeScanned={handleBarCodeScanned}
-                style={{
-                  width: '50%',
-                  height: '50%',
-                }}
-              />
-              <Button title="Close Scanner" onPress={handleCloseScanner} />
-            </View>
-          </Modal>
-        </View>
+
         <View
           style={{
             marginLeft: 19.98,
@@ -288,7 +234,7 @@ function AddItems() {
         >
           You can Select multiple items
         </Text>
-        <TouchableOpacity onPress={handleOpenScanner}>
+        <TouchableOpacity onPress={onOpenScanner}>
           <View style={styles.buttonContainer}>
             <Text
               style={{
