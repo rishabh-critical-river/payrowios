@@ -23,6 +23,7 @@ function ByTransactionPage() {
 
   const toggleModal = React.useCallback(() => {
     setModal(!model);
+    setModalVisible(true);
   }, [model]);
 
   // For Token and User
@@ -80,6 +81,7 @@ function ByTransactionPage() {
       "5% VAT": transactionData?.totalTaxAmount,
     };
   }, [transactionData]);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   console.log(transactionData?.mainMerchantId);
 
@@ -323,7 +325,11 @@ function ByTransactionPage() {
         </Text>
       </View>
 
-      <ShareModel onClose={() => toggleModal()} show={model} />
+      <ShareModel
+        show={isModalVisible}
+        onClose={() => setModalVisible(false)}
+        onPressHome={() => router.push("/home/")}
+      />
     </>
   );
 }
