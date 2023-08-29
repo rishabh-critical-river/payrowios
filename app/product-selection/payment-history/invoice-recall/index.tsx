@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -7,33 +7,33 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { RecallMethodTypes } from '@/apis/enums';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import { InvoiceRecallContext } from '@/providers/context/invoice-recall';
-import PanelView from '@/components/view/PanelView';
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-import moment from 'moment';
+} from "react-native";
+import { useRouter } from "expo-router";
+import { RecallMethodTypes } from "@/apis/enums";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { InvoiceRecallContext } from "@/providers/context/invoice-recall";
+import PanelView from "@/components/view/PanelView";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import moment from "moment";
 
 const recallMethodTypes = [
   {
-    label: 'TRANSACTION ID',
+    label: "TRANSACTION ID",
     value: RecallMethodTypes.BYTRANSACTIONID,
-    route: '/product-selection/payment-history/invoice-recall/by-transaction',
+    route: "/product-selection/payment-history/invoice-recall/by-transaction",
   },
   {
-    label: 'BY DATE',
+    label: "BY DATE",
     value: RecallMethodTypes.BYDATE,
-    route: '/product-selection/payment-history/invoice-recall/by-date',
+    route: "/product-selection/payment-history/invoice-recall/by-date",
   },
 ];
 
 function InvoiceRecall() {
-  const [transactionId, setTransactionId] = React.useState('');
+  const [transactionId, setTransactionId] = React.useState("");
   const [selectedDate, setSelectedDate] = React.useState({
-    from: '',
-    end: '',
+    from: "",
+    end: "",
   });
   const router = useRouter();
   const [recallMethod, setRecallMethod] =
@@ -43,7 +43,7 @@ function InvoiceRecall() {
     if (recallMethod === RecallMethodTypes.BYTRANSACTIONID) {
       router.push({
         pathname:
-          '/product-selection/payment-history/invoice-recall/by-transaction',
+          "/product-selection/payment-history/invoice-recall/by-transaction",
         params: {
           transactionId,
         },
@@ -51,7 +51,7 @@ function InvoiceRecall() {
     }
     if (recallMethod === RecallMethodTypes.BYDATE) {
       router.push({
-        pathname: '/product-selection/payment-history/invoice-recall/by-date',
+        pathname: "/product-selection/payment-history/invoice-recall/by-date",
         params: {
           fromDate: selectedDate.from,
           endDate: selectedDate.end,
@@ -63,18 +63,18 @@ function InvoiceRecall() {
   console.log({ selectedDate });
   return (
     <>
-      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
+      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <TouchableOpacity onPress={router.back}>
             <Image
-              source={require('@/assets/icons/arrow_back.png')}
+              source={require("@/assets/icons/arrow_back.png")}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -85,10 +85,10 @@ function InvoiceRecall() {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: '#4B5050',
+              color: "#4B5050",
             }}
           >
             Invoice Recall
@@ -98,18 +98,18 @@ function InvoiceRecall() {
           style={{
             width: 150,
             height: 48.3,
-            alignSelf: 'center',
+            alignSelf: "center",
             marginTop: 24,
           }}
-          source={require('@/assets/onboarding/payrowLogo.png')}
+          source={require("@/assets/onboarding/payrowLogo.png")}
         />
         <Text
           style={{
-            textAlign: 'center',
-            fontWeight: '500',
+            textAlign: "center",
+            fontWeight: "500",
             fontSize: 16,
             marginTop: 24,
-            color: '#4B5050',
+            color: "#4B5050",
           }}
         >
           Recall Invoice By
@@ -125,28 +125,28 @@ function InvoiceRecall() {
                 key={index}
                 style={{
                   width: 296,
-                  alignSelf: 'center',
+                  alignSelf: "center",
                   height: 44,
-                  justifyContent: 'center',
+                  justifyContent: "center",
                   borderWidth: 1,
                   marginBottom: 15,
                   borderRadius: 8,
-                  borderColor: '#4B505040',
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  borderColor: "#4B505040",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
                 onPress={() => setRecallMethod(item.value)}
               >
                 <View
                   style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
+                    flexDirection: "row",
+                    alignItems: "center",
                   }}
                 >
                   <Text
                     style={{
-                      color: '#4B5050',
-                      fontWeight: '600',
+                      color: "#4B5050",
+                      fontWeight: "600",
                       flex: 1,
                       marginLeft: 16,
                     }}
@@ -158,8 +158,8 @@ function InvoiceRecall() {
                     <MaterialCommunityIcons
                       name={
                         active
-                          ? 'checkbox-marked-circle'
-                          : 'checkbox-blank-circle-outline'
+                          ? "checkbox-marked-circle"
+                          : "checkbox-blank-circle-outline"
                       }
                       size={20}
                       color="#4B5050E5"
@@ -174,38 +174,38 @@ function InvoiceRecall() {
         {/* Transaction Id Input */}
         <PanelView show={recallMethod === RecallMethodTypes.BYTRANSACTIONID}>
           <View
-            style={{ alignSelf: 'center', marginTop: 28, marginBottom: 10 }}
+            style={{ alignSelf: "center", marginTop: 28, marginBottom: 10 }}
           >
             <Text
               style={{
                 marginBottom: 5,
                 fontSize: 12,
-                color: '#4B5050',
-                fontWeight: '400',
+                color: "#4B5050",
+                fontWeight: "400",
               }}
             >
-              Transaction ID
+              Recall by Order ID
             </Text>
             <TextInput
               style={{
-                color: 'black',
-                fontWeight: '400',
-                fontSize: 20,
+                color: "black",
+                fontWeight: "400",
+                fontSize: 16,
                 opacity: 0.7,
                 marginBottom: 4,
               }}
-              placeholder="Enter"
+              placeholder="Order Number"
               onChangeText={(text) => setTransactionId(text)}
             ></TextInput>
             <View
               //horizontal line
               style={{
-                backgroundColor: '#4B505099',
+                backgroundColor: "#4B505099",
 
                 width: 293,
                 height: 1.5,
                 opacity: 0.7,
-                alignSelf: 'center',
+                alignSelf: "center",
                 marginBottom: 26.4,
               }}
             />
@@ -213,20 +213,20 @@ function InvoiceRecall() {
         </PanelView>
         <PanelView show={recallMethod === RecallMethodTypes.BYDATE}>
           <View
-            style={{ alignSelf: 'center', marginTop: 28, marginBottom: 31 }}
+            style={{ alignSelf: "center", marginTop: 28, marginBottom: 31 }}
           >
             <View
               style={{
-                display: 'flex',
-                flexDirection: 'row',
+                display: "flex",
+                flexDirection: "row",
                 borderWidth: 1,
-                borderColor: '#4B5050',
+                borderColor: "#4B5050",
                 // opacity: 0.5,
                 padding: 16,
                 gap: 32,
-                alignItems: 'center',
+                alignItems: "center",
                 borderRadius: 8,
-                width: '100%',
+                width: "100%",
               }}
             >
               <DatePicker onSelectDate={(date) => setSelectedDate(date)} />
@@ -234,46 +234,53 @@ function InvoiceRecall() {
           </View>
         </PanelView>
       </View>
-      <View style={{ backgroundColor: 'white' }}>
+      <View style={{ backgroundColor: "white" }}>
         <TouchableOpacity style={styles.button} onPress={onRoute}>
           <View
             style={{
               borderWidth: 1,
 
-              borderColor: '#4B5050',
-              backgroundColor: '#4B5050',
+              borderColor: "#4B5050",
+              backgroundColor: "#4B5050",
               borderRadius: 8,
               marginBottom: 16,
               width: 296,
               height: 48,
-              justifyContent: 'center',
-              alignSelf: 'center',
+              justifyContent: "center",
+              alignSelf: "center",
             }}
           >
-            <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+            <View style={{ flexDirection: "row", alignSelf: "center" }}>
               <Text
                 style={{
                   fontSize: 16,
                   paddingLeft: 16,
-                  fontWeight: '500',
+                  fontWeight: "500",
                   lineHeight: 24,
-                  justifyContent: 'center',
-                  color: 'white',
+                  justifyContent: "center",
+                  color: "white",
                   letterSpacing: 0.1,
                   flex: 1,
-                  alignSelf: 'center',
+                  alignSelf: "center",
                 }}
               >
                 SEARCH
               </Text>
               <View
                 style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  justifyContent: "center",
+                  alignItems: "center",
                   marginRight: 16,
                 }}
               >
-                <AntDesign name="arrowright" size={20} color="white" />
+                <Image
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                  source={require("@/assets/icons/w-search.png")}
+                />
+                {/* <AntDesign name="arrowright" size={20} color="white" /> */}
               </View>
             </View>
           </View>
@@ -281,9 +288,9 @@ function InvoiceRecall() {
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: 'white',
-            color: '#7f7f7f',
-            textAlign: 'center',
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
             paddingBottom: 15,
           }}
         >
@@ -298,13 +305,13 @@ export default InvoiceRecall;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
 
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 32,
   },
   languageLogo: {
@@ -315,11 +322,11 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     flex: 1,
     marginTop: 14,
 
-    color: '#4B5050',
+    color: "#4B5050",
     lineHeight: 20,
 
     marginLeft: 16,
@@ -327,38 +334,38 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: '500',
-    color: '#838c95',
-    textAlign: 'center',
+    fontWeight: "500",
+    color: "#838c95",
+    textAlign: "center",
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: '#4B505040',
+    borderColor: "#4B505040",
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 48,
-    textAlign: 'center',
-    flexDirection: 'row',
+    textAlign: "center",
+    flexDirection: "row",
   },
   button: {
-    color: 'black',
+    color: "black",
     padding: 10,
     fontSize: 20,
     height: 60,
-    cursor: 'pointer',
+    cursor: "pointer",
     borderRadius: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
@@ -393,10 +400,10 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
           value: state.from,
           onChange: (_, selectedDate) => {
             if (selectedDate) {
-              onChangeState('from', selectedDate);
+              onChangeState("from", selectedDate);
             }
           },
-          mode: 'date',
+          mode: "date",
           is24Hour: true,
         });
       },
@@ -405,10 +412,10 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
           value: state.end,
           onChange: (_, selectedDate) => {
             if (selectedDate) {
-              onChangeState('end', selectedDate);
+              onChangeState("end", selectedDate);
             }
           },
-          mode: 'date',
+          mode: "date",
           is24Hour: true,
           minimumDate: state.from,
         });
@@ -418,8 +425,8 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
 
   React.useEffect(() => {
     const output = {
-      from: moment(state.from).format('YYYY-MM-DD'),
-      end: moment(state.end).format('YYYY-MM-DD'),
+      from: moment(state.from).format("YYYY-MM-DD"),
+      end: moment(state.end).format("YYYY-MM-DD"),
     };
     if (onSelectDate) {
       onSelectDate(output);
@@ -432,10 +439,10 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
         <View>
           <Text
             style={{
-              fontWeight: '500',
+              fontWeight: "500",
               fontSize: 11,
               lineHeight: 16,
-              color: '#4B5050',
+              color: "#4B5050",
               marginBottom: 2,
             }}
           >
@@ -443,25 +450,25 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
           </Text>
           <Text
             style={{
-              fontWeight: '500',
+              fontWeight: "500",
               fontSize: 22,
               lineHeight: 28,
-              color: '#4B5050',
+              color: "#4B5050",
               marginBottom: 4,
             }}
           >
             {/* 03 Apr */}
-            {moment(state.from).format('DD MMM')}
+            {moment(state.from).format("DD MMM")}
           </Text>
           <Text
             style={{
-              fontWeight: '500',
+              fontWeight: "500",
               fontSize: 14,
               lineHeight: 20,
-              color: '#4B5050',
+              color: "#4B5050",
             }}
           >
-            {moment(state.from).format('dddd')}
+            {moment(state.from).format("dddd")}
             {/* Tuesday */}
           </Text>
         </View>
@@ -474,10 +481,10 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
         <View>
           <Text
             style={{
-              fontWeight: '500',
+              fontWeight: "500",
               fontSize: 11,
               lineHeight: 16,
-              color: '#4B5050',
+              color: "#4B5050",
               marginBottom: 2,
             }}
           >
@@ -485,26 +492,26 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
           </Text>
           <Text
             style={{
-              fontWeight: '500',
+              fontWeight: "500",
               fontSize: 22,
               lineHeight: 28,
-              color: '#4B5050',
+              color: "#4B5050",
               marginBottom: 4,
             }}
           >
             {/* 13 Apr */}
-            {moment(state.end).format('DD MMM')}
+            {moment(state.end).format("DD MMM")}
           </Text>
           <Text
             style={{
-              fontWeight: '500',
+              fontWeight: "500",
               fontSize: 14,
               lineHeight: 20,
-              color: '#4B5050',
+              color: "#4B5050",
             }}
           >
             {/* Friday */}
-            {moment(state.end).format('dddd')}
+            {moment(state.end).format("dddd")}
           </Text>
         </View>
       </TouchableOpacity>
