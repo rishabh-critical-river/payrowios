@@ -130,7 +130,7 @@ function AddItems() {
         console.error(error);
       }
     },
-    [router]
+    [router, user?.token]
   );
   /**
    * Open Scanner
