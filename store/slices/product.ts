@@ -52,7 +52,6 @@ const productSlilce = createSlice({
         state.currentID = empty;
       }
     },
-
     onItemIncrement: (state: State, action: Action) => {
       const { items } = state;
       if (items) {
@@ -133,6 +132,13 @@ const productSlilce = createSlice({
       state.purchaseBreakdown = {
         service: [],
       };
+    },
+    onUpdatePurchaseBreakdown: (state, action) => {
+      state.purchaseBreakdown.service = action.payload;
+      state.total = action.payload.reduce(
+        (acc, curr) => acc + curr.transactionAmount,
+        0
+      );
     },
   },
 });

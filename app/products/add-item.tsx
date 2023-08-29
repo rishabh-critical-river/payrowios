@@ -21,10 +21,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import useStorageData from '@/apis/hooks/use-storage-data';
 import { ProductTypes } from '@/typings/product';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import axios from 'axios';
 import useProduct from '@/store/hooks/use-product';
 import getProducts from '@/apis/queries/product/get-product';
 import toast from '@/hooks/lib/toast';
+import getProductByQR from '@/apis/queries/product/get-product-by-qr';
 
 function AddItems() {
   const router = useRouter();
@@ -40,9 +40,13 @@ function AddItems() {
     updateItemIncrement,
     updateItemDecrement,
     updateCurrentID,
+    onUpdatePurchaseBreakdown,
   } = useProduct();
 
   const stateItems = state?.items;
+
+  console.log('State Items', state.purchaseBreakdown);
+  // console.log('Helo', state.purchaseBreakdown.service[0][0].serviceItems);
   /**
    * Fetch Products from API
    */
@@ -91,7 +95,7 @@ function AddItems() {
     safeRef.current = true;
 
     if (safeRef.current && stateItems?.length === 0) {
-      void fetchProducts();
+      fetchProducts();
     }
     return () => {
       safeRef.current = false;
@@ -105,8 +109,7 @@ function AddItems() {
   const [hasPermission, setHasPermission] = useState<null | boolean>(null);
 
   const [scannedData, setScannedData] = useState(null);
-  const [isScannerVisible, setIsScannerVisible] = useState(false);
-  const [orderDetails, setOrderDetails] = useState(null);
+  const [showScanner, setIsScannerVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -124,21 +127,53 @@ function AddItems() {
   };
 
   const fetchOrderDetails = async (data: any) => {
-    const apiUrl = `https://payrowdev.uaenorth.cloudapp.azure.com/gateway/payrow/getQrCodeOrderDetails/${data}`;
     try {
-      const response = await axios.get(apiUrl, {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic3RvcmUgb3duZXIiLCJpZCI6IjY0MTE1NGQwZWU2ZTMxNzdkNTZmM2UyNSIsInVzZXJJZCI6IlBSTUlENjgiLCJmaXJzdE5hbWUiOiJTdXByaXlhIiwibGFzdE5hbWUiOiJNIiwibWVyY2hhbnRJZCI6IlBSTUlENjgiLCJyZXBvcnRpbmdJRCI6IlBSTUlENjgiLCJzdG9yZUlkIjoiT3duZXIiLCJjb3VudHJ5IjoiSW5kaWEiLCJkaXN0cmlidXRvcklkIjoiZGlkNDE0NDYzIiwibW9iaWxlTnVtYmVyIjo5NzE5NDkwNzgxNzE2LCJlbWFpbElkIjoibWVyZ3Uuc3Vwcml5YUBjcml0aWNhbHJpdmVyLmNvbSIsImFkZHJlc3NEZXRhaWxzIjoiYXNkYWRhZCIsImJ1c2luZXNzVHlwZSI6Ikdyb2NlcnkgU3RvcmUiLCJib0JveCI6MTIzNDUsImlhdCI6MTY3OTM4MDQ4NH0.K8JV_tPcEcrMkIEXhKzFlVcWhNXkyokUcGPTmV2Ia0o',
-        },
-      });
-      setOrderDetails(response.data);
-      router.push({
-        pathname: '/products/payment-summary',
-        params: {
-          orderDetails: response.data,
-        },
-      });
+      const response = await getProductByQR(data, user?.token);
+      if (response.data?.data?.length > 0) {
+        const itemData = response.data.data as any;
+        const categories = itemData.flatMap((value: any) => {
+          return value?.purchaseBreakdown.service?.map((item: any) => {
+            // const x = {
+            //   service: [
+            //     {
+            //       _id: '634d14011c7eda7dfa7b13a7',
+            //       englishName: 'Apprentice Electrician',
+            //       quantity: 1,
+            //       serviceCat: 'ELECTRICAL CONTRACTORS',
+            //       serviceCode: '1731',
+            //       totalAmount: 1,
+            //       transactionAmount: 1.5,
+            //     },
+            //   ],
+            // };
+            return {
+              // _id: item._id,
+              // itemName: item.englishName,
+              // itemDescription: 'This is a test description',
+              // status: 'Active',
+              // serviceCat: 'QR Code Category',
+              // serviceCode: item.serviceCode,
+              // englishName: item.englishName,
+              // totalAmount: item.totalAmount,
+              // quantity: item.quantity || 1,
+              // transactionAmount: item.transactionAmount || 1.5,
+              // price: item.totalAmount || 1.5,
+              _id: item._id,
+              englishName: item.englishName,
+              quantity: item.quantity || 1,
+              serviceCat: 'QR Code Category',
+              serviceCode: item.serviceCode,
+              totalAmount: item.totalAmount || 1,
+              transactionAmount: item.transactionAmount || 1.5,
+            };
+          });
+        });
+        console.log('Category by simple', categories);
+
+        // Store Data in Redux Store
+        onUpdatePurchaseBreakdown(categories as ProductTypes[]);
+        router.push('/products/payment-summary');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -176,7 +211,7 @@ function AddItems() {
           />
         </View>
         <View>
-          <Modal visible={isScannerVisible} animationType="slide">
+          <Modal visible={showScanner} animationType="slide">
             <View style={{ flex: 1 }}>
               <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
@@ -401,23 +436,11 @@ function AddItems() {
         <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
-            // navigation.navigate('PaymentSummary', {
-            //   orderDetails,
-            //   itemsWithQuantity,
-            // });
-
             if (Number(state?.total?.toFixed(2)) <= 0) {
               toast.show('Please select atleast one item');
               return;
             }
             router.push('/products/payment-summary');
-            // router.push({
-            //   pathname: '/products/payment-summary',
-            //   params: {
-            //     orderDetails,
-            //     itemsWithQuantity,
-            //   },
-            // });
           }}
         >
           <View style={styles.buttonContent}>
@@ -434,88 +457,3 @@ function AddItems() {
 }
 
 export default AddItems;
-
-// const [selected, setSelected] = useState<ProductTypes | null>(null);
-// const [selectedItems, setSelectedItems] = useState<ItemTypes[]>([]);
-
-/**
- * For Select Category
- */
-// const onPressCategory = React.useCallback(
-//   (category: ProductTypes) => {
-//     if (selected === category) {
-//       setSelected(null);
-//       setScrollEnabled(true);
-//     } else {
-//       setSelected(category);
-//       setScrollEnabled(false);
-//     }
-//   },
-//   [selected]
-// );
-
-/**
- * For Select Category Item
- */
-// const onPressCategoryItem = React.useCallback(
-//   (item: ItemTypes) => {
-//     const draft = [...selectedItems];
-//     const findItem = draft.find(
-//       (selectedItem) => selectedItem.id === item.id
-//     );
-//     if (findItem?.id === item.id) {
-//       draft.splice(draft.indexOf(findItem), 1);
-//     } else {
-//       draft.push(item);
-//     }
-//     setSelectedItems(draft);
-//   },
-//   [selectedItems]
-// );
-
-/**
- * For Increment Item
- */
-// const onPressItemIncrement = React.useCallback(
-//   (parentId: any, item: ItemTypes) => {
-//     if (state) {
-//       const draft = [...state];
-//       draft.forEach((currentItem) => {
-//         if (currentItem.id === parentId) {
-//           const innerItem = currentItem.serviceItems.find(
-//             (currentItem) => currentItem.id === item.id
-//           );
-//           if (innerItem) {
-//             innerItem.quantity += 1;
-//           }
-//         }
-//       });
-//       setState(draft);
-//     }
-//   },
-//   [state]
-// );
-/**
- * For Decrement Item
- */
-// const onPressItemDecrement = React.useCallback(
-//   (parentId: any, item: ItemTypes) => {
-//     if (state) {
-//       const draft = [...state];
-//       draft.forEach((currentItem) => {
-//         if (currentItem.id === parentId) {
-//           const innerItem = currentItem?.serviceItems?.find(
-//             (currentItem) => currentItem.id === item.id
-//           );
-//           if (innerItem) {
-//             if (innerItem.quantity > 0) {
-//               innerItem.quantity = innerItem.quantity - 1;
-//             }
-//           }
-//         }
-//       });
-//       setState(draft);
-//     }
-//   },
-//   [state]
-// );

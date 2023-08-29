@@ -3,6 +3,10 @@ import useAppDispatch from './use-dispatch';
 import useAppSelector from './use-selector';
 import productSlilce from '../slices/product';
 import { ProductTypes } from '@/typings/product';
+import {
+  OrderMetaContext,
+  keyGeneratorState,
+} from '@/providers/context/order-meta';
 
 const { actions } = productSlilce;
 
@@ -14,6 +18,7 @@ const { actions } = productSlilce;
 const useProduct = () => {
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.product);
+  const [, set] = React.useContext(OrderMetaContext);
 
   /**
    * @description Update products
@@ -56,6 +61,12 @@ const useProduct = () => {
   );
   const onReset = React.useCallback(() => {
     const act = actions.onReset();
+    set(keyGeneratorState);
+    dispatch(act);
+  }, []);
+  const onUpdatePurchaseBreakdown = React.useCallback((payload) => {
+    const act = actions.onUpdatePurchaseBreakdown(payload);
+    set(keyGeneratorState);
     dispatch(act);
   }, []);
 
@@ -65,6 +76,7 @@ const useProduct = () => {
     updateCurrentID,
     updateItemIncrement,
     updateItemDecrement,
+    onUpdatePurchaseBreakdown,
     onReset,
   };
 };
