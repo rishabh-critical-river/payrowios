@@ -63,7 +63,7 @@ function CashPayment() {
           posType: "pos",
           posId: user?.userId,
           posEmail: user?.emailId,
-          posMobile: user?.mobileNumber,
+          customerPhone: user?.mobileNumber,
           paymentDate: new Date().toISOString(),
           totalTaxAmount: taxAmount,
           totalAmount: finalAmount,
