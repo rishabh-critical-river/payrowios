@@ -64,6 +64,11 @@ const useProduct = () => {
     set(keyGeneratorState);
     dispatch(act);
   }, []);
+  const onUpdatePurchaseBreakdown = React.useCallback((payload) => {
+    const act = actions.onUpdatePurchaseBreakdown(payload);
+    set(keyGeneratorState);
+    dispatch(act);
+  }, []);
 
   return {
     state,
@@ -71,6 +76,7 @@ const useProduct = () => {
     updateCurrentID,
     updateItemIncrement,
     updateItemDecrement,
+    onUpdatePurchaseBreakdown,
     onReset,
   };
 };
