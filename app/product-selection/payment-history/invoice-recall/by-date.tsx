@@ -193,8 +193,8 @@ const ByDatePageScreen = () => {
         />
         <View
           style={{
-            marginLeft: 50,
-            marginRight: 50,
+            marginLeft: 32,
+            marginRight: 32,
             flexDirection: "row",
             marginTop: 9,
           }}
@@ -205,6 +205,9 @@ const ByDatePageScreen = () => {
               fontWeight: "500",
               lineHeight: 16,
               color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
+              width: 63,
             }}
           >
             Day
@@ -233,7 +236,7 @@ const ByDatePageScreen = () => {
               width: 67,
             }}
           >
-            Total Income
+            Order no
           </Text>
           <Text
             style={{
@@ -247,7 +250,7 @@ const ByDatePageScreen = () => {
               width: 110,
             }}
           >
-            Download
+            Invoice
           </Text>
         </View>
         <View
@@ -387,7 +390,7 @@ const List = ({ item, index }: ListProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 0,
     backgroundColor: "white",
   },
   rowContainer: {
