@@ -19,17 +19,21 @@ export const OrderMetaContext = React.createContext<OrderMetaContextType>([
   {},
   () => {},
 ]);
+
+export const keyGeneratorState = {
+  date: moment().format('DD-MMM-YY'),
+  orderNumber: keyValidation(16),
+};
+
 /**
  * Payment mode provider
  */
 const OrderMetaProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const _ref = React.useRef(false);
   const state = React.useMemo(() => {
-    return {
-      date: moment().format('DD-MMM-YY'),
-      orderNumber: keyValidation(16),
-    };
-  }, []);
+    return keyGeneratorState;
+  }, [keyGeneratorState]);
+
   const [orderMeta, updateOrderMeta] = React.useState(state);
   React.useEffect(() => {
     _ref.current = true;

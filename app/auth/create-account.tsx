@@ -131,7 +131,8 @@ function CreateAccount() {
                 >
                   {formattedTimer}
                 </Text>
-                <View
+                <TouchableOpacity
+                  onPress={onPressOTP}
                   style={{
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -149,7 +150,7 @@ function CreateAccount() {
                     <Text>Resend Code </Text>
                     <AntDesign name="right" size={16} color="#4C4C4C" />
                   </View>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
