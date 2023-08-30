@@ -42,6 +42,7 @@ function CashPayment() {
 
   const onPayByCash = React.useCallback(async () => {
     if (user) {
+      console.log(user, "userValue");
       try {
         const services = state.purchaseBreakdown.service.map((item) => {
           return {
@@ -63,7 +64,7 @@ function CashPayment() {
           posType: "pos",
           posId: user?.userId,
           posEmail: user?.emailId,
-          posMobile: user?.mobileNumber,
+          customerPhone: "9939853383",
           paymentDate: new Date().toISOString(),
           totalTaxAmount: taxAmount,
           totalAmount: finalAmount,
@@ -159,7 +160,7 @@ function CashPayment() {
                 }}
                 source={require("@/assets/onboarding/payrowLogo.png")}
               />
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 22,
                   fontWeight: "400",
@@ -169,34 +170,9 @@ function CashPayment() {
                 }}
               >
                 PayNetUser
-              </Text>
-              {/* <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "400",
-              lineHeight: 20,
-              textAlign: "center",
-              letterSpacing: 0.25,
-              marginTop: 6,
-              color: "#4B5050B2",
-            }}
-          >
-            You are about to make a payment to this 
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "400",
-              lineHeight: 20,
-              textAlign: "center",
-              letterSpacing: 0.25,
+              </Text> */}
 
-              color: "#4B5050B2",
-            }}
-          >
-            company
-          </Text> */}
-              <View
+              {/* <View
                 style={{
                   borderWidth: 1,
                   borderColor: "#4B50500D",
@@ -222,7 +198,7 @@ function CashPayment() {
                 >
                   MID: {user?.merchantId}
                 </Text>
-              </View>
+              </View> */}
               <View
                 style={{
                   borderWidth: 1,
@@ -319,7 +295,7 @@ function CashPayment() {
                       color: "#4B5050",
                     }}
                   >
-                    SCAN BARCODE
+                    Number of items selected
                   </Text>
                   <MaterialCommunityIcons
                     style={{ marginRight: 16 }}
@@ -338,30 +314,9 @@ function CashPayment() {
               </View>
             </View>
           </View>
-          <View
-            style={{
-              width: 296,
 
-              marginTop: 32,
-
-              alignSelf: "center",
-              flexDirection: "row",
-              gap: 3,
-            }}
-          >
-            {Array.from({ length: 60 }).map((_, index) => (
-              <View
-                key={index}
-                style={{
-                  backgroundColor: "#4B5050E5",
-                  width: 2,
-                  height: 1.2,
-                }}
-              />
-            ))}
-          </View>
           <View style={{ backgroundColor: "white" }}>
-            <View style={{ alignSelf: "center", marginTop: 30 }}>
+            <View style={{ alignSelf: "center", marginTop: 32 }}>
               <Text
                 style={{
                   marginBottom: 5,
