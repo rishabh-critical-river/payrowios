@@ -15,7 +15,7 @@ import {
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 function RegisterComplain() {
-    const router = useRouter();
+  const router = useRouter();
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -28,7 +28,7 @@ function RegisterComplain() {
           }}
         >
           <Image
-           source={require("@/assets/icons/arrow_back.png")}
+            source={require("@/assets/icons/arrow_back.png")}
             style={{
               width: 16.03,
               height: 16.03,
@@ -49,7 +49,7 @@ function RegisterComplain() {
         </View>
 
         <Image
-         source={require("@/assets/onboarding/payrowLogo.png")}
+          source={require("@/assets/onboarding/payrowLogo.png")}
           style={{
             width: 150,
             height: 48.529,
@@ -78,34 +78,33 @@ function RegisterComplain() {
             }}
           >
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 14,
+              }}
             >
               <Text
                 style={{
-                  width: 135,
-                  height: 20,
                   marginLeft: 14,
                   color: "#333333",
                   fontWeight: 500,
                   fontSize: 14,
                   lineHeight: 20,
-                  marginTop: 14,
                 }}
               >
                 Payment not working
               </Text>
               <Text
                 style={{
-                  width: 64,
-                  height: 16,
                   letterSpacing: 0.5,
                   color: "#999999",
                   fontSize: 11,
                   fontWeight: 500,
                   textAlign: "right",
-                  marginTop: 12,
+                  lineHeight: 20,
+
                   marginRight: 12,
-                  marginBottom: 12,
                 }}
               >
                 02/08/2022
@@ -131,17 +130,23 @@ function RegisterComplain() {
                 industry. Lorem Ipsum has been the industry's standard dummy.
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                gap: 8,
+                marginRight: 16,
+              }}
+            >
               <Text
                 style={{
-                  width: 72,
                   height: 16,
                   fontSize: 11,
                   fontWeight: 500,
                   lineHeight: 16,
                   marginTop: 22,
                   marginBottom: 18,
-                  marginLeft: 132,
+
                   color: "#999999",
                 }}
               >
@@ -150,7 +155,7 @@ function RegisterComplain() {
               <View
                 style={{
                   flexDirection: "row",
-                  width: 70,
+
                   height: 28,
                   borderRadius: 8,
                   backgroundColor: "#E3EEDA",
@@ -186,34 +191,33 @@ function RegisterComplain() {
             }}
           >
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 14,
+              }}
             >
               <Text
                 style={{
-                  width: 135,
-                  height: 20,
                   marginLeft: 14,
                   color: "#333333",
                   fontWeight: 500,
                   fontSize: 14,
                   lineHeight: 20,
-                  marginTop: 14,
                 }}
               >
                 Payment not working
               </Text>
               <Text
                 style={{
-                  width: 64,
-                  height: 16,
                   letterSpacing: 0.5,
                   color: "#999999",
                   fontSize: 11,
                   fontWeight: 500,
                   textAlign: "right",
-                  marginTop: 12,
+                  lineHeight: 20,
+
                   marginRight: 12,
-                  marginBottom: 12,
                 }}
               >
                 02/08/2022
@@ -239,17 +243,23 @@ function RegisterComplain() {
                 industry. Lorem Ipsum has been the industry's standard dummy.
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                gap: 8,
+                marginRight: 16,
+              }}
+            >
               <Text
                 style={{
-                  width: 72,
                   height: 16,
                   fontSize: 11,
                   fontWeight: 500,
                   lineHeight: 16,
                   marginTop: 22,
                   marginBottom: 18,
-                  marginLeft: 132,
+
                   color: "#999999",
                 }}
               >
@@ -258,7 +268,7 @@ function RegisterComplain() {
               <View
                 style={{
                   flexDirection: "row",
-                  width: 70,
+
                   height: 28,
                   borderRadius: 8,
                   backgroundColor: "#E3EEDA",
@@ -281,7 +291,7 @@ function RegisterComplain() {
               </View>
             </View>
           </View>
-          
+
           <View
             style={{
               width: 296,
@@ -295,34 +305,33 @@ function RegisterComplain() {
             }}
           >
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 14,
+              }}
             >
               <Text
                 style={{
-                  width: 135,
-                  height: 20,
                   marginLeft: 14,
                   color: "#333333",
                   fontWeight: 500,
                   fontSize: 14,
                   lineHeight: 20,
-                  marginTop: 14,
                 }}
               >
                 Payment not working
               </Text>
               <Text
                 style={{
-                  width: 64,
-                  height: 16,
                   letterSpacing: 0.5,
                   color: "#999999",
                   fontSize: 11,
                   fontWeight: 500,
                   textAlign: "right",
-                  marginTop: 12,
+                  lineHeight: 20,
+
                   marginRight: 12,
-                  marginBottom: 12,
                 }}
               >
                 02/08/2022
@@ -348,17 +357,23 @@ function RegisterComplain() {
                 industry. Lorem Ipsum has been the industry's standard dummy.
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                gap: 8,
+                marginRight: 16,
+              }}
+            >
               <Text
                 style={{
-                  width: 72,
                   height: 16,
                   fontSize: 11,
                   fontWeight: 500,
                   lineHeight: 16,
                   marginTop: 22,
                   marginBottom: 18,
-                  marginLeft: 132,
+
                   color: "#999999",
                 }}
               >
@@ -367,7 +382,7 @@ function RegisterComplain() {
               <View
                 style={{
                   flexDirection: "row",
-                  width: 70,
+
                   height: 28,
                   borderRadius: 8,
                   backgroundColor: "#E3EEDA",
@@ -390,7 +405,6 @@ function RegisterComplain() {
               </View>
             </View>
           </View>
-        
         </View>
         <View
           style={{
@@ -407,8 +421,8 @@ function RegisterComplain() {
               width: 288,
               height: 20,
               fontWeight: "400",
-              marginTop:48,
-              opacity: 0.800000011920929
+              marginTop: 48,
+              opacity: 0.800000011920929,
             }}
           >
             ©2022 PayRow Company. All rights reserved

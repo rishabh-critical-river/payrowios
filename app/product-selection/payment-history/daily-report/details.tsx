@@ -211,7 +211,28 @@ function DailyCashReport() {
               style={{ marginLeft: 9, marginTop: 9 }}
             />
           </View>
-          <Text> {moment().format("DD/MM/YYYY ")}</Text>
+          <Text style={{ color: "#4B5050B2" }}>
+            {" "}
+            {moment().format("DD/MM/YYYY ")}
+          </Text>
+          <View
+            style={{
+              width: 38,
+              height: 38,
+              backgroundColor: "#4B50500F",
+              marginLeft: 12,
+              marginRight: 8,
+              borderRadius: 8,
+            }}
+          >
+            <AntDesign
+              name="download"
+              size={20}
+              color="black"
+              style={{ marginLeft: 9, marginTop: 9 }}
+            />
+          </View>
+          <Text style={{ color: "#4B5050B2" }}>Download Report</Text>
         </View>
 
         {/* <View
@@ -391,7 +412,7 @@ const ListItem = ({ item, index }: ListItemProps) => {
     <View style={[styles.rowContainer, rowStyle]}>
       <Text
         style={{
-          color: "#4B5050",
+          color: "#4B5050B2",
           fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
@@ -404,7 +425,7 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
       <Text
         style={{
-          color: "#4B5050",
+          color: "#4B5050B2",
           fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
@@ -417,7 +438,7 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
       <Text
         style={{
-          color: "#4B5050",
+          color: "#4B5050B2",
           fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
@@ -431,7 +452,7 @@ const ListItem = ({ item, index }: ListItemProps) => {
 
       <Text
         style={{
-          color: "#4B5050",
+          color: "#4B5050B2",
           fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,

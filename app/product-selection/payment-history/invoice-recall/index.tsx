@@ -25,7 +25,9 @@ const recallMethodTypes = [
   {
     label: "BY DATE",
     value: RecallMethodTypes.BYDATE,
-    route: "/product-selection/payment-history/invoice-recall/by-date",
+    // route: "/product-selection/payment-history/invoice-recall/by-date",
+    route:
+      "/product-selection/payment-history/invoice-recall/otp-bydate-invoice-recall",
   },
 ];
 
@@ -51,7 +53,8 @@ function InvoiceRecall() {
     }
     if (recallMethod === RecallMethodTypes.BYDATE) {
       router.push({
-        pathname: "/product-selection/payment-history/invoice-recall/by-date",
+        pathname:
+          "/product-selection/payment-history/invoice-recall/otp-bydate-invoice-recall",
         params: {
           fromDate: selectedDate.from,
           endDate: selectedDate.end,
@@ -191,7 +194,7 @@ function InvoiceRecall() {
                 color: "black",
                 fontWeight: "400",
                 fontSize: 16,
-                opacity: 0.7,
+                opacity: 1,
                 marginBottom: 4,
               }}
               placeholder="Order Number"
@@ -435,14 +438,14 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
   return (
     <React.Fragment>
       {/* From Date */}
-      <TouchableOpacity onPress={actions.first} activeOpacity={0.9}>
+      <TouchableOpacity onPress={actions.first} activeOpacity={1}>
         <View>
           <Text
             style={{
               fontWeight: "500",
               fontSize: 11,
               lineHeight: 16,
-              color: "#4B5050",
+              color: "#4B505026",
               marginBottom: 2,
             }}
           >
@@ -465,7 +468,7 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
               fontWeight: "500",
               fontSize: 14,
               lineHeight: 20,
-              color: "#4B5050",
+              color: "#4B505026",
             }}
           >
             {moment(state.from).format("dddd")}
@@ -484,7 +487,7 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
               fontWeight: "500",
               fontSize: 11,
               lineHeight: 16,
-              color: "#4B5050",
+              color: "#4B505026",
               marginBottom: 2,
             }}
           >
@@ -507,7 +510,7 @@ const DatePicker = ({ onSelectDate }: DatePickerProps) => {
               fontWeight: "500",
               fontSize: 14,
               lineHeight: 20,
-              color: "#4B5050",
+              color: "#4B505026",
             }}
           >
             {/* Friday */}

@@ -317,7 +317,10 @@ function PaymentHistory() {
 
           <TouchableOpacity
             onPress={() => {
-              router.push("/product-selection/payment-history/daily-report/");
+              // router.push("/product-selection/payment-history/daily-report/");
+              router.push(
+                "/product-selection/payment-history/daily-report/otp-daily-report"
+              );
             }}
             style={styles.box}
           >

@@ -216,6 +216,7 @@ function Void() {
               justifyContent: "center",
               marginBottom: 11,
               marginTop: 16,
+              alignSelf: "center",
             }}
           >
             <Text

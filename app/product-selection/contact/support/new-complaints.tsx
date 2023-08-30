@@ -58,14 +58,16 @@ function NewComplain() {
             alignItems: "center",
           }}
         >
-          <Image
-            source={require("@/assets/icons/arrow_back.png")}
-            style={{
-              width: 16.03,
-              height: 16.03,
-              marginRight: 35.98,
-            }}
-          />
+          <TouchableOpacity onPress={router.back}>
+            <Image
+              source={require("@/assets/icons/arrow_back.png")}
+              style={{
+                width: 16.03,
+                height: 16.03,
+                marginRight: 35.98,
+              }}
+            />
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 20,
@@ -115,15 +117,18 @@ function NewComplain() {
                 <View
                   style={{
                     flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    alignSelf: "center",
                     width: 296,
                     height: 48,
 
                     marginLeft: 32,
                     marginRight: 32,
-                    paddingTop: 15,
+
                     paddingLeft: 16,
-                    paddingRight: 145,
-                    paddingBottom: 13,
+                    paddingRight: 16,
+
                     borderWidth: 1,
                     borderStyle: "solid",
                     borderColor: "rgba(75, 80, 80, 0.20)",
@@ -139,7 +144,7 @@ function NewComplain() {
                       fontWeight: "500",
                       letterSpacing: 0.1,
                       color: "rgba(75, 80, 80, 0.80)",
-                      width: 155,
+
                       height: 20,
                     }}
                   >
@@ -188,6 +193,7 @@ function NewComplain() {
               marginTop: 30,
               width: 296,
               height: 13,
+              alignSelf: "center",
               color: "rgba(75, 80, 80, 0.70)",
             }}
           >
@@ -211,6 +217,7 @@ function NewComplain() {
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "#B2B2B2",
+              alignSelf: "center",
             }}
             onChangeText={(text) => setState("briefCompliant", text)}
             value={state.briefCompliant}
@@ -241,6 +248,7 @@ package-lock.json            source={require("@/assets/icons/sixline.png")}
                 borderRadius: 8,
                 alignItems: "center",
                 justifyContent: "center",
+                alignSelf: "center",
               }}
             >
               <Text

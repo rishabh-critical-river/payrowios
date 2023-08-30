@@ -257,7 +257,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     opacity: 0.7,
                     marginRight: 4,
                   }}
-                  placeholder="Amount"
+                  placeholder=""
                 >
                   +971
                 </TextInput>
@@ -274,10 +274,8 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     // borderColor: "#99999",
                     // borderBottomWidth: 1,
                   }}
-                  placeholder="Amount"
-                >
-                  561503987
-                </TextInput>
+                  placeholder="561503987"
+                ></TextInput>
               </View>
               <View
                 style={{
@@ -373,7 +371,7 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     opacity: 0.7,
                     marginRight: 4,
                   }}
-                  placeholder="Amount"
+                  placeholder=""
                 >
                   +971
                 </TextInput>
@@ -390,10 +388,9 @@ function ShareModel({ show, onClose, onPressHome }: ShareModelProps) {
                     // borderColor: "#99999",
                     // borderBottomWidth: 1,
                   }}
-                  placeholder="Amount"
-                >
-                  561503987
-                </TextInput>
+                  keyboardType="number-pad"
+                  placeholder="561503987"
+                ></TextInput>
               </View>
               <View
                 style={{

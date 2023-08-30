@@ -36,7 +36,6 @@ function MonthlyReport({ navigation }: any) {
             //     router.back
             //   }
             onPress={() => {
-              
               router.push("/product-selection/payment-history/");
             }}
           >
@@ -234,7 +233,9 @@ function MonthlyReport({ navigation }: any) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            // navigation.navigate("historyMethods");
+            router.push(
+              "/product-selection/payment-history/monthly-report/monthly-link-report"
+            );
           }}
           style={{
             borderWidth: 1,
@@ -277,7 +278,9 @@ function MonthlyReport({ navigation }: any) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            // navigation.navigate("historyMethods");
+            router.push(
+              "/product-selection/payment-history/monthly-report/monthly-qr-report"
+            );
           }}
           style={{
             borderWidth: 1,
@@ -304,7 +307,7 @@ function MonthlyReport({ navigation }: any) {
               marginLeft: 16,
             }}
           >
-            PAY BY SMS
+            PAY BY QR
           </Text>
           <AntDesign
             name="right"

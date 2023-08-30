@@ -29,7 +29,7 @@ const data = [
   { time: "May", transNo: "0.0", value: "0", status: "Pending" },
   { time: "Jun", transNo: "0.0", value: "0", status: "Failed" },
   { time: "Jul", transNo: "0.0", value: "0", status: "Completed" },
-  { time: "Aug", transNo: "55.0", value: "0", status: "Pending" },
+  { time: "Aug", transNo: "0.0", value: "0", status: "Pending" },
   { time: "Sep", transNo: "0.0", value: "0", status: "Failed" },
   { time: "Oct", transNo: "0.0", value: "0", status: "Failed" },
   { time: "Nov", transNo: "0.0", value: "0", status: "Failed" },
@@ -104,7 +104,7 @@ const ListItem = ({ item, index }) => {
   );
 };
 
-function DailyCashReport({ navigation }: any) {
+function MonthlyCardReport({ navigation }: any) {
   const router = useRouter();
   return (
     <>
@@ -137,7 +137,7 @@ function DailyCashReport({ navigation }: any) {
                 color: "#4B5050",
               }}
             >
-              Cash Invoice
+              Pay By Link
             </Text>
           </View>
           <Text
@@ -407,4 +407,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DailyCashReport;
+export default MonthlyCardReport;
