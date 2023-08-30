@@ -15,18 +15,25 @@ import {
   KeyboardAvoidingView,
   FlatList,
 } from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 const data = [
-  { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
-  { time: "11:00 AM", transNo: "456", value: "200", status: "Pending" },
-  { time: "12:00 PM", transNo: "789", value: "150", status: "Failed" },
-  { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
-  { time: "11:00 AM", transNo: "456", value: "200", status: "Pending" },
-  { time: "12:00 PM", transNo: "789", value: "150", status: "Failed" },
-  { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
-  { time: "11:00 AM", transNo: "456", value: "200", status: "Pending" },
-  { time: "12:00 PM", transNo: "789", value: "150", status: "Failed" },
+  { time: "Jan", transNo: "0.0", value: "0", status: "Completed" },
+  { time: "Feb", transNo: "0.0", value: "0", status: "Pending" },
+  { time: "Mar", transNo: "0.0", value: "0", status: "Failed" },
+  { time: "Apr", transNo: "0.0", value: "0", status: "Completed" },
+  { time: "May", transNo: "0.0", value: "0", status: "Pending" },
+  { time: "Jun", transNo: "0.0", value: "0", status: "Failed" },
+  { time: "Jul", transNo: "0.0", value: "0", status: "Completed" },
+  { time: "Aug", transNo: "0.0", value: "0", status: "Pending" },
+  { time: "Sep", transNo: "0.0", value: "0", status: "Failed" },
+  { time: "Oct", transNo: "0.0", value: "0", status: "Failed" },
+  { time: "Nov", transNo: "0.0", value: "0", status: "Failed" },
+  { time: "Dec", transNo: "0.0", value: "0", status: "Failed" },
   // Add more dummy data as needed
 ];
 
@@ -86,133 +93,133 @@ const ListItem = ({ item, index }) => {
           width: 110,
         }}
       >
-        {item.status}
+        <AntDesign
+          name="download"
+          size={20}
+          color="black"
+          style={{ marginLeft: 9, marginTop: 9 }}
+        />
       </Text>
     </View>
   );
 };
 
-function DailyReport({navigation}:any) {
-    const router = useRouter();
+function MonthlyCardReport({ navigation }: any) {
+  const router = useRouter();
   return (
     <>
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
-        <View
-          style={{
-            marginLeft: 19.98,
-            marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
-           onPress= {
-             
-            router.back
-          }
+      <ScrollView style={{ marginBottom: 12 }}>
+        <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+          <View
+            style={{
+              marginLeft: 19.98,
+              marginTop: 17,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
           >
-            <Image
-                             source={require("@/assets/icons/arrow_back.png")}
-
+            <TouchableOpacity onPress={router.back}>
+              <Image
+                source={require("@/assets/icons/arrow_back.png")}
+                style={{
+                  width: 16.03,
+                  height: 16.03,
+                  marginRight: 35.98,
+                }}
+              />
+            </TouchableOpacity>
+            <Text
               style={{
-                width: 16.03,
-                height: 16.03,
-                marginRight: 35.98,
+                fontSize: 20,
+                fontWeight: "500",
+                lineHeight: 32,
+                letterSpacing: 0.5,
+                color: "#4B5050",
               }}
-            />
-          </TouchableOpacity>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "500",
-              lineHeight: 32,
-              letterSpacing: 0.5,
-              color: "#4B5050",
-            }}
-          >
-            Tap to Pay
-          </Text>
-        </View>
-        <Text
-          style={{
-            color: "#4B5050",
-            fontWeight: "500",
-            fontSize: 16,
-            lineHeight: 24,
-            marginLeft: 30,
-            marginTop: 30,
-          }}
-        >
-          Name of the Business
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            marginLeft: 30,
-            marginTop: 4,
-          }}
-        >
-          <Text
-            style={{
-              color: "#4B5050B2",
-              fontSize: 14,
-              fontWeight: "400",
-              lineHeight: 20,
-              marginRight: 13,
-            }}
-          >
-            Dubai
-          </Text>
-          <Text
-            style={{
-              color: "#4B5050B2",
-              fontSize: 14,
-              fontWeight: "400",
-              lineHeight: 20,
-            }}
-          >
-            Vat No. 3100984
-          </Text>
-        </View>
-        <Text
-          style={{
-            color: "#4B5050",
-            fontWeight: "500",
-            fontSize: 13,
-            lineHeight: 18,
-            marginLeft: 30,
-            marginTop: 6,
-          }}
-        >
-          MID: 0987654321
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginLeft: 32,
-            marginRight: 32,
-            marginTop: 24,
-          }}
-        >
-          <View
-            style={{
-              width: 38,
-              height: 38,
-              backgroundColor: "#4B50500F",
-              marginRight: 8,
-              borderRadius: 8,
-            }}
-          >
-            <MaterialCommunityIcons
-              name="calendar-today"
-              size={20}
-              color="black"
-              style={{ marginLeft: 9, marginTop: 9 }}
-            />
+            >
+              Tap to Pay
+            </Text>
           </View>
-          <Text>06/07/2023</Text>
+          <Text
+            style={{
+              color: "#4B5050",
+              fontWeight: "500",
+              fontSize: 16,
+              lineHeight: 24,
+              marginLeft: 30,
+              marginTop: 30,
+            }}
+          >
+            Name of the Business
+          </Text>
           <View
+            style={{
+              flexDirection: "row",
+              marginLeft: 30,
+              marginTop: 4,
+            }}
+          >
+            <Text
+              style={{
+                color: "#4B5050B2",
+                fontSize: 14,
+                fontWeight: "400",
+                lineHeight: 20,
+                marginRight: 13,
+              }}
+            >
+              Dubai
+            </Text>
+            <Text
+              style={{
+                color: "#4B5050B2",
+                fontSize: 14,
+                fontWeight: "400",
+                lineHeight: 20,
+              }}
+            >
+              Vat No. 3100984
+            </Text>
+          </View>
+          <Text
+            style={{
+              color: "#4B5050",
+              fontWeight: "500",
+              fontSize: 13,
+              lineHeight: 18,
+              marginLeft: 30,
+              marginTop: 6,
+            }}
+          >
+            MID: 0987654321
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: 32,
+              marginRight: 32,
+              marginTop: 24,
+            }}
+          >
+            <View
+              style={{
+                width: 38,
+                height: 38,
+                backgroundColor: "#4B50500F",
+                marginRight: 8,
+                borderRadius: 8,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="calendar-today"
+                size={20}
+                color="black"
+                style={{ marginLeft: 9, marginTop: 9 }}
+              />
+            </View>
+            <Text style={{ color: "#4B5050B2" }}>2023</Text>
+            {/* <View
             style={{
               width: 38,
               height: 38,
@@ -229,10 +236,10 @@ function DailyReport({navigation}:any) {
               style={{ marginLeft: 9, marginTop: 9 }}
             />
           </View>
-          <Text>Download Report</Text>
-        </View>
+          <Text>Download Report</Text> */}
+          </View>
 
-        {/* <View
+          {/* <View
           style={{
             borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
@@ -241,77 +248,79 @@ function DailyReport({navigation}:any) {
             marginRight: 32,
           }}
         /> */}
-        <View
+          <View
+            style={{
+              // borderBottomColor: "#4B505026",
+              // borderBottomWidth: 1,
+              marginTop: 25,
+              marginLeft: 32,
+              marginRight: 32,
+            }}
+          />
+          {/* <View
           style={{
-            borderBottomColor: "#4B505026",
-            borderBottomWidth: 1,
-            borderTopColor: "#4B505026",
-            borderTopWidth: 1,
-            // marginTop: 25,
-            marginLeft: 32,
-            marginRight: 32,
+            marginLeft: 50,
+            marginRight: 50,
             flexDirection: "row",
-
             marginTop: 9,
-            paddingTop: 9,
-            paddingBottom: 9,
+            alignSelf: "center",
           }}
-        >
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "500",
-              lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
-              width: 63,
-            }}
-          >
-            Time
-          </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "500",
-              lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
-              width: 90,
-            }}
-          >
-            Trans No.
-          </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "500",
-              lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
-              width: 67,
-            }}
-          >
-            Value
-          </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "500",
-              lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
+        > */}
+          <View style={[styles.bordertopbotton]}>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "500",
+                lineHeight: 16,
+                color: "#4C4C4C",
+                width: 63,
+                textAlign: "center",
+              }}
+            >
+              Mon
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "500",
+                lineHeight: 16,
+                color: "#4C4C4C",
+                alignSelf: "center",
+                textAlign: "center",
+                width: 90,
+              }}
+            >
+              value
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "500",
+                lineHeight: 16,
+                color: "#4C4C4C",
+                alignSelf: "center",
+                textAlign: "center",
+                width: 67,
+              }}
+            >
+              Total trans
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "500",
+                lineHeight: 16,
+                color: "#4C4C4C",
+                alignSelf: "center",
+                textAlign: "center",
 
-              width: 110,
-            }}
-          >
-            Status
-          </Text>
-        </View>
-        {/* <View
+                width: 100,
+              }}
+            >
+              Download
+            </Text>
+          </View>
+          {/* <View
           style={{
             borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
@@ -320,16 +329,17 @@ function DailyReport({navigation}:any) {
             marginRight: 32,
           }}
         /> */}
-        <View>
-          <FlatList
-            data={data}
-            renderItem={({ item, index }) => (
-              <ListItem item={item} index={index} />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          <View>
+            <FlatList
+              data={data}
+              renderItem={({ item, index }) => (
+                <ListItem item={item} index={index} />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
       <View style={{ backgroundColor: "white" }}>
         <Text
           style={{
@@ -362,6 +372,21 @@ const styles = StyleSheet.create({
     marginLeft: 32,
     marginRight: 32,
   },
+  bordertopbotton: {
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderBottomColor: "#4B505026",
+    borderTopColor: "#4B505026",
+
+    flexDirection: "row",
+    // justifyContent: "space-between",
+    textAlign: "center",
+
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 32,
+    marginRight: 32,
+  },
   whiteRow: {
     backgroundColor: "#FFFFFF",
   },
@@ -382,4 +407,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DailyReport;
+export default MonthlyCardReport;

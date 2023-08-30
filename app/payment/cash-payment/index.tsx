@@ -37,6 +37,7 @@ function CashPayment() {
   const finalAmount = totalAmount + taxAmount;
   const { user: withToken } = useStorageData("user");
   const { user } = useStorageData("user", { decode: true });
+  const { auth } = useStorageData("auth");
 
   const [orderMeta] = React.useContext(OrderMetaContext);
 
@@ -62,9 +63,9 @@ function CashPayment() {
           channel: PaymentMode.CASHPAYMENT,
           merchantPhone: user?.mobileNumber,
           posType: "pos",
-          posId: user?.userId,
+          posId: auth?.tid,
           posEmail: user?.emailId,
-          customerPhone: "9939853383",
+          customerPhone: user?.mobileNumber,
           paymentDate: new Date().toISOString(),
           totalTaxAmount: taxAmount,
           totalAmount: finalAmount,
@@ -100,6 +101,7 @@ function CashPayment() {
     finalAmount,
     withToken?.token,
     state.purchaseBreakdown,
+    auth?.tid,
   ]);
 
   return (
@@ -235,7 +237,6 @@ function CashPayment() {
                   <Text
                     style={{
                       flex: 1,
-
                       fontWeight: "500",
                       fontSize: 14,
                       lineHeight: 20,
@@ -250,7 +251,6 @@ function CashPayment() {
                     style={{
                       width: 20,
                       height: 20,
-
                       backgroundColor: "#4B5050E5",
                       borderRadius: 10,
                     }}
@@ -295,7 +295,7 @@ function CashPayment() {
                       color: "#4B5050",
                     }}
                   >
-                    Number of items selected
+                    NO OF ITEMS SELECTED
                   </Text>
 
                   <Text
@@ -303,6 +303,7 @@ function CashPayment() {
                       fontSize: 14,
                       fontWeight: "500",
                       color: "#4B5050",
+                      marginRight: 6,
                     }}
                   >
                     {state?.purchaseBreakdown?.service?.length}
@@ -335,8 +336,8 @@ function CashPayment() {
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: "black",
+                    fontWeight: "500",
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
@@ -396,8 +397,8 @@ function CashPayment() {
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: "black",
+                    fontWeight: "500",
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
@@ -457,8 +458,8 @@ function CashPayment() {
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: "black",
+                    fontWeight: "500",
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,

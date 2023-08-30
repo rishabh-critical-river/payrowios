@@ -14,7 +14,7 @@ export const dailyReportArray = [
     slug: PaymentMode.PAYBYLINK,
   },
   {
-    name: 'Pay by SMS',
+    name: 'Pay by QR',
     slug: PaymentMode.PAYBYQRCODE,
   },
 ];

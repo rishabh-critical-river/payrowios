@@ -28,22 +28,6 @@ const GetStartedScreen = () => {
   console.log(user);
   return (
     <>
-      {/* <View>
-        <Button
-          title="Light"
-          onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
-        />
-        <Button
-          title="Medium"
-          onPress={() =>
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-          }
-        />
-        <Button
-          title="Heavy"
-          onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)}
-        />
-      </View> */}
       <View style={styles.container}>
         <PayRowLogo />
 

@@ -119,7 +119,7 @@ function HomeScreen({ navigation }: any) {
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> EDIT PAYROW </Text>
+              <Text style={styles.homeBlocks}> INVENTORY </Text>
               <Image
                 source={require("@/assets/icons/keyboard_arrow_right.png")}
                 style={{
@@ -238,6 +238,8 @@ const styles = StyleSheet.create({
     height: 48,
     textAlign: "center",
     flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "center",
   },
   button: {
     marginLeft: 165,

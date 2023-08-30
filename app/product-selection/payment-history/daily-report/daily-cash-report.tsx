@@ -15,7 +15,11 @@ import {
   KeyboardAvoidingView,
   FlatList,
 } from "react-native";
-import { AntDesign, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 const data = [
   { time: "10:00 AM", transNo: "123", value: "100", status: "Completed" },
@@ -86,19 +90,19 @@ const ListItem = ({ item, index }) => {
           width: 110,
         }}
       >
-      <AntDesign
-              name="download"
-              size={20}
-              color="black"
-              style={{ marginLeft: 9, marginTop: 9 }}
-            />
+        <AntDesign
+          name="download"
+          size={20}
+          color="black"
+          style={{ marginLeft: 9, marginTop: 9 }}
+        />
       </Text>
     </View>
   );
 };
 
-function DailyCashReport({navigation}:any) {
-    const router = useRouter();
+function DailyCashReport({ navigation }: any) {
+  const router = useRouter();
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
@@ -110,15 +114,9 @@ function DailyCashReport({navigation}:any) {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity
-           onPress= {
-             
-            router.back
-          }
-          >
+          <TouchableOpacity onPress={router.back}>
             <Image
-                             source={require("@/assets/icons/arrow_back.png")}
-
+              source={require("@/assets/icons/arrow_back.png")}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -189,7 +187,7 @@ function DailyCashReport({navigation}:any) {
             marginTop: 6,
           }}
         >
-          MID: 0987654321
+          MID: 098765432
         </Text>
         <View
           style={{
@@ -286,7 +284,7 @@ function DailyCashReport({navigation}:any) {
               width: 90,
             }}
           >
-           value
+            Order no.
           </Text>
           <Text
             style={{
@@ -299,7 +297,7 @@ function DailyCashReport({navigation}:any) {
               width: 67,
             }}
           >
-          Total Income
+            Value
           </Text>
           <Text
             style={{
@@ -313,7 +311,7 @@ function DailyCashReport({navigation}:any) {
               width: 110,
             }}
           >
-         download
+            Status
           </Text>
         </View>
         {/* <View

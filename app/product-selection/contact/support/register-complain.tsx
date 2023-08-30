@@ -130,17 +130,23 @@ function RegisterComplain() {
                 industry. Lorem Ipsum has been the industry's standard dummy.
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                gap: 8,
+                marginRight: 16,
+              }}
+            >
               <Text
                 style={{
-                  width: 72,
                   height: 16,
                   fontSize: 11,
                   fontWeight: 500,
                   lineHeight: 16,
                   marginTop: 22,
                   marginBottom: 18,
-                  marginLeft: 132,
+
                   color: "#999999",
                 }}
               >
@@ -149,7 +155,7 @@ function RegisterComplain() {
               <View
                 style={{
                   flexDirection: "row",
-                  width: 70,
+
                   height: 28,
                   borderRadius: 8,
                   backgroundColor: "#E3EEDA",
@@ -237,17 +243,23 @@ function RegisterComplain() {
                 industry. Lorem Ipsum has been the industry's standard dummy.
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                gap: 8,
+                marginRight: 16,
+              }}
+            >
               <Text
                 style={{
-                  width: 72,
                   height: 16,
                   fontSize: 11,
                   fontWeight: 500,
                   lineHeight: 16,
                   marginTop: 22,
                   marginBottom: 18,
-                  marginLeft: 132,
+
                   color: "#999999",
                 }}
               >
@@ -256,7 +268,7 @@ function RegisterComplain() {
               <View
                 style={{
                   flexDirection: "row",
-                  width: 70,
+
                   height: 28,
                   borderRadius: 8,
                   backgroundColor: "#E3EEDA",
@@ -350,6 +362,7 @@ function RegisterComplain() {
                 flexDirection: "row",
                 justifyContent: "flex-end",
                 gap: 8,
+                marginRight: 16,
               }}
             >
               <Text
