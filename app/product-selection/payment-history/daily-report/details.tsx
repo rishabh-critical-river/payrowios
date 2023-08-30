@@ -73,7 +73,7 @@ function DailyCashReport() {
       console.log(error);
     }
   }, [auth?.tid, user?.token, userDecoded?.merchantId, key, params.slug]);
-
+  console.log("State from line 85", state);
   React.useEffect(() => {
     safeAPI.current = true;
     if (safeAPI.current) {
@@ -83,7 +83,6 @@ function DailyCashReport() {
       safeAPI.current = false;
     };
   }, []);
-
   // console.log("State from line 94", state);
   const data = React.useMemo(() => {
     if (state?.data) {
