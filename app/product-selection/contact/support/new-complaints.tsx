@@ -1,12 +1,12 @@
 import React from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import useStorageData from "@/apis/hooks/use-storage-data";
 import useInputs from "@/hooks/use-inputs";
 import createComplaints from "@/apis/mutations/contact/complaints";
 import { ScrollView } from "react-native-gesture-handler";
-import { TextInput } from "react-native-paper";
+// import { TextInput } from "react-native-paper";
 
 const complains = [
   {
@@ -160,11 +160,9 @@ function NewComplain() {
             );
           })}
         </View>
-        <View style={{ flexDirection: "column", alignItems: "center" }}>
+        <View>
           <Text
             style={{
-              marginLeft: 128,
-              marginRight: 128,
               textAlign: "center",
               fontSize: 14,
               fontWeight: "400",
@@ -178,6 +176,7 @@ function NewComplain() {
           >
             Write Complaint
           </Text>
+
           <Text
             style={{
               marginLeft: 32,
@@ -194,6 +193,7 @@ function NewComplain() {
           >
             Brief your complaint
           </Text>
+
           <TextInput
             multiline
             textAlignVertical="top"
@@ -208,11 +208,14 @@ function NewComplain() {
               height: 54,
               color: "rgba(75, 80, 80, 0.70)",
               marginBottom: 31,
+              borderBottomWidth: 1,
+              borderStyle: "solid",
+              borderColor: "#B2B2B2",
             }}
             onChangeText={(text) => setState("briefCompliant", text)}
             value={state.briefCompliant}
             placeholder="Type here..."
-          ></TextInput>
+          />
 
           {/* <Image
 package-lock.json            source={require("@/assets/icons/sixline.png")}
