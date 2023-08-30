@@ -17,6 +17,7 @@ import keyValidation from "@/hooks/lib/num-characters";
 import useStorageData from "@/apis/hooks/use-storage-data";
 import moment from "moment";
 import { tokens } from "react-native-paper/lib/typescript/styles/themes/v3/tokens";
+import truncateText from "@/utils/truncateText";
 
 function DailyCashReport() {
   const router = useRouter();
@@ -89,9 +90,9 @@ function DailyCashReport() {
       return state.data.map((item) => {
         return {
           time: moment(item.paymentDate).format("hh:mm A"),
-          transNo: item.orderNumber,
+          transNo: truncateText(item.orderNumber, 5),
           value: item.totalAmount,
-          status: "Completed",
+          status: "SUCCESS",
         };
       });
     } else {
@@ -102,13 +103,6 @@ function DailyCashReport() {
   console.log("Data from line 110", data);
   return (
     <>
-      <Button
-        title="Fetch Payment Details"
-        onPress={() => {
-          fetchPaymentDetails();
-        }}
-      />
-
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
@@ -150,7 +144,7 @@ function DailyCashReport() {
             marginTop: 30,
           }}
         >
-          Name of the Business
+          PayRow Stores
         </Text>
         <View
           style={{
@@ -191,7 +185,7 @@ function DailyCashReport() {
             marginTop: 6,
           }}
         >
-          MID: 0987654321
+          {`MID: ${userDecoded?.merchantId} `}
         </Text>
         <View
           style={{
@@ -218,7 +212,7 @@ function DailyCashReport() {
               style={{ marginLeft: 9, marginTop: 9 }}
             />
           </View>
-          <Text>06/07/2023</Text>
+          <Text> {moment().format("DD/MM/YYYY ")}</Text>
         </View>
 
         {/* <View
@@ -270,7 +264,7 @@ function DailyCashReport() {
               width: 90,
             }}
           >
-            value
+            Order No.
           </Text>
           <Text
             style={{
@@ -283,7 +277,7 @@ function DailyCashReport() {
               width: 67,
             }}
           >
-            Total Income
+            Value
           </Text>
           <Text
             style={{
@@ -297,7 +291,7 @@ function DailyCashReport() {
               width: 110,
             }}
           >
-            download
+            Status
           </Text>
         </View>
         {/* <View
@@ -447,12 +441,7 @@ const ListItem = ({ item, index }: ListItemProps) => {
           width: 110,
         }}
       >
-        <AntDesign
-          name="download"
-          size={20}
-          color="black"
-          style={{ marginLeft: 9, marginTop: 9 }}
-        />
+        SUCCESS
       </Text>
     </View>
   );

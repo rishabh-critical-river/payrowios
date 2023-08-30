@@ -282,7 +282,7 @@ function DailyCashReport({ navigation }: any) {
               width: 90,
             }}
           >
-            value
+            Order No.
           </Text>
           <Text
             style={{
@@ -295,7 +295,7 @@ function DailyCashReport({ navigation }: any) {
               width: 67,
             }}
           >
-            Total Income
+            Total Incomes
           </Text>
           <Text
             style={{

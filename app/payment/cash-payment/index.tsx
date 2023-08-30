@@ -44,7 +44,6 @@ function CashPayment() {
   const onPayByCash = React.useCallback(async () => {
     if (user) {
       console.log(user, "userValue");
-
       try {
         const services = state.purchaseBreakdown.service.map((item) => {
           return {
@@ -218,7 +217,7 @@ function CashPayment() {
                   borderRadius: 8,
                   marginTop: 24,
                   width: 296,
-                  height: 48,
+                  // height: 48,
                   alignSelf: "center",
                 }}
               >
@@ -229,13 +228,15 @@ function CashPayment() {
                   }}
                   style={{
                     flexDirection: "row",
+                    alignItems: "center",
+                    paddingLeft: 16,
+                    paddingRight: 16,
+                    height: 48,
                   }}
                 >
                   <Text
                     style={{
                       flex: 1,
-                      marginLeft: 16,
-                      marginTop: 14,
                       fontWeight: "500",
                       fontSize: 14,
                       lineHeight: 20,
@@ -250,8 +251,6 @@ function CashPayment() {
                     style={{
                       width: 20,
                       height: 20,
-                      marginRight: 16,
-                      marginTop: 15,
                       backgroundColor: "#4B5050E5",
                       borderRadius: 10,
                     }}
@@ -278,6 +277,7 @@ function CashPayment() {
                   height: 48,
                   flexDirection: "column",
                   justifyContent: "center",
+                  alignSelf: "center",
                 }}
               >
                 <View
@@ -295,7 +295,7 @@ function CashPayment() {
                       color: "#4B5050",
                     }}
                   >
-                    Number of items selected
+                    NO OF ITEMS SELECTED
                   </Text>
 
                   <Text
@@ -303,6 +303,7 @@ function CashPayment() {
                       fontSize: 14,
                       fontWeight: "500",
                       color: "#4B5050",
+                      marginRight: 6,
                     }}
                   >
                     {state?.purchaseBreakdown?.service?.length}
@@ -335,8 +336,8 @@ function CashPayment() {
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: "black",
+                    fontWeight: "500",
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
@@ -396,8 +397,8 @@ function CashPayment() {
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: "black",
+                    fontWeight: "500",
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
@@ -457,8 +458,8 @@ function CashPayment() {
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: "black",
+                    fontWeight: "500",
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,

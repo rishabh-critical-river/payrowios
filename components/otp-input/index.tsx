@@ -273,7 +273,6 @@ class OTPInput extends Component<IProps, IState> {
           maxLength={this.props.inputCellLength}
           onFocus={() => this.onInputFocus(i)}
           onChangeText={(text) => this.onTextChange(text, i)}
-          multiline={false}
           onKeyPress={(e) => this.onKeyPress(e, i)}
           selectionColor={_tintColor}
           secureTextEntry={this.props.secureTextEntry}
