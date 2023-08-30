@@ -3,7 +3,7 @@
  * https://github.com/naveenvignesh5/react-native-otp-textinput
  */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   View,
   TextInput,
@@ -12,7 +12,7 @@ import {
   KeyboardType,
   NativeSyntheticEvent,
   TextInputKeyPressEventData,
-} from 'react-native';
+} from "react-native";
 
 interface IState {
   focusedInput: number;
@@ -34,14 +34,14 @@ interface IProps {
   secureTextEntry?: boolean;
 }
 
-const DEFAULT_ACTIVE_COLOR: string = '#3CB371';
-const DEFAULT_INACTIVE_COLOR: string = '#DCDCDC';
-const DEFAULT_TEST_ID_PREFIX: string = 'SIMPLE_OTP';
-const DEFAULT_KEYBOARD_TYPE: KeyboardType = 'numeric';
+const DEFAULT_ACTIVE_COLOR: string = "#4c4c4c";
+const DEFAULT_INACTIVE_COLOR: string = "#DCDCDC";
+const DEFAULT_TEST_ID_PREFIX: string = "SIMPLE_OTP";
+const DEFAULT_KEYBOARD_TYPE: KeyboardType = "numeric";
 
 class OTPInput extends Component<IProps, IState> {
   static defaultProps: Partial<IProps> = {
-    defaultValue: '',
+    defaultValue: "",
     inputCount: 4,
     activeColor: DEFAULT_ACTIVE_COLOR,
     inActiveColor: DEFAULT_INACTIVE_COLOR,
@@ -80,7 +80,7 @@ class OTPInput extends Component<IProps, IState> {
     text: string
   ): string[] => {
     let matches =
-      text.match(new RegExp('.{1,' + inputCellLength + '}', 'g')) || [];
+      text.match(new RegExp(".{1," + inputCellLength + "}", "g")) || [];
 
     return matches.slice(0, inputCount);
   };
@@ -88,14 +88,14 @@ class OTPInput extends Component<IProps, IState> {
   checkTintColorCount = () => {
     const { activeColor, inActiveColor, inputCount } = this.props;
 
-    if (typeof activeColor !== 'string' && activeColor.length !== inputCount) {
+    if (typeof activeColor !== "string" && activeColor.length !== inputCount) {
       throw new Error(
         "If tint color is an array it's length should be equal to input count"
       );
     }
 
     if (
-      typeof inActiveColor !== 'string' &&
+      typeof inActiveColor !== "string" &&
       inActiveColor.length !== inputCount
     ) {
       throw new Error(
@@ -128,7 +128,7 @@ class OTPInput extends Component<IProps, IState> {
         };
       },
       () => {
-        onChangeOTP(this.state.otpText.join(''));
+        onChangeOTP(this.state.otpText.join(""));
         handleCellTextChange && handleCellTextChange(text, i);
         if (text.length === inputCellLength && i !== inputCount - 1) {
           this.inputs[i + 1].focus();
@@ -142,7 +142,7 @@ class OTPInput extends Component<IProps, IState> {
 
     const prevIndex = i - 1;
 
-    if (prevIndex > -1 && !otpText[prevIndex] && !otpText.join('')) {
+    if (prevIndex > -1 && !otpText[prevIndex] && !otpText.join("")) {
       this.inputs[prevIndex].focus();
       return;
     }
@@ -154,32 +154,32 @@ class OTPInput extends Component<IProps, IState> {
     e: NativeSyntheticEvent<TextInputKeyPressEventData>,
     i: number
   ) => {
-    const val = this.state.otpText[i] || '';
+    const val = this.state.otpText[i] || "";
     const { onChangeOTP, inputCellLength, inputCount } = this.props;
     const { otpText } = this.state;
 
-    if (e.nativeEvent.key !== 'Backspace' && val && i !== inputCount - 1) {
+    if (e.nativeEvent.key !== "Backspace" && val && i !== inputCount - 1) {
       this.inputs[i + 1].focus();
       return;
     }
 
-    if (e.nativeEvent.key === 'Backspace' && i !== 0) {
+    if (e.nativeEvent.key === "Backspace" && i !== 0) {
       if (!val.length && otpText[i - 1].length === inputCellLength) {
         this.setState(
           (prevState) => {
             let { otpText } = prevState;
 
             otpText[i - 1] = otpText[i - 1]
-              .split('')
+              .split("")
               .splice(0, otpText[i - 1].length - 1)
-              .join('');
+              .join("");
 
             return {
               otpText,
             };
           },
           () => {
-            onChangeOTP(this.state.otpText.join(''));
+            onChangeOTP(this.state.otpText.join(""));
             this.inputs[i - 1].focus();
           }
         );
@@ -194,7 +194,7 @@ class OTPInput extends Component<IProps, IState> {
       },
       () => {
         this.inputs[0].focus();
-        this.props.onChangeOTP('');
+        this.props.onChangeOTP("");
       }
     );
   };
@@ -239,9 +239,9 @@ class OTPInput extends Component<IProps, IState> {
 
     for (let i = 0; i < inputCount; i += 1) {
       const _tintColor =
-        typeof activeColor === 'string' ? activeColor : activeColor[i];
+        typeof activeColor === "string" ? activeColor : activeColor[i];
       const _offTintColor =
-        typeof inActiveColor === 'string' ? inActiveColor : inActiveColor[i];
+        typeof inActiveColor === "string" ? inActiveColor : inActiveColor[i];
 
       const inputStyle = [
         styles.textInput,
@@ -268,7 +268,7 @@ class OTPInput extends Component<IProps, IState> {
           autoCorrect={false}
           keyboardType={keyboardType}
           autoFocus={autoFocus && i === 0}
-          value={otpText[i] || ''}
+          value={otpText[i] || ""}
           style={inputStyle}
           maxLength={this.props.inputCellLength}
           onFocus={() => this.onInputFocus(i)}
@@ -294,17 +294,17 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginLeft: 52,
     marginRight: 52,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   textInput: {
-    display: 'flex',
-    flexDirection: 'row',
-    textAlign: 'center',
+    display: "flex",
+    flexDirection: "row",
+    textAlign: "center",
     borderWidth: 1,
     borderRadius: 8,
     width: 52,
     height: 56,
-    borderColor: '#4B505066',
+    borderColor: "#4B505066",
   },
 });
