@@ -379,6 +379,8 @@ function PaymentHistory() {
           <View>
             {barData ? (
               <VictoryChart
+                height={250}
+                width={390}
                 animate={{
                   onLoad: { duration: 500 },
                   easing: "linear",
@@ -445,21 +447,21 @@ function PaymentHistory() {
             )}
           </View>
         </View>
-        <View style={{ backgroundColor: "white" }}>
-          <Text
-            style={{
-              fontSize: 12,
-              backgroundColor: "white",
-              color: "#7f7f7f",
-              textAlign: "center",
-              marginTop: 14,
-              paddingBottom: 16,
-            }}
-          >
-            ©2022 PayRow Company. All rights reserved
-          </Text>
-        </View>
       </ScrollView>
+      <View style={{ backgroundColor: "white" }}>
+        <Text
+          style={{
+            fontSize: 12,
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
+            marginTop: 14,
+            paddingBottom: 16,
+          }}
+        >
+          ©2022 PayRow Company. All rights reserved
+        </Text>
+      </View>
     </>
   );
 }

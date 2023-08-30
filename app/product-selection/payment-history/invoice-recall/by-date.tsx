@@ -2,16 +2,20 @@ import React from "react";
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import paymentDetails from "@/apis/mutations/payment/detail";
 import useStorageData from "@/apis/hooks/use-storage-data";
 import base64 from "@/hooks/lib/base64";
 import keyValidation from "@/hooks/lib/num-characters";
 import moment from "moment";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ByDatePageScreen = () => {
   const { auth } = useStorageData("auth");
   const { user } = useStorageData("user");
+  const { user: userDecoded } = useStorageData("user", {
+    decode: true,
+  });
   const params = useLocalSearchParams();
   console.log({ params });
 
@@ -74,12 +78,15 @@ const ByDatePageScreen = () => {
   return (
     <>
       <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
-        <View
+        <TouchableOpacity
           style={{
             marginLeft: 19.98,
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
+          }}
+          onPress={() => {
+            router.push("/product-selection/payment-history/");
           }}
         >
           <Image
@@ -87,7 +94,7 @@ const ByDatePageScreen = () => {
             style={{
               width: 16.03,
               height: 16.03,
-              marginRight: 35.98,
+              marginRight: 15.98,
             }}
           />
           <Text
@@ -99,9 +106,9 @@ const ByDatePageScreen = () => {
               color: "#4B5050",
             }}
           >
-            Tap to Pay
+            Invoice Recall
           </Text>
-        </View>
+        </TouchableOpacity>
         <Text
           style={{
             color: "#4B5050",
@@ -112,7 +119,7 @@ const ByDatePageScreen = () => {
             marginTop: 30,
           }}
         >
-          Name of the Business
+          PayRow Stores
         </Text>
         <View
           style={{
@@ -153,7 +160,7 @@ const ByDatePageScreen = () => {
             marginTop: 6,
           }}
         >
-          MID: 0987654321
+          {`MID: ${userDecoded?.merchantId} `}
         </Text>
         <View
           style={{
@@ -208,6 +215,7 @@ const ByDatePageScreen = () => {
               alignSelf: "center",
               textAlign: "center",
               width: 63,
+              marginLeft: 9,
             }}
           >
             Day
