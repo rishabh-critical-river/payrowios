@@ -9,6 +9,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import BarcodeMask from 'react-native-barcode-mask';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import * as Haptics from 'expo-haptics';
+import sleep from '@/utils/sleep';
 
 type BarCodeScannerScreenProps = {
   visible: boolean;
@@ -43,7 +45,8 @@ const BarCodeScannerScreen = ({
   }, []);
 
   const handleBarCodeScanned = React.useCallback(
-    (scanningResult: BarCodeScannerResult) => {
+    async (scanningResult: BarCodeScannerResult) => {
+      setScanned(true);
       if (!scanned) {
         const { data, bounds: { origin } = {} } = scanningResult;
         // @ts-ignore
@@ -54,8 +57,10 @@ const BarCodeScannerScreen = ({
           x <= viewMinX + finderWidth / 2 &&
           y <= viewMinY + finderHeight / 2
         ) {
-          setScanned(true);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          console.log('scanned data');
           scannedData && scannedData(data);
+          await sleep(500);
           onClose();
           setScanned(false);
         }
@@ -63,6 +68,20 @@ const BarCodeScannerScreen = ({
     },
     [onClose]
   );
+
+  const toggleFlash = React.useCallback(async () => {
+    // try {
+    //   await NativeModules.Camera.toggleTorch(isTorchOn);
+    //   setIsTorchOn(!isTorchOn);
+    // } catch (e) {
+    //   toast.show('We seem to have an issue accessing your torch');
+    // }
+    setType(
+      type === BarCodeScanner.Constants.Type.back
+        ? BarCodeScanner.Constants.Type.front
+        : BarCodeScanner.Constants.Type.back
+    );
+  }, [type]);
 
   const styles = StyleSheet.create({
     container: {
@@ -154,12 +173,15 @@ const BarCodeScannerScreen = ({
           <View style={styles.controls}>
             <TouchableOpacity
               style={styles.circle}
+              // onPress={() => {
+              //   setType(
+              //     type === BarCodeScanner.Constants.Type.back
+              //       ? BarCodeScanner.Constants.Type.front
+              //       : BarCodeScanner.Constants.Type.back
+              //   );
+              // }}
               onPress={() => {
-                setType(
-                  type === BarCodeScanner.Constants.Type.back
-                    ? BarCodeScanner.Constants.Type.front
-                    : BarCodeScanner.Constants.Type.back
-                );
+                toggleFlash();
               }}
               activeOpacity={0.7}
             >

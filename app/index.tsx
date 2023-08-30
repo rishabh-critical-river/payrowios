@@ -3,7 +3,15 @@ import { useRouter } from 'expo-router';
 import PayRowLogo from '@/components/logo';
 import { AntDesign } from '@expo/vector-icons';
 import useStorageData from '@/apis/hooks/use-storage-data';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 const GetStartedScreen = () => {
   const router = useRouter();
@@ -20,6 +28,22 @@ const GetStartedScreen = () => {
   console.log(user);
   return (
     <>
+      <View>
+        <Button
+          title="Light"
+          onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
+        />
+        <Button
+          title="Medium"
+          onPress={() =>
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+          }
+        />
+        <Button
+          title="Heavy"
+          onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)}
+        />
+      </View>
       <View style={styles.container}>
         <PayRowLogo />
 

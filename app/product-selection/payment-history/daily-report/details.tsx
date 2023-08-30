@@ -14,7 +14,6 @@ import paymentDetails from '@/apis/mutations/payment/detail';
 import base64 from '@/hooks/lib/base64';
 import keyValidation from '@/hooks/lib/num-characters';
 import useStorageData from '@/apis/hooks/use-storage-data';
-import { Button } from 'react-native-paper';
 
 const data = [
   { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
@@ -63,7 +62,7 @@ function DailyCashReport() {
           channel: 'Cash',
           merchantId: userDecoded?.merchantId,
           dates: {
-            from: '2023-08-29',
+            from: '2023-08-25',
             to: '2023-08-29',
           },
         };
@@ -85,16 +84,16 @@ function DailyCashReport() {
     return () => {
       safeAPI.current = false;
     };
-  }, []);
+  }, [auth?.tid, user?.token, userDecoded?.merchantId]);
   return (
     <>
-      <Button
+      {/* <Button
         onPress={() => {
           fetchPaymentDetails();
         }}
       >
         Hello
-      </Button>
+      </Button> */}
 
       <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
         <View
