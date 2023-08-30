@@ -89,8 +89,6 @@ function HomeScreen({ navigation }: any) {
                   width: 7.41,
                   height: 12,
 
-                  marginTop: 14,
-
                   marginRight: 10.02,
                 }}
               />
@@ -110,8 +108,6 @@ function HomeScreen({ navigation }: any) {
                   width: 7.41,
                   height: 12,
 
-                  marginTop: 14,
-
                   marginRight: 10.02,
                 }}
               />
@@ -129,8 +125,6 @@ function HomeScreen({ navigation }: any) {
                 style={{
                   width: 7.41,
                   height: 12,
-
-                  marginTop: 14,
 
                   marginRight: 10.02,
                 }}
@@ -213,7 +207,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     flex: 1,
-    marginTop: 14,
 
     color: "#4B5050",
     lineHeight: 20,

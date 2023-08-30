@@ -309,6 +309,7 @@ function ContactUs() {
             >
               Message
             </Text>
+
             <TextInput
               multiline
               textAlignVertical="top"
