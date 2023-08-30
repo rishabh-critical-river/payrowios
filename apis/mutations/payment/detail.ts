@@ -2,8 +2,8 @@ import api from '@/apis/config';
 
 type Payload = {
   dates: {
-    from: string;
-    to: string;
+    from?: string;
+    to?: string;
   };
   tid: string;
   key: string;
@@ -20,9 +20,11 @@ type Response = {
  * Fetch Payment Details
  */
 const paymentDetails = async (payload: Payload, token: string) => {
+
   const response = await api.post<Response>(
     `/gateway/payrow/paymentdetails`,
     payload,
+
     {
       headers: {
         Authorization: `Bearer ${token}`,

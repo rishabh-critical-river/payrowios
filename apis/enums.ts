@@ -1,9 +1,10 @@
 export enum PaymentMode {
-  TAPTOPAY = 'Pay',
+  TAPTOPAY = 'Card',
   CASHPAYMENT = 'Cash',
-  PAYBYLINK = 'ECOMMERCE',
-  PAYBYQRCODE = 'Code',
+  PAYBYLINK = 'Paybylink',
+  PAYBYQRCODE = 'generateQR',
 }
+// "Cash", "Card", "ECOMMERCE", "Paybylink", "generateQR"
 
 export enum SharingApps {
   WHATSAPP = 'Whatsapp',

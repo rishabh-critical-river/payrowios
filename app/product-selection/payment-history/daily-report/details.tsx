@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -6,39 +6,38 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-} from 'react-native';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { dailyReportArray } from '@/constants/arrays';
-import paymentDetails from '@/apis/mutations/payment/detail';
-import base64 from '@/hooks/lib/base64';
-import keyValidation from '@/hooks/lib/num-characters';
-import useStorageData from '@/apis/hooks/use-storage-data';
-
-const data = [
-  { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
-  { time: '11:00 AM', transNo: '456', value: '200', status: 'Pending' },
-  { time: '12:00 PM', transNo: '789', value: '150', status: 'Failed' },
-  { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
-  { time: '11:00 AM', transNo: '456', value: '200', status: 'Pending' },
-  { time: '12:00 PM', transNo: '789', value: '150', status: 'Failed' },
-  { time: '10:00 AM', transNo: '123', value: '100', status: 'Completed' },
-  { time: '11:00 AM', transNo: '456', value: '200', status: 'Pending' },
-  { time: '12:00 PM', transNo: '789', value: '150', status: 'Failed' },
-  // Add more dummy data as needed
-];
+  Button,
+} from "react-native";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { dailyReportArray } from "@/constants/arrays";
+import paymentDetails from "@/apis/mutations/payment/detail";
+import base64 from "@/hooks/lib/base64";
+import keyValidation from "@/hooks/lib/num-characters";
+import useStorageData from "@/apis/hooks/use-storage-data";
+import moment from "moment";
+import { tokens } from "react-native-paper/lib/typescript/styles/themes/v3/tokens";
 
 function DailyCashReport() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const safeAPI = React.useRef(false);
-  const { user } = useStorageData('user');
-  const { auth } = useStorageData('auth');
-  const { user: userDecoded } = useStorageData('user', {
+  const { user } = useStorageData("user");
+  const { auth } = useStorageData("auth");
+  const { user: userDecoded } = useStorageData("user", {
     decode: true,
   });
 
-  const [state, setState] = React.useState<any>(null);
+  const key = React.useMemo(() => {
+    return base64.encode(
+      JSON.stringify({
+        num: Number(keyValidation(8)),
+        validation: "Key Validation",
+      })
+    );
+  }, []);
+
+  const [state, setState] = React.useState(xyz);
 
   const DynamicTitle = React.useMemo(() => {
     if (!params.slug) return;
@@ -47,34 +46,32 @@ function DailyCashReport() {
   }, []);
 
   const fetchPaymentDetails = React.useCallback(async () => {
-    console.log('Fetch Payment Details');
+    console.log("Fetch Payment Details");
+    console.log("Auth from line 63", key);
+    const channel = dailyReportArray.find((item) => item.slug === params.slug)
+      ?.slug;
     try {
       if (auth?.tid && user?.token && userDecoded?.merchantId) {
-        const key = base64.encode(
-          JSON.stringify({
-            num: keyValidation(10),
-            validation: 'Key Validation',
-          })
-        );
+        console.log("Key from line 63", key);
         const payload = {
           key,
+          channel,
           tid: auth?.tid,
-          channel: 'Cash',
           merchantId: userDecoded?.merchantId,
           dates: {
-            from: '2023-08-25',
-            to: '2023-08-29',
+            from: moment().format("YYYY-MM-DD"),
           },
         };
+        console.log("Payload from line 75", payload);
         const { data } = await paymentDetails(payload, user?.token);
-        console.log('Data from line 69', data);
+        if (data) {
+          setState(data);
+        }
       }
     } catch (error) {
       console.log(error);
     }
-    // Set State when data is available
-    // setState(data);
-  }, [auth?.tid, user?.token, userDecoded?.merchantId]);
+  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, params.slug]);
 
   React.useEffect(() => {
     safeAPI.current = true;
@@ -84,29 +81,46 @@ function DailyCashReport() {
     return () => {
       safeAPI.current = false;
     };
-  }, [auth?.tid, user?.token, userDecoded?.merchantId]);
+  }, []);
+
+  // console.log("State from line 94", state);
+  const data = React.useMemo(() => {
+    if (state?.data) {
+      return state.data.map((item) => {
+        return {
+          time: moment(item.paymentDate).format("hh:mm A"),
+          transNo: item.orderNumber,
+          value: item.totalAmount,
+          status: "Completed",
+        };
+      });
+    } else {
+      return [];
+    }
+  }, [state?.data]);
+
+  console.log("Data from line 110", data);
   return (
     <>
-      {/* <Button
+      <Button
+        title="Fetch Payment Details"
         onPress={() => {
           fetchPaymentDetails();
         }}
-      >
-        Hello
-      </Button> */}
+      />
 
-      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
+      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <TouchableOpacity onPress={router.back}>
             <Image
-              source={require('@/assets/icons/arrow_back.png')}
+              source={require("@/assets/icons/arrow_back.png")}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -117,10 +131,10 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: '#4B5050',
+              color: "#4B5050",
             }}
           >
             {DynamicTitle}
@@ -128,8 +142,8 @@ function DailyCashReport() {
         </View>
         <Text
           style={{
-            color: '#4B5050',
-            fontWeight: '500',
+            color: "#4B5050",
+            fontWeight: "500",
             fontSize: 16,
             lineHeight: 24,
             marginLeft: 30,
@@ -140,16 +154,16 @@ function DailyCashReport() {
         </Text>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: "row",
             marginLeft: 30,
             marginTop: 4,
           }}
         >
           <Text
             style={{
-              color: '#4B5050B2',
+              color: "#4B5050B2",
               fontSize: 14,
-              fontWeight: '400',
+              fontWeight: "400",
               lineHeight: 20,
               marginRight: 13,
             }}
@@ -158,9 +172,9 @@ function DailyCashReport() {
           </Text>
           <Text
             style={{
-              color: '#4B5050B2',
+              color: "#4B5050B2",
               fontSize: 14,
-              fontWeight: '400',
+              fontWeight: "400",
               lineHeight: 20,
             }}
           >
@@ -169,8 +183,8 @@ function DailyCashReport() {
         </View>
         <Text
           style={{
-            color: '#4B5050',
-            fontWeight: '500',
+            color: "#4B5050",
+            fontWeight: "500",
             fontSize: 13,
             lineHeight: 18,
             marginLeft: 30,
@@ -181,8 +195,8 @@ function DailyCashReport() {
         </Text>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
             marginLeft: 32,
             marginRight: 32,
             marginTop: 24,
@@ -192,7 +206,7 @@ function DailyCashReport() {
             style={{
               width: 38,
               height: 38,
-              backgroundColor: '#4B50500F',
+              backgroundColor: "#4B50500F",
               marginRight: 8,
               borderRadius: 8,
             }}
@@ -218,14 +232,14 @@ function DailyCashReport() {
         /> */}
         <View
           style={{
-            borderBottomColor: '#4B505026',
+            borderBottomColor: "#4B505026",
             borderBottomWidth: 1,
-            borderTopColor: '#4B505026',
+            borderTopColor: "#4B505026",
             borderTopWidth: 1,
             // marginTop: 25,
             marginLeft: 32,
             marginRight: 32,
-            flexDirection: 'row',
+            flexDirection: "row",
 
             marginTop: 9,
             paddingTop: 9,
@@ -235,11 +249,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 16,
-              color: '#4C4C4C',
-              alignSelf: 'center',
-              textAlign: 'center',
+              color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
               width: 63,
             }}
           >
@@ -248,11 +262,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 16,
-              color: '#4C4C4C',
-              alignSelf: 'center',
-              textAlign: 'center',
+              color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
               width: 90,
             }}
           >
@@ -261,11 +275,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 16,
-              color: '#4C4C4C',
-              alignSelf: 'center',
-              textAlign: 'center',
+              color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
               width: 67,
             }}
           >
@@ -274,11 +288,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 16,
-              color: '#4C4C4C',
-              alignSelf: 'center',
-              textAlign: 'center',
+              color: "#4C4C4C",
+              alignSelf: "center",
+              textAlign: "center",
 
               width: 110,
             }}
@@ -296,22 +310,30 @@ function DailyCashReport() {
           }}
         /> */}
         <View>
-          <FlatList
-            data={data}
-            renderItem={({ item, index }) => (
-              <ListItem item={item} index={index} />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          {data.length === 0 ? (
+            <View>
+              <Text style={{ textAlign: "center", marginTop: 20 }}>
+                No Data Found
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              data={data}
+              renderItem={({ item, index }) => (
+                <ListItem item={item} index={index} />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          )}
         </View>
       </View>
-      <View style={{ backgroundColor: 'white' }}>
+      <View style={{ backgroundColor: "white" }}>
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: 'white',
-            color: '#7f7f7f',
-            textAlign: 'center',
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
             paddingBottom: 15,
           }}
         >
@@ -325,12 +347,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   rowContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     // justifyContent: "space-between",
-    textAlign: 'center',
+    textAlign: "center",
 
     paddingTop: 10,
     paddingBottom: 10,
@@ -338,20 +360,20 @@ const styles = StyleSheet.create({
     marginRight: 32,
   },
   whiteRow: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   blackRow: {
-    backgroundColor: '#4B50500A',
+    backgroundColor: "#4B50500A",
   },
   rowText: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 16,
   },
   infoContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   infoText: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 16,
     marginRight: 10,
   },
@@ -376,12 +398,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
     <View style={[styles.rowContainer, rowStyle]}>
       <Text
         style={{
-          color: '#4B5050',
-          fontWeight: '400',
+          color: "#4B5050",
+          fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: 'center',
-          textAlign: 'center',
+          alignSelf: "center",
+          textAlign: "center",
           width: 63,
         }}
       >
@@ -389,12 +411,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
       <Text
         style={{
-          color: '#4B5050',
-          fontWeight: '400',
+          color: "#4B5050",
+          fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: 'center',
-          textAlign: 'center',
+          alignSelf: "center",
+          textAlign: "center",
           width: 90,
         }}
       >
@@ -402,12 +424,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
       <Text
         style={{
-          color: '#4B5050',
-          fontWeight: '400',
+          color: "#4B5050",
+          fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: 'center',
-          textAlign: 'center',
+          alignSelf: "center",
+          textAlign: "center",
           width: 67,
         }}
       >
@@ -416,12 +438,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
 
       <Text
         style={{
-          color: '#4B5050',
-          fontWeight: '400',
+          color: "#4B5050",
+          fontWeight: "400",
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: 'center',
-          textAlign: 'center',
+          alignSelf: "center",
+          textAlign: "center",
           width: 110,
         }}
       >
@@ -434,4 +456,95 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
     </View>
   );
+};
+
+const xyz = {
+  success: true,
+  data: [
+    {
+      purchaseBreakdown: {
+        service: [
+          {
+            serviceCode: "10000",
+            serviceCat: "ELECTRICAL CONTRACTORS",
+            englishName: "Apprentice Electrician",
+            arabicName: "",
+            quantity: 2,
+            transactionAmount: 1.5,
+            totalAmount: 1,
+            _id: "64ef3704aebb80a45c13e8ff",
+            taxDetails: [],
+          },
+        ],
+        fee: [],
+      },
+      responseCode: 0,
+      _id: "64ef3704aebb80a45c13e8fe",
+      storeId: "Owner",
+      orderNumber: "2870842222695361",
+      channel: "Cash",
+      posType: "pos",
+      posId: "PRMID63",
+      paymentDate: "2023-08-30T12:33:07.385Z",
+      customerPhone: "9939853384",
+      totalTaxAmount: 0.15,
+      totalAmount: 3.15,
+      toggleExpiration: true,
+      distributorId: "MANZ101",
+      userId: "PRMID63",
+      mainMerchantId: "PRMID63",
+      createdAt: "2023-08-30T12:33:08.513Z",
+      updatedAt: "2023-08-30T12:33:08.513Z",
+      __v: 0,
+    },
+    {
+      purchaseBreakdown: {
+        service: [
+          {
+            serviceCode: "10000",
+            serviceCat: "ELECTRICAL CONTRACTORS",
+            englishName: "Apprentice Electrician",
+            arabicName: "",
+            quantity: 1,
+            transactionAmount: 1.5,
+            totalAmount: 1,
+            _id: "64ef37ddaebb80a45c13e903",
+            taxDetails: [],
+          },
+          {
+            serviceCode: "10000",
+            serviceCat: "ELECTRICAL CONTRACTORS",
+            englishName: "Journeyman Electrician",
+            arabicName: "",
+            quantity: 2,
+            transactionAmount: 1.5,
+            totalAmount: 1,
+            _id: "64ef37ddaebb80a45c13e904",
+            taxDetails: [],
+          },
+        ],
+        fee: [],
+      },
+      responseCode: 0,
+      _id: "64ef37ddaebb80a45c13e902",
+      storeId: "Owner",
+      orderNumber: "1072959073641947",
+      channel: "Cash",
+      posType: "pos",
+      posId: "5935433282",
+      paymentDate: "2023-08-30T12:36:44.315Z",
+      customerPhone: "9939853381",
+      totalTaxAmount: 0.225,
+      totalAmount: 4.725,
+      toggleExpiration: true,
+      distributorId: "MANZ101",
+      userId: "PRMID63",
+      mainMerchantId: "PRMID63",
+      createdAt: "2023-08-30T12:36:45.391Z",
+      updatedAt: "2023-08-30T12:36:45.391Z",
+      __v: 0,
+    },
+  ],
+  reportPath:
+    "https://payrowdev.uaenorth.cloudapp.azure.com/orderReport/Report59_Cash_2023-08-30.xlsx",
 };

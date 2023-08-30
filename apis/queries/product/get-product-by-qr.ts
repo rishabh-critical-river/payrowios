@@ -21,6 +21,8 @@ type Data = {
  * @returns
  */
 const getProductByQR = async (orderNumber: string, token: string) => {
+  console.log('Order Number', orderNumber);
+  console.log('Token', token);
   const response = await api.get<Data>(
     `/gateway/payrow/getQrCodeOrderDetails/${orderNumber}`,
     {
