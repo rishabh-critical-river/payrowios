@@ -39,17 +39,19 @@ const GetStartedScreen = () => {
               position: "absolute",
             }}
           >
-            <TouchableOpacity
-              onPress={() => router.push("/product-selection/")}
-            >
-              <Image
-                source={require("@/assets/icons/menu.png")}
-                style={{
-                  width: 42,
-                  height: 40,
-                }}
-              />
-            </TouchableOpacity>
+            {user?.token && (
+              <TouchableOpacity
+                onPress={() => router.push("/product-selection/")}
+              >
+                <Image
+                  source={require("@/assets/icons/menu.png")}
+                  style={{
+                    width: 42,
+                    height: 40,
+                  }}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         )}
 
