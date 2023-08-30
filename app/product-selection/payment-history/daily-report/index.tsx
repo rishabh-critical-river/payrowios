@@ -1,43 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  Image,
-  Button,
-  TouchableOpacity,
-  TextInput,
-  KeyboardAvoidingView,
-} from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import React from "react";
-import { useRouter } from "expo-router";
+import React from 'react';
+import { useRouter } from 'expo-router';
+import { AntDesign } from '@expo/vector-icons';
+import { dailyReportArray } from '@/constants/arrays';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 
-function DailyReport({ navigation }: any) {
+function DailyReport() {
   const router = useRouter();
+
   return (
     <>
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
         <View
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <TouchableOpacity
             // onPress={router.back}
             onPress={() => {
-              router.push("/product-selection/payment-history/");
+              router.push('/product-selection/payment-history/');
             }}
           >
             <Image
-              source={require("@/assets/icons/arrow_back.png")}
+              source={require('@/assets/icons/arrow_back.png')}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -48,10 +36,10 @@ function DailyReport({ navigation }: any) {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: "#4B5050",
+              color: '#4B5050',
             }}
           >
             Daily Report
@@ -61,35 +49,35 @@ function DailyReport({ navigation }: any) {
           style={{
             width: 150,
             height: 48.3,
-            alignSelf: "center",
+            alignSelf: 'center',
             marginTop: 24,
           }}
-          source={require("@/assets/onboarding/payrowLogo.png")}
+          source={require('@/assets/onboarding/payrowLogo.png')}
         />
         <Text
           style={{
             marginTop: 16,
-            textAlign: "center",
-            fontWeight: "500",
+            textAlign: 'center',
+            fontWeight: '500',
             fontSize: 16,
             lineHeight: 24,
-            color: "#4B5050",
+            color: '#4B5050',
           }}
         >
-          Name of the Business{" "}
+          Name of the Business{' '}
         </Text>
         <View
           style={{
-            flexDirection: "row",
-            alignSelf: "center",
+            flexDirection: 'row',
+            alignSelf: 'center',
             marginTop: 4,
           }}
         >
           <Text
             style={{
-              color: "#4B5050B2",
+              color: '#4B5050B2',
               fontSize: 14,
-              fontWeight: "400",
+              fontWeight: '400',
               lineHeight: 20,
               marginRight: 13,
             }}
@@ -98,9 +86,9 @@ function DailyReport({ navigation }: any) {
           </Text>
           <Text
             style={{
-              color: "#4B5050B2",
+              color: '#4B5050B2',
               fontSize: 14,
-              fontWeight: "400",
+              fontWeight: '400',
               lineHeight: 20,
             }}
           >
@@ -113,216 +101,92 @@ function DailyReport({ navigation }: any) {
             height: 30,
             marginTop: 6,
             borderRadius: 4,
-            alignSelf: "center",
-            backgroundColor: "#4B50500D",
+            alignSelf: 'center',
+            backgroundColor: '#4B50500D',
           }}
         >
           <Text
-            style={{ color: "#4B5050", textAlign: "center", paddingTop: 6 }}
+            style={{ color: '#4B5050', textAlign: 'center', paddingTop: 6 }}
           >
             MID: 09876521
           </Text>
         </View>
         <Text
           style={{
-            fontWeight: "400",
+            fontWeight: '400',
             fontSize: 14,
             lineHeight: 20,
-            textAlign: "center",
+            textAlign: 'center',
             marginTop: 30,
-            color: "#4B5050",
+            color: '#4B5050',
             marginBottom: 16,
           }}
         >
           Payment Method
         </Text>
-        <TouchableOpacity
-          onPress={() => {
-            // navigation.navigate("dailyReport");
-            // router.push("/product-selection/payment-history/daily-report/daily-card-report")
-            router.push(
-              "/product-selection/payment-history/daily-report/daily-card-report"
-            );
-          }}
-          style={{
-            borderWidth: 1,
-            borderColor: "#4B505040",
-            borderRadius: 9,
-            marginBottom: 16,
-            width: 296,
-            height: 44,
-            alignSelf: "center",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "500",
-              flex: 1,
 
-              color: "#4B5050",
-              lineHeight: 20,
+        {dailyReportArray.map((route, index) => {
+          return (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                router.push({
+                  pathname:
+                    '/product-selection/payment-history/daily-report/details',
+                  params: {
+                    slug: route.slug,
+                  },
+                });
+              }}
+              style={{
+                borderWidth: 1,
+                borderColor: '#4B505040',
+                borderRadius: 9,
+                marginBottom: 16,
+                width: 296,
+                height: 44,
+                alignSelf: 'center',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: '500',
+                  flex: 1,
 
-              marginLeft: 16,
-            }}
-          >
-            TAP TO PAY
-          </Text>
-          <AntDesign
-            name="right"
-            size={15}
-            style={{
-              width: 20, // Set the desired width
-              height: 20, // Set the desired height
-              fontWeight: "bold", // Set the desired font weight (bold)
-              marginRight: 8,
-            }}
-            color="#4B5050E5"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            // navigation.navigate("monthlyReport");
-            router.push(
-              "/product-selection/payment-history/daily-report/daily-cash-report"
-            );
-          }}
-          style={{
-            borderWidth: 1,
-            borderColor: "#4B505040",
-            borderRadius: 9,
-            marginBottom: 16,
-            width: 296,
-            height: 44,
-            alignSelf: "center",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "500",
-              flex: 1,
+                  color: '#4B5050',
+                  lineHeight: 20,
 
-              color: "#4B5050",
-              lineHeight: 20,
-
-              marginLeft: 16,
-            }}
-          >
-            CASH INVOICE
-          </Text>
-          <AntDesign
-            name="right"
-            size={15}
-            style={{
-              width: 20, // Set the desired width
-              height: 20, // Set the desired height
-              fontWeight: "bold", // Set the desired font weight (bold)
-              marginRight: 8,
-            }}
-            color="#4B5050E5"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            // navigation.navigate("historyMethods");
-          }}
-          style={{
-            borderWidth: 1,
-            borderColor: "#4B505040",
-            borderRadius: 9,
-            marginBottom: 16,
-            width: 296,
-            height: 44,
-            alignSelf: "center",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "500",
-              flex: 1,
-
-              color: "#4B5050",
-              lineHeight: 20,
-
-              marginLeft: 16,
-            }}
-          >
-            PAY BY LINK
-          </Text>
-          <AntDesign
-            name="right"
-            size={15}
-            style={{
-              width: 20, // Set the desired width
-              height: 20, // Set the desired height
-              fontWeight: "bold", // Set the desired font weight (bold)
-              marginRight: 8,
-            }}
-            color="#4B5050E5"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            // navigation.navigate("historyMethods");
-          }}
-          style={{
-            borderWidth: 1,
-            borderColor: "#4B505040",
-            borderRadius: 9,
-            marginBottom: 16,
-            width: 296,
-            height: 44,
-            alignSelf: "center",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "500",
-              flex: 1,
-
-              color: "#4B5050",
-              lineHeight: 20,
-
-              marginLeft: 16,
-            }}
-          >
-            PAY BY SMS
-          </Text>
-          <AntDesign
-            name="right"
-            size={15}
-            style={{
-              width: 20, // Set the desired width
-              height: 20, // Set the desired height
-              fontWeight: "bold", // Set the desired font weight (bold)
-              marginRight: 8,
-            }}
-            color="#4B5050E5"
-          />
-        </TouchableOpacity>
+                  marginLeft: 16,
+                }}
+              >
+                {route.name}
+              </Text>
+              <AntDesign
+                name="right"
+                size={15}
+                style={{
+                  width: 20, // Set the desired width
+                  height: 20, // Set the desired height
+                  fontWeight: 'bold', // Set the desired font weight (bold)
+                  marginRight: 8,
+                }}
+                color="#4B5050E5"
+              />
+            </TouchableOpacity>
+          );
+        })}
       </View>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: 'white' }}>
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             paddingBottom: 15,
           }}
         >

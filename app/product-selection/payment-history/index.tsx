@@ -20,10 +20,10 @@ import useStorageData from '@/apis/hooks/use-storage-data';
 import sales from '@/apis/mutations/order/sales';
 import useDeviceId from '@/hooks/use-device-id';
 import base64 from '@/hooks/lib/base64';
-import paymentDetails from '@/apis/mutations/payment/detail';
-import keyValidation from '@/hooks/lib/num-characters';
+import { ActivityIndicator } from 'react-native-paper';
 
-function PaymentHistory({ navigation }: any) {
+const loadingText = '·•·';
+function PaymentHistory() {
   const router = useRouter();
 
   const graphicData = [
@@ -53,10 +53,14 @@ function PaymentHistory({ navigation }: any) {
   const [ringData, setRingData] = React.useState<any>(null);
 
   const fetchRingData = React.useCallback(async () => {
-    if (!userDecoded?.merchantId || !user?.token) return;
-    const { data } = await getRingChart(userDecoded?.merchantId, user?.token);
-    if (data.data) {
-      setRingData(data.data);
+    try {
+      if (!userDecoded?.merchantId || !user?.token) return;
+      const { data } = await getRingChart(userDecoded?.merchantId, user?.token);
+      if (data.data) {
+        setRingData(data.data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [userDecoded?.merchantId, user?.token]);
 
@@ -68,21 +72,25 @@ function PaymentHistory({ navigation }: any) {
   const [barData, setBarData] = React.useState<any>(null);
 
   const fetchBarData = React.useCallback(async () => {
-    if (!user?.token) return;
-    const decoded = base64.encode(
-      JSON.stringify({
-        merchantId: userDecoded?.merchantId,
-        tid: auth?.tid,
-        imeiNumber: state?.deviceId,
-      })
-    );
-    const payload = {
-      data: decoded,
-    };
-    const { data } = await sales(payload, user?.token);
+    try {
+      if (!user?.token) return;
+      const decoded = base64.encode(
+        JSON.stringify({
+          merchantId: userDecoded?.merchantId,
+          tid: auth?.tid,
+          imeiNumber: state?.deviceId,
+        })
+      );
+      const payload = {
+        data: decoded,
+      };
+      const { data } = await sales(payload, user?.token);
 
-    if (data?.data) {
-      setBarData(data.data);
+      if (data?.data) {
+        setBarData(data.data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [auth?.tid, user?.token, state.deviceId, userDecoded?.merchantId]);
 
@@ -91,7 +99,6 @@ function PaymentHistory({ navigation }: any) {
   }, [auth?.tid, user?.token, state.deviceId, userDecoded?.merchantId]);
 
   const BarChartData = React.useMemo(() => {
-    if (!barData) return [];
     const months = [
       'Jan',
       'Feb',
@@ -106,14 +113,25 @@ function PaymentHistory({ navigation }: any) {
       'Nov',
       'Dec',
     ];
-    return barData.map((item: any) => {
-      return {
-        month: months[item.month - 1],
-        amount: item.total,
-      };
-    });
+    if (barData) {
+      return barData.map((item: any) => {
+        return {
+          month: months[item.month - 1],
+          amount: item.total,
+        };
+      });
+    } else {
+      return Array.from({ length: 12 }).map((_, index) => {
+        return {
+          month: months[index],
+          amount: 0,
+        };
+      });
+    }
   }, [barData]);
-  const yMax = Math.max(...BarChartData.map((item) => item.amount));
+  const yMax = Math.max(
+    ...BarChartData.map((item: { amount: number }) => item.amount)
+  );
   const yMin = 0;
 
   return (
@@ -184,7 +202,7 @@ function PaymentHistory({ navigation }: any) {
               <Text
                 style={{ color: '#191919', fontSize: 16, fontWeight: '500' }}
               >
-                {ringData?.total?.count}
+                {ringData?.total?.count || loadingText}
               </Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -222,7 +240,7 @@ function PaymentHistory({ navigation }: any) {
                 <Text
                   style={{ color: '#191919', fontSize: 14, fontWeight: '500' }}
                 >
-                  {ringData?.total?.avgCount}
+                  {ringData?.total?.avgCount || loadingText}
                 </Text>
               </View>
             </View>
@@ -252,7 +270,7 @@ function PaymentHistory({ navigation }: any) {
               <Text
                 style={{ color: '#191919', fontSize: 16, fontWeight: '500' }}
               >
-                {ringData?.total?.totalCredit}
+                {ringData?.total?.totalCredit || loadingText}
               </Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -290,7 +308,7 @@ function PaymentHistory({ navigation }: any) {
                 <Text
                   style={{ color: '#191919', fontSize: 14, fontWeight: '500' }}
                 >
-                  {ringData?.total?.avgValue}
+                  {ringData?.total?.avgValue || loadingText}
                 </Text>
               </View>
             </View>
@@ -298,9 +316,7 @@ function PaymentHistory({ navigation }: any) {
 
           <TouchableOpacity
             onPress={() => {
-              router.push(
-                '/product-selection/payment-history/daily-report/otp-daily-report'
-              );
+              router.push('/product-selection/payment-history/daily-report/');
             }}
             style={styles.box}
           >
@@ -360,54 +376,72 @@ function PaymentHistory({ navigation }: any) {
             />
           </TouchableOpacity>
           <View>
-            <VictoryChart domain={{ y: [yMin, yMax] }}>
-              <VictoryAxis
-                style={{
-                  tickLabels: {
-                    fontSize: 10,
-                    fill: '#4B5050CC',
-                    padding: 1,
-                  },
+            {barData ? (
+              <VictoryChart
+                animate={{
+                  onLoad: { duration: 500 },
+                  easing: 'linear',
                 }}
-                dependentAxis
-              />
-              <VictoryAxis
+                domain={{ y: [yMin, yMax] }}
+              >
+                <VictoryAxis
+                  style={{
+                    tickLabels: {
+                      fontSize: 10,
+                      fill: '#4B5050CC',
+                      padding: 1,
+                    },
+                  }}
+                  dependentAxis
+                />
+                <VictoryAxis
+                  style={{
+                    tickLabels: {
+                      fontSize: 10,
+                      fill: '#4B5050CC',
+                      padding: 1,
+                    },
+                  }}
+                />
+                <VictoryBar
+                  data={BarChartData}
+                  x="month"
+                  y="amount"
+                  barWidth={barWidth}
+                  style={{
+                    data: {
+                      fill: '#4B5050CC',
+                    },
+                    labels: {
+                      fontSize: 10,
+                    },
+                  }}
+                />
+                <VictoryBar
+                  data={BarChartData}
+                  x="month"
+                  y="amount"
+                  barWidth={barWidth + gap}
+                  style={{
+                    data: {
+                      fill: 'transparent',
+                      stroke: 'transparent',
+                      strokeWidth: 0,
+                    },
+                  }}
+                />
+              </VictoryChart>
+            ) : (
+              <View
                 style={{
-                  tickLabels: {
-                    fontSize: 10,
-                    fill: '#4B5050CC',
-                    padding: 1,
-                  },
+                  minHeight: 300,
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
-              />
-              <VictoryBar
-                data={BarChartData}
-                x="month"
-                y="amount"
-                barWidth={barWidth}
-                style={{
-                  data: {
-                    fill: '#4B5050CC',
-                  },
-                  labels: {
-                    fontSize: 10,
-                  },
-                }}
-              />
-              <VictoryBar
-                data={BarChartData}
-                x="month"
-                y="amount"
-                barWidth={barWidth + gap}
-                style={{
-                  data: {
-                    fill: 'transparent',
-                    stroke: 'transparent',
-                    strokeWidth: 0,
-                  },
-                }}
-              />
-            </VictoryChart>
+              >
+                <ActivityIndicator size="small" color="#4B5050E5" />
+              </View>
+            )}
           </View>
         </View>
         <View style={{ backgroundColor: 'white' }}>
@@ -538,43 +572,3 @@ const styles = StyleSheet.create({
     top: 36,
   },
 });
-
-// const useGetPaymentDetails = () => {
-//   const { user } = useStorageData('user');
-//   const { auth } = useStorageData('auth');
-//   const { user: userDecoded } = useStorageData('user', {
-//     decode: true,
-//   });
-
-//   const [state, setState] = React.useState<any>(null);
-
-//   const fetchPaymentDetails = React.useCallback(async () => {
-//     if (!auth?.tid || !user?.token || !userDecoded?.merchantId) return;
-//     const key = base64.encode(
-//       JSON.stringify({
-//         num: keyValidation(10),
-//         validation: 'Key Validation',
-//       })
-//     );
-//     const payload = {
-//       key,
-//       tid: auth?.tid,
-//       channel: 'Cash',
-//       merchantId: userDecoded?.merchantId,
-//       dates: {
-//         from: '2023-08-29',
-//         to: '2023-08-29',
-//       },
-//     };
-//     const { data } = await paymentDetails(payload, user?.token);
-//     console.log(data);
-//     // Set State when data is available
-//     // setState(data);
-//   }, [auth?.tid, user?.token, userDecoded?.merchantId]);
-
-//   React.useEffect(() => {
-//     fetchPaymentDetails();
-//   }, []);
-
-//   return { paymentDetails, fetchPaymentDetails };
-// };
