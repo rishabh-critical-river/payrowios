@@ -5,46 +5,46 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import {
   VictoryChart,
   VictoryBar,
   VictoryAxis,
   VictoryPie,
-} from "victory-native";
-import React from "react";
-import { useRouter } from "expo-router";
-import getRingChart from "@/apis/queries/chart/ring";
-import useStorageData from "@/apis/hooks/use-storage-data";
-import sales from "@/apis/mutations/order/sales";
-import useDeviceId from "@/hooks/use-device-id";
-import base64 from "@/hooks/lib/base64";
-import { ActivityIndicator } from "react-native-paper";
+} from 'victory-native';
+import React from 'react';
+import { useRouter } from 'expo-router';
+import getRingChart from '@/apis/queries/chart/ring';
+import useStorageData from '@/apis/hooks/use-storage-data';
+import sales from '@/apis/mutations/order/sales';
+import useDeviceId from '@/hooks/use-device-id';
+import base64 from '@/hooks/lib/base64';
+import { ActivityIndicator } from 'react-native-paper';
 
-const loadingText = "·•·";
+const loadingText = '·•·';
 function PaymentHistory() {
   const router = useRouter();
 
   const graphicData = [
-    { y: 10, x: "5%" },
-    { y: 90, x: "90%" },
+    { y: 10, x: '5%' },
+    { y: 90, x: '90%' },
   ];
   const graphicData2 = [
-    { y: 30, x: "5%" },
-    { y: 70, x: "90%" },
+    { y: 30, x: '5%' },
+    { y: 70, x: '90%' },
   ];
-  const colorScale = ["red", "#4B505014"];
-  const colorScale2 = ["#80B459", "#4B505014"];
+  const colorScale = ['red', '#4B505014'];
+  const colorScale2 = ['#80B459', '#4B505014'];
   const barWidth = 16; // Adjust the bar width
   const gap = 4; // Adjust the gap size
 
   // const xMax = Math.max(...data.map((item) => item.amount));
   // const xMin = 0;
 
-  const { user } = useStorageData("user");
-  const { auth } = useStorageData("auth");
-  const { user: userDecoded } = useStorageData("user", {
+  const { user } = useStorageData('user');
+  const { auth } = useStorageData('auth');
+  const { user: userDecoded } = useStorageData('user', {
     decode: true,
   });
   const state = useDeviceId();
@@ -101,18 +101,18 @@ function PaymentHistory() {
 
   const BarChartData = React.useMemo(() => {
     const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     if (barData) {
       return barData.map((item: any) => {
@@ -138,18 +138,18 @@ function PaymentHistory() {
   return (
     <>
       <ScrollView>
-        <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+        <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
           <View
             style={{
               marginLeft: 19.98,
               marginTop: 17,
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
             <TouchableOpacity onPress={router.back}>
               <Image
-                source={require("@/assets/icons/arrow_back.png")}
+                source={require('@/assets/icons/arrow_back.png')}
                 style={{
                   width: 16.03,
                   height: 16.03,
@@ -160,10 +160,10 @@ function PaymentHistory() {
             <Text
               style={{
                 fontSize: 20,
-                fontWeight: "500",
+                fontWeight: '500',
                 lineHeight: 32,
                 letterSpacing: 0.5,
-                color: "#4B5050",
+                color: '#4B5050',
               }}
             >
               Payment History
@@ -173,40 +173,40 @@ function PaymentHistory() {
             style={{
               width: 150,
               height: 48.3,
-              alignSelf: "center",
+              alignSelf: 'center',
               marginTop: 24,
             }}
-            source={require("@/assets/onboarding/payrowLogo.png")}
+            source={require('@/assets/onboarding/payrowLogo.png')}
           />
 
           <View
             style={{
               borderWidth: 1,
-              borderColor: "#4B505040",
+              borderColor: '#4B505040',
               borderRadius: 9,
               marginBottom: 16,
               marginTop: 24,
               width: 296,
               height: 72,
-              alignSelf: "center",
-              flexDirection: "row",
+              alignSelf: 'center',
+              flexDirection: 'row',
 
-              alignItems: "center",
+              alignItems: 'center',
             }}
           >
             <View style={{ marginLeft: 16 }}>
               <Text
-                style={{ color: "#4B5050CC", fontSize: 12, fontWeight: "400" }}
+                style={{ color: '#4B5050CC', fontSize: 12, fontWeight: '400' }}
               >
                 Sequences - Per M
               </Text>
               <Text
-                style={{ color: "#191919", fontSize: 16, fontWeight: "500" }}
+                style={{ color: '#191919', fontSize: 16, fontWeight: '500' }}
               >
                 {ringData?.total?.count || loadingText}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View style={{ width: 80, height: 80, marginBottom: 40 }}>
                 <VictoryPie
                   data={graphicData}
@@ -216,7 +216,7 @@ function PaymentHistory() {
                   colorScale={colorScale}
                   style={{
                     labels: {
-                      fill: "white",
+                      fill: 'white',
                       fontSize: 15,
                       padding: 7,
                     },
@@ -225,21 +225,21 @@ function PaymentHistory() {
               </View>
               <View
                 style={{
-                  flexDirection: "column",
+                  flexDirection: 'column',
                   marginLeft: 3,
                 }}
               >
                 <Text
                   style={{
-                    color: "#4B5050CC",
+                    color: '#4B5050CC',
                     fontSize: 12,
-                    fontWeight: "400",
+                    fontWeight: '400',
                   }}
                 >
                   Average
                 </Text>
                 <Text
-                  style={{ color: "#191919", fontSize: 14, fontWeight: "500" }}
+                  style={{ color: '#191919', fontSize: 14, fontWeight: '500' }}
                 >
                   {ringData?.total?.avgCount || loadingText}
                 </Text>
@@ -250,31 +250,31 @@ function PaymentHistory() {
           <View
             style={{
               borderWidth: 1,
-              borderColor: "#4B505040",
+              borderColor: '#4B505040',
               borderRadius: 9,
               marginBottom: 16,
 
               width: 296,
               height: 72,
-              alignSelf: "center",
-              flexDirection: "row",
+              alignSelf: 'center',
+              flexDirection: 'row',
 
-              alignItems: "center",
+              alignItems: 'center',
             }}
           >
             <View style={{ marginLeft: 16 }}>
               <Text
-                style={{ color: "#4B5050CC", fontSize: 12, fontWeight: "400" }}
+                style={{ color: '#4B5050CC', fontSize: 12, fontWeight: '400' }}
               >
                 Total Credit - Per M
               </Text>
               <Text
-                style={{ color: "#191919", fontSize: 16, fontWeight: "500" }}
+                style={{ color: '#191919', fontSize: 16, fontWeight: '500' }}
               >
                 {ringData?.total?.totalCredit || loadingText}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View style={{ width: 80, height: 80, marginBottom: 40 }}>
                 <VictoryPie
                   data={graphicData2}
@@ -284,7 +284,7 @@ function PaymentHistory() {
                   colorScale={colorScale2}
                   style={{
                     labels: {
-                      fill: "white",
+                      fill: 'white',
                       fontSize: 15,
                       padding: 7,
                     },
@@ -293,21 +293,21 @@ function PaymentHistory() {
               </View>
               <View
                 style={{
-                  flexDirection: "column",
+                  flexDirection: 'column',
                   marginLeft: 3,
                 }}
               >
                 <Text
                   style={{
-                    color: "#4B5050CC",
+                    color: '#4B5050CC',
                     fontSize: 12,
-                    fontWeight: "400",
+                    fontWeight: '400',
                   }}
                 >
                   Average
                 </Text>
                 <Text
-                  style={{ color: "#191919", fontSize: 14, fontWeight: "500" }}
+                  style={{ color: '#191919', fontSize: 14, fontWeight: '500' }}
                 >
                   {ringData?.total?.avgValue || loadingText}
                 </Text>
@@ -317,9 +317,9 @@ function PaymentHistory() {
 
           <TouchableOpacity
             onPress={() => {
-              // router.push("/product-selection/payment-history/daily-report/");
+              // router.push('/product-selection/payment-history/daily-report/');
               router.push(
-                "/product-selection/payment-history/daily-report/otp-daily-report"
+                '/product-selection/payment-history/daily-report/otp-daily-report'
               );
             }}
             style={styles.box}
@@ -331,7 +331,7 @@ function PaymentHistory() {
               style={{
                 width: 20, // Set the desired width
                 height: 20, // Set the desired height
-                fontWeight: "bold", // Set the desired font weight (bold)
+                fontWeight: 'bold', // Set the desired font weight (bold)
                 marginRight: 8,
               }}
               color="#4B5050E5"
@@ -341,7 +341,7 @@ function PaymentHistory() {
             onPress={() => {
               // navigation.navigate("historyMethods");
               router.push(
-                "/product-selection/payment-history/monthly-report/otp-monthly-report"
+                '/product-selection/payment-history/monthly-report/otp-monthly-report'
               );
             }}
             style={styles.box}
@@ -353,7 +353,7 @@ function PaymentHistory() {
               style={{
                 width: 20, // Set the desired width
                 height: 20, // Set the desired height
-                fontWeight: "bold", // Set the desired font weight (bold)
+                fontWeight: 'bold', // Set the desired font weight (bold)
                 marginRight: 8,
               }}
               color="#4B5050E5"
@@ -362,7 +362,7 @@ function PaymentHistory() {
           <TouchableOpacity
             onPress={() => {
               // navigation.navigate("invoiceRecall");
-              router.push("/product-selection/payment-history/invoice-recall/");
+              router.push('/product-selection/payment-history/invoice-recall/');
             }}
             style={styles.box}
           >
@@ -373,7 +373,7 @@ function PaymentHistory() {
               style={{
                 width: 20, // Set the desired width
                 height: 20, // Set the desired height
-                fontWeight: "bold", // Set the desired font weight (bold)
+                fontWeight: 'bold', // Set the desired font weight (bold)
                 marginRight: 8,
               }}
               color="#4B5050E5"
@@ -386,7 +386,7 @@ function PaymentHistory() {
                 width={390}
                 animate={{
                   onLoad: { duration: 500 },
-                  easing: "linear",
+                  easing: 'linear',
                 }}
                 domain={{ y: [yMin, yMax] }}
               >
@@ -394,7 +394,7 @@ function PaymentHistory() {
                   style={{
                     tickLabels: {
                       fontSize: 10,
-                      fill: "#4B5050CC",
+                      fill: '#4B5050CC',
                       padding: 1,
                     },
                   }}
@@ -404,7 +404,7 @@ function PaymentHistory() {
                   style={{
                     tickLabels: {
                       fontSize: 10,
-                      fill: "#4B5050CC",
+                      fill: '#4B5050CC',
                       padding: 1,
                     },
                   }}
@@ -416,7 +416,7 @@ function PaymentHistory() {
                   barWidth={barWidth}
                   style={{
                     data: {
-                      fill: "#4B5050CC",
+                      fill: '#4B5050CC',
                     },
                     labels: {
                       fontSize: 10,
@@ -430,8 +430,8 @@ function PaymentHistory() {
                   barWidth={barWidth + gap}
                   style={{
                     data: {
-                      fill: "transparent",
-                      stroke: "transparent",
+                      fill: 'transparent',
+                      stroke: 'transparent',
                       strokeWidth: 0,
                     },
                   }}
@@ -441,8 +441,8 @@ function PaymentHistory() {
               <View
                 style={{
                   minHeight: 300,
-                  justifyContent: "center",
-                  alignItems: "center",
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
                 <ActivityIndicator size="small" color="#4B5050E5" />
@@ -451,13 +451,13 @@ function PaymentHistory() {
           </View>
         </View>
       </ScrollView>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: 'white' }}>
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             marginTop: 14,
             paddingBottom: 16,
           }}
@@ -473,13 +473,13 @@ export default PaymentHistory;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 33,
     marginBottom: 35,
   },
@@ -491,10 +491,10 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: '600',
     flex: 1,
 
-    color: "#4B5050",
+    color: '#4B5050',
     lineHeight: 20,
 
     marginLeft: 16,
@@ -502,78 +502,78 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#838c95",
-    textAlign: "center",
+    fontWeight: '500',
+    color: '#838c95',
+    textAlign: 'center',
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: "#4B505040",
+    borderColor: '#4B505040',
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 44,
-    alignSelf: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     marginLeft: 165,
-    backgroundColor: "#72ac47",
-    color: "black",
+    backgroundColor: '#72ac47',
+    color: 'black',
     padding: 10,
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: "pointer",
+    cursor: 'pointer',
     borderRadius: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   arrow: {
-    display: "flex",
-    position: "relative",
+    display: 'flex',
+    position: 'relative',
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: 'white',
     width: 40,
     height: 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   arrowTriangle: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderRightWidth: 1,
-    transform: [{ rotate: "45deg" }],
+    transform: [{ rotate: '45deg' }],
     right: 9,
     top: 19,
   },
   arrowTriangleRight: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderLeftWidth: 1,
-    transform: [{ rotate: "-45deg" }],
+    transform: [{ rotate: '-45deg' }],
     right: 9,
     top: 36,
   },

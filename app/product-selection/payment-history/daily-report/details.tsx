@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,25 +7,33 @@ import {
   TouchableOpacity,
   FlatList,
   Button,
-} from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { dailyReportArray } from "@/constants/arrays";
-import paymentDetails from "@/apis/mutations/payment/detail";
-import base64 from "@/hooks/lib/base64";
-import keyValidation from "@/hooks/lib/num-characters";
-import useStorageData from "@/apis/hooks/use-storage-data";
-import moment from "moment";
-import { tokens } from "react-native-paper/lib/typescript/styles/themes/v3/tokens";
-import truncateText from "@/utils/truncateText";
+  ActivityIndicator,
+} from 'react-native';
+import {
+  AntDesign,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { dailyReportArray } from '@/constants/arrays';
+import paymentDetails from '@/apis/mutations/payment/detail';
+import base64 from '@/hooks/lib/base64';
+import keyValidation from '@/hooks/lib/num-characters';
+import useStorageData from '@/apis/hooks/use-storage-data';
+import moment from 'moment';
+import truncateText from '@/utils/truncateText';
+import toast from '@/hooks/lib/toast';
+import { PaymentDetailsResponse } from '@/typings/payment';
+import * as FileSystem from 'expo-file-system';
 
 function DailyCashReport() {
+  const [loading, setLoading] = React.useState(true);
   const router = useRouter();
   const params = useLocalSearchParams();
   const safeAPI = React.useRef(false);
-  const { user } = useStorageData("user");
-  const { auth } = useStorageData("auth");
-  const { user: userDecoded } = useStorageData("user", {
+  const { user } = useStorageData('user');
+  const { auth } = useStorageData('auth');
+  const { user: userDecoded } = useStorageData('user', {
     decode: true,
   });
 
@@ -33,12 +41,17 @@ function DailyCashReport() {
     return base64.encode(
       JSON.stringify({
         num: Number(keyValidation(8)),
-        validation: "Key Validation",
+        validation: 'Key Validation',
       })
     );
   }, []);
 
-  const [state, setState] = React.useState(xyz);
+  const init = {
+    data: [],
+    reportPath: '',
+    success: false,
+  };
+  const [state, setState] = React.useState<PaymentDetailsResponse>(init);
 
   const DynamicTitle = React.useMemo(() => {
     if (!params.slug) return;
@@ -46,34 +59,51 @@ function DailyCashReport() {
     return data?.name;
   }, []);
 
+  const channel = React.useMemo(() => {
+    if (!params.slug) return;
+    const data = dailyReportArray.find((item) => item.slug === params.slug);
+    return data?.slug;
+  }, [params.slug]);
+
   const fetchPaymentDetails = React.useCallback(async () => {
-    console.log("Fetch Payment Details");
-    console.log("Auth from line 63", key);
-    const channel = dailyReportArray.find((item) => item.slug === params.slug)
-      ?.slug;
+    setLoading(true);
     try {
       if (auth?.tid && user?.token && userDecoded?.merchantId) {
-        console.log("Key from line 63", key);
+        console.log('Key from line 63', key);
         const payload = {
           key,
           channel,
           tid: auth?.tid,
           merchantId: userDecoded?.merchantId,
           dates: {
-            from: moment().format("YYYY-MM-DD"),
+            from: moment().format('YYYY-MM-DD'),
           },
+
+          // tid: '072857',
+          // key,
+          // channel: 'Cash',
+          // merchantId: 'PRMID63',
+          // dates: {
+          //   from: '2023-08-30',
+          // },
         };
-        console.log("Payload from line 75", payload);
+        console.log('Payload from line 68', payload);
         const { data } = await paymentDetails(payload, user?.token);
+        console.log('Data from line 70', data);
         if (data) {
-          setState(data);
+          setState(data as PaymentDetailsResponse);
+          setLoading(false);
         }
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error?.response?.status === 400) {
+        setLoading(false);
+        toast.show('No data found');
+        setState(init);
+      }
     }
-  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, params.slug]);
-  console.log("State from line 85", state);
+  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, channel]);
+
   React.useEffect(() => {
     safeAPI.current = true;
     if (safeAPI.current) {
@@ -82,16 +112,16 @@ function DailyCashReport() {
     return () => {
       safeAPI.current = false;
     };
-  }, []);
-  // console.log("State from line 94", state);
+  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, channel]);
+
   const data = React.useMemo(() => {
-    if (state?.data) {
+    if (state?.data.length > 0) {
       return state.data.map((item) => {
         return {
-          time: moment(item.paymentDate).format("hh:mm A"),
+          time: moment(item.paymentDate).format('hh:mm A'),
           transNo: truncateText(item.orderNumber, 5),
           value: item.totalAmount,
-          status: "SUCCESS",
+          status: 'SUCCESS',
         };
       });
     } else {
@@ -99,21 +129,39 @@ function DailyCashReport() {
     }
   }, [state?.data]);
 
-  console.log("Data from line 110", data);
+  const onDownloadFile = React.useCallback(async () => {
+    if (!state.reportPath) return toast.show('No report found');
+
+    const downloadResumable = FileSystem.createDownloadResumable(
+      state.reportPath,
+      FileSystem.documentDirectory + 'PaymentReport.xlsx',
+      {}
+    );
+
+    try {
+      const res = await downloadResumable.downloadAsync();
+      console.log('Finished downloading to ', res?.uri);
+      toast.show('Report downloaded successfully');
+    } catch (e) {
+      console.error(e);
+    }
+  }, [state?.reportPath]);
+
   return (
     <>
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
+      {/* <Button title="Fetch Data" onPress={fetchPaymentDetails} /> */}
+      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
         <View
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <TouchableOpacity onPress={router.back}>
             <Image
-              source={require("@/assets/icons/arrow_back.png")}
+              source={require('@/assets/icons/arrow_back.png')}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -124,10 +172,10 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: "#4B5050",
+              color: '#4B5050',
             }}
           >
             {DynamicTitle}
@@ -135,8 +183,8 @@ function DailyCashReport() {
         </View>
         <Text
           style={{
-            color: "#4B5050",
-            fontWeight: "500",
+            color: '#4B5050',
+            fontWeight: '500',
             fontSize: 16,
             lineHeight: 24,
             marginLeft: 30,
@@ -147,16 +195,16 @@ function DailyCashReport() {
         </Text>
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginLeft: 30,
             marginTop: 4,
           }}
         >
           <Text
             style={{
-              color: "#4B5050B2",
+              color: '#4B5050B2',
               fontSize: 14,
-              fontWeight: "400",
+              fontWeight: '400',
               lineHeight: 20,
               marginRight: 13,
             }}
@@ -165,9 +213,9 @@ function DailyCashReport() {
           </Text>
           <Text
             style={{
-              color: "#4B5050B2",
+              color: '#4B5050B2',
               fontSize: 14,
-              fontWeight: "400",
+              fontWeight: '400',
               lineHeight: 20,
             }}
           >
@@ -176,8 +224,8 @@ function DailyCashReport() {
         </View>
         <Text
           style={{
-            color: "#4B5050",
-            fontWeight: "500",
+            color: '#4B5050',
+            fontWeight: '500',
             fontSize: 13,
             lineHeight: 18,
             marginLeft: 30,
@@ -188,8 +236,8 @@ function DailyCashReport() {
         </Text>
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
             marginLeft: 32,
             marginRight: 32,
             marginTop: 24,
@@ -199,7 +247,7 @@ function DailyCashReport() {
             style={{
               width: 38,
               height: 38,
-              backgroundColor: "#4B50500F",
+              backgroundColor: '#4B50500F',
               marginRight: 8,
               borderRadius: 8,
             }}
@@ -211,28 +259,36 @@ function DailyCashReport() {
               style={{ marginLeft: 9, marginTop: 9 }}
             />
           </View>
-          <Text style={{ color: "#4B5050B2" }}>
-            {" "}
-            {moment().format("DD/MM/YYYY ")}
+          <Text style={{ color: '#4B5050B2' }}>
+            {' '}
+            {moment().format('DD/MM/YYYY ')}
           </Text>
-          <View
+          <TouchableOpacity
+            onPress={onDownloadFile}
             style={{
-              width: 38,
-              height: 38,
-              backgroundColor: "#4B50500F",
-              marginLeft: 12,
-              marginRight: 8,
-              borderRadius: 8,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
-            <AntDesign
-              name="download"
-              size={20}
-              color="black"
-              style={{ marginLeft: 9, marginTop: 9 }}
-            />
-          </View>
-          <Text style={{ color: "#4B5050B2" }}>Download Report</Text>
+            <View
+              style={{
+                width: 38,
+                height: 38,
+                backgroundColor: '#4B50500F',
+                marginLeft: 12,
+                marginRight: 8,
+                borderRadius: 8,
+              }}
+            >
+              <AntDesign
+                name="download"
+                size={20}
+                color="black"
+                style={{ marginLeft: 9, marginTop: 9 }}
+              />
+            </View>
+            <Text style={{ color: '#4B5050B2' }}>Download Report</Text>
+          </TouchableOpacity>
         </View>
 
         {/* <View
@@ -246,14 +302,14 @@ function DailyCashReport() {
         /> */}
         <View
           style={{
-            borderBottomColor: "#4B505026",
+            borderBottomColor: '#4B505026',
             borderBottomWidth: 1,
-            borderTopColor: "#4B505026",
+            borderTopColor: '#4B505026',
             borderTopWidth: 1,
             // marginTop: 25,
             marginLeft: 32,
             marginRight: 32,
-            flexDirection: "row",
+            flexDirection: 'row',
 
             marginTop: 9,
             paddingTop: 9,
@@ -263,11 +319,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
+              color: '#4C4C4C',
+              alignSelf: 'center',
+              textAlign: 'center',
               width: 63,
             }}
           >
@@ -276,11 +332,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
+              color: '#4C4C4C',
+              alignSelf: 'center',
+              textAlign: 'center',
               width: 90,
             }}
           >
@@ -289,11 +345,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
+              color: '#4C4C4C',
+              alignSelf: 'center',
+              textAlign: 'center',
               width: 67,
             }}
           >
@@ -302,11 +358,11 @@ function DailyCashReport() {
           <Text
             style={{
               fontSize: 12,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 16,
-              color: "#4C4C4C",
-              alignSelf: "center",
-              textAlign: "center",
+              color: '#4C4C4C',
+              alignSelf: 'center',
+              textAlign: 'center',
 
               width: 110,
             }}
@@ -324,10 +380,70 @@ function DailyCashReport() {
           }}
         /> */}
         <View>
-          {data.length === 0 ? (
-            <View>
-              <Text style={{ textAlign: "center", marginTop: 20 }}>
-                No Data Found
+          {loading ? (
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 400,
+                gap: 16,
+              }}
+            >
+              <ActivityIndicator size="large" color="#4B5050B2" />
+            </View>
+          ) : data.length === 0 ? (
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 400,
+                gap: 16,
+              }}
+            >
+              <View
+                style={{
+                  width: 110,
+                  height: 110,
+                  borderRadius: 100,
+                  borderColor: '#eee',
+                  borderWidth: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <View
+                  style={{
+                    width: 80,
+                    height: 80,
+                    backgroundColor: '#80a95d21',
+                    borderRadius: 100,
+
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  {/* <Ionicons name="information" size={60} color="#80a95d" /> */}
+                  <FontAwesome5 name="exclamation" size={40} color="#80a95d" />
+                </View>
+              </View>
+              {/* <Image
+                  source={require('@/assets/images/no-data.jpg')}
+                  style={{
+                    width: 100,
+                    height: 100,
+                  }}
+                /> */}
+              <Text
+                style={{
+                  color: '#4B5050B2',
+                  fontSize: 14,
+                  fontWeight: '400',
+                  lineHeight: 20,
+                }}
+              >
+                No data found
               </Text>
             </View>
           ) : (
@@ -341,13 +457,13 @@ function DailyCashReport() {
           )}
         </View>
       </View>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: 'white' }}>
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             paddingBottom: 15,
           }}
         >
@@ -361,12 +477,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   rowContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     // justifyContent: "space-between",
-    textAlign: "center",
+    textAlign: 'center',
 
     paddingTop: 10,
     paddingBottom: 10,
@@ -374,20 +490,20 @@ const styles = StyleSheet.create({
     marginRight: 32,
   },
   whiteRow: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   blackRow: {
-    backgroundColor: "#4B50500A",
+    backgroundColor: '#4B50500A',
   },
   rowText: {
-    color: "#000000",
+    color: '#000000',
     fontSize: 16,
   },
   infoContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   infoText: {
-    color: "#000000",
+    color: '#000000',
     fontSize: 16,
     marginRight: 10,
   },
@@ -399,7 +515,7 @@ type ListItemProps = {
   item: {
     time: string;
     transNo: string;
-    value: string;
+    value: number | string;
     status: string;
   };
   index: number;
@@ -412,12 +528,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
     <View style={[styles.rowContainer, rowStyle]}>
       <Text
         style={{
-          color: "#4B5050B2",
-          fontWeight: "400",
+          color: '#4B5050B2',
+          fontWeight: '400',
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: "center",
-          textAlign: "center",
+          alignSelf: 'center',
+          textAlign: 'center',
           width: 63,
         }}
       >
@@ -425,12 +541,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
       <Text
         style={{
-          color: "#4B5050B2",
-          fontWeight: "400",
+          color: '#4B5050B2',
+          fontWeight: '400',
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: "center",
-          textAlign: "center",
+          alignSelf: 'center',
+          textAlign: 'center',
           width: 90,
         }}
       >
@@ -438,12 +554,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
       <Text
         style={{
-          color: "#4B5050B2",
-          fontWeight: "400",
+          color: '#4B5050B2',
+          fontWeight: '400',
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: "center",
-          textAlign: "center",
+          alignSelf: 'center',
+          textAlign: 'center',
           width: 67,
         }}
       >
@@ -452,12 +568,12 @@ const ListItem = ({ item, index }: ListItemProps) => {
 
       <Text
         style={{
-          color: "#4B5050B2",
-          fontWeight: "400",
+          color: '#4B5050B2',
+          fontWeight: '400',
           lineHeight: 16,
           fontSize: 11,
-          alignSelf: "center",
-          textAlign: "center",
+          alignSelf: 'center',
+          textAlign: 'center',
           width: 110,
         }}
       >
@@ -465,95 +581,4 @@ const ListItem = ({ item, index }: ListItemProps) => {
       </Text>
     </View>
   );
-};
-
-const xyz = {
-  success: true,
-  data: [
-    {
-      purchaseBreakdown: {
-        service: [
-          {
-            serviceCode: "10000",
-            serviceCat: "ELECTRICAL CONTRACTORS",
-            englishName: "Apprentice Electrician",
-            arabicName: "",
-            quantity: 2,
-            transactionAmount: 1.5,
-            totalAmount: 1,
-            _id: "64ef3704aebb80a45c13e8ff",
-            taxDetails: [],
-          },
-        ],
-        fee: [],
-      },
-      responseCode: 0,
-      _id: "64ef3704aebb80a45c13e8fe",
-      storeId: "Owner",
-      orderNumber: "2870842222695361",
-      channel: "Cash",
-      posType: "pos",
-      posId: "PRMID63",
-      paymentDate: "2023-08-30T12:33:07.385Z",
-      customerPhone: "9939853384",
-      totalTaxAmount: 0.15,
-      totalAmount: 3.15,
-      toggleExpiration: true,
-      distributorId: "MANZ101",
-      userId: "PRMID63",
-      mainMerchantId: "PRMID63",
-      createdAt: "2023-08-30T12:33:08.513Z",
-      updatedAt: "2023-08-30T12:33:08.513Z",
-      __v: 0,
-    },
-    {
-      purchaseBreakdown: {
-        service: [
-          {
-            serviceCode: "10000",
-            serviceCat: "ELECTRICAL CONTRACTORS",
-            englishName: "Apprentice Electrician",
-            arabicName: "",
-            quantity: 1,
-            transactionAmount: 1.5,
-            totalAmount: 1,
-            _id: "64ef37ddaebb80a45c13e903",
-            taxDetails: [],
-          },
-          {
-            serviceCode: "10000",
-            serviceCat: "ELECTRICAL CONTRACTORS",
-            englishName: "Journeyman Electrician",
-            arabicName: "",
-            quantity: 2,
-            transactionAmount: 1.5,
-            totalAmount: 1,
-            _id: "64ef37ddaebb80a45c13e904",
-            taxDetails: [],
-          },
-        ],
-        fee: [],
-      },
-      responseCode: 0,
-      _id: "64ef37ddaebb80a45c13e902",
-      storeId: "Owner",
-      orderNumber: "1072959073641947",
-      channel: "Cash",
-      posType: "pos",
-      posId: "5935433282",
-      paymentDate: "2023-08-30T12:36:44.315Z",
-      customerPhone: "9939853381",
-      totalTaxAmount: 0.225,
-      totalAmount: 4.725,
-      toggleExpiration: true,
-      distributorId: "MANZ101",
-      userId: "PRMID63",
-      mainMerchantId: "PRMID63",
-      createdAt: "2023-08-30T12:36:45.391Z",
-      updatedAt: "2023-08-30T12:36:45.391Z",
-      __v: 0,
-    },
-  ],
-  reportPath:
-    "https://payrowdev.uaenorth.cloudapp.azure.com/orderReport/Report59_Cash_2023-08-30.xlsx",
 };
