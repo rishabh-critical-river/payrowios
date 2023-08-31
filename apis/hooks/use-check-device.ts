@@ -10,9 +10,9 @@ const useCheckDevice = () => {
   const router = useRouter();
   //   const safeRef = React.useRef<boolean>(false);
   const [state, setState] = React.useState({
-    tid: '072857',
+    tid: '',
     alert: false,
-    mobileNumber: '8247826581',
+    mobileNumber: '',
   });
 
   type Key = keyof typeof state;

@@ -1,4 +1,5 @@
 import api from '@/apis/config';
+import { PaymentMode } from '@/apis/enums';
 
 type Payload = {
   dates: {
@@ -7,20 +8,16 @@ type Payload = {
   };
   tid: string;
   key: string;
-  channel: string;
+  channel: PaymentMode | undefined;
   merchantId: string;
 };
 
-type Response = {
-  success: boolean;
-  message: string;
-};
+type Response = any;
 
 /**
  * Fetch Payment Details
  */
 const paymentDetails = async (payload: Payload, token: string) => {
-
   const response = await api.post<Response>(
     `/gateway/payrow/paymentdetails`,
     payload,
