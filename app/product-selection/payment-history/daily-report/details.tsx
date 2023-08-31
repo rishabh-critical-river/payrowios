@@ -71,21 +71,21 @@ function DailyCashReport() {
       if (auth?.tid && user?.token && userDecoded?.merchantId) {
         console.log('Key from line 63', key);
         const payload = {
-          // key,
-          // channel,
-          // tid: auth?.tid,
-          // merchantId: userDecoded?.merchantId,
-          // dates: {
-          //   from: moment().subtract(1, 'days').format('YYYY-MM-DD'),
-          // },
-
-          tid: '072857',
           key,
-          channel: 'Cash',
-          merchantId: 'PRMID63',
+          channel,
+          tid: auth?.tid,
+          merchantId: userDecoded?.merchantId,
           dates: {
-            from: '2023-08-30',
+            from: moment().format('YYYY-MM-DD'),
           },
+
+          // tid: '072857',
+          // key,
+          // channel: 'Cash',
+          // merchantId: 'PRMID63',
+          // dates: {
+          //   from: '2023-08-30',
+          // },
         };
         console.log('Payload from line 68', payload);
         const { data } = await paymentDetails(payload, user?.token);
