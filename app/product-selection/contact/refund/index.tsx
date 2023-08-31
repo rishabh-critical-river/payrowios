@@ -555,7 +555,7 @@ function Void() {
                     name="checkbox-marked-circle"
                     size={20}
                     color="#4B5050E5"
-                    style={{ marginRight: 10 }}
+                    // style={{ marginRight: 10 }}
                   />
                 </View>
               )}
