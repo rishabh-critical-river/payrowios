@@ -18,7 +18,7 @@ function CreatePin() {
   const router = useRouter();
   const [pin, setPin] = React.useState('');
   const params = useLocalSearchParams<Params>();
-  const { formattedTimer } = useOTPInterval(52);
+  const { formattedTimer } = useOTPInterval(59);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>

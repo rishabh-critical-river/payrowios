@@ -78,14 +78,6 @@ function DailyCashReport() {
           dates: {
             from: moment().format('YYYY-MM-DD'),
           },
-
-          // tid: '072857',
-          // key,
-          // channel: 'Cash',
-          // merchantId: 'PRMID63',
-          // dates: {
-          //   from: '2023-08-30',
-          // },
         };
         console.log('Payload from line 68', payload);
         const { data } = await paymentDetails(payload, user?.token);

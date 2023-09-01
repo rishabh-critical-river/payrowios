@@ -1,405 +1,168 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
-  Text,
   View,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
+  Modal,
+  StyleSheet,
   Dimensions,
-} from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-// import PaymentSummary from './PaymentSummary';
-import styles from "@/styles/add-item";
-import ItemDropdownButton from "@/components/add-item/item-dropdown";
-import ListItem from "@/components/add-item/list-item";
-import FooterText from "@/components/footer";
-import PanelView from "@/components/view/PanelView";
-import { ScrollView } from "react-native-gesture-handler";
-import useStorageData from "@/apis/hooks/use-storage-data";
-import { ProductTypes } from "@/typings/product";
-import useProduct from "@/store/hooks/use-product";
-import getProducts from "@/apis/queries/product/get-product";
-import toast from "@/hooks/lib/toast";
-import getProductByQR from "@/apis/queries/product/get-product-by-qr";
-import BarCodeScannerScreen from "@/components/scanner";
+  TouchableOpacity,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import BarcodeMask from 'react-native-barcode-mask';
+import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import * as Haptics from 'expo-haptics';
+import sleep from '@/utils/sleep';
 
-function AddItems() {
-  const router = useRouter();
-  const { height } = Dimensions.get("window");
-  const { user } = useStorageData("user", { decode: false });
-  const { auth } = useStorageData("auth");
+type BarCodeScannerScreenProps = {
+  visible: boolean;
+  onClose: () => void;
+  scannedData?: (data: any) => void;
+};
+const finderWidth: number = 250;
+const finderHeight: number = 250;
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
+const viewMinX = (width - finderWidth) / 2;
+const viewMinY = (height - finderHeight) / 2;
+/**
+ * Bar Code Scanner Screen
+ */
+const BarCodeScannerScreen = ({
+  visible,
+  onClose,
+  scannedData,
+}: BarCodeScannerScreenProps) => {
+  const [scanned, setScanned] = useState<boolean>(false);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [type, setType] = useState<any>(BarCodeScanner.Constants.Type.back);
 
-  const safeRef = React.useRef<boolean>(false);
-  const [loading, setLoading] = React.useState(false);
-  const {
-    state,
-    updateProducts,
-    updateItemIncrement,
-    updateItemDecrement,
-    updateCurrentID,
-    onUpdatePurchaseBreakdown,
-  } = useProduct();
-
-  const stateItems = state?.items;
-  /**
-   * Fetch Products
-   */
-  const fetchProducts = React.useCallback(async () => {
-    setLoading(true);
-    if (user?.token) {
-      try {
-        const { data } = await getProducts(user?.token);
-        setLoading(false);
-        if (data.data && data.data.length > 0) {
-          const itemData = data.data;
-          const categories = itemData.map((value) => {
-            const items = value?.serviceItems?.map((item) => {
-              return {
-                _id: item._id,
-                price: 1.5,
-                quantity: 0,
-                itemName: item.itemName,
-                itemDescription: item.itemDescription,
-                status: item.status,
-              };
-            });
-            return {
-              _id: value._id,
-              serviceCode: value.serviceCode,
-              serviceName: value.serviceName,
-              status: value.status,
-              serviceItems: items,
-            };
-          });
-          // Store Data in Redux Store
-          updateProducts(categories as ProductTypes[]);
-        }
-      } catch (error) {
-        console.log(error);
-
-        // setInterval(() => {
-        //   setLoading(false);
-        // }, 5000);
-      }
-    }
-  }, [user?.token]);
+  const permission = React.useCallback(async () => {
+    const { status } = await BarCodeScanner.requestPermissionsAsync();
+    setHasPermission(status === 'granted');
+  }, []);
 
   React.useEffect(() => {
-    safeRef.current = true;
+    permission();
+  }, []);
 
-    if (safeRef.current && stateItems?.length === 0) {
-      fetchProducts();
-    }
-    return () => {
-      safeRef.current = false;
-    };
-  }, [user?.token]);
-
-  /**
-   * Fetch Products By QR Code
-   */
-
-  const [showScanner, setShowScanner] = useState(false);
-  const fetchOrderByQR = React.useCallback(
-    async (data: string) => {
-      console.log("QR Code Data", data);
-      try {
-        const response = await getProductByQR(data, user?.token);
-        if (response.data?.data?.length > 0) {
-          const itemData = response.data.data as any;
-          const categories = itemData.flatMap((value: any) => {
-            return value?.purchaseBreakdown.service?.map((item: any) => {
-              return {
-                _id: item._id,
-                englishName: item.englishName,
-                quantity: item.quantity || 1,
-                serviceCat: "QR Code Category",
-                serviceCode: item.serviceCode,
-                totalAmount: item.totalAmount || 1,
-                transactionAmount: item.transactionAmount || 1.5,
-              };
-            });
-          });
-
-          // Store Data in Redux Store
-          onUpdatePurchaseBreakdown(categories as ProductTypes[]);
-          router.push("/products/payment-summary");
-        }
-      } catch (error) {
-        console.error(error);
+  const handleBarCodeScanned = React.useCallback(
+    async (result: BarCodeScannerResult) => {
+      setScanned(true);
+      if (!scanned) {
+        const { data } = result;
+        console.log('scanningResult', data);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        scannedData && scannedData(data);
+        await sleep(500);
+        onClose();
+        setScanned(false);
       }
     },
-    [router, user?.token]
+    [onClose, scanned]
   );
-  /**
-   * Open Scanner
-   */
-  const onOpenScanner = React.useCallback(() => {
-    setShowScanner(true);
-  }, []);
 
-  /**
-   * Close Scanner
-   */
-  const onCloseScanner = React.useCallback(() => {
-    setShowScanner(false);
-  }, []);
+  const toggleFlash = React.useCallback(async () => {
+    // try {
+    //   await NativeModules.Camera.toggleTorch(isTorchOn);
+    //   setIsTorchOn(!isTorchOn);
+    // } catch (e) {
+    //   toast.show('We seem to have an issue accessing your torch');
+    // }
+    setType(
+      type === BarCodeScanner.Constants.Type.back
+        ? BarCodeScanner.Constants.Type.front
+        : BarCodeScanner.Constants.Type.back
+    );
+  }, [type]);
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    controls: {
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 40,
+      width: '100%',
+      paddingHorizontal: 40,
+    },
+    circle: {
+      width: 50,
+      height: 50,
+      borderRadius: 50,
+      backgroundColor: 'rgba(255,255,255,0.2)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
+  console.log({ scanned });
+
+  // if (hasPermission === null) {
+  //   return <Text>Requesting camera permission...</Text>;
+  // }
+  // if (hasPermission === false) {
+  //   return <Text>No access to camera.</Text>;
+  // }
   return (
-    <>
-      <BarCodeScannerScreen
-        visible={showScanner}
-        onClose={onCloseScanner}
-        scannedData={fetchOrderByQR}
-      />
-      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
-        <View
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 76,
-          }}
-        >
-          <Image
-            source={require("@/assets/icons/Watermark.png")}
-            style={{
-              width: 36,
-              height: 50,
-            }}
-          />
-        </View>
-
-        <View
-          style={{
-            marginLeft: 19.98,
-            marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity onPress={router.back}>
-            <Image
-              source={require("@/assets/icons/arrow_back.png")}
-              style={{
-                width: 16.03,
-                height: 16.03,
-                marginRight: 35.98,
-              }}
-            />
-          </TouchableOpacity>
-          <View>
-            <Text
-              style={{
-                color: "#4B5050",
-                fontWeight: "400",
-                fontSize: 12,
-                lineHeight: 16,
-              }}
-            >
-              Welcome
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "500",
-                color: "#333333",
-                lineHeight: 20,
-              }}
-            >
-              TID : {auth?.tid}
-            </Text>
-          </View>
-        </View>
-        <Text
-          style={{
-            textAlign: "center",
-            fontWeight: "400",
-            fontSize: 22,
-            marginTop: 26,
-            color: "#333333",
-            lineHeight: 28,
-          }}
-        >
-          Select Product
-        </Text>
-        <Text
-          style={{
-            textAlign: "center",
-            marginTop: 9,
-            color: "#4B5050",
-            fontSize: 14,
-            fontWeight: "400",
-          }}
-        >
-          You can Select multiple items
-        </Text>
-        <TouchableOpacity onPress={onOpenScanner}>
-          <View style={styles.buttonContainer}>
-            <Text
-              style={{
-                marginLeft: 16,
-                color: "white",
-                fontSize: 16,
-                fontWeight: "500",
-              }}
-            >
-              SCAN TO ADD
-            </Text>
-
-            <MaterialCommunityIcons
-              style={{ marginRight: 16 }}
-              name="barcode-scan"
-              size={24}
-              color="white"
-            />
-          </View>
-        </TouchableOpacity>
-
-        <PanelView
-          show={
-            !loading &&
-            Number(state?.items?.length) >= 0 &&
-            Number(state?.items?.length) <= 0
-          }
-        >
-          <View
-            style={{
-              width: "80%",
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
-              height: height / 1.7,
-            }}
-          >
-            <Text>No items found</Text>
-          </View>
-        </PanelView>
-        <PanelView show={loading}>
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <ActivityIndicator size="large" color="#4B5050" />
-          </View>
-        </PanelView>
-        <PanelView show={!loading}>
-          <ScrollView scrollEnabled>
-            {state.items &&
-              state.items.map((parentItem, parentIndex) => {
-                const totalQuantity = parentItem?.serviceItems?.reduce(
-                  (acc, item) => acc + item.quantity,
-                  0
-                );
-                return (
-                  <React.Fragment key={parentIndex}>
-                    <ItemDropdownButton
-                      active={state.currentID === parentItem._id}
-                      name={parentItem.serviceName}
-                      quantity={totalQuantity}
-                      onPress={() => updateCurrentID(parentItem._id)}
-                    />
-                    <PanelView show={state.currentID === parentItem._id}>
-                      {parentItem?.serviceItems?.length > 0 && (
-                        <ScrollView
-                          style={{
-                            width: "80%",
-                            height: 200,
-                            marginTop: 20,
-                            alignSelf: "center",
-                          }}
-                        >
-                          {parentItem?.serviceItems?.map((item, index) => {
-                            return (
-                              <TouchableOpacity
-                                key={index}
-                                onPress={() =>
-                                  updateItemIncrement(parentItem._id, item._id)
-                                }
-                              >
-                                <ListItem
-                                  key={index}
-                                  name={item.itemName}
-                                  price={item.price}
-                                  quantity={item.quantity}
-                                  onAdd={() =>
-                                    updateItemIncrement(
-                                      parentItem._id,
-                                      item._id
-                                    )
-                                  }
-                                  onRemove={() =>
-                                    updateItemDecrement(
-                                      parentItem._id,
-                                      item._id
-                                    )
-                                  }
-                                />
-                              </TouchableOpacity>
-                            );
-                          })}
-                        </ScrollView>
-                      )}
-                    </PanelView>
-                  </React.Fragment>
-                );
-              })}
-          </ScrollView>
-        </PanelView>
-      </View>
+    <Modal visible={visible} animationType="slide">
       <View
         style={{
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "flex-end",
+          height: Dimensions.get('window').height,
+          width: Dimensions.get('window').width,
         }}
       >
-        <View
-          style={{
-            position: "absolute",
-            left: 0,
-            bottom: 20,
-            zIndex: 999,
-          }}
+        <BarCodeScanner
+          onBarCodeScanned={handleBarCodeScanned}
+          type={type}
+          barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
+          style={[StyleSheet.absoluteFillObject, styles.container]}
         >
-          <Image
-            source={require("@/assets/icons/Watermark.png")}
-            style={{
-              width: 36,
-              height: 50,
-            }}
+          <BarcodeMask
+            edgeColor={scanned ? '#008000' : 'rgba(255, 255, 255, 4)'}
+            showAnimatedLine={false}
+            edgeRadius={16}
+            edgeBorderWidth={8}
+            width={250}
+            height={250}
+            outerMaskOpacity={1}
+            edgeHeight={30}
+            edgeWidth={30}
           />
-        </View>
 
-        <PanelView show={!loading && Number(state.items?.length) > 0}>
-          <View style={styles.priceContainer}>
-            <Text style={styles.priceLabel}>Total Price</Text>
-            <View style={styles.priceTextContainer}>
-              <Text style={styles.priceText}>{state?.total?.toFixed(2)}</Text>
-              <Text style={styles.priceCurrency}>AED</Text>
-            </View>
+          <View style={styles.controls}>
+            <TouchableOpacity
+              style={styles.circle}
+              // onPress={() => {
+              //   setType(
+              //     type === BarCodeScanner.Constants.Type.back
+              //       ? BarCodeScanner.Constants.Type.front
+              //       : BarCodeScanner.Constants.Type.back
+              //   );
+              // }}
+              onPress={() => {
+                toggleFlash();
+              }}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="camera-reverse" size={28} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.circle}
+              activeOpacity={0.7}
+              onPress={() => {
+                onClose();
+                setScanned(false);
+              }}
+            >
+              <Ionicons name="close" size={28} color="#fff" />
+            </TouchableOpacity>
           </View>
-        </PanelView>
-        <TouchableOpacity
-          style={styles.goToSummaryButton}
-          onPress={() => {
-            if (Number(state?.total?.toFixed(2)) <= 0) {
-              toast.show("Please select atleast one item");
-              return;
-            }
-            router.push("/products/payment-summary");
-          }}
-        >
-          <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>GO TO SUMMARY</Text>
-            <View style={styles.arrowIcon}>
-              <AntDesign name="arrowright" size={22} color="white" />
-            </View>
-          </View>
-        </TouchableOpacity>
-        <FooterText />
+        </BarCodeScanner>
       </View>
-    </>
+    </Modal>
   );
-}
+};
 
-export default AddItems;
+export default BarCodeScannerScreen;
