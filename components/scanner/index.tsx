@@ -45,28 +45,19 @@ const BarCodeScannerScreen = ({
   }, []);
 
   const handleBarCodeScanned = React.useCallback(
-    async (scanningResult: BarCodeScannerResult) => {
+    async (result: BarCodeScannerResult) => {
       setScanned(true);
       if (!scanned) {
-        const { data, bounds: { origin } = {} } = scanningResult;
-        // @ts-ignore
-        const { x, y } = origin;
-        if (
-          x >= viewMinX &&
-          y >= viewMinY &&
-          x <= viewMinX + finderWidth / 2 &&
-          y <= viewMinY + finderHeight / 2
-        ) {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          console.log('scanned data');
-          scannedData && scannedData(data);
-          await sleep(500);
-          onClose();
-          setScanned(false);
-        }
+        const { data } = result;
+        console.log('scanningResult', data);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        scannedData && scannedData(data);
+        await sleep(500);
+        onClose();
+        setScanned(false);
       }
     },
-    [onClose]
+    [onClose, scanned]
   );
 
   const toggleFlash = React.useCallback(async () => {
@@ -106,6 +97,7 @@ const BarCodeScannerScreen = ({
       alignItems: 'center',
     },
   });
+  console.log({ scanned });
 
   // if (hasPermission === null) {
   //   return <Text>Requesting camera permission...</Text>;
@@ -127,35 +119,6 @@ const BarCodeScannerScreen = ({
           barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
           style={[StyleSheet.absoluteFillObject, styles.container]}
         >
-          <View
-            style={{
-              flex: 1,
-
-              backgroundColor: 'transparent',
-
-              flexDirection: 'row',
-            }}
-          >
-            {/* <TouchableOpacity
-                style={{
-                  flex: 1,
-  
-                  alignItems: 'flex-end',
-                }}
-                onPress={() => {
-                  setType(
-                    type === BarCodeScanner.Constants.Type.back
-                      ? BarCodeScanner.Constants.Type.front
-                      : BarCodeScanner.Constants.Type.back
-                  );
-                }}
-              >
-                <Text style={{ fontSize: 18, margin: 5, color: 'white' }}>
-                  {' '}
-                  Flip{' '}
-                </Text>
-              </TouchableOpacity> */}
-          </View>
           <BarcodeMask
             edgeColor={scanned ? '#008000' : 'rgba(255, 255, 255, 4)'}
             showAnimatedLine={false}
@@ -167,9 +130,7 @@ const BarCodeScannerScreen = ({
             edgeHeight={30}
             edgeWidth={30}
           />
-          {/* {scanned && (
-              <Button title="Scan Again" onPress={() => setScanned(false)} />
-            )} */}
+
           <View style={styles.controls}>
             <TouchableOpacity
               style={styles.circle}
