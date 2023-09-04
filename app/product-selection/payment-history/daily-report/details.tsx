@@ -29,9 +29,10 @@ import Modal from "react-native-modal";
 import useCheckDevice from "@/apis/hooks/use-check-device";
 import sendUrl from "@/apis/mutations/order/send-url";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import sleep from "@/utils/sleep";
 
 function DailyCashReport() {
- 
+
   const [downloadModel, setDownloadModel] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [email, setEmail] = React.useState("");
@@ -44,14 +45,13 @@ function DailyCashReport() {
     decode: true,
   });
 
-  const key = React.useMemo(() => {
-    return base64.encode(
-      JSON.stringify({
-        num: Number(keyValidation(8)),
-        validation: "Key Validation",
-      })
-    );
-  }, []);
+  const [key, setKey] = React.useState(keyValidation(8))
+  const generate = React.useCallback(() => {
+    setKey(keyValidation(8))
+  }, [])
+
+
+
 
   const init = {
     data: [],
@@ -73,46 +73,68 @@ function DailyCashReport() {
     return data?.slug;
   }, [params.slug]);
 
- 
-  const fetchPaymentDetails =async    () => {
+
+  const fetchPaymentDetails = React.useCallback(async () => {
     setLoading(true);
     try {
       if (auth?.tid && user?.token && userDecoded?.merchantId) {
-     
+
         const payload = {
-          key,
+          key: base64.encode(
+            JSON.stringify({
+              num: Number(key),
+              validation: "Key Validation",
+            })
+          ),
           channel,
           tid: auth?.tid,
           merchantId: userDecoded?.merchantId,
           dates: {
-            from: moment(date ).format("YYYY-MM-DD"),
+            from: moment(date).format("YYYY-MM-DD"),
           },
         };
         const { data } = await paymentDetails(payload, user?.token);
         if (data) {
           setState(data as PaymentDetailsResponse);
           setLoading(false);
+
         }
       }
     } catch (error: any) {
+      // console.log(error);
       if (error?.response?.status === 400) {
         setLoading(false);
-        toast.show("No data found");
         setState(init);
+        sleep(5000).then(() => {
+          toast.show("No data found");
+        }
+        )
       }
     }
-  }
+  }, [auth?.tid, user?.token, userDecoded?.merchantId, channel,  key,date])
 
+ 
   React.useEffect(() => {
     safeAPI.current = true;
     if (safeAPI.current) {
       fetchPaymentDetails();
-     
     }
     return () => {
       safeAPI.current = false;
     };
   }, [auth?.tid, user?.token, userDecoded?.merchantId, key, channel,date]);
+
+  const keyRef = React.useRef<boolean>(false)
+  React.useEffect(() => {
+    keyRef.current = true;
+    if (keyRef.current) {
+      generate()
+    }
+    return () => {
+      keyRef.current = false;
+    };
+  }, [date])
+
 
   const data = React.useMemo(() => {
     if (state?.data.length > 0) {
@@ -128,14 +150,14 @@ function DailyCashReport() {
       return [];
     }
   }, [state?.data]);
-  
+
   const onDownloadFile = React.useCallback(async () => {
     if (state.reportPath) {
       setDownloadModel(true);
     } else {
       toast.show("No report found");
     }
-  
+
   }, [state?.reportPath]);
 
   const sentLinkByMail = React.useCallback(async () => {
