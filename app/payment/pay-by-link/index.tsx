@@ -41,7 +41,7 @@ function CashPayment() {
   };
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const onPayByCash = React.useCallback(async () => {
+  const onPayByLink = React.useCallback(async () => {
     if (user) {
       try {
         const payload = {
@@ -470,7 +470,7 @@ function CashPayment() {
               // onPress={() => {
               //   router.push("/payment/pay-by-link/cash-invoice");
               // }}
-              onPress={onPayByCash}
+              onPress={onPayByLink}
             >
               <View style={styles.buttonContent}>
                 <View style={{ justifyContent: "center", marginLeft: 16 }}>

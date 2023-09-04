@@ -1,11 +1,11 @@
-import useCreatePin from '@/apis/hooks/use-create-pin';
-import PayRowLogo from '@/components/logo';
-import OTPInput from '@/components/otp-input';
-import toast from '@/hooks/lib/toast';
-import getErrorString from '@/utils/getErrorString';
-import { AntDesign } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React, { useCallback } from 'react';
+import useCreatePin from "@/apis/hooks/use-create-pin";
+import PayRowLogo from "@/components/logo";
+import OTPInput from "@/components/otp-input";
+import toast from "@/hooks/lib/toast";
+import getErrorString from "@/utils/getErrorString";
+import { AntDesign } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React, { useCallback } from "react";
 import {
   Text,
   View,
@@ -20,7 +20,7 @@ function EnterPins() {
   const { onChangeState, onLoginByPin, state } = useCreatePin();
   const handleSubmit = useCallback(() => {
     if (state.pin.length !== 4) {
-      toast.show('Please enter 4 digit pin to proceed');
+      toast.show("Please enter 4 digit pin to proceed");
       return;
     }
     onLoginByPin().catch((err) => {
@@ -72,7 +72,7 @@ function EnterPins() {
           </Text>
         </View> */}
         <OTPInput
-          onChangeOTP={(pin) => onChangeState('pin', pin)}
+          onChangeOTP={(pin) => onChangeState("pin", pin)}
           secureTextEntry
         />
 
