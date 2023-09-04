@@ -105,10 +105,10 @@ function DailyCashReport() {
       if (error?.response?.status === 400) {
         setLoading(false);
         setState(init);
-        sleep(5000).then(() => {
-          toast.show("No data found");
-        }
-        )
+        // sleep(5000).then(() => {
+        //   toast.show("No data found");
+        // }
+        // )
       }
     }
   }, [auth?.tid, user?.token, userDecoded?.merchantId, channel,  key,date])
