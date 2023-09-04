@@ -31,8 +31,7 @@ import sendUrl from "@/apis/mutations/order/send-url";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 function DailyCashReport() {
-  const { onChangeState } = useCheckDevice();
-
+ 
   const [downloadModel, setDownloadModel] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [email, setEmail] = React.useState("");
@@ -74,26 +73,22 @@ function DailyCashReport() {
     return data?.slug;
   }, [params.slug]);
 
-  const fromDate = React.useMemo(() => {
-    return moment(date).format("YYYY-MM-DD");
-  }, [date]);
-  const fetchPaymentDetails = React.useCallback(async () => {
+ 
+  const fetchPaymentDetails =async    () => {
     setLoading(true);
     try {
       if (auth?.tid && user?.token && userDecoded?.merchantId) {
-        console.log("Key from line 63", key);
+     
         const payload = {
           key,
           channel,
           tid: auth?.tid,
           merchantId: userDecoded?.merchantId,
           dates: {
-            from: fromDate,
+            from: moment(date ).format("YYYY-MM-DD"),
           },
         };
-        console.log("Payload from line 68", payload);
         const { data } = await paymentDetails(payload, user?.token);
-        console.log("Data from line 70", data);
         if (data) {
           setState(data as PaymentDetailsResponse);
           setLoading(false);
@@ -106,17 +101,18 @@ function DailyCashReport() {
         setState(init);
       }
     }
-  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, channel, fromDate]);
+  }
 
   React.useEffect(() => {
     safeAPI.current = true;
     if (safeAPI.current) {
       fetchPaymentDetails();
+     
     }
     return () => {
       safeAPI.current = false;
     };
-  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, channel, fromDate]);
+  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, channel,date]);
 
   const data = React.useMemo(() => {
     if (state?.data.length > 0) {
@@ -132,27 +128,14 @@ function DailyCashReport() {
       return [];
     }
   }, [state?.data]);
-  console.log("Mr. X", data.length);
-
+  
   const onDownloadFile = React.useCallback(async () => {
     if (state.reportPath) {
       setDownloadModel(true);
     } else {
       toast.show("No report found");
     }
-    // const downloadResumable = FileSystem.createDownloadResumable(
-    //   state.reportPath,
-    //   FileSystem.documentDirectory + "PaymentReport.xlsx",
-    //   {}
-    // );
-
-    // try {
-    //   const res = await downloadResumable.downloadAsync();
-    //   console.log("Finished downloading to ", res?.uri);
-    //   toast.show("Report downloaded successfully");
-    // } catch (e) {
-    //   console.error(e);
-    // }
+  
   }, [state?.reportPath]);
 
   const sentLinkByMail = React.useCallback(async () => {

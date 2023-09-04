@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { PaymentMode } from "@/apis/enums";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import useProduct from "@/store/hooks/use-product";
 import { OrderMetaContext } from "@/providers/context/order-meta";
 import useStorageData from "@/apis/hooks/use-storage-data";
@@ -528,8 +528,7 @@ function CashPayment() {
             <TouchableOpacity
               style={styles.goToSummaryButton}
               onPress={() => {
-                // router.push('/payment/cash-payment/cash-invoice');
-                // onPayByCash();
+               
                 if (!(cash && Number(cash) >= Number(finalAmount))) {
                   toast.show("Please enter received amount to proceed");
                 } else {

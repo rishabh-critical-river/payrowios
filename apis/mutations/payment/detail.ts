@@ -18,6 +18,8 @@ type Response = any;
  * Fetch Payment Details
  */
 const paymentDetails = async (payload: Payload, token: string) => {
+  console.log('payload', payload);
+      console.log('token', token);
   const response = await api.post<Response>(
     `/gateway/payrow/paymentdetails`,
     payload,
