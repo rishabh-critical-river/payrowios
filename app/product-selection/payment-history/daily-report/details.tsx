@@ -32,7 +32,6 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import sleep from "@/utils/sleep";
 
 function DailyCashReport() {
-
   const [downloadModel, setDownloadModel] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [email, setEmail] = React.useState("");
@@ -45,13 +44,10 @@ function DailyCashReport() {
     decode: true,
   });
 
-  const [key, setKey] = React.useState(keyValidation(8))
+  const [key, setKey] = React.useState(keyValidation(8));
   const generate = React.useCallback(() => {
-    setKey(keyValidation(8))
-  }, [])
-
-
-
+    setKey(keyValidation(8));
+  }, []);
 
   const init = {
     data: [],
@@ -73,12 +69,10 @@ function DailyCashReport() {
     return data?.slug;
   }, [params.slug]);
 
-
   const fetchPaymentDetails = React.useCallback(async () => {
     setLoading(true);
     try {
       if (auth?.tid && user?.token && userDecoded?.merchantId) {
-
         const payload = {
           key: base64.encode(
             JSON.stringify({
@@ -97,7 +91,6 @@ function DailyCashReport() {
         if (data) {
           setState(data as PaymentDetailsResponse);
           setLoading(false);
-
         }
       }
     } catch (error: any) {
@@ -105,15 +98,12 @@ function DailyCashReport() {
       if (error?.response?.status === 400) {
         setLoading(false);
         setState(init);
-        // sleep(5000).then(() => {
-        //   toast.show("No data found");
-        // }
-        // )
+
+        toast.show("No data found");
       }
     }
-  }, [auth?.tid, user?.token, userDecoded?.merchantId, channel,  key,date])
+  }, [auth?.tid, user?.token, userDecoded?.merchantId, channel, key, date]);
 
- 
   React.useEffect(() => {
     safeAPI.current = true;
     if (safeAPI.current) {
@@ -122,19 +112,18 @@ function DailyCashReport() {
     return () => {
       safeAPI.current = false;
     };
-  }, [auth?.tid, user?.token, userDecoded?.merchantId, key, channel,date]);
+  }, [auth?.tid, user?.token, userDecoded?.merchantId, channel, key]);
 
-  const keyRef = React.useRef<boolean>(false)
+  const keyRef = React.useRef<boolean>(false);
   React.useEffect(() => {
     keyRef.current = true;
     if (keyRef.current) {
-      generate()
+      generate();
     }
     return () => {
       keyRef.current = false;
     };
-  }, [date])
-
+  }, [date]);
 
   const data = React.useMemo(() => {
     if (state?.data.length > 0) {
@@ -157,7 +146,6 @@ function DailyCashReport() {
     } else {
       toast.show("No report found");
     }
-
   }, [state?.reportPath]);
 
   const sentLinkByMail = React.useCallback(async () => {
