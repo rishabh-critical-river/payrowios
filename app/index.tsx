@@ -130,7 +130,8 @@ const GetStartedScreen = () => {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={onStarted}
+          // onPress={onStarted}
+          onPress={() => router.push("/products/product-details")}
           // router.push('/auth/login');
           // router.push('/products/add-item');
           // router.push('/test');
