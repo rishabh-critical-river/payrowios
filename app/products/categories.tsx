@@ -1,3 +1,4 @@
+import PlusIcon from "@/components/icons/PlusIcon";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -9,7 +10,7 @@ import {
   Button,
 } from "react-native";
 
-const ProductDetail = () => {
+const Categories = () => {
   const router = useRouter();
   return (
     <>
@@ -41,7 +42,7 @@ const ProductDetail = () => {
               color: "#4B5050",
             }}
           >
-            Items
+            Featured
           </Text>
         </View>
 
@@ -55,184 +56,228 @@ const ProductDetail = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => router.push("/products/cart")}
+            onPress={() => router.push("/products/product-details")}
             style={{
               borderColor: "#dadada",
-              padding: 8,
+              padding: 16,
               borderRadius: 16,
               backgroundColor: "#fff",
               borderWidth: 1,
-              display: "flex",
-              flexDirection: "row",
-              gap: 16,
             }}
           >
-            <View>
-              <Image
-                source={require("@/assets/icons/mastercard.png")}
-                style={{
-                  width: 79,
-                  height: 79,
-                }}
-              />
-            </View>
             <View
               style={{
+                justifyContent: "space-between",
+
                 display: "flex",
-                flexDirection: "column",
-                gap: 4,
+
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <Text
-                style={{
-                  color: "#4B5050",
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                }}
-              >
-                Mojito
-              </Text>
-              <Text
-                style={{
-                  color: "#7f7f7f",
-                  fontWeight: "400",
-                  fontSize: 10,
-                  lineHeight: 18,
-                }}
-              >
-                Lorem ipsum dolor sit
-              </Text>
-              <Text
-                style={{
-                  color: "#febb2c",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 18,
-                }}
-              >
-                $ 4.99
-              </Text>
+              <View>
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "500",
+                    fontSize: 16,
+                    lineHeight: 20,
+                  }}
+                >
+                  Canned/Drinks
+                </Text>
+              </View>
+              <View>
+                <Image
+                  source={require("@/assets/icons/keyboard_arrow_right.png")}
+                  style={{
+                    width: 7.41,
+                    height: 12,
+
+                    marginRight: 10.02,
+                  }}
+                />
+              </View>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => router.push("/products/product-details")}
             style={{
               borderColor: "#dadada",
-              padding: 8,
+              padding: 16,
               borderRadius: 16,
               backgroundColor: "#fff",
               borderWidth: 1,
-              display: "flex",
-              flexDirection: "row",
-              gap: 16,
             }}
           >
-            <View>
-              <Image
-                source={require("@/assets/icons/mastercard.png")}
-                style={{
-                  width: 79,
-                  height: 79,
-                }}
-              />
-            </View>
             <View
               style={{
+                justifyContent: "space-between",
+
                 display: "flex",
-                flexDirection: "column",
-                gap: 4,
+
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <Text
-                style={{
-                  color: "#4B5050",
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                }}
-              >
-                Mojito
-              </Text>
-              <Text
-                style={{
-                  color: "#7f7f7f",
-                  fontWeight: "400",
-                  fontSize: 10,
-                  lineHeight: 18,
-                }}
-              >
-                Lorem ipsum dolor sit
-              </Text>
-              <Text
-                style={{
-                  color: "#febb2c",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 18,
-                }}
-              >
-                $ 4.99
-              </Text>
+              <View>
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "500",
+                    fontSize: 16,
+                    lineHeight: 20,
+                  }}
+                >
+                  Burger
+                </Text>
+              </View>
+              <View>
+                <Image
+                  source={require("@/assets/icons/keyboard_arrow_right.png")}
+                  style={{
+                    width: 7.41,
+                    height: 12,
+
+                    marginRight: 10.02,
+                  }}
+                />
+              </View>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => router.push("/products/product-details")}
             style={{
               borderColor: "#dadada",
-              padding: 8,
+              padding: 16,
               borderRadius: 16,
               backgroundColor: "#fff",
               borderWidth: 1,
-              display: "flex",
-              flexDirection: "row",
-              gap: 16,
             }}
           >
-            <View>
-              <Image
-                source={require("@/assets/icons/mastercard.png")}
-                style={{
-                  width: 79,
-                  height: 79,
-                }}
-              />
-            </View>
             <View
               style={{
+                justifyContent: "space-between",
+
                 display: "flex",
-                flexDirection: "column",
-                gap: 4,
+
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <Text
-                style={{
-                  color: "#4B5050",
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                }}
-              >
-                Mojito
-              </Text>
-              <Text
-                style={{
-                  color: "#7f7f7f",
-                  fontWeight: "400",
-                  fontSize: 10,
-                  lineHeight: 18,
-                }}
-              >
-                Lorem ipsum dolor sit
-              </Text>
-              <Text
-                style={{
-                  color: "#febb2c",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 18,
-                }}
-              >
-                $ 4.99
-              </Text>
+              <View>
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "500",
+                    fontSize: 16,
+                    lineHeight: 20,
+                  }}
+                >
+                  Chinese
+                </Text>
+              </View>
+              <View>
+                <Image
+                  source={require("@/assets/icons/keyboard_arrow_right.png")}
+                  style={{
+                    width: 7.41,
+                    height: 12,
+
+                    marginRight: 10.02,
+                  }}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.push("/products/product-details")}
+            style={{
+              borderColor: "#dadada",
+              padding: 16,
+              borderRadius: 16,
+              backgroundColor: "#fff",
+              borderWidth: 1,
+            }}
+          >
+            <View
+              style={{
+                justifyContent: "space-between",
+
+                display: "flex",
+
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "500",
+                    fontSize: 16,
+                    lineHeight: 20,
+                  }}
+                >
+                  Spanish
+                </Text>
+              </View>
+              <View>
+                <Image
+                  source={require("@/assets/icons/keyboard_arrow_right.png")}
+                  style={{
+                    width: 7.41,
+                    height: 12,
+
+                    marginRight: 10.02,
+                  }}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.push("/products/product-details")}
+            style={{
+              borderColor: "#dadada",
+              padding: 16,
+              borderRadius: 16,
+              backgroundColor: "#fff",
+              borderWidth: 1,
+            }}
+          >
+            <View
+              style={{
+                justifyContent: "space-between",
+
+                display: "flex",
+
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "500",
+                    fontSize: 16,
+                    lineHeight: 20,
+                  }}
+                >
+                  Dumpling
+                </Text>
+              </View>
+              <View>
+                <Image
+                  source={require("@/assets/icons/keyboard_arrow_right.png")}
+                  style={{
+                    width: 7.41,
+                    height: 12,
+
+                    marginRight: 10.02,
+                  }}
+                />
+              </View>
             </View>
           </TouchableOpacity>
         </View>
@@ -274,7 +319,7 @@ const ProductDetail = () => {
     </>
   );
 };
-export default ProductDetail;
+export default Categories;
 
 const styles = StyleSheet.create({
   container: {

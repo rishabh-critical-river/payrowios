@@ -1,3 +1,5 @@
+import PlusIcon from "@/components/icons/PlusIcon";
+import MinusIcon from "@/components/icons/minus";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -8,8 +10,9 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
+import { white } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
-const ProductDetail = () => {
+const Cart = () => {
   const router = useRouter();
   return (
     <>
@@ -41,7 +44,7 @@ const ProductDetail = () => {
               color: "#4B5050",
             }}
           >
-            Items
+            Carts
           </Text>
         </View>
 
@@ -49,13 +52,9 @@ const ProductDetail = () => {
           style={{
             margin: 32,
             maxWidth: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
           }}
         >
-          <TouchableOpacity
-            onPress={() => router.push("/products/cart")}
+          <View
             style={{
               borderColor: "#dadada",
               padding: 8,
@@ -65,6 +64,7 @@ const ProductDetail = () => {
               display: "flex",
               flexDirection: "row",
               gap: 16,
+              marginBottom: 32,
             }}
           >
             <View>
@@ -73,76 +73,147 @@ const ProductDetail = () => {
                 style={{
                   width: 79,
                   height: 79,
+                  // objectFit: "cover",
                 }}
               />
             </View>
             <View
               style={{
+                justifyContent: "space-between",
+                // backgroundColor: "red",
                 display: "flex",
-                flexDirection: "column",
-                gap: 4,
+                flex: 1,
+                flexDirection: "row",
               }}
             >
-              <Text
+              <View
                 style={{
-                  color: "#4B5050",
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 36,
                 }}
               >
-                Mojito
-              </Text>
-              <Text
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "500",
+                    fontSize: 14,
+                    lineHeight: 20,
+                  }}
+                >
+                  Mojito
+                </Text>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-end",
+
+                    // justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#febb2c",
+                      fontWeight: "600",
+                      fontSize: 16,
+                      lineHeight: 18,
+                    }}
+                  >
+                    $ 4.99
+                  </Text>
+                </View>
+              </View>
+              <View
                 style={{
-                  color: "#7f7f7f",
-                  fontWeight: "400",
-                  fontSize: 10,
-                  lineHeight: 18,
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 4,
+
+                  alignItems: "flex-end",
                 }}
               >
-                Lorem ipsum dolor sit
-              </Text>
-              <Text
-                style={{
-                  color: "#febb2c",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 18,
-                }}
-              >
-                $ 4.99
-              </Text>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 4,
+                    alignItems: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      width: 26,
+                      height: 26,
+                      backgroundColor: "#f8f9fa",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 8,
+                    }}
+                  >
+                    <MinusIcon height={12} width={12} />
+                  </View>
+
+                  <View>
+                    <Text
+                      style={{
+                        color: "#4B5050",
+                        fontWeight: "500",
+                        fontSize: 16,
+                        lineHeight: 20,
+                      }}
+                    >
+                      10
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: 26,
+                      height: 26,
+                      backgroundColor: "#febb2c",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 8,
+                    }}
+                  >
+                    <PlusIcon height={12} width={12} />
+                  </View>
+                </View>
+              </View>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </View>
+          <View
             style={{
-              borderColor: "#dadada",
-              padding: 8,
+              // borderColor: "#dadada",
+              padding: 16,
               borderRadius: 16,
-              backgroundColor: "#fff",
-              borderWidth: 1,
+              backgroundColor: "#f6f7fa",
+              // borderWidth: 1,
               display: "flex",
               flexDirection: "row",
               gap: 16,
+              marginBottom: 32,
             }}
           >
-            <View>
-              <Image
-                source={require("@/assets/icons/mastercard.png")}
-                style={{
-                  width: 79,
-                  height: 79,
-                }}
-              />
-            </View>
             <View
               style={{
+                justifyContent: "space-between",
+                // backgroundColor: "red",
                 display: "flex",
-                flexDirection: "column",
-                gap: 4,
+                flex: 1,
+                flexDirection: "row",
               }}
             >
+              <Text
+                style={{
+                  color: "#7f7f7f",
+                  fontWeight: "400",
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                SubTotal
+              </Text>
               <Text
                 style={{
                   color: "#4B5050",
@@ -151,90 +222,10 @@ const ProductDetail = () => {
                   lineHeight: 20,
                 }}
               >
-                Mojito
-              </Text>
-              <Text
-                style={{
-                  color: "#7f7f7f",
-                  fontWeight: "400",
-                  fontSize: 10,
-                  lineHeight: 18,
-                }}
-              >
-                Lorem ipsum dolor sit
-              </Text>
-              <Text
-                style={{
-                  color: "#febb2c",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 18,
-                }}
-              >
-                $ 4.99
+                $29.94
               </Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              borderColor: "#dadada",
-              padding: 8,
-              borderRadius: 16,
-              backgroundColor: "#fff",
-              borderWidth: 1,
-              display: "flex",
-              flexDirection: "row",
-              gap: 16,
-            }}
-          >
-            <View>
-              <Image
-                source={require("@/assets/icons/mastercard.png")}
-                style={{
-                  width: 79,
-                  height: 79,
-                }}
-              />
-            </View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 4,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#4B5050",
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                }}
-              >
-                Mojito
-              </Text>
-              <Text
-                style={{
-                  color: "#7f7f7f",
-                  fontWeight: "400",
-                  fontSize: 10,
-                  lineHeight: 18,
-                }}
-              >
-                Lorem ipsum dolor sit
-              </Text>
-              <Text
-                style={{
-                  color: "#febb2c",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 18,
-                }}
-              >
-                $ 4.99
-              </Text>
-            </View>
-          </TouchableOpacity>
+          </View>
         </View>
       </View>
       <View
@@ -274,7 +265,7 @@ const ProductDetail = () => {
     </>
   );
 };
-export default ProductDetail;
+export default Cart;
 
 const styles = StyleSheet.create({
   container: {
