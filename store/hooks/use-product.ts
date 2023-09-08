@@ -59,12 +59,25 @@ const useProduct = () => {
     },
     []
   );
+
+  const updateItemActive = React.useCallback(
+    (parentId: string, itemId: string, value: boolean) => {
+      const act = actions.onItemActive({
+        parentId,
+        itemId,
+        value,
+      });
+      dispatch(act);
+    },
+    []
+  );
+
   const onReset = React.useCallback(() => {
     const act = actions.onReset();
     set(keyGeneratorState);
     dispatch(act);
   }, []);
-  const onUpdatePurchaseBreakdown = React.useCallback((payload) => {
+  const onUpdatePurchaseBreakdown = React.useCallback((payload: any) => {
     const act = actions.onUpdatePurchaseBreakdown(payload);
     set(keyGeneratorState);
     dispatch(act);
@@ -78,6 +91,7 @@ const useProduct = () => {
     updateItemDecrement,
     onUpdatePurchaseBreakdown,
     onReset,
+    updateItemActive,
   };
 };
 

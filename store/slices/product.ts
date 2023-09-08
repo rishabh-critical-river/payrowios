@@ -6,6 +6,7 @@ type Action = {
   payload: {
     parentId: string;
     itemId: string;
+    value?: boolean;
   };
   type: string;
 };
@@ -118,6 +119,24 @@ const productSlilce = createSlice({
                   findItem.quantity -= 1;
                 }
               }
+            }
+          }
+        });
+        // For total
+        state.total = total(items);
+      }
+    },
+    onItemActive: (state: State, action: Action) => {
+      const { items } = state;
+      if (items) {
+        const { itemId, parentId, value } = action.payload;
+        items.forEach((currentItem) => {
+          if (currentItem._id === parentId) {
+            const innerItem = currentItem.serviceItems.find(
+              (currentItem) => currentItem._id === itemId
+            );
+            if (innerItem) {
+              innerItem.selected = value;
             }
           }
         });

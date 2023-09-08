@@ -1,4 +1,5 @@
 export type ItemTypes = {
+  selected: boolean;
   _id: string;
   price: number;
   quantity: number;
