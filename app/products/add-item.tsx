@@ -152,12 +152,12 @@ function AddItems() {
   // console.log(user?.token);
 
 
-  const onAddItem = React.useCallback((id:string)=>{
-    updateCurrentID(id)
+  const onAddItem = React.useCallback((category_id:string)=>{
+    updateCurrentID(category_id)
     router.push({
       pathname:'/products/details',
       params:{
-        id
+        category_id
       }
     })
   },[router])

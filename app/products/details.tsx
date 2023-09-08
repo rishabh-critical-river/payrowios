@@ -28,7 +28,7 @@ const ProductDetail = () => {
 
   const selectedProduct = React.useMemo(()=>{
     if(state.items.length>0){
-      return state.items.find((item) => item._id === params.id)
+      return state.items.find((item) => item._id === params.category_id)
     }else{
       return null
     }
@@ -179,7 +179,7 @@ const ProductDetail = () => {
               <View style={{justifyContent:'center',alignItems:'center',height:Dimensions.get('window').height/2}}>
               <Text
               >No items found for this </Text>
-              <Text>{params.id}</Text>
+              <Text>{params.category_id}</Text>
               <Button onPress={router.back}>Go Back</Button>
               </View>
             )
