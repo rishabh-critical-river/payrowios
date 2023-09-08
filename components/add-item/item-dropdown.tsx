@@ -32,14 +32,23 @@ const ItemDropdownButton = ({
             <Text style={{ textAlign: "center" }}>{`+${quantity} items`}</Text>
           </View>
         )}
-        <Image
+        {/* <Image
           source={
             active
               ? require("@/assets/icons/upload.png")
               : require("@/assets/icons/dropdown.png")
           }
           style={{ width: 16, height: 16 }}
-        />
+        /> */}
+         <Image
+                  source={require("@/assets/icons/keyboard_arrow_right.png")}
+                  style={{
+                    width: 7.41,
+                    height: 12,
+
+                    marginRight: 10.02,
+                  }}
+                />
       </View>
     </TouchableOpacity>
   );

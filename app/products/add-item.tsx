@@ -386,7 +386,7 @@ function AddItems() {
           />
         </View>
 
-        <PanelView show={!loading && Number(state.items?.length) > 0}>
+        {/* <PanelView show={!loading && Number(state.items?.length) > 0}>
           <View style={styles.priceContainer}>
             <Text style={styles.priceLabel}>Total Price</Text>
             <View style={styles.priceTextContainer}>
@@ -394,8 +394,8 @@ function AddItems() {
               <Text style={styles.priceCurrency}>AED</Text>
             </View>
           </View>
-        </PanelView>
-        <TouchableOpacity
+        </PanelView> */}
+        {/* <TouchableOpacity
           style={styles.goToSummaryButton}
           onPress={() => {
             if (Number(state?.total?.toFixed(2)) <= 0) {
@@ -411,7 +411,7 @@ function AddItems() {
               <AntDesign name="arrowright" size={22} color="white" />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <FooterText />
       </View>
     </>
