@@ -112,13 +112,6 @@ const ProductDetail = () => {
                       backgroundColor: '#F2F2F2',
                     }}
                   >
-                    {/* <Image
-                      source={require("@/assets/icons/mastercard.png")}
-                      style={{
-                        width: 51.62,
-                        height: 32,
-                      }}
-                    /> */}
                     <ImageIcon
                       height={48}
                       width={48}
