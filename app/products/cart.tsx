@@ -2,6 +2,7 @@ import ImageIcon from "@/components/icons/ImageIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
 import MinusIcon from "@/components/icons/minus";
 import useProduct from "@/store/hooks/use-product";
+import { AntDesign } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
@@ -179,6 +180,7 @@ const Cart = () => {
                             fontWeight: "bold",
                             fontSize: 16,
                             lineHeight: 18,
+                            marginTop: 8,
                           }}
                         >
                           ${item.price.toFixed(2)}
@@ -234,7 +236,7 @@ const Cart = () => {
                               width: 26,
                               height: 26,
                               // backgroundColor: '#febb2c',
-                              backgroundColor: "#f8f9fa",
+                              backgroundColor: "#febb2c",
                               alignItems: "center",
                               justifyContent: "center",
                               borderRadius: 8,
@@ -249,7 +251,6 @@ const Cart = () => {
                 </View>
               );
             })}
-
           <View
             style={{
               // borderColor: "#dadada",
@@ -258,9 +259,10 @@ const Cart = () => {
               backgroundColor: "#f6f7fa",
               // borderWidth: 1,
               display: "flex",
-              flexDirection: "row",
-              gap: 16,
-              marginBottom: 32,
+              flexDirection: "column",
+              // flex: 1,
+
+              // marginBottom: 32,
             }}
           >
             <View
@@ -268,8 +270,9 @@ const Cart = () => {
                 justifyContent: "space-between",
                 // backgroundColor: "red",
                 display: "flex",
-                flex: 1,
+                // flex: 1,
                 flexDirection: "row",
+                marginBottom: 8,
               }}
             >
               <Text
@@ -293,7 +296,104 @@ const Cart = () => {
                 ${state.total.toFixed(2)}
               </Text>
             </View>
+            <View
+              style={{
+                justifyContent: "space-between",
+                // backgroundColor: "red",
+                display: "flex",
+                // flex: 1,
+                flexDirection: "row",
+
+                marginBottom: 8,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#7f7f7f",
+                  fontWeight: "400",
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                Delivery Fee
+              </Text>
+              <Text
+                style={{
+                  color: "#4B5050",
+                  fontWeight: "500",
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                $0
+              </Text>
+            </View>
+            <View
+              style={{
+                justifyContent: "space-between",
+                // backgroundColor: "red",
+                display: "flex",
+                // flex: 1,
+                flexDirection: "row",
+                paddingBottom: 12,
+                borderBottomWidth: 1,
+                borderBottomColor: "#0cc8d5",
+
+                marginBottom: 8,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#0cc8d5",
+                  fontWeight: "400",
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                Do you have a voucher?
+              </Text>
+            </View>
+            <View
+              style={{
+                justifyContent: "space-between",
+                // backgroundColor: "red",
+                display: "flex",
+                // flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <Text
+                style={{
+                  color: "#0cc8d5",
+                  fontWeight: "400",
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                Total
+              </Text>
+              <Text
+                style={{
+                  color: "#0cc8d5",
+                  fontWeight: "500",
+                  fontSize: 14,
+                  lineHeight: 20,
+                }}
+              >
+                ${state.total.toFixed(2)}
+              </Text>
+            </View>
           </View>
+          <Text
+            style={{
+              color: "#7f7f7f",
+              fontWeight: "400",
+              fontSize: 14,
+              lineHeight: 20,
+            }}
+          >
+            By completing this order ,I agree to all term and conditions.
+          </Text>
         </View>
       </View>
       <View
@@ -301,22 +401,21 @@ const Cart = () => {
           backgroundColor: "white",
         }}
       >
-        <View
-          style={{
-            position: "absolute",
-            left: 0,
-            bottom: 20,
-            zIndex: 999,
+        <TouchableOpacity
+          style={styles.goToSummaryButton}
+          onPress={() => {
+            // navigation.navigate('paymentMode');
+            // Payment Mode screen
+            router.push("/payment/payment-mode");
           }}
         >
-          <Image
-            source={require("@/assets/onboarding/Watermark.png")}
-            style={{
-              width: 36,
-              height: 50,
-            }}
-          />
-        </View>
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>SELECT PAYMENT MODE</Text>
+            <View style={styles.arrowIcon}>
+              <AntDesign name="arrowright" size={22} color="white" />
+            </View>
+          </View>
+        </TouchableOpacity>
 
         <Text
           style={{
@@ -450,5 +549,37 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "-45deg" }],
     right: 9,
     top: 36,
+  },
+  goToSummaryButton: {
+    alignSelf: "center",
+    marginTop: 16,
+    width: "80%",
+  },
+  buttonContent: {
+    borderWidth: 0.6,
+    borderColor: "#4B5050",
+    backgroundColor: "#4B5050",
+    borderRadius: 8,
+    marginBottom: 16,
+    height: 48,
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  buttonText: {
+    fontSize: 16,
+    paddingLeft: 16,
+    paddingTop: 12,
+    fontWeight: "500",
+    lineHeight: 24,
+    justifyContent: "center",
+    color: "white",
+    letterSpacing: 0.1,
+    flex: 1,
+  },
+  arrowIcon: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 16,
   },
 });
