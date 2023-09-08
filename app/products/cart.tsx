@@ -1,10 +1,10 @@
-import ImageIcon from '@/components/icons/ImageIcon';
-import PlusIcon from '@/components/icons/PlusIcon';
-import MinusIcon from '@/components/icons/minus';
-import useProduct from '@/store/hooks/use-product';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import ImageIcon from "@/components/icons/ImageIcon";
+import PlusIcon from "@/components/icons/PlusIcon";
+import MinusIcon from "@/components/icons/minus";
+import useProduct from "@/store/hooks/use-product";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React from "react";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 const Cart = () => {
   const router = useRouter();
@@ -48,13 +48,13 @@ const Cart = () => {
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <TouchableOpacity onPress={router.back}>
             <Image
-              source={require('@/assets/icons/arrow_back.png')}
+              source={require("@/assets/icons/arrow_back.png")}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -65,10 +65,10 @@ const Cart = () => {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: '500',
+              fontWeight: "500",
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: '#4B5050',
+              color: "#4B5050",
             }}
           >
             Cart
@@ -78,7 +78,7 @@ const Cart = () => {
         <View
           style={{
             margin: 32,
-            maxWidth: '100%',
+            maxWidth: "100%",
             gap: 16,
           }}
         >
@@ -89,26 +89,26 @@ const Cart = () => {
                 <View
                   key={index}
                   style={{
-                    borderColor: '#dadada',
+                    borderColor: "#dadada",
                     padding: 8,
                     borderRadius: 16,
-                    backgroundColor: '#fff',
+                    backgroundColor: "#fff",
                     borderWidth: 1,
-                    display: 'flex',
-                    flexDirection: 'row',
+                    display: "flex",
+                    flexDirection: "row",
                     gap: 12,
                   }}
                 >
                   <View>
                     <View
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                         height: 80,
                         width: 80,
                         borderRadius: 8,
-                        backgroundColor: '#F2F2F2',
+                        backgroundColor: "#F2F2F2",
                       }}
                     >
                       {/* <Image
@@ -118,34 +118,36 @@ const Cart = () => {
                         height: 32,
                       }}
                     /> */}
-                      <ImageIcon
-                        height={48}
-                        width={48}
-                        fill="#000000"
-                        opacity={0.2}
+                      <Image
+                        source={require("@/assets/images/worker.jpg")}
+                        style={{
+                          width: 80,
+                          height: 78,
+                          borderRadius: 15,
+                        }}
                       />
                     </View>
                   </View>
                   <View
                     style={{
-                      justifyContent: 'space-between',
+                      justifyContent: "space-between",
                       // backgroundColor: "red",
-                      display: 'flex',
+                      display: "flex",
                       flex: 1,
-                      flexDirection: 'row',
+                      flexDirection: "row",
                     }}
                   >
                     <View
                       style={{
-                        display: 'flex',
-                        flexDirection: 'column',
+                        display: "flex",
+                        flexDirection: "column",
                         // gap: 36,
                       }}
                     >
                       <Text
                         style={{
-                          color: '#4B5050',
-                          fontWeight: '500',
+                          color: "#4B5050",
+                          fontWeight: "500",
                           fontSize: 14,
                           maxWidth: 100,
                         }}
@@ -155,8 +157,8 @@ const Cart = () => {
                       </Text>
                       <Text
                         style={{
-                          color: '#7f7f7f',
-                          fontWeight: '400',
+                          color: "#7f7f7f",
+                          fontWeight: "400",
                           fontSize: 10,
                         }}
                       >
@@ -164,17 +166,17 @@ const Cart = () => {
                       </Text>
                       <View
                         style={{
-                          display: 'flex',
-                          flexDirection: 'column',
+                          display: "flex",
+                          flexDirection: "column",
                           // alignSelf: "flex-end",
-                          justifyContent: 'flex-end',
+                          justifyContent: "flex-end",
                           // justifyContent: "space-between",
                         }}
                       >
                         <Text
                           style={{
-                            color: '#4B5050',
-                            fontWeight: 'bold',
+                            color: "#4B5050",
+                            fontWeight: "bold",
                             fontSize: 16,
                             lineHeight: 18,
                           }}
@@ -185,19 +187,19 @@ const Cart = () => {
                     </View>
                     <View
                       style={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        display: "flex",
+                        flexDirection: "row",
                         gap: 4,
 
-                        alignItems: 'flex-end',
+                        alignItems: "flex-end",
                       }}
                     >
                       <View
                         style={{
-                          display: 'flex',
-                          flexDirection: 'row',
+                          display: "flex",
+                          flexDirection: "row",
                           gap: 4,
-                          alignItems: 'center',
+                          alignItems: "center",
                         }}
                       >
                         <TouchableOpacity onPress={() => onDecrement(item._id)}>
@@ -205,9 +207,9 @@ const Cart = () => {
                             style={{
                               width: 26,
                               height: 26,
-                              backgroundColor: '#f8f9fa',
-                              alignItems: 'center',
-                              justifyContent: 'center',
+                              backgroundColor: "#f8f9fa",
+                              alignItems: "center",
+                              justifyContent: "center",
                               borderRadius: 8,
                             }}
                           >
@@ -217,8 +219,8 @@ const Cart = () => {
                         <View>
                           <Text
                             style={{
-                              color: '#4B5050',
-                              fontWeight: '500',
+                              color: "#4B5050",
+                              fontWeight: "500",
                               fontSize: 16,
                               lineHeight: 20,
                             }}
@@ -232,9 +234,9 @@ const Cart = () => {
                               width: 26,
                               height: 26,
                               // backgroundColor: '#febb2c',
-                              backgroundColor: '#f8f9fa',
-                              alignItems: 'center',
-                              justifyContent: 'center',
+                              backgroundColor: "#f8f9fa",
+                              alignItems: "center",
+                              justifyContent: "center",
                               borderRadius: 8,
                             }}
                           >
@@ -253,27 +255,27 @@ const Cart = () => {
               // borderColor: "#dadada",
               padding: 16,
               borderRadius: 16,
-              backgroundColor: '#f6f7fa',
+              backgroundColor: "#f6f7fa",
               // borderWidth: 1,
-              display: 'flex',
-              flexDirection: 'row',
+              display: "flex",
+              flexDirection: "row",
               gap: 16,
               marginBottom: 32,
             }}
           >
             <View
               style={{
-                justifyContent: 'space-between',
+                justifyContent: "space-between",
                 // backgroundColor: "red",
-                display: 'flex',
+                display: "flex",
                 flex: 1,
-                flexDirection: 'row',
+                flexDirection: "row",
               }}
             >
               <Text
                 style={{
-                  color: '#7f7f7f',
-                  fontWeight: '400',
+                  color: "#7f7f7f",
+                  fontWeight: "400",
                   fontSize: 14,
                   lineHeight: 20,
                 }}
@@ -282,8 +284,8 @@ const Cart = () => {
               </Text>
               <Text
                 style={{
-                  color: '#4B5050',
-                  fontWeight: '500',
+                  color: "#4B5050",
+                  fontWeight: "500",
                   fontSize: 14,
                   lineHeight: 20,
                 }}
@@ -296,19 +298,19 @@ const Cart = () => {
       </View>
       <View
         style={{
-          backgroundColor: 'white',
+          backgroundColor: "white",
         }}
       >
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             left: 0,
             bottom: 20,
             zIndex: 999,
           }}
         >
           <Image
-            source={require('@/assets/onboarding/Watermark.png')}
+            source={require("@/assets/onboarding/Watermark.png")}
             style={{
               width: 36,
               height: 50,
@@ -319,9 +321,9 @@ const Cart = () => {
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: 'white',
-            color: '#7f7f7f',
-            textAlign: 'center',
+            backgroundColor: "white",
+            color: "#7f7f7f",
+            textAlign: "center",
             paddingBottom: 15,
           }}
         >
@@ -335,14 +337,14 @@ export default Cart;
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    display: "flex",
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 33,
   },
   selectLanguage: {
@@ -350,102 +352,102 @@ const styles = StyleSheet.create({
     height: 28,
     fontSize: 17,
 
-    color: '#333333',
-    fontWeight: '400',
+    color: "#333333",
+    fontWeight: "400",
     marginTop: 24.47,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   languageText: {
     fontSize: 14,
     paddingLeft: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     lineHeight: 20,
-    justifyContent: 'center',
-    color: '#4B5050CC',
+    justifyContent: "center",
+    color: "#4B5050CC",
   },
   languages: {
-    flexDirection: 'column',
+    flexDirection: "column",
 
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   text: {
     width: 303,
     height: 20,
     fontSize: 14,
     lineHeight: 14,
-    fontWeight: '400',
-    color: '#4B5050',
-    textAlign: 'center',
+    fontWeight: "400",
+    color: "#4B5050",
+    textAlign: "center",
     marginTop: 6,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 15,
   },
   shadowProp: {
-    shadowColor: '#171717',
+    shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
   box: {
-    display: 'flex',
+    display: "flex",
     borderWidth: 1,
-    borderColor: '#4B505033',
-    backgroundColor: '#ffffff',
+    borderColor: "#4B505033",
+    backgroundColor: "#ffffff",
     borderRadius: 8,
     marginBottom: 15,
     width: 328,
     height: 48,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   button: {
-    alignSelf: 'center',
-    color: '#4B5050',
+    alignSelf: "center",
+    color: "#4B5050",
 
     padding: 10,
     fontSize: 20,
     height: 48,
     width: 328,
-    cursor: 'pointer',
+    cursor: "pointer",
     borderRadius: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 15,
   },
   arrow: {
-    display: 'flex',
-    position: 'relative',
+    display: "flex",
+    position: "relative",
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
     width: 40,
     height: 5,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   arrowTriangle: {
-    display: 'flex',
+    display: "flex",
     borderWidth: 1,
-    position: 'absolute',
+    position: "absolute",
     width: 20,
     height: 5,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: "white",
+    backgroundColor: "white",
     borderTopWidth: 1,
     borderRightWidth: 1,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
     right: 9,
     top: 19,
   },
   arrowTriangleRight: {
-    display: 'flex',
+    display: "flex",
     borderWidth: 1,
-    position: 'absolute',
+    position: "absolute",
     width: 20,
     height: 5,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: "white",
+    backgroundColor: "white",
     borderTopWidth: 1,
     borderLeftWidth: 1,
-    transform: [{ rotate: '-45deg' }],
+    transform: [{ rotate: "-45deg" }],
     right: 9,
     top: 36,
   },
