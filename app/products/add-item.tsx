@@ -151,6 +151,17 @@ function AddItems() {
 
   // console.log(user?.token);
 
+
+  const onAddItem = React.useCallback((id:string)=>{
+    updateCurrentID(id)
+    router.push({
+      pathname:'/products/details',
+      params:{
+        id
+      }
+    })
+  },[router])
+
   return (
     <>
       <BarCodeScannerScreen
@@ -301,9 +312,9 @@ function AddItems() {
                       active={state.currentID === parentItem._id}
                       name={parentItem.serviceName}
                       quantity={totalQuantity}
-                      onPress={() => updateCurrentID(parentItem._id)}
+                      onPress={() => onAddItem(parentItem._id)}
                     />
-                    <PanelView show={state.currentID === parentItem._id}>
+                    {/* <PanelView show={state.currentID === parentItem._id}>
                       {parentItem?.serviceItems?.length > 0 && (
                         <ScrollView
                           style={{
@@ -344,7 +355,7 @@ function AddItems() {
                           })}
                         </ScrollView>
                       )}
-                    </PanelView>
+                    </PanelView> */}
                   </React.Fragment>
                 );
               })}
