@@ -13,8 +13,8 @@ import {
 import { Button } from "react-native-paper";
 const ProductDetail = () => {
   const router = useRouter();
-  const params=useLocalSearchParams()
- 
+  const params = useLocalSearchParams();
+
   const {
     state,
     updateProducts,
@@ -24,29 +24,28 @@ const ProductDetail = () => {
     onUpdatePurchaseBreakdown,
   } = useProduct();
 
- 
-
-  const selectedProduct = React.useMemo(()=>{
-    if(state.items.length>0){
-      return state.items.find((item) => item._id === params.category_id)
-    }else{
-      return null
+  const selectedProduct = React.useMemo(() => {
+    if (state.items.length > 0) {
+      return state.items.find((item) => item._id === params.category_id);
+    } else {
+      return null;
     }
-  },[state.items])
- 
+  }, [state.items]);
 
-  const toCart = React.useCallback((item_id:string) => {
-    if(selectedProduct){
-      router.push({
-        pathname: "/products/cart",
-        params: {
-          item_id,
-          category_id:selectedProduct._id,
-        },
-      });
-    }
-  } 
-  , [selectedProduct]);
+  const toCart = React.useCallback(
+    (item_id: string) => {
+      if (selectedProduct) {
+        router.push({
+          pathname: "/products/cart",
+          params: {
+            item_id,
+            category_id: selectedProduct._id,
+          },
+        });
+      }
+    },
+    [selectedProduct]
+  );
 
   return (
     <>
@@ -74,11 +73,11 @@ const ProductDetail = () => {
               fontSize: 20,
               fontWeight: "500",
               color: "#4B5050",
-              maxWidth: Dimensions.get("window").width /1.3,
+              maxWidth: Dimensions.get("window").width / 1.3,
             }}
             numberOfLines={1}
           >
-            {toCapitilize(selectedProduct?.serviceName  || '')}
+            {toCapitilize(selectedProduct?.serviceName || "")}
           </Text>
         </View>
         <View
@@ -88,12 +87,10 @@ const ProductDetail = () => {
             gap: 16,
           }}
         >
-          {
-            selectedProduct ? (  
-              selectedProduct.serviceItems.map((item,index) => {
-              
-                return (
-                  <TouchableOpacity
+          {selectedProduct ? (
+            selectedProduct.serviceItems.map((item, index) => {
+              return (
+                <TouchableOpacity
                   key={index}
                   style={{
                     borderColor: "#dadada",
@@ -105,33 +102,27 @@ const ProductDetail = () => {
                     flexDirection: "row",
                     gap: 12,
                   }}
-                  onPress={()=>toCart(item._id)}
+                  onPress={() => toCart(item._id)}
                   activeOpacity={0.8}
                 >
                   <View
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: 80,
-                    width: 80,
-                    borderRadius: 8,
-                    backgroundColor: "#F2F2F2",
-                   
-                  }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: 80,
+                      width: 80,
+                      borderRadius: 8,
+                      backgroundColor: "#F2F2F2",
+                    }}
                   >
-                    {/* <Image
-                      source={require("@/assets/icons/mastercard.png")}
+                    <Image
+                      source={require("@/assets/images/worker.jpg")}
                       style={{
-                        width: 51.62,
-                        height: 32,
+                        width: 80,
+                        height: 78,
+                        borderRadius: 15,
                       }}
-                    /> */}
-                    <ImageIcon
-                    height={48}
-                    width={48}
-                    fill="#000000"
-                    opacity={0.2}
                     />
                   </View>
                   <View
@@ -149,7 +140,7 @@ const ProductDetail = () => {
                         lineHeight: 20,
                       }}
                     >
-                     {item.itemName}
+                      {item.itemName}
                     </Text>
                     <Text
                       style={{
@@ -173,18 +164,21 @@ const ProductDetail = () => {
                     </Text>
                   </View>
                 </TouchableOpacity>
-                )
-              })
-            ):(
-              <View style={{justifyContent:'center',alignItems:'center',height:Dimensions.get('window').height/2}}>
-              <Text
-              >No items found for this </Text>
+              );
+            })
+          ) : (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                height: Dimensions.get("window").height / 2,
+              }}
+            >
+              <Text>No items found for this </Text>
               <Text>{params.category_id}</Text>
               <Button onPress={router.back}>Go Back</Button>
-              </View>
-            )
-          }
-         
+            </View>
+          )}
         </View>
       </View>
       <View
@@ -344,14 +338,10 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const toCapitilize = (str:string) => {
+const toCapitilize = (str: string) => {
   const lower = str.toLowerCase();
   return lower.charAt(0).toUpperCase() + lower.slice(1);
-}
-
-
- 
+};
 
 // const iosColors=[
 //   '#ff3b30',
@@ -363,6 +353,5 @@ const toCapitilize = (str:string) => {
 //   '#5856d6',
 //   '#ff2d55',
 //   '#8e8e93',
-  
+
 // ]
- 

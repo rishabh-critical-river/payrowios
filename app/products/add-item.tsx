@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -6,29 +6,34 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
-} from 'react-native';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+} from "react-native";
+import {
+  AntDesign,
+  Feather,
+  MaterialCommunityIcons,
+  Octicons,
+} from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 // import PaymentSummary from './PaymentSummary';
-import styles from '@/styles/add-item';
-import ItemDropdownButton from '@/components/add-item/item-dropdown';
-import ListItem from '@/components/add-item/list-item';
-import FooterText from '@/components/footer';
-import PanelView from '@/components/view/PanelView';
-import { ScrollView } from 'react-native-gesture-handler';
-import useStorageData from '@/apis/hooks/use-storage-data';
-import { ProductTypes } from '@/typings/product';
-import useProduct from '@/store/hooks/use-product';
-import getProducts from '@/apis/queries/product/get-product';
-import toast from '@/hooks/lib/toast';
-import getProductByQR from '@/apis/queries/product/get-product-by-qr';
-import BarCodeScannerScreen from '@/components/scanner';
+import styles from "@/styles/add-item";
+import ItemDropdownButton from "@/components/add-item/item-dropdown";
+import ListItem from "@/components/add-item/list-item";
+import FooterText from "@/components/footer";
+import PanelView from "@/components/view/PanelView";
+import { ScrollView } from "react-native-gesture-handler";
+import useStorageData from "@/apis/hooks/use-storage-data";
+import { ProductTypes } from "@/typings/product";
+import useProduct from "@/store/hooks/use-product";
+import getProducts from "@/apis/queries/product/get-product";
+import toast from "@/hooks/lib/toast";
+import getProductByQR from "@/apis/queries/product/get-product-by-qr";
+import BarCodeScannerScreen from "@/components/scanner";
 
 function AddItems() {
   const router = useRouter();
-  const { height } = Dimensions.get('window');
-  const { user } = useStorageData('user', { decode: false });
-  const { auth } = useStorageData('auth');
+  const { height } = Dimensions.get("window");
+  const { user } = useStorageData("user", { decode: false });
+  const { auth } = useStorageData("auth");
 
   const safeRef = React.useRef<boolean>(false);
   const [loading, setLoading] = React.useState(false);
@@ -103,10 +108,10 @@ function AddItems() {
   const [showScanner, setShowScanner] = useState(false);
   const fetchOrderByQR = React.useCallback(
     async (data: string, token: string) => {
-      console.log('QR Code Data', data);
-      console.log('User Token', token);
+      console.log("QR Code Data", data);
+      console.log("User Token", token);
       if (!token) {
-        toast.show('User token is missing');
+        toast.show("User token is missing");
       }
       try {
         const response = await getProductByQR(data, token);
@@ -118,7 +123,7 @@ function AddItems() {
                 _id: item._id,
                 englishName: item.englishName,
                 quantity: item.quantity || 1,
-                serviceCat: 'QR Code Category',
+                serviceCat: "QR Code Category",
                 serviceCode: item.serviceCode,
                 totalAmount: item.totalAmount || 1,
                 transactionAmount: item.transactionAmount || 1.5,
@@ -127,7 +132,7 @@ function AddItems() {
           });
           // Store Data in Redux Store
           onUpdatePurchaseBreakdown(categories as ProductTypes[]);
-          router.push('/products/payment-summary');
+          router.push("/products/payment-summary");
         }
       } catch (error) {
         console.error(error);
@@ -151,16 +156,18 @@ function AddItems() {
 
   // console.log(user?.token);
 
-
-  const onAddItem = React.useCallback((category_id:string)=>{
-    updateCurrentID(category_id)
-    router.push({
-      pathname:'/products/details',
-      params:{
-        category_id
-      }
-    })
-  },[router])
+  const onAddItem = React.useCallback(
+    (category_id: string) => {
+      updateCurrentID(category_id);
+      router.push({
+        pathname: "/products/details",
+        params: {
+          category_id,
+        },
+      });
+    },
+    [router]
+  );
 
   return (
     <>
@@ -169,16 +176,16 @@ function AddItems() {
         onClose={onCloseScanner}
         scannedData={(str) => fetchOrderByQR(str, user?.token)}
       />
-      <View style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}>
+      <View style={{ display: "flex", flex: 1, backgroundColor: "white" }}>
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             right: 0,
             top: 76,
           }}
         >
           <Image
-            source={require('@/assets/icons/Watermark.png')}
+            source={require("@/assets/icons/Watermark.png")}
             style={{
               width: 36,
               height: 50,
@@ -190,74 +197,58 @@ function AddItems() {
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
           <TouchableOpacity onPress={router.back}>
-            <Image
-              source={require('@/assets/icons/arrow_back.png')}
-              style={{
-                width: 16.03,
-                height: 16.03,
-                marginRight: 35.98,
-              }}
+            <Octicons
+              name="three-bars"
+              style={{ marginLeft: 18 }}
+              size={22}
+              color="black"
             />
           </TouchableOpacity>
-          <View>
-            <Text
-              style={{
-                color: '#4B5050',
-                fontWeight: '400',
-                fontSize: 12,
-                lineHeight: 16,
-              }}
-            >
-              Welcome
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: '500',
-                color: '#333333',
-                lineHeight: 20,
-              }}
-            >
-              TID : {auth?.tid}
-            </Text>
-          </View>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "500",
+              lineHeight: 32,
+              letterSpacing: 0.5,
+              color: "#4B5050",
+            }}
+          >
+            Home
+          </Text>
+          <Feather
+            name="shopping-bag"
+            style={{ marginRight: 40 }}
+            size={22}
+            color="black"
+          />
         </View>
         <Text
           style={{
-            textAlign: 'center',
-            fontWeight: '400',
+            textAlign: "center",
+            fontWeight: "400",
             fontSize: 22,
             marginTop: 26,
-            color: '#333333',
+            color: "#333333",
             lineHeight: 28,
           }}
         >
-          Select Product
+          Select Products
         </Text>
-        <Text
-          style={{
-            textAlign: 'center',
-            marginTop: 9,
-            color: '#4B5050',
-            fontSize: 14,
-            fontWeight: '400',
-          }}
-        >
-          You can Select multiple items
-        </Text>
+
         <TouchableOpacity onPress={onOpenScanner}>
           <View style={styles.buttonContainer}>
             <Text
               style={{
                 marginLeft: 16,
-                color: 'white',
+                color: "white",
                 fontSize: 16,
-                fontWeight: '500',
+                fontWeight: "500",
               }}
             >
               SCAN TO ADD
@@ -281,10 +272,10 @@ function AddItems() {
         >
           <View
             style={{
-              width: '80%',
-              alignItems: 'center',
-              alignSelf: 'center',
-              justifyContent: 'center',
+              width: "80%",
+              alignItems: "center",
+              alignSelf: "center",
+              justifyContent: "center",
               height: height / 1.7,
             }}
           >
@@ -293,7 +284,7 @@ function AddItems() {
         </PanelView>
         <PanelView show={loading}>
           <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
             <ActivityIndicator size="large" color="#4B5050" />
           </View>
@@ -364,21 +355,21 @@ function AddItems() {
       </View>
       <View
         style={{
-          backgroundColor: 'white',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "flex-end",
         }}
       >
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             left: 0,
             bottom: 20,
             zIndex: 999,
           }}
         >
           <Image
-            source={require('@/assets/icons/Watermark.png')}
+            source={require("@/assets/icons/Watermark.png")}
             style={{
               width: 36,
               height: 50,
