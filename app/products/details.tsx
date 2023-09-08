@@ -1,3 +1,4 @@
+import ImageIcon from "@/components/icons/ImageIcon";
 import useProduct from "@/store/hooks/use-product";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
@@ -10,7 +11,6 @@ import {
   Dimensions,
 } from "react-native";
 import { Button } from "react-native-paper";
-import Svg, { SvgProps, Path } from "react-native-svg"
 const ProductDetail = () => {
   const router = useRouter();
   const params=useLocalSearchParams()
@@ -34,6 +34,20 @@ const ProductDetail = () => {
     }
   },[state.items])
  
+
+  const toCart = React.useCallback((item_id:string) => {
+    if(selectedProduct){
+      router.push({
+        pathname: "/products/cart",
+        params: {
+          item_id,
+          category_id:selectedProduct._id,
+        },
+      });
+    }
+  } 
+  , [selectedProduct]);
+
   return (
     <>
       <View style={styles.container}>
@@ -77,6 +91,7 @@ const ProductDetail = () => {
           {
             selectedProduct ? (  
               selectedProduct.serviceItems.map((item,index) => {
+              
                 return (
                   <TouchableOpacity
                   key={index}
@@ -88,14 +103,21 @@ const ProductDetail = () => {
                     borderWidth: 1,
                     display: "flex",
                     flexDirection: "row",
-                    gap: 16,
+                    gap: 12,
                   }}
+                  onPress={()=>toCart(item._id)}
+                  activeOpacity={0.8}
                 >
                   <View
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    height: 80,
+                    width: 80,
+                    borderRadius: 8,
+                    backgroundColor: "#F2F2F2",
+                   
                   }}
                   >
                     {/* <Image
@@ -105,10 +127,11 @@ const ProductDetail = () => {
                         height: 32,
                       }}
                     /> */}
-                    <SvgComponent
-                    height={32}
-                    width={32}
-                    fill={'#4B5050'}
+                    <ImageIcon
+                    height={48}
+                    width={48}
+                    fill="#000000"
+                    opacity={0.2}
                     />
                   </View>
                   <View
@@ -327,14 +350,19 @@ const toCapitilize = (str:string) => {
   return lower.charAt(0).toUpperCase() + lower.slice(1);
 }
 
-const SvgComponent = (props: SvgProps) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="ionicon"
-    viewBox="0 0 512 512"
-    {...props}
-  >
-    <Path d="M416 64H96a64.07 64.07 0 0 0-64 64v256a64.07 64.07 0 0 0 64 64h320a64.07 64.07 0 0 0 64-64V128a64.07 64.07 0 0 0-64-64zm-80 64a48 48 0 1 1-48 48 48.05 48.05 0 0 1 48-48zM96 416a32 32 0 0 1-32-32v-67.63l94.84-84.3a48.06 48.06 0 0 1 65.8 1.9l64.95 64.81L172.37 416zm352-32a32 32 0 0 1-32 32H217.63l121.42-121.42a47.72 47.72 0 0 1 61.64-.16L448 333.84z" />
-  </Svg>
-)
+
+ 
+
+// const iosColors=[
+//   '#ff3b30',
+//   '#ff9500',
+//   '#ffcc00',
+//   '#4cd964',
+//   '#5ac8fa',
+//   '#007aff',
+//   '#5856d6',
+//   '#ff2d55',
+//   '#8e8e93',
+  
+// ]
  

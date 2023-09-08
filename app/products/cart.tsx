@@ -1,6 +1,6 @@
 import PlusIcon from "@/components/icons/PlusIcon";
 import MinusIcon from "@/components/icons/minus";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import {
   Text,
@@ -8,12 +8,14 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Button,
+ 
 } from "react-native";
-import { white } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+ 
 
 const Cart = () => {
   const router = useRouter();
+  const params = useLocalSearchParams();
+  console.log(params);
   return (
     <>
       <View style={styles.container}>
