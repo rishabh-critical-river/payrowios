@@ -311,10 +311,7 @@ function CashPayment() {
                 </View>
               </View>
             </View>
-          </View>
-
-          <View style={{ backgroundColor: "white" }}>
-            <View style={{ alignSelf: "center", marginTop: 32 }}>
+            <View style={{ alignSelf: "center", marginTop: 16 }}>
               <Text
                 style={{
                   marginBottom: 5,
@@ -436,6 +433,9 @@ function CashPayment() {
                 }}
               />
             </View>
+          </View>
+
+          <View style={{ backgroundColor: "white" }}>
             <View style={{ alignSelf: "center", marginTop: 20 }}>
               <Text
                 style={{
@@ -528,7 +528,6 @@ function CashPayment() {
             <TouchableOpacity
               style={styles.goToSummaryButton}
               onPress={() => {
-               
                 if (!(cash && Number(cash) >= Number(finalAmount))) {
                   toast.show("Please enter received amount to proceed");
                 } else {
