@@ -35,13 +35,20 @@ const ProductDetail = () => {
   }, [state.items]);
 
   const [activeItemId, setActiveItemId] = React.useState<string | null>(null);
-  const onSelect = React.useCallback((item_id: string) => {
-    if (item_id) {
-      if (!params.category_id) return;
-      setModal(true);
-      setActiveItemId(item_id);
-    }
-  }, []);
+  const onSelect = React.useCallback(
+    (item_id: string) => {
+      if (item_id) {
+        if (!params.category_id) return;
+        setModal(true);
+        setActiveItemId(item_id);
+        if (params.category_id) {
+          // @ts-expect-error
+          updateItemIncrement(params.category_id, item_id);
+        }
+      }
+    },
+    [params.category_id]
+  );
 
   const activeItem = React.useMemo(() => {
     if (selectedProduct && activeItemId) {
@@ -94,7 +101,10 @@ const ProductDetail = () => {
         name={activeItem?.itemName as string}
         price={activeItem?.price as number}
         show={model}
-        onClose={() => setModal(false)}
+        onClose={() => {
+          setModal(false);
+          onDecrement();
+        }}
         onAddToCart={toCart}
         count={
           selectedProduct

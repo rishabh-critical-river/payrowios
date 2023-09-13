@@ -24,7 +24,6 @@
     "crypto-js": "^4.1.1",
     "expo": "~49.0.5",
     "expo-barcode-scanner": "^12.5.3",
-    "expo-file-system": "~15.4.3",
     "expo-font": "~11.4.0",
     "expo-haptics": "^12.4.0",
     "expo-linear-gradient": "^12.3.0",
