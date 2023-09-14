@@ -22,10 +22,13 @@ const ProductDetail = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  const [model, setModal] = React.useState(false);
-
-  const { state, updateItemActive, updateItemDecrement, updateItemIncrement } =
-    useProduct();
+  const {
+    state,
+    updateItemActive,
+    updateItemDecrement,
+    updateItemIncrement,
+    onReset,
+  } = useProduct();
 
   const selectedProduct = React.useMemo(() => {
     if (state.items.length > 0) {
@@ -36,35 +39,33 @@ const ProductDetail = () => {
   }, [state.items]);
 
   const [activeItemId, setActiveItemId] = React.useState<string | null>(null);
-  // const onSelect = React.useCallback(
-  //   (item_id: string) => {
-  //     if (item_id) {
-  //       if (!params.category_id) return;
-  //       setModal(true);
-  //       setActiveItemId(item_id);
-  //       if (params.category_id) {
-  //         // @ts-expect-error
-  //         updateItemIncrement(params.category_id, item_id);
-  //       }
-  //     }
-  //   },
-  //   [params.category_id]
-  // );
+  const onSelect = React.useCallback(
+    (parentId: string, itemId: string) => {
+      if (itemId) {
+        if (!params.category_id) return;
+        setActiveItemId(itemId);
+        if (params.category_id) {
+          updateItemActive(parentId, itemId, true);
+        }
+      }
+    },
+    [params.category_id]
+  );
 
-  // const activeItem = React.useMemo(() => {
-  //   if (selectedProduct && activeItemId) {
-  //     return selectedProduct.serviceItems.find(
-  //       (item) => item._id === activeItemId
-  //     );
-  //   }
-  // }, [activeItemId]);
+  const activeItem = React.useMemo(() => {
+    if (selectedProduct && activeItemId) {
+      return selectedProduct.serviceItems.find(
+        (item) => item._id === activeItemId
+      );
+    }
+  }, [activeItemId]);
 
   const toCart = React.useCallback(() => {
-    // if (activeItem) {
-    //   if (activeItem?.quantity < 0) {
-    //     toast.show('Atleast one quantity is required');
-    //   }
-    // }
+    if (activeItem) {
+      if (activeItem?.quantity < 0) {
+        toast.show('Atleast one quantity is required');
+      }
+    }
     router.push('/products/cart');
     if (selectedProduct) {
       if (activeItemId) {
@@ -125,7 +126,12 @@ const ProductDetail = () => {
             alignItems: 'center',
           }}
         >
-          <TouchableOpacity onPress={router.back}>
+          <TouchableOpacity
+            onPress={() => {
+              onReset();
+              router.replace('/products/add-item');
+            }}
+          >
             <Image
               source={require('@/assets/icons/arrow_back.png')}
               style={{
@@ -146,6 +152,12 @@ const ProductDetail = () => {
           >
             {toCapitilize(selectedProduct?.serviceName || '')}
           </Text>
+
+          <TouchableOpacity onPress={() => router.push('/products/add-item')}>
+            <View>
+              <Text>Add item</Text>
+            </View>
+          </TouchableOpacity>
         </View>
 
         <View
@@ -342,6 +354,7 @@ const ProductDetail = () => {
                             if (params.category_id) {
                               const parentId = params.category_id as string;
                               updateItemDecrement(parentId, item._id);
+                              onSelect(parentId, item._id);
                             }
                           }}
                         >
@@ -375,6 +388,7 @@ const ProductDetail = () => {
                             if (params.category_id) {
                               const parentId = params.category_id as string;
                               updateItemIncrement(parentId, item._id);
+                              onSelect(parentId, item._id);
                             }
                           }}
                         >

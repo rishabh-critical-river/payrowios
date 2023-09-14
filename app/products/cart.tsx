@@ -15,7 +15,8 @@ import {
 
 const Cart = () => {
   const router = useRouter();
-  const { state, updateItemDecrement, updateItemIncrement } = useProduct();
+  const { state, updateItemDecrement, updateItemIncrement, onReset } =
+    useProduct();
 
   const selectedProducts = React.useMemo(() => {
     if (state.items.length > 0) {
@@ -51,7 +52,12 @@ const Cart = () => {
             alignItems: 'center',
           }}
         >
-          <TouchableOpacity onPress={router.back}>
+          <TouchableOpacity
+            onPress={() => {
+              onReset();
+              router.replace('/products/add-item');
+            }}
+          >
             <Image
               source={require('@/assets/icons/arrow_back.png')}
               style={{
@@ -72,6 +78,12 @@ const Cart = () => {
           >
             Cart
           </Text>
+
+          <TouchableOpacity onPress={() => router.push('/products/add-item')}>
+            <View>
+              <Text>Add item</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <React.Fragment>
           {empty.length > 0 ? (
