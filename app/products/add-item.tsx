@@ -28,6 +28,7 @@ import getProducts from "@/apis/queries/product/get-product";
 import toast from "@/hooks/lib/toast";
 import getProductByQR from "@/apis/queries/product/get-product-by-qr";
 import BarCodeScannerScreen from "@/components/scanner";
+import PayRowLogo from "@/components/logo";
 
 function AddItems() {
   const router = useRouter();
@@ -195,14 +196,42 @@ function AddItems() {
 
         <View
           style={{
-            marginLeft: 19.98,
+            marginLeft: 32,
+            marginRight: 32,
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <TouchableOpacity onPress={router.back}>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 8,
+            }}
+          >
+            <Image
+              source={require("@/assets/icons/logout.png")}
+              style={{
+                width: 18,
+                height: 18,
+              }}
+            />
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "500",
+                fontSize: 18,
+                color: "#333333",
+                lineHeight: 20,
+              }}
+            >
+              Logout
+            </Text>
+          </View>
+          <TouchableOpacity
+          // onPress={router.back}
+          >
             <Octicons
               name="three-bars"
               style={{ marginLeft: 18 }}
@@ -210,30 +239,26 @@ function AddItems() {
               color="black"
             />
           </TouchableOpacity>
-          <Text
+        </View>
+        <View
+          style={{
+            display: "flex",
+            alignSelf: "center",
+          }}
+        >
+          <PayRowLogo
             style={{
-              fontSize: 20,
-              fontWeight: "500",
-              lineHeight: 32,
-              letterSpacing: 0.5,
-              color: "#4B5050",
+              marginTop: 16,
             }}
-          >
-            Home
-          </Text>
-          <Feather
-            name="shopping-bag"
-            style={{ marginRight: 40 }}
-            size={22}
-            color="black"
           />
         </View>
+
         <Text
           style={{
             textAlign: "center",
             fontWeight: "400",
             fontSize: 22,
-            marginTop: 26,
+            marginTop: 16,
             color: "#333333",
             lineHeight: 28,
           }}

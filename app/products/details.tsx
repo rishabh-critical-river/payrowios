@@ -61,6 +61,7 @@ const ProductDetail = () => {
   }, [activeItemId]);
 
   const toCart = React.useCallback(() => {
+    console.log("activeItem");
     if (activeItem) {
       if (activeItem?.quantity < 0) {
         toast.show("Atleast one quantity is required");
@@ -69,15 +70,13 @@ const ProductDetail = () => {
     router.push("/products/cart");
     if (selectedProduct) {
       if (activeItemId) {
-        // setModal(false);
-        // updateItemActive(params?.category_id, activeItemId, true);
-        // router.push({
-        //   pathname: '/products/cart',
-        //   params: {
-        //     item_id: activeItemId,
-        //     category_id: selectedProduct._id,
-        //   },
-        // });
+        router.push({
+          pathname: "/products/cart",
+          params: {
+            item_id: activeItemId,
+            category_id: selectedProduct._id,
+          },
+        });
       }
     }
   }, [selectedProduct, activeItemId]);
@@ -120,13 +119,19 @@ const ProductDetail = () => {
       <View style={styles.container}>
         <View
           style={{
-            marginLeft: 19.98,
+            marginLeft: 30,
             marginTop: 17,
             flexDirection: "row",
             alignItems: "center",
           }}
         >
           <TouchableOpacity
+            style={{
+              flex: 1,
+              alignItems: "center",
+              flexDirection: "row",
+              gap: 8,
+            }}
             onPress={() => {
               onReset();
               router.replace("/products/add-item");
@@ -137,25 +142,40 @@ const ProductDetail = () => {
               style={{
                 width: 16.03,
                 height: 16.03,
-                marginRight: 35.98,
               }}
             />
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "500",
+                fontSize: 18,
+                color: "#4B5050",
+                lineHeight: 20,
+              }}
+            >
+              Home
+            </Text>
           </TouchableOpacity>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "500",
-              color: "#4B5050",
-              maxWidth: Dimensions.get("window").width / 1.3,
-            }}
-            numberOfLines={1}
-          >
-            {toCapitilize(selectedProduct?.serviceName || "")}
-          </Text>
 
-          <TouchableOpacity onPress={() => router.push("/products/add-item")}>
-            <View>
-              <Text>Add item</Text>
+          <TouchableOpacity
+            style={{ marginRight: 33 }}
+            onPress={() => router.push("/products/add-item")}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text
+                style={{
+                  marginRight: 10,
+                  color: "#4B5050",
+                  fontSize: 20,
+                  fontWeight: "500",
+                }}
+              >
+                Add item
+              </Text>
+              <Image
+                style={{ width: 20, height: 20 }}
+                source={require("@/assets/icons/plusIcons.png")}
+              />
             </View>
           </TouchableOpacity>
         </View>
@@ -329,7 +349,8 @@ const ProductDetail = () => {
                             marginTop: 8,
                           }}
                         >
-                          ${item.price.toFixed(2)}
+                          {item.price.toFixed(2)}
+                          {""} AED
                         </Text>
                       </View>
                     </View>
@@ -347,6 +368,7 @@ const ProductDetail = () => {
                           display: "flex",
                           flexDirection: "row",
                           alignItems: "center",
+                          marginBottom: 30,
                         }}
                       >
                         <TouchableOpacity
@@ -366,6 +388,7 @@ const ProductDetail = () => {
                               alignItems: "center",
                               justifyContent: "center",
                               borderRadius: 100,
+                              marginRight: 8,
                             }}
                           >
                             <MinusIcon height={16} width={16} fill="#fff" />
@@ -400,6 +423,7 @@ const ProductDetail = () => {
                               alignItems: "center",
                               justifyContent: "center",
                               borderRadius: 100,
+                              marginLeft: 8,
                             }}
                           >
                             <PlusIcon height={16} width={16} fill="#fff" />
@@ -425,6 +449,12 @@ const ProductDetail = () => {
             </View>
           )}
         </View>
+      </View>
+      <View
+        style={{
+          backgroundColor: "white",
+        }}
+      >
         <View
           style={{
             display: "flex",
@@ -433,6 +463,7 @@ const ProductDetail = () => {
             justifyContent: "space-between",
             // backgroundColor: '#f1f1f1',
             padding: 12,
+            height: 55,
             width: "80%",
             alignSelf: "center",
             borderRadius: 8,
@@ -450,8 +481,8 @@ const ProductDetail = () => {
           >
             <View
               style={{
-                height: 40,
-                width: 40,
+                height: 32,
+                width: 32,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -459,9 +490,13 @@ const ProductDetail = () => {
                 borderRadius: 6,
               }}
             >
-              <Text>{state.purchaseBreakdown.service.length}</Text>
+              <Text style={{ color: "white" }}>
+                {state.purchaseBreakdown.service.length}
+              </Text>
             </View>
-            <Text>View Basket</Text>
+            <Text style={{ fontSize: 14, fontWeight: "500", color: "#4B5050" }}>
+              View Basket
+            </Text>
           </View>
           <View
             style={{
@@ -472,28 +507,23 @@ const ProductDetail = () => {
             }}
           >
             <View>
-              <Text>{state?.total?.toFixed(2)}</Text>
+              <Text style={{ fontSize: 22, fontWeight: "500" }}>
+                {state?.total?.toFixed(2)}
+              </Text>
             </View>
             <View>
               <Text>AED</Text>
             </View>
           </View>
         </View>
-        <View>
+        <TouchableOpacity onPress={toCart}>
           <ButtonComponent
-            onPress={toCart}
             activeOpacity={0.8}
             endIcon={<AntDesign name="arrowright" size={22} color="white" />}
           >
             {`Total Selected Products`.toUpperCase()}
           </ButtonComponent>
-        </View>
-      </View>
-      <View
-        style={{
-          backgroundColor: "white",
-        }}
-      >
+        </TouchableOpacity>
         <View
           style={{
             position: "absolute",
