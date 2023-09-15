@@ -210,23 +210,6 @@ function AddItems() {
               color="black"
             />
           </TouchableOpacity>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "500",
-              lineHeight: 32,
-              letterSpacing: 0.5,
-              color: "#4B5050",
-            }}
-          >
-            Home
-          </Text>
-          <Feather
-            name="shopping-bag"
-            style={{ marginRight: 40 }}
-            size={22}
-            color="black"
-          />
         </View>
         <Text
           style={{
