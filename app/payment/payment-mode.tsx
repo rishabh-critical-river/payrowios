@@ -30,9 +30,8 @@ function PayByQrCode() {
    */
   const onPaymentRoute = React.useCallback(() => {
     if (paymentMode) {
-      const mode = paymentMethods.find(
-        (item) => item.value === paymentMode
-      )?.route;
+      const mode = paymentMethods.find((item) => item.value === paymentMode)
+        ?.route;
       console.log({ mode });
       if (mode) {
         const route = `/payment/${mode}` as any;
@@ -138,21 +137,12 @@ function PayByQrCode() {
                     {item.country}
                   </Text>
                   <View>
-                    {active ? (
-                      <MaterialCommunityIcons
-                        name="checkbox-marked-circle"
-                        size={20}
-                        color="#4B5050E5"
-                        style={{ marginRight: 10 }}
-                      />
-                    ) : (
-                      <MaterialCommunityIcons
-                        name="checkbox-blank-circle-outline"
-                        size={20}
-                        color="#8e8e8e"
-                        style={{ marginRight: 10 }}
-                      />
-                    )}
+                    <Ionicons
+                      name=""
+                      size={20}
+                      color="#4B5050E5"
+                      style={{ marginRight: 10 }}
+                    />
                   </View>
                 </View>
               </TouchableOpacity>
