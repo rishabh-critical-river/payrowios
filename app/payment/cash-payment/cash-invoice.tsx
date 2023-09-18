@@ -96,7 +96,7 @@ function CardInvoice() {
             lineHeight: 28,
           }}
         >
-          Textiles Inc.
+          PayRow
         </Text>
         <Text
           style={{
