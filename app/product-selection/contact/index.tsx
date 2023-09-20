@@ -133,6 +133,20 @@ function Contact() {
                 style={{ marginRight: 18 }}
               />
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                router.push("/product-selection/contact/inventory-management/");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> Inventory Management </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
+              />
+            </TouchableOpacity>
           </ScrollView>
         </View>
       </View>
