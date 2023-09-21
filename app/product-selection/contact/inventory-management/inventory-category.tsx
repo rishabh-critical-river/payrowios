@@ -1,7 +1,8 @@
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { TextInput } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+import { RadioButton } from "react-native-paper";
 import {
   Text,
   View,
@@ -10,6 +11,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import Modal from "react-native-modal";
 
 function InventoryManagement() {
   const router = useRouter();
@@ -32,6 +34,12 @@ function InventoryManagement() {
   //     // Add more categories as needed
   //   ];
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const toggleDropdown = (categoryId: any) => {
@@ -43,6 +51,102 @@ function InventoryManagement() {
   };
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <Modal isVisible={isModalVisible}>
+        <View
+          style={{
+            backgroundColor: "white",
+            borderRadius: 8,
+
+            // flex: 0.25,
+            padding: 16,
+          }}
+        >
+          <View style={styles.popupcontentbox}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                width: "100%",
+                paddingBottom: 10,
+                borderBottomWidth: 1,
+                borderBottomColor: "rgba(75, 80, 80, 0.25)",
+                marginBottom: 10,
+
+                gap: 12,
+              }}
+            >
+              <View>
+                <Image
+                  source={require("@/assets/icons/avtarplus.png")}
+                  style={{
+                    width: 58,
+                    height: 55,
+
+                    marginRight: 10.02,
+                  }}
+                />
+              </View>
+              <View>
+                <RadioButton status="unchecked" value={""} />
+              </View>
+              <View>
+                <Image
+                  source={require("@/assets/icons/ellipse.png")}
+                  style={{
+                    width: 58,
+                    height: 55,
+
+                    marginRight: 10.02,
+                  }}
+                />
+              </View>
+              <View>
+                <RadioButton status="checked" value={""} />
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                width: "100%",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: "400",
+                  lineHeight: 16,
+                  color: "#4B5050",
+                }}
+              >
+                Select your Product Picture
+              </Text>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#E3EEDA",
+                  borderRadius: 8,
+                  paddingLeft: 12,
+                  paddingRight: 12,
+                  paddingTop: 6,
+                  paddingBottom: 6,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#333",
+                    fontSize: 12,
+                    fontWeight: "500",
+                    lineHeight: 16,
+                  }}
+                >
+                  Next
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.container}>
         <View
           style={{
@@ -193,7 +297,7 @@ function InventoryManagement() {
                       gap: 15,
                     }}
                   >
-                    <View>
+                    <TouchableOpacity onPress={toggleModal}>
                       <Image
                         source={require("@/assets/icons/avtarplus.png")}
                         style={{
@@ -203,7 +307,7 @@ function InventoryManagement() {
                           marginRight: 10.02,
                         }}
                       />
-                    </View>
+                    </TouchableOpacity>
                     <View
                       style={{
                         flexDirection: "column",
@@ -582,6 +686,27 @@ const styles = StyleSheet.create({
     borderColor: "rgba(75, 80, 80, 0.25)",
     alignSelf: "center",
     marginTop: 20,
+    paddingTop: 20,
+    paddingBottom: 12,
+
+    paddingLeft: 14,
+    paddingRight: 14,
+    shadowColor: "#757e6e",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 3,
+  },
+  popupcontentbox: {
+    width: "100%",
+
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "rgba(75, 80, 80, 0.25)",
+    alignSelf: "center",
+
     paddingTop: 20,
     paddingBottom: 12,
 
