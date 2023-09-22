@@ -1,7 +1,7 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   StyleSheet,
   Text,
@@ -11,8 +11,8 @@ import {
   Image,
   Button,
   TouchableOpacity,
-} from "react-native";
-import { useRouter } from "expo-router";
+} from 'react-native';
+import { useRouter } from 'expo-router';
 function HomeScreen({ navigation }: any) {
   const router = useRouter();
   return (
@@ -22,13 +22,13 @@ function HomeScreen({ navigation }: any) {
           style={{
             marginLeft: 19.98,
             marginTop: 17,
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <TouchableOpacity onPress={router.back}>
             <Image
-              source={require("@/assets/icons/arrow_back.png")}
+              source={require('@/assets/icons/arrow_back.png')}
               style={{
                 width: 16.03,
                 height: 16.03,
@@ -39,17 +39,17 @@ function HomeScreen({ navigation }: any) {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: "500",
+              fontWeight: '500',
               lineHeight: 32,
               letterSpacing: 0.5,
-              color: "#4B5050",
+              color: '#4B5050',
             }}
           >
             Get Started
           </Text>
         </View>
         <Image
-          source={require("@/assets/onboarding/payrowLogo.png")}
+          source={require('@/assets/onboarding/payrowLogo.png')}
           style={styles.logo}
         />
 
@@ -78,13 +78,13 @@ function HomeScreen({ navigation }: any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("paymentHistory");
-                router.push("/product-selection/payment-history/");
+                router.push('/product-selection/payment-history/');
               }}
               style={styles.box}
             >
               <Text style={styles.homeBlocks}> PAYMENT HISTORY </Text>
               <Image
-                source={require("@/assets/icons/keyboard_arrow_right.png")}
+                source={require('@/assets/icons/keyboard_arrow_right.png')}
                 style={{
                   width: 7.41,
                   height: 12,
@@ -97,17 +97,16 @@ function HomeScreen({ navigation }: any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("contact");
-                router.push("/product-selection/contact/");
+                router.push('/product-selection/contact/');
               }}
               style={styles.box}
             >
               <Text style={styles.homeBlocks}> CONTACT PAYROW </Text>
               <Image
-                source={require("@/assets/icons/keyboard_arrow_right.png")}
+                source={require('@/assets/icons/keyboard_arrow_right.png')}
                 style={{
-                  width: 7.41,
                   height: 12,
-
+                  width: 7.41,
                   marginRight: 10.02,
                 }}
               />
@@ -115,13 +114,13 @@ function HomeScreen({ navigation }: any) {
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate("contact");
-                router.push("/product-selection/edit-payrow/");
+                router.push('/product-selection/edit-payrow/');
               }}
               style={styles.box}
             >
               <Text style={styles.homeBlocks}> INVENTORY </Text>
               <Image
-                source={require("@/assets/icons/keyboard_arrow_right.png")}
+                source={require('@/assets/icons/keyboard_arrow_right.png')}
                 style={{
                   width: 7.41,
                   height: 12,
@@ -133,18 +132,18 @@ function HomeScreen({ navigation }: any) {
           </ScrollView>
         </View>
       </View>
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: 'white' }}>
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginLeft: 75,
-            alignItems: "center",
+            alignItems: 'center',
             marginTop: 30,
             marginBottom: 17,
           }}
         >
           <Image
-            source={require("@/assets/logos/fabgrey.png")}
+            source={require('@/assets/logos/fabgrey.png')}
             style={{
               width: 72.15,
               height: 42,
@@ -152,7 +151,7 @@ function HomeScreen({ navigation }: any) {
             }}
           />
           <Image
-            source={require("@/assets/icons/visa.png")}
+            source={require('@/assets/icons/visa.png')}
             style={{
               width: 52.15,
               height: 33,
@@ -160,7 +159,7 @@ function HomeScreen({ navigation }: any) {
             }}
           />
           <Image
-            source={require("@/assets/icons/mastercard.png")}
+            source={require('@/assets/icons/mastercard.png')}
             style={{
               width: 51.62,
               height: 32,
@@ -170,9 +169,9 @@ function HomeScreen({ navigation }: any) {
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "#7f7f7f",
-            textAlign: "center",
+            backgroundColor: 'white',
+            color: '#7f7f7f',
+            textAlign: 'center',
             paddingBottom: 15,
           }}
         >
@@ -187,13 +186,13 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 33,
     marginBottom: 35,
   },
@@ -205,10 +204,10 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
 
-    color: "#4B5050",
+    color: '#4B5050',
     lineHeight: 20,
 
     marginLeft: 16,
@@ -216,79 +215,79 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#838c95",
-    textAlign: "center",
+    fontWeight: '500',
+    color: '#838c95',
+    textAlign: 'center',
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: "#4B505040",
+    borderColor: '#4B505040',
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 48,
-    textAlign: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "center",
+    textAlign: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   button: {
     marginLeft: 165,
-    backgroundColor: "#72ac47",
-    color: "black",
+    backgroundColor: '#72ac47',
+    color: 'black',
     padding: 10,
     fontSize: 20,
     height: 60,
     // width: 60,
 
-    cursor: "pointer",
+    cursor: 'pointer',
     borderRadius: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   arrow: {
-    display: "flex",
-    position: "relative",
+    display: 'flex',
+    position: 'relative',
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: 'white',
     width: 40,
     height: 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   arrowTriangle: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderRightWidth: 1,
-    transform: [{ rotate: "45deg" }],
+    transform: [{ rotate: '45deg' }],
     right: 9,
     top: 19,
   },
   arrowTriangleRight: {
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
-    position: "absolute",
+    position: 'absolute',
     width: 20,
     height: 5,
-    borderColor: "white",
-    backgroundColor: "white",
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderTopWidth: 1,
     borderLeftWidth: 1,
-    transform: [{ rotate: "-45deg" }],
+    transform: [{ rotate: '-45deg' }],
     right: 9,
     top: 36,
   },

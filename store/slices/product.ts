@@ -28,6 +28,7 @@ type State = {
   purchaseBreakdown: {
     service: Service[];
   };
+  priceHidden: boolean;
 };
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   purchaseBreakdown: {
     service: [],
   },
+  priceHidden: false,
 } as State;
 
 const productSlilce = createSlice({
@@ -158,6 +160,12 @@ const productSlilce = createSlice({
         (acc, curr) => acc + curr.transactionAmount,
         0
       );
+    },
+    onPriceHidden: (state, action) => {
+      state.priceHidden = action.payload;
+    },
+    onChangeTotal: (state, action) => {
+      state.total = action.payload;
     },
   },
 });

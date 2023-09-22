@@ -83,6 +83,15 @@ const useProduct = () => {
     dispatch(act);
   }, []);
 
+  const onPriceHidden = React.useCallback((payload: boolean) => {
+    const act = actions.onPriceHidden(payload);
+    dispatch(act);
+  }, []);
+  const onChangeTotal = React.useCallback((payload: number) => {
+    const act = actions.onChangeTotal(payload);
+    dispatch(act);
+  }, []);
+
   return {
     state,
     updateProducts,
@@ -92,6 +101,8 @@ const useProduct = () => {
     onUpdatePurchaseBreakdown,
     onReset,
     updateItemActive,
+    onPriceHidden,
+    onChangeTotal,
   };
 };
 
