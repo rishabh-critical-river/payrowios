@@ -148,12 +148,12 @@ const ProductDetail = () => {
               style={{
                 textAlign: "center",
                 fontWeight: "500",
-                fontSize: 18,
+                fontSize: 20,
                 color: "#4B5050",
                 lineHeight: 20,
               }}
             >
-              Home
+              Category
             </Text>
           </TouchableOpacity>
 

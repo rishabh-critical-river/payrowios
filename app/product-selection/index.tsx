@@ -144,7 +144,7 @@ function HomeScreen({ navigation }: any) {
           }}
         >
           <Image
-            source={require("@/assets/logos/fab.png")}
+            source={require("@/assets/logos/fabgrey.png")}
             style={{
               width: 72.15,
               height: 42,
