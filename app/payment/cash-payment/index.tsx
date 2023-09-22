@@ -342,7 +342,11 @@ function CashPayment() {
                   }}
                   placeholder="Total Amount"
                   editable={state.priceHidden}
-                  value={`${totalAmount.toFixed(2)}`}
+                  value={
+                    state.priceHidden
+                      ? `${totalAmount}`
+                      : `${state.total.toFixed(2)}`
+                  }
                   onChangeText={(value) => {
                     onChangeTotal(Number(value));
                   }}

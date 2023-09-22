@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,16 +10,16 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-} from "react-native";
-import { useRouter } from "expo-router";
-import percentange from "@/hooks/lib/percentange";
-import ShareModel from "@/components/share-model";
-import useProduct from "@/store/hooks/use-product";
-import { AntDesign } from "@expo/vector-icons";
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import percentange from '@/hooks/lib/percentange';
+import ShareModel from '@/components/share-model';
+import useProduct from '@/store/hooks/use-product';
+import { AntDesign } from '@expo/vector-icons';
 
 function CashPayment() {
   const router = useRouter();
-  const { state } = useProduct();
+  const { state, onChangeTotal } = useProduct();
   const totalAmount = state.total;
   const taxAmount = percentange(5, Number(totalAmount));
   const finalAmount = totalAmount + taxAmount;
@@ -34,20 +34,20 @@ function CashPayment() {
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <View style={styles.container}>
             <View
               style={{
                 marginLeft: 16,
                 marginTop: 17,
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
               <TouchableOpacity onPress={router.back}>
                 <Image
-                  source={require("@/assets/icons/arrow_back.png")}
+                  source={require('@/assets/icons/arrow_back.png')}
                   style={{
                     width: 16.03,
                     height: 16.03,
@@ -58,7 +58,7 @@ function CashPayment() {
               <Text
                 style={{
                   fontSize: 20,
-                  fontWeight: "500",
+                  fontWeight: '500',
                   lineHeight: 32,
                   letterSpacing: 0.5,
                 }}
@@ -76,10 +76,10 @@ function CashPayment() {
                 style={{
                   width: 150,
                   height: 48.3,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                   marginTop: 22,
                 }}
-                source={require("@/assets/onboarding/payrowLogo.png")}
+                source={require('@/assets/onboarding/payrowLogo.png')}
               />
               {/* <Text
                 style={{
@@ -123,9 +123,9 @@ function CashPayment() {
               <View
                 style={{
                   borderWidth: 1,
-                  borderColor: "#4B505040",
+                  borderColor: '#4B505040',
 
-                  shadowColor: "#757E6E14",
+                  shadowColor: '#757E6E14',
                   shadowOffset: {
                     width: 0,
                     height: 2,
@@ -137,15 +137,15 @@ function CashPayment() {
                   marginTop: 24,
                   width: 296,
                   height: 48,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                 }}
               >
                 <TouchableOpacity
                   onPress={() => {
-                    router.push("/products/add-item");
+                    router.push('/products/add-item');
                   }}
                   style={{
-                    flexDirection: "row",
+                    flexDirection: 'row',
                   }}
                 >
                   <Text
@@ -153,23 +153,23 @@ function CashPayment() {
                       flex: 1,
                       marginLeft: 16,
                       marginTop: 14,
-                      fontWeight: "500",
+                      fontWeight: '500',
                       fontSize: 14,
                       lineHeight: 20,
                       letterSpacing: 0.1,
-                      color: "#4B5050",
+                      color: '#4B5050',
                     }}
                   >
                     ADD ITEMS
                   </Text>
                   <Image
-                    source={require("@/assets/icons/plusicon.png")}
+                    source={require('@/assets/icons/plusicon.png')}
                     style={{
                       width: 20,
                       height: 20,
                       marginRight: 16,
                       marginTop: 15,
-                      backgroundColor: "#4B5050E5",
+                      backgroundColor: '#4B5050E5',
                       borderRadius: 10,
                     }}
                   />
@@ -178,9 +178,9 @@ function CashPayment() {
               <View
                 style={{
                   borderWidth: 1,
-                  borderColor: "#4B505040",
+                  borderColor: '#4B505040',
 
-                  shadowColor: "#757E6E14",
+                  shadowColor: '#757E6E14',
                   shadowOffset: {
                     width: 0,
                     height: 2,
@@ -192,24 +192,24 @@ function CashPayment() {
                   marginTop: 16,
                   width: 296,
                   height: 48,
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignSelf: "center",
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
                 }}
               >
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                     paddingHorizontal: 16,
                   }}
                 >
                   <Text
                     style={{
                       fontSize: 14,
-                      fontWeight: "500",
-                      color: "#4B5050",
+                      fontWeight: '500',
+                      color: '#4B5050',
                     }}
                   >
                     Number of items selected
@@ -218,8 +218,8 @@ function CashPayment() {
                   <Text
                     style={{
                       fontSize: 14,
-                      fontWeight: "500",
-                      color: "#4B5050",
+                      fontWeight: '500',
+                      color: '#4B5050',
                     }}
                   >
                     {state?.purchaseBreakdown?.service?.length}
@@ -253,22 +253,22 @@ function CashPayment() {
 
           <View
             style={{
-              backgroundColor: "white",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
+              backgroundColor: 'white',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
             }}
           >
-            <View style={{ alignSelf: "center", marginTop: 32 }}>
+            <View style={{ alignSelf: 'center', marginTop: 32 }}>
               <Text
                 style={{
                   marginBottom: 36,
                   fontSize: 14,
                   lineHeight: 20,
-                  color: "#4B5050",
-                  fontWeight: "400",
+                  color: '#4B5050',
+                  fontWeight: '400',
                   opacity: 0.800000011920929,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                 }}
               >
                 Add amount to pay
@@ -277,8 +277,8 @@ function CashPayment() {
                 style={{
                   // marginBottom: 5,
                   fontSize: 12,
-                  color: "#4B5050",
-                  fontWeight: "400",
+                  color: '#4B5050',
+                  fontWeight: '400',
                   opacity: 0.800000011920929,
                 }}
               >
@@ -286,29 +286,36 @@ function CashPayment() {
               </Text>
               <View
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <TextInput
                   keyboardType="numeric"
                   style={{
-                    color: "#4B5050",
-                    fontWeight: "400",
+                    color: '#4B5050',
+                    fontWeight: '400',
                     fontSize: 16,
                     lineHeight: 18,
                     opacity: 0.7,
                     // marginBottom: 8,
                   }}
                   placeholder="0.0"
-                  value={finalAmount.toFixed(2)}
-                  editable={false}
+                  editable={state.priceHidden}
+                  value={
+                    state.priceHidden
+                      ? `${totalAmount}`
+                      : `${state.total.toFixed(2)}`
+                  }
+                  onChangeText={(value) => {
+                    onChangeTotal(Number(value));
+                  }}
                 />
                 <Text
                   style={{
-                    color: "#4B505099",
-                    fontWeight: "400",
+                    color: '#4B505099',
+                    fontWeight: '400',
                     letterSpacing: 0.25,
                     fontSize: 14,
                     marginLeft: 5,
@@ -324,12 +331,12 @@ function CashPayment() {
               <View
                 //horizontal line
                 style={{
-                  backgroundColor: "#4B505099",
+                  backgroundColor: '#4B505099',
 
                   width: 296,
                   height: 1.5,
                   opacity: 0.7,
-                  alignSelf: "center",
+                  alignSelf: 'center',
                 }}
               />
             </View>
@@ -429,45 +436,45 @@ function CashPayment() {
             <TouchableOpacity
               style={styles.goToSummaryButton}
               onPress={() => {
-                router.push("/payment/pay-by-qr-code/qr-pages");
+                router.push('/payment/pay-by-qr-code/qr-pages');
               }}
               // onPress={onPayByCash}
             >
               <View style={styles.buttonContent}>
-                <View style={{ justifyContent: "center", marginLeft: 16 }}>
+                <View style={{ justifyContent: 'center', marginLeft: 16 }}>
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: "#8EBD6C",
+                      borderColor: '#8EBD6C',
 
                       width: 14,
                       height: 3.61,
 
-                      backgroundColor: "#8EBD6C",
+                      backgroundColor: '#8EBD6C',
                       marginBottom: 2.58,
                     }}
                   />
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: "#8EBD6C",
+                      borderColor: '#8EBD6C',
 
                       width: 14,
                       height: 3.61,
 
                       marginBottom: 2.58,
-                      backgroundColor: "#8EBD6C",
+                      backgroundColor: '#8EBD6C',
                     }}
                   />
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: "#8EBD6C",
+                      borderColor: '#8EBD6C',
 
                       width: 14,
                       height: 3.61,
 
-                      backgroundColor: "#8EBD6C",
+                      backgroundColor: '#8EBD6C',
                     }}
                   />
                 </View>
@@ -481,9 +488,9 @@ function CashPayment() {
             <Text
               style={{
                 fontSize: 12,
-                backgroundColor: "white",
-                color: "#7f7f7f",
-                textAlign: "center",
+                backgroundColor: 'white',
+                color: '#7f7f7f',
+                textAlign: 'center',
                 paddingBottom: 15,
                 marginTop: 10,
               }}
@@ -496,7 +503,7 @@ function CashPayment() {
       <ShareModel
         show={isModalVisible}
         onClose={() => setModalVisible(false)}
-        onPressHome={() => router.push("/home/")}
+        onPressHome={() => router.push('/home/')}
       />
     </>
   );
@@ -506,34 +513,34 @@ export default CashPayment;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   buttonContainer: {
-    width: "80%",
+    width: '80%',
     height: 48,
-    backgroundColor: "#4B5050",
-    alignSelf: "center",
+    backgroundColor: '#4B5050',
+    alignSelf: 'center',
     borderRadius: 8,
     marginTop: 20,
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   containers: {
-    width: "80%",
+    width: '80%',
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.25)",
-    alignSelf: "center",
+    borderColor: 'rgba(75, 80, 80, 0.25)',
+    alignSelf: 'center',
     marginTop: 31,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: 15,
     paddingRight: 15,
-    shadowColor: "#757e6e",
+    shadowColor: '#757e6e',
     shadowOffset: {
       width: 0,
       height: 1,
@@ -545,100 +552,100 @@ const styles = StyleSheet.create({
     width: 71,
     height: 26,
     borderRadius: 8,
-    backgroundColor: "#4B50500D",
-    textAlign: "center",
+    backgroundColor: '#4B50500D',
+    textAlign: 'center',
     paddingTop: 4,
     marginRight: 22,
   },
   itemContainer: {
-    width: "100%",
-    alignSelf: "center",
+    width: '100%',
+    alignSelf: 'center',
     height: 77,
     borderRadius: 10,
     marginBottom: 10,
-    justifyContent: "center",
+    justifyContent: 'center',
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.2)",
-    flexDirection: "row",
-    alignItems: "center",
+    borderColor: 'rgba(75, 80, 80, 0.2)',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceContainer: {
-    width: "80%",
-    alignSelf: "center",
+    width: '80%',
+    alignSelf: 'center',
     height: 48,
     borderRadius: 10,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "rgba(75, 80, 80, 0.2)",
-    flexDirection: "row",
-    alignItems: "center",
+    borderColor: 'rgba(75, 80, 80, 0.2)',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   priceLabel: {
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
     fontSize: 14,
     lineHeight: 20,
-    color: "#4B5050",
+    color: '#4B5050',
     marginLeft: 16,
   },
   priceTextContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    color: "#333333",
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: '#333333',
   },
   priceText: {
     fontSize: 22,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 28,
   },
   priceCurrency: {
-    color: "#4B505099",
+    color: '#4B505099',
     marginRight: 14,
     marginLeft: 9,
   },
   goToSummaryButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 32,
-    width: "80%",
+    width: '80%',
   },
   buttonContent: {
     borderWidth: 0.6,
-    borderColor: "#4B5050",
-    backgroundColor: "#4B5050",
+    borderColor: '#4B5050',
+    backgroundColor: '#4B5050',
     borderRadius: 8,
     marginBottom: 16,
     height: 48,
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
+    width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   buttonText: {
     fontSize: 22,
     paddingLeft: 4,
     paddingTop: 12,
-    fontWeight: "500",
+    fontWeight: '500',
     lineHeight: 24,
-    justifyContent: "center",
-    color: "white",
+    justifyContent: 'center',
+    color: 'white',
     letterSpacing: 0.1,
     flex: 1,
   },
   arrowIcon: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 16,
   },
   footerText: {
     fontSize: 12,
-    backgroundColor: "white",
-    color: "#7f7f7f",
-    textAlign: "center",
+    backgroundColor: 'white',
+    color: '#7f7f7f',
+    textAlign: 'center',
     paddingBottom: 15,
   },
   logo: {
     width: 150,
     height: 48.3,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 33,
   },
   languageLogo: {
@@ -649,11 +656,11 @@ const styles = StyleSheet.create({
   },
   homeBlocks: {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
     flex: 1,
     marginTop: 14,
 
-    color: "#4B5050",
+    color: '#4B5050',
     lineHeight: 20,
 
     marginLeft: 16,
@@ -661,75 +668,75 @@ const styles = StyleSheet.create({
   homeElements: {
     marginTop: 24,
 
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     maxHeight: 448,
   },
   text: {
     fontSize: 15,
-    fontWeight: "500",
-    color: "#838c95",
-    textAlign: "center",
+    fontWeight: '500',
+    color: '#838c95',
+    textAlign: 'center',
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
     borderWidth: 1,
-    borderColor: "#4B505040",
+    borderColor: '#4B505040',
     borderRadius: 9,
     marginBottom: 16,
     width: 296,
     height: 48,
-    textAlign: "center",
-    flexDirection: "row",
+    textAlign: 'center',
+    flexDirection: 'row',
   },
   button: {
     marginLeft: 165,
-    backgroundColor: "#72ac47",
-    color: "black",
+    backgroundColor: '#72ac47',
+    color: 'black',
     padding: 10,
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: "pointer",
+    cursor: 'pointer',
     borderRadius: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalContainer: {
     flex: 0.8,
-    justifyContent: "center",
-    backgroundColor: "white",
+    justifyContent: 'center',
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 16,
   },
   modalContent: {
     flexGrow: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   modalTitle: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 16,
   },
   phoneNumberInput: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     padding: 10,
     marginBottom: 16,
     borderRadius: 8,
   },
   submitButton: {
-    backgroundColor: "blue",
+    backgroundColor: 'blue',
     padding: 12,
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: 'center',
   },
   submitButtonText: {
-    color: "white",
+    color: 'white',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });
