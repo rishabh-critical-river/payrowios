@@ -287,7 +287,7 @@ const Cart = () => {
                                               width: 26,
                                               height: 26,
                                               // backgroundColor: '#febb2c',
-                                              backgroundColor: "#febb2c",
+                                              backgroundColor: "#4b5050",
                                               alignItems: "center",
                                               justifyContent: "center",
                                               borderRadius: 8,
