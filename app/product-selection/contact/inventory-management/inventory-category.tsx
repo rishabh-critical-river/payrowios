@@ -131,6 +131,7 @@ function InventoryManagement() {
                   paddingTop: 6,
                   paddingBottom: 6,
                 }}
+                onPress={() => router.back()}
               >
                 <Text
                   style={{

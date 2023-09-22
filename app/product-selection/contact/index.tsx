@@ -139,7 +139,7 @@ function Contact() {
               }}
               style={styles.box}
             >
-              <Text style={styles.homeBlocks}> Inventory Management </Text>
+              <Text style={styles.homeBlocks}> INVENTORY MANAGEMENT </Text>
               <AntDesign
                 name="right"
                 size={16}

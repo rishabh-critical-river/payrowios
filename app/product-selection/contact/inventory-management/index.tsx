@@ -1,6 +1,6 @@
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { TextInput } from 'react-native';
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { TextInput } from "react-native";
 import {
   Text,
   View,
@@ -8,28 +8,31 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
-import { Switch } from 'react-native-paper';
-import useProduct from '@/store/hooks/use-product';
+  Switch,
+} from "react-native";
+
+import useProduct from "@/store/hooks/use-product";
 
 function InventoryManagement() {
   const router = useRouter();
   const { state, onPriceHidden } = useProduct();
+  console.log(state.priceHidden, "state.priceHidden");
+  console.log(state, "state");
   const categories = [
     {
       id: 1,
-      name: 'Bakery ',
-      items: [{ id: 1, name: 'Apple', price: 1.09 }],
+      name: "Bakery ",
+      items: [{ id: 1, name: "Apple", price: 1.09 }],
     },
     {
       id: 2,
-      name: 'Meat & Poultry & Fish',
-      items: [{ id: 1, name: 'Tea', price: 1.09 }],
+      name: "Meat & Poultry & Fish",
+      items: [{ id: 1, name: "Tea", price: 1.09 }],
     },
     {
       id: 3,
-      name: 'Home Bake & Sugar',
-      items: [{ id: 1, name: 'Chicken', price: 1.09 }],
+      name: "Home Bake & Sugar",
+      items: [{ id: 1, name: "Chicken", price: 1.09 }],
     },
     // Add more categories as needed
   ];
@@ -48,7 +51,7 @@ function InventoryManagement() {
       <View style={styles.container}>
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             right: 16,
             top: 30,
           }}
@@ -85,13 +88,13 @@ function InventoryManagement() {
           style={{
             marginLeft: 32,
             marginTop: 17,
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <TouchableOpacity onPress={router.back}>
             <Image
-              source={require('@/assets/onboarding/Watermark.png')}
+              source={require("@/assets/onboarding/Watermark.png")}
               style={{
                 width: 36,
                 height: 50,
@@ -101,17 +104,17 @@ function InventoryManagement() {
           </TouchableOpacity>
           <View
             style={{
-              display: 'flex',
-              flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <Text
               style={{
                 fontSize: 12,
-                fontWeight: '400',
+                fontWeight: "400",
                 lineHeight: 16,
                 letterSpacing: 0.5,
-                color: '#4B5050',
+                color: "#4B5050",
               }}
             >
               Welcome
@@ -119,10 +122,10 @@ function InventoryManagement() {
             <Text
               style={{
                 fontSize: 14,
-                fontWeight: '500',
+                fontWeight: "500",
                 lineHeight: 20,
                 letterSpacing: 0.5,
-                color: '#4B5050',
+                color: "#4B5050",
               }}
             >
               TID : 3245167
@@ -135,18 +138,18 @@ function InventoryManagement() {
             style={{
               width: 150,
               height: 48.3,
-              alignSelf: 'center',
+              alignSelf: "center",
               marginTop: 33,
             }}
-            source={require('@/assets/onboarding/payrowLogo.png')}
+            source={require("@/assets/onboarding/payrowLogo.png")}
           />
           <Text
             style={{
-              textAlign: 'center',
-              fontWeight: '400',
+              textAlign: "center",
+              fontWeight: "400",
               fontSize: 22,
               marginTop: 20,
-              color: '#333333',
+              color: "#333333",
               marginBottom: 52,
             }}
           >
@@ -156,8 +159,8 @@ function InventoryManagement() {
 
         <View
           style={{
-            alignSelf: 'center',
-            width: '80%',
+            alignSelf: "center",
+            width: "80%",
           }}
         >
           <TextInput
@@ -169,14 +172,14 @@ function InventoryManagement() {
               paddingLeft: 12,
               borderRadius: 5,
               borderWidth: 1,
-              borderColor: 'rgba(75, 80, 80, 0.25)',
+              borderColor: "rgba(75, 80, 80, 0.25)",
             }}
           />
           <View
             style={{
-              position: 'absolute',
+              position: "absolute",
               right: 3,
-              backgroundColor: '#F5F5F5',
+              backgroundColor: "#F5F5F5",
               padding: 9,
               top: 3,
             }}
@@ -186,7 +189,7 @@ function InventoryManagement() {
                 width: 16,
                 height: 16,
               }}
-              source={require('@/assets/icons/Search.png')}
+              source={require("@/assets/icons/Search.png")}
             />
           </View>
         </View>
@@ -200,24 +203,24 @@ function InventoryManagement() {
               >
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    width: '100%',
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
                   }}
                 >
                   <Text
                     style={{
                       fontSize: 14,
-                      fontWeight: '500',
+                      fontWeight: "500",
                       lineHeight: 20,
-                      color: '#4B5050',
+                      color: "#4B5050",
                     }}
                   >
                     {category.name}
                   </Text>
                   <Image
-                    source={require('@/assets/icons/keyboard_arrow_right.png')}
+                    source={require("@/assets/icons/keyboard_arrow_right.png")}
                     style={{
                       width: 7.41,
                       height: 12,
@@ -235,47 +238,47 @@ function InventoryManagement() {
                         style={styles.dropDownoption}
                         onPress={() =>
                           router.push(
-                            '/product-selection/contact/inventory-management/inventory-category'
+                            "/product-selection/contact/inventory-management/inventory-category"
                           )
                         }
                       >
                         <View
                           style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            width: '100%',
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%",
                           }}
                         >
                           <Text
                             style={{
                               fontSize: 14,
-                              fontWeight: '500',
+                              fontWeight: "500",
                               lineHeight: 20,
-                              color: '#4B5050',
+                              color: "#4B5050",
                             }}
                           >
-                            Bread{' '}
+                            Bread{" "}
                           </Text>
                           <View
                             style={{
-                              flexDirection: 'row',
+                              flexDirection: "row",
                               gap: 16,
-                              alignItems: 'center',
+                              alignItems: "center",
                             }}
                           >
                             <Text
                               style={{
                                 fontSize: 14,
-                                fontWeight: '500',
+                                fontWeight: "500",
                                 lineHeight: 20,
-                                color: '#4B5050',
+                                color: "#4B5050",
                               }}
                             >
                               200 AED
                             </Text>
                             <Image
-                              source={require('@/assets/icons/keyboard_arrow_right.png')}
+                              source={require("@/assets/icons/keyboard_arrow_right.png")}
                               style={{
                                 width: 7.41,
                                 height: 12,
@@ -289,25 +292,25 @@ function InventoryManagement() {
                       <TouchableOpacity style={styles.dropDownoption}>
                         <View
                           style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            width: '100%',
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%",
                           }}
                         >
                           <Text
                             style={{
                               fontSize: 14,
-                              fontWeight: '500',
+                              fontWeight: "500",
                               lineHeight: 20,
-                              color: '#4B5050',
+                              color: "#4B5050",
                             }}
                           >
-                            Leaves{' '}
+                            Leaves{" "}
                           </Text>
 
                           <Image
-                            source={require('@/assets/icons/keyboard_arrow_right.png')}
+                            source={require("@/assets/icons/keyboard_arrow_right.png")}
                             style={{
                               width: 7.41,
                               height: 12,
@@ -320,25 +323,25 @@ function InventoryManagement() {
                       <TouchableOpacity style={styles.dropDownoption}>
                         <View
                           style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            width: '100%',
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%",
                           }}
                         >
                           <Text
                             style={{
                               fontSize: 14,
-                              fontWeight: '500',
+                              fontWeight: "500",
                               lineHeight: 20,
-                              color: '#4B5050',
+                              color: "#4B5050",
                             }}
                           >
-                            Roots{' '}
+                            Roots{" "}
                           </Text>
 
                           <Image
-                            source={require('@/assets/icons/keyboard_arrow_right.png')}
+                            source={require("@/assets/icons/keyboard_arrow_right.png")}
                             style={{
                               width: 7.41,
                               height: 12,
@@ -359,21 +362,21 @@ function InventoryManagement() {
 
       <View
         style={{
-          backgroundColor: 'white',
-          display: 'flex',
-          justifyContent: 'flex-end',
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "flex-end",
         }}
       >
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             left: 0,
             bottom: 20,
             // zIndex: 999,
           }}
         >
           <Image
-            source={require('@/assets/onboarding/Watermark.png')}
+            source={require("@/assets/onboarding/Watermark.png")}
             style={{
               width: 36,
               height: 50,
@@ -384,9 +387,9 @@ function InventoryManagement() {
         <Text
           style={{
             fontSize: 12,
-            backgroundColor: 'white',
-            color: '#4B5050',
-            textAlign: 'center',
+            backgroundColor: "white",
+            color: "#4B5050",
+            textAlign: "center",
             paddingBottom: 16,
           }}
         >
@@ -398,19 +401,19 @@ function InventoryManagement() {
 }
 const styles = StyleSheet.create({
   dropDown: {
-    width: '80%',
+    width: "80%",
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'rgba(75, 80, 80, 0.25)',
-    alignSelf: 'center',
+    borderColor: "rgba(75, 80, 80, 0.25)",
+    alignSelf: "center",
     marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingLeft: 15,
     paddingRight: 15,
-    shadowColor: '#757e6e',
+    shadowColor: "#757e6e",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -419,17 +422,17 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   dropDownoption: {
-    width: '80%',
+    width: "80%",
     paddingBottom: 13,
     paddingTop: 15,
     borderRadius: 10,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(75, 80, 80, 0.25)',
-    alignSelf: 'center',
+    borderBottomColor: "rgba(75, 80, 80, 0.25)",
+    alignSelf: "center",
 
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingLeft: 15,
     paddingRight: 15,
     // shadowColor: "#757e6e",
@@ -441,48 +444,48 @@ const styles = StyleSheet.create({
     // shadowRadius: 3,
   },
   itemContainer: {
-    width: '70%',
-    alignSelf: 'center',
+    width: "70%",
+    alignSelf: "center",
     marginTop: 20,
     borderRadius: 10,
 
-    justifyContent: 'center',
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: 'rgba(75, 80, 80, 0.2)',
-    flexDirection: 'column',
-    alignItems: 'center',
+    borderColor: "rgba(75, 80, 80, 0.2)",
+    flexDirection: "column",
+    alignItems: "center",
   },
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'column',
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
   },
   logo: {
     width: 150,
     height: 48.53,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 33,
   },
   rightPin: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
   leftPin: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#D3D3D3',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#D3D3D3",
     borderTopEndRadius: 10,
     borderBottomEndRadius: 10,
     paddingLeft: 10,
     paddingRight: 10,
   },
   horizontal: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   horizontalOr: {
     paddingLeft: 5,
@@ -491,60 +494,60 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   horizontalLine: {
-    borderBottomColor: '#D3D3D3',
+    borderBottomColor: "#D3D3D3",
     width: 105,
     borderBottomWidth: 1,
     marginTop: 10,
     marginBottom: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   url: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 10,
     marginBottom: 10,
   },
   fingerprint: {
     width: 100,
     height: 100,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 70,
     marginBottom: 10,
   },
   verticalLine: {
-    borderBottomColor: '#D3D3D3',
-    color: 'black',
+    borderBottomColor: "#D3D3D3",
+    color: "black",
     width: 15,
-    transform: [{ rotate: '90deg' }],
+    transform: [{ rotate: "90deg" }],
     borderBottomWidth: 1,
     marginTop: 10,
     marginBottom: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 
   languageText: {
     fontSize: 16,
-    justifyContent: 'center',
-    color: '##838c95',
-    alignItems: 'center',
+    justifyContent: "center",
+    color: "##838c95",
+    alignItems: "center",
   },
   languages: {
-    flexDirection: 'column',
+    flexDirection: "column",
 
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   text: {
     fontSize: 15,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 20,
     marginBottom: 15,
   },
   box: {
-    display: 'flex',
-    flexDirection: 'row',
-    textAlign: 'center',
+    display: "flex",
+    flexDirection: "row",
+    textAlign: "center",
     borderWidth: 1,
-    borderColor: '#4B505066',
+    borderColor: "#4B505066",
     borderRadius: 8,
 
     width: 52,
@@ -553,15 +556,15 @@ const styles = StyleSheet.create({
   button: {
     marginLeft: 165,
     marginTop: 34,
-    color: 'black',
+    color: "black",
     padding: 10,
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: 'pointer',
+    cursor: "pointer",
     borderRadius: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   button2: {
     marginLeft: 165,
@@ -571,85 +574,85 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 60,
     width: 60,
-    cursor: 'pointer',
+    cursor: "pointer",
     borderRadius: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   arrow: {
-    display: 'flex',
-    position: 'relative',
+    display: "flex",
+    position: "relative",
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
     width: 40,
     height: 5,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   arrowTriangle: {
-    display: 'flex',
+    display: "flex",
     borderWidth: 1,
-    position: 'absolute',
+    position: "absolute",
     width: 20,
     height: 5,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: "white",
+    backgroundColor: "white",
     borderTopWidth: 1,
     borderRightWidth: 1,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
     right: 9,
     top: 19,
   },
   arrowTriangleRight: {
-    display: 'flex',
+    display: "flex",
     borderWidth: 1,
-    position: 'absolute',
+    position: "absolute",
     width: 20,
     height: 5,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: "white",
+    backgroundColor: "white",
     borderTopWidth: 1,
     borderLeftWidth: 1,
-    transform: [{ rotate: '-45deg' }],
+    transform: [{ rotate: "-45deg" }],
     right: 9,
     top: 36,
   },
   goToSummaryButton: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 32,
-    width: '80%',
+    width: "80%",
   },
   resendCode: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 16,
-    width: '80%',
+    width: "80%",
   },
   buttonText: {
     fontSize: 16,
     paddingLeft: 16,
     paddingTop: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     lineHeight: 24,
-    justifyContent: 'center',
-    color: 'white',
+    justifyContent: "center",
+    color: "white",
     letterSpacing: 0.1,
     flex: 1,
   },
   arrowIcon: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 16,
   },
 
   buttonContent: {
     borderWidth: 0.6,
-    borderColor: '#4B5050',
-    backgroundColor: '#4B5050',
+    borderColor: "#4B5050",
+    backgroundColor: "#4B5050",
     borderRadius: 8,
 
     height: 48,
-    width: '100%',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });
 

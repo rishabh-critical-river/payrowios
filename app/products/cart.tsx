@@ -231,6 +231,7 @@ const Cart = () => {
                                         display: "flex",
                                         flexDirection: "row",
                                         alignItems: "flex-end",
+                                        marginBottom: 28,
                                       }}
                                     >
                                       <View
@@ -287,7 +288,8 @@ const Cart = () => {
                                               width: 26,
                                               height: 26,
                                               // backgroundColor: '#febb2c',
-                                              backgroundColor: "#4b5050",
+                                              // backgroundColor: "#4b5050",
+                                              backgroundColor: "#f8f9fa",
                                               alignItems: "center",
                                               justifyContent: "center",
                                               borderRadius: 8,
