@@ -5,7 +5,6 @@ import { useRouter } from 'expo-router';
 import useProduct from '@/store/hooks/use-product';
 import { OrderMetaContext } from '@/providers/context/order-meta';
 import useStorageData from '@/apis/hooks/use-storage-data';
-import PlusIcon from '@/components/icons/PlusIcon';
 
 const PaymentSummary = () => {
   const router = useRouter();
@@ -264,6 +263,7 @@ const PaymentSummary = () => {
                       color: '#4B5050',
                       fontSize: 12,
                       lineHeight: 20,
+                      opacity: state.priceHidden ? 0 : 1,
                     }}
                   >
                     {(
@@ -299,6 +299,7 @@ const PaymentSummary = () => {
             borderRadius: 8,
             borderColor: '#dadada',
             borderWidth: 2,
+            opacity: state.priceHidden ? 0 : 1,
           }}
         >
           <View
