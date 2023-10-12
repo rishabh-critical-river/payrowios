@@ -349,8 +349,11 @@ const ProductDetail = () => {
                             marginTop: 8,
                           }}
                         >
-                          {item.price.toFixed(2)}
-                          {""} AED
+                          {`${
+                            state.priceHidden
+                              ? ""
+                              : `${item.price.toFixed(2)} AED`
+                          }`}
                         </Text>
                       </View>
                     </View>

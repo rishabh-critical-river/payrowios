@@ -34,7 +34,7 @@ function AddItems() {
   const {
     state,
     updateProducts,
-
+    onReset,
     updateCurrentID,
     onUpdatePurchaseBreakdown,
   } = useProduct();
@@ -43,6 +43,7 @@ function AddItems() {
   /**
    * Fetch Products
    */
+  console.log(state.priceHidden, "states");
   const fetchProducts = React.useCallback(async () => {
     setLoading(true);
     if (user?.token) {
@@ -94,6 +95,11 @@ function AddItems() {
     };
   }, [user?.token]);
 
+  React.useEffect(() => {
+    if (!state.priceHidden) {
+      router.push("/payment/payment-mode");
+    }
+  }, [state.priceHidden]);
   /**
    * Fetch Products By QR Code
    */
@@ -161,6 +167,9 @@ function AddItems() {
     },
     [router]
   );
+  if (!state.priceHidden) {
+    return <></>;
+  }
 
   return (
     <>
@@ -197,7 +206,10 @@ function AddItems() {
           }}
         >
           <TouchableOpacity
-            onPress={() => router.push("/")}
+            onPress={() => {
+              onReset();
+              router.push("/auth/enter-pin");
+            }}
             style={{
               flexDirection: "row",
               gap: 8,
@@ -249,7 +261,7 @@ function AddItems() {
             textAlign: "center",
             fontWeight: "400",
             fontSize: 22,
-            marginTop: 16,
+            marginTop: 35,
             color: "#333333",
             lineHeight: 28,
           }}

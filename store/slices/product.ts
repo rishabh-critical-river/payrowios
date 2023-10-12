@@ -38,7 +38,7 @@ const initialState = {
   purchaseBreakdown: {
     service: [],
   },
-  priceHidden: false,
+  priceHidden: true,
 } as State;
 
 const productSlilce = createSlice({

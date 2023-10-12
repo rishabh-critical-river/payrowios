@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import useProduct from "@/store/hooks/use-product";
+import { AntDesign } from "@expo/vector-icons";
 
 function InventoryManagement() {
   const router = useRouter();
@@ -56,10 +57,6 @@ function InventoryManagement() {
             top: 30,
           }}
         >
-          <Switch
-            value={state.priceHidden}
-            onChange={() => onPriceHidden(!state.priceHidden)}
-          />
           {/* <Text
             style={{
               fontSize: 10,
@@ -143,6 +140,7 @@ function InventoryManagement() {
             }}
             source={require("@/assets/onboarding/payrowLogo.png")}
           />
+
           <Text
             style={{
               textAlign: "center",
@@ -170,9 +168,9 @@ function InventoryManagement() {
               height: 40,
               padding: 3,
               paddingLeft: 12,
-              borderRadius: 5,
+              borderRadius: 16,
               borderWidth: 1,
-              borderColor: "rgba(75, 80, 80, 0.25)",
+              borderColor: "rgba(245, 245, 245, 1)",
             }}
           />
           <View
@@ -182,6 +180,8 @@ function InventoryManagement() {
               backgroundColor: "#F5F5F5",
               padding: 9,
               top: 3,
+              borderTopRightRadius: 16,
+              borderBottomRightRadius: 16,
             }}
           >
             <Image
@@ -193,7 +193,37 @@ function InventoryManagement() {
             />
           </View>
         </View>
-
+        <View>
+          <TouchableOpacity style={styles.dropDown}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Text
+                style={{
+                  flex: 1,
+                  fontSize: 14,
+                  fontWeight: "500",
+                  lineHeight: 20,
+                  color: "#4B5050",
+                }}
+              >
+                Automate Pricing
+              </Text>
+              <Switch
+                style={{
+                  transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }],
+                }}
+                value={state.priceHidden}
+                onChange={() => onPriceHidden(!state.priceHidden)}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
         <View>
           {categories.map((category) => (
             <View key={category.id}>
@@ -219,15 +249,11 @@ function InventoryManagement() {
                   >
                     {category.name}
                   </Text>
-                  <Image
-                    source={require("@/assets/icons/keyboard_arrow_right.png")}
-                    style={{
-                      width: 7.41,
-                      height: 12,
-
-                      marginRight: 10.02,
-                    }}
-                  />
+                  {openDropdown === category.id ? (
+                    <AntDesign name="down" size={16} color="#4C4C4C" />
+                  ) : (
+                    <AntDesign name="right" size={16} color="#4C4C4C" />
+                  )}
                 </View>
               </TouchableOpacity>
               {openDropdown === category.id && (
@@ -277,15 +303,7 @@ function InventoryManagement() {
                             >
                               200 AED
                             </Text>
-                            <Image
-                              source={require("@/assets/icons/keyboard_arrow_right.png")}
-                              style={{
-                                width: 7.41,
-                                height: 12,
-
-                                marginRight: 10.02,
-                              }}
-                            />
+                            <AntDesign name="right" size={16} color="#4C4C4C" />
                           </View>
                         </View>
                       </TouchableOpacity>
@@ -309,15 +327,7 @@ function InventoryManagement() {
                             Leaves{" "}
                           </Text>
 
-                          <Image
-                            source={require("@/assets/icons/keyboard_arrow_right.png")}
-                            style={{
-                              width: 7.41,
-                              height: 12,
-
-                              marginRight: 10.02,
-                            }}
-                          />
+                          <AntDesign name="right" size={16} color="#4C4C4C" />
                         </View>
                       </TouchableOpacity>
                       <TouchableOpacity style={styles.dropDownoption}>
@@ -340,15 +350,7 @@ function InventoryManagement() {
                             Roots{" "}
                           </Text>
 
-                          <Image
-                            source={require("@/assets/icons/keyboard_arrow_right.png")}
-                            style={{
-                              width: 7.41,
-                              height: 12,
-
-                              marginRight: 10.02,
-                            }}
-                          />
+                          <AntDesign name="right" size={16} color="#4C4C4C" />
                         </View>
                       </TouchableOpacity>
                     </View>

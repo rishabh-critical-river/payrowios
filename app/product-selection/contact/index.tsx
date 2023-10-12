@@ -103,50 +103,6 @@ function Contact() {
                 style={{ marginRight: 18 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                // navigation.navigate("TapToPay");
-                router.push("/product-selection/contact/void/");
-              }}
-              style={styles.box}
-            >
-              <Text style={styles.homeBlocks}> VOID </Text>
-              <AntDesign
-                name="right"
-                size={16}
-                color="#4B5050"
-                style={{ marginRight: 18 }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                // navigation.navigate("refund");
-                router.push("/product-selection/contact/refund/");
-              }}
-              style={styles.box}
-            >
-              <Text style={styles.homeBlocks}> REFUND </Text>
-              <AntDesign
-                name="right"
-                size={16}
-                color="#4B5050"
-                style={{ marginRight: 18 }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                router.push("/product-selection/contact/inventory-management/");
-              }}
-              style={styles.box}
-            >
-              <Text style={styles.homeBlocks}> INVENTORY MANAGEMENT </Text>
-              <AntDesign
-                name="right"
-                size={16}
-                color="#4B5050"
-                style={{ marginRight: 18 }}
-              />
-            </TouchableOpacity>
           </ScrollView>
         </View>
       </View>

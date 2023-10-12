@@ -23,7 +23,16 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.rishabhcse.myapp"
+      "package": "com.rishabhcse.myapp",
+      "versionCode": 1,
+      "versionName": "1.0",
+      "usesCleartextTraffic": true,
+      "nativeModules": {
+        "CloudCommerceDebugSdk": {
+          "path": "./native/cloud-commerce-debug-sdk.aar"
+        }
+      
+    }
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +45,14 @@
     "experiments": {
       "tsconfigPaths": true,
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "14c505d1-00bd-40e7-89c5-7f1c17495c84"
+      }
     }
   }
 }

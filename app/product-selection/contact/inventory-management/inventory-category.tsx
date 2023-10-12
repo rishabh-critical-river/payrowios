@@ -225,9 +225,9 @@ function InventoryManagement() {
               height: 40,
               padding: 3,
               paddingLeft: 12,
-              borderRadius: 5,
+              borderRadius: 16,
               borderWidth: 1,
-              borderColor: "rgba(75, 80, 80, 0.25)",
+              borderColor: "rgba(245, 245, 245, 1)",
             }}
           />
           <View
@@ -237,6 +237,8 @@ function InventoryManagement() {
               backgroundColor: "#F5F5F5",
               padding: 9,
               top: 3,
+              borderTopRightRadius: 16,
+              borderBottomRightRadius: 16,
             }}
           >
             <Image
@@ -357,6 +359,7 @@ function InventoryManagement() {
                             paddingRight: 12,
                             paddingTop: 6,
                             paddingBottom: 6,
+                            marginLeft: 8,
                           }}
                         >
                           <Text
@@ -395,15 +398,6 @@ function InventoryManagement() {
                             Product Name
                           </Text>
                         </View>
-                        <Image
-                          source={require("@/assets/icons/Union.png")}
-                          style={{
-                            width: 24,
-                            height: 24,
-
-                            marginRight: 10.02,
-                          }}
-                        />
                       </View>
                     </View>
                   </View>
@@ -521,6 +515,7 @@ function InventoryManagement() {
                             paddingRight: 12,
                             paddingTop: 6,
                             paddingBottom: 6,
+                            marginLeft: 8,
                           }}
                         >
                           <Text
@@ -559,15 +554,6 @@ function InventoryManagement() {
                             Product Name
                           </Text>
                         </View>
-                        <Image
-                          source={require("@/assets/icons/Union.png")}
-                          style={{
-                            width: 24,
-                            height: 24,
-
-                            marginRight: 10.02,
-                          }}
-                        />
                       </View>
                     </View>
                   </View>

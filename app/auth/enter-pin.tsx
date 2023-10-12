@@ -50,9 +50,10 @@ function EnterPins() {
         <Text
           style={{
             marginTop: 30.47,
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: "400",
             lineHeight: 28,
+            color: "#333333",
             alignSelf: "center",
           }}
         >
@@ -116,7 +117,7 @@ function EnterPins() {
                   flex: 1,
                 }}
               >
-                Forgot Pin?
+                Forgot Pin
               </Text>
               <View
                 style={{

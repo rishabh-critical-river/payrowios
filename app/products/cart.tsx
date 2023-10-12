@@ -118,7 +118,7 @@ const Cart = () => {
             >
               <ScrollView
                 style={{
-                  height: 365,
+                  height: state.priceHidden ? "100%" : 365,
                   display: "flex",
                   overflow: "hidden",
                 }}
@@ -381,124 +381,126 @@ const Cart = () => {
             backgroundColor: "white",
           }}
         >
-          <View
-            style={{
-              // borderColor: "#dadada",
-              padding: 16,
-              borderRadius: 16,
-              backgroundColor: "#f6f7fa",
-              // borderWidth: 1,
-              display: "flex",
-              flexDirection: "column",
-              // flex: 1,
-
-              // marginBottom: 32,
-              marginLeft: 32,
-              marginRight: 32,
-            }}
-          >
+          {state.priceHidden ? null : (
             <View
               style={{
-                justifyContent: "space-between",
-                // backgroundColor: "red",
+                // borderColor: "#dadada",
+                padding: 16,
+                borderRadius: 16,
+                backgroundColor: "#f6f7fa",
+                // borderWidth: 1,
                 display: "flex",
+                flexDirection: "column",
                 // flex: 1,
-                flexDirection: "row",
-                marginBottom: 8,
+
+                // marginBottom: 32,
+                marginLeft: 32,
+                marginRight: 32,
               }}
             >
-              <Text
+              <View
                 style={{
-                  color: "#7f7f7f",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 20,
+                  justifyContent: "space-between",
+                  // backgroundColor: "red",
+                  display: "flex",
+                  // flex: 1,
+                  flexDirection: "row",
+                  marginBottom: 8,
                 }}
               >
-                SubTotal
-              </Text>
-              <Text
+                <Text
+                  style={{
+                    color: "#7f7f7f",
+                    fontWeight: "400",
+                    fontSize: 14,
+                    lineHeight: 20,
+                  }}
+                >
+                  SubTotal
+                </Text>
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "500",
+                    fontSize: 14,
+                    lineHeight: 20,
+                  }}
+                >
+                  {state.total.toFixed(2)}
+                  {""} AED
+                </Text>
+              </View>
+              <View
                 style={{
-                  color: "#4B5050",
-                  fontWeight: "500",
-                  fontSize: 14,
-                  lineHeight: 20,
-                }}
-              >
-                {state.total.toFixed(2)}
-                {""} AED
-              </Text>
-            </View>
-            <View
-              style={{
-                justifyContent: "space-between",
-                // backgroundColor: "red",
-                display: "flex",
-                // flex: 1,
-                flexDirection: "row",
+                  justifyContent: "space-between",
+                  // backgroundColor: "red",
+                  display: "flex",
+                  // flex: 1,
+                  flexDirection: "row",
 
-                marginBottom: 8,
-              }}
-            ></View>
-            <View
-              style={{
-                justifyContent: "space-between",
-                // backgroundColor: "red",
-                display: "flex",
-                // flex: 1,
-                flexDirection: "row",
-                paddingBottom: 12,
-                borderBottomWidth: 1,
-                borderColor: "#4B505033",
+                  marginBottom: 8,
+                }}
+              ></View>
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  // backgroundColor: "red",
+                  display: "flex",
+                  // flex: 1,
+                  flexDirection: "row",
+                  paddingBottom: 12,
+                  borderBottomWidth: 1,
+                  borderColor: "#4B505033",
 
-                marginBottom: 8,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#8EBD6C",
-                  fontWeight: "400",
-                  fontSize: 14,
-                  lineHeight: 20,
+                  marginBottom: 8,
                 }}
               >
-                Do you have a voucher?
-              </Text>
+                <Text
+                  style={{
+                    color: "#8EBD6C",
+                    fontWeight: "400",
+                    fontSize: 14,
+                    lineHeight: 20,
+                  }}
+                >
+                  Do you have a voucher?
+                </Text>
+              </View>
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  // backgroundColor: "red",
+                  display: "flex",
+                  // flex: 1,
+                  flexDirection: "row",
+                  marginTop: 8,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "bold",
+                    // fontWeight: "400",
+                    fontSize: 20,
+                    lineHeight: 20,
+                  }}
+                >
+                  Total
+                </Text>
+                <Text
+                  style={{
+                    color: "#4B5050",
+                    fontWeight: "bold",
+                    fontSize: 20,
+                    lineHeight: 20,
+                  }}
+                >
+                  {state.total.toFixed(2)}
+                  {""} AED
+                </Text>
+              </View>
             </View>
-            <View
-              style={{
-                justifyContent: "space-between",
-                // backgroundColor: "red",
-                display: "flex",
-                // flex: 1,
-                flexDirection: "row",
-                marginTop: 8,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#4B5050",
-                  fontWeight: "bold",
-                  // fontWeight: "400",
-                  fontSize: 20,
-                  lineHeight: 20,
-                }}
-              >
-                Total
-              </Text>
-              <Text
-                style={{
-                  color: "#4B5050",
-                  fontWeight: "bold",
-                  fontSize: 20,
-                  lineHeight: 20,
-                }}
-              >
-                {state.total.toFixed(2)}
-                {""} AED
-              </Text>
-            </View>
-          </View>
+          )}
           <TouchableOpacity
             style={styles.goToSummaryButton}
             onPress={() => {

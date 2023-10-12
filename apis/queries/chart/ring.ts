@@ -18,6 +18,7 @@ type Data = {
  * @returns
  */
 const getRingChart = async (merchantId: string, token: string) => {
+  console.log('merchantId', merchantId);
   const response = await api.get<Data>(
     `/api/orders/totalAmount/${merchantId}`,
     {

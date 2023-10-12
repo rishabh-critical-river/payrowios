@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { AntDesign } from "@expo/vector-icons";
 function HomeScreen({ navigation }: any) {
   const router = useRouter();
   return (
@@ -77,38 +78,76 @@ function HomeScreen({ navigation }: any) {
 
             <TouchableOpacity
               onPress={() => {
-                // navigation.navigate("paymentHistory");
+                // navigation.navigate("TapToPay");
                 router.push("/product-selection/payment-history/");
               }}
               style={styles.box}
             >
               <Text style={styles.homeBlocks}> PAYMENT HISTORY </Text>
-              <Image
-                source={require("@/assets/icons/keyboard_arrow_right.png")}
-                style={{
-                  width: 7.41,
-                  height: 12,
-
-                  marginRight: 10.02,
-                }}
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
               />
             </TouchableOpacity>
-
             <TouchableOpacity
               onPress={() => {
-                // navigation.navigate("contact");
+                // navigation.navigate("TapToPay");
                 router.push("/product-selection/contact/");
               }}
               style={styles.box}
             >
               <Text style={styles.homeBlocks}> CONTACT PAYROW </Text>
-              <Image
-                source={require("@/assets/icons/keyboard_arrow_right.png")}
-                style={{
-                  height: 12,
-                  width: 7.41,
-                  marginRight: 10.02,
-                }}
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                // navigation.navigate("TapToPay");
+                router.push("/product-selection/contact/void/");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> VOID </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                // navigation.navigate("refund");
+                router.push("/product-selection/contact/refund/");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> REFUND </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                router.push("/product-selection/contact/inventory-management/");
+              }}
+              style={styles.box}
+            >
+              <Text style={styles.homeBlocks}> INVENTORY MANAGEMENT </Text>
+              <AntDesign
+                name="right"
+                size={16}
+                color="#4B5050"
+                style={{ marginRight: 18 }}
               />
             </TouchableOpacity>
             {/* <TouchableOpacity
